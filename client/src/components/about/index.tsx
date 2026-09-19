@@ -1,9 +1,0 @@
-export { AboutHero } from "./about-hero";
-export { OurIdea } from "./our-idea";
-export { OurValues } from "./our-values";
-export { OurStory } from "./our-story";
-export { WhatMakesUsDifferent } from "./what-makes-us-different";
-export { MissionVision } from "./mission-vision";
-export { IndiaCommitment } from "./india-commitment";
-export { AboutCTA } from "./about-cta";
-export { AboutFooter } from "./about-footer";

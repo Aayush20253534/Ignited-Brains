@@ -1,4 +1,0 @@
-export function Youtube() { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="4" /><path d="m10 9 5 3-5 3Z" fill="currentColor" /></svg>; }
-export function Instagram() { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></svg>; }
-export function Linkedin() { return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="2" /><path d="M3 9h4v12H3zm7 0h4v2c2-4 8-3 8 3v7h-4v-7c0-3-4-3-4 0v7h-4Z" /></svg>; }
-export function Twitter() { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m5 3 14 18h-4L1 3h4Zm-2 18L20 3" /></svg>; }
