@@ -2,12 +2,15 @@ import type { HTMLAttributes, ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-interface SectionHeadingProps extends HTMLAttributes<HTMLDivElement> {
+type SectionHeadingProps = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "title"
+> & {
   title: ReactNode;
   description?: ReactNode;
   align?: "left" | "center";
   maxWidth?: "sm" | "md" | "lg" | "none";
-}
+};
 
 const maxWidthClasses = {
   sm: "max-w-xl",
