@@ -286,14 +286,16 @@ export default function HomePage() {
           </div>
 
           <Link href="/media" className="group focus-ring relative overflow-hidden rounded-[1.3rem] border border-white/20 bg-white/5 shadow-[0_22px_70px_rgba(0,0,0,.26)]">
-            <SiteImage
-              src={pageAssetSlots.home.storyVideo}
-              alt="Ignited Brains student project story"
-              aspectRatio="16/8.2"
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              imageClassName="transition duration-500 group-hover:scale-[1.02]"
-              overlayClassName="bg-gradient-to-t from-[#041b3f]/35 via-transparent to-transparent"
+            <video
+              src="/media/homeimg.mp4"
+              poster={pageAssetSlots.home.storyVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
             />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#041b3f]/35 via-transparent to-transparent" />
             <span className="absolute inset-0 grid place-items-center">
               <PlayCircle className="h-16 w-16 border-white/60 bg-white/90 text-brand-blue transition group-hover:scale-105" />
             </span>

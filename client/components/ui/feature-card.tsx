@@ -22,9 +22,9 @@ export function FeatureCard({
   return (
     <Card interactive className={cn("relative h-full overflow-hidden p-6 sm:p-7", className)}>
       {index ? (
-        <span className="absolute right-5 top-5 text-sm font-extrabold tracking-[0.08em] text-brand-blue/25">
+        <div className="absolute right-5 top-5 text-sm font-extrabold tracking-[0.08em] text-brand-blue/25">
           {index}
-        </span>
+        </div>
       ) : null}
       <IconBadge>{icon}</IconBadge>
       <h3 className="mt-6 text-xl font-extrabold tracking-[-0.025em] text-brand-blue sm:text-2xl">

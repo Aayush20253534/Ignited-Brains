@@ -9,7 +9,7 @@ interface EyebrowProps extends HTMLAttributes<HTMLParagraphElement> {
 export function Eyebrow({ line = true, className, children, ...props }: EyebrowProps) {
   return (
     <p className={cn("eyebrow-text inline-flex items-center gap-3", className)} {...props}>
-      <span>{children}</span>
+      {children}
       {line ? (
         <span
           aria-hidden="true"

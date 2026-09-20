@@ -68,7 +68,7 @@ export function Button({
       className={buttonClassName({ variant, size, className })}
       {...props}
     >
-      <span>{children}</span>
+      {children}
       {showArrow ? <ArrowIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" /> : null}
     </button>
   );
@@ -95,7 +95,7 @@ export function ButtonLink({
       className={buttonClassName({ variant, size, className })}
       {...props}
     >
-      <span>{children}</span>
+      {children}
       {showArrow ? <ArrowIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" /> : null}
     </Link>
   );
