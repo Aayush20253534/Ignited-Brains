@@ -15,16 +15,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/media" },
 };
 
-function PlayCircle() {
-  return (
-    <span className="grid h-12 w-12 place-items-center rounded-full bg-white/95 text-brand-blue shadow-lg" aria-hidden="true">
-      <svg viewBox="0 0 24 24" className="h-5 w-5 translate-x-[1px]" fill="currentColor">
-        <path d="m8.5 6.5 9 5.5-9 5.5v-11Z" />
-      </svg>
-    </span>
-  );
-}
-
 export default function MediaPage() {
   return (
     <main className="overflow-hidden bg-white">
@@ -111,7 +101,6 @@ export default function MediaPage() {
               <article key={video.title}>
                 <div className="group relative overflow-hidden rounded-2xl border border-brand-line shadow-card">
                   <SiteImage src={video.image} alt={video.title} aspectRatio="16/8.5" className="rounded-none" sizes="(max-width: 768px) 100vw, 33vw" />
-                  <div className="absolute inset-0 grid place-items-center bg-brand-navy/10 transition group-hover:bg-brand-navy/20"><PlayCircle /></div>
                   <span className="absolute bottom-3 right-3 rounded-full bg-brand-navy/70 px-2.5 py-1 text-[0.65rem] font-bold text-white">{video.duration}</span>
                 </div>
                 <h3 className="mt-4 text-lg font-black tracking-[-0.025em] text-brand-blue">{video.title}</h3>

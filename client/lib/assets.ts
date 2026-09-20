@@ -140,7 +140,7 @@ export const pageAssetSlots = {
   },
   media: {
     hero: "/media/media-hero.png",
-    featured: "/media/featured-rover.webp",
+    featured: "/media/mars-robo.jpeg",
     articleHandsOn: "/media/article-hands-on.webp",
     articleStem: "/media/article-stem.webp",
     articleSciencePark: "/media/article-science-park.webp",
@@ -155,7 +155,7 @@ export const pageAssetSlots = {
   },
   contact: {
     hero: "/contact/hero-student-rocket.webp",
-    indiaCoverage: "/contact/india-coverage.webp",
+    indiaCoverage: "/media/about.png",
     faqVisual: "/contact/faq-robotics.webp",
   },
 } as const;

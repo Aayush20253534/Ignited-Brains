@@ -23,7 +23,7 @@ export default function ShopPage() {
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <ButtonLink href="/" size="lg" showArrow>Back to Home</ButtonLink>
-              <ButtonLink href="/contact" variant="outline" size="lg">Contact Us</ButtonLink>
+              <ButtonLink href="/contact" variant="outline" size="lg" className="!bg-transparent">Contact Us</ButtonLink>
             </div>
           </div>
         </Container>

@@ -190,7 +190,7 @@ export default function ProjectsPage() {
           </div>
 
           <div className="relative mx-auto w-full max-w-[520px]">
-            <Image src="/media/india.png" alt="Ignited Brains impact network across India" width={640} height={436} className="h-auto w-full object-contain" />
+            <Image src={pageAssetSlots.home.indiaImpact} alt="Ignited Brains impact network across India" width={640} height={436} className="h-auto w-full object-contain" />
           </div>
 
           <ul className="space-y-4">

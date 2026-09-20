@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { BrandLogo } from "@/components/layout/brand-logo";
-import { ArrowIcon, ButtonLink, Container } from "@/components/ui";
+import { PartnerApplicationDialog } from "@/components/layout/partner-application-dialog";
+import { ArrowIcon, Container } from "@/components/ui";
 import { mainNavigation } from "@/data/navigation";
 import { cn } from "@/lib/cn";
 
@@ -97,10 +98,6 @@ export function SiteHeader() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
-
-  useEffect(() => {
-    closeMobileMenu();
-  }, [pathname]);
 
   return (
     <header
@@ -201,9 +198,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden lg:block">
-          <ButtonLink href="/contact" size="sm" showArrow className="min-h-11 px-5 xl:px-6">
-            Partner With Us
-          </ButtonLink>
+          <PartnerApplicationDialog className="min-h-11 px-5 xl:px-6" />
         </div>
 
         <button
@@ -304,9 +299,7 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <ButtonLink href="/contact" size="lg" showArrow className="mt-7 w-full" onClick={closeMobileMenu}>
-            Partner With Us
-          </ButtonLink>
+          <PartnerApplicationDialog className="mt-7 w-full" />
         </Container>
       </div>
     </header>

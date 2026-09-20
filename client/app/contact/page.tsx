@@ -3,13 +3,11 @@ import Image from "next/image";
 
 import { HomeIcon } from "@/components/home/home-icon";
 import { SocialIcon } from "@/components/layout/social-icon";
-import { SiteImage } from "@/components/media";
 import { ArrowIcon, Button, Container, Eyebrow } from "@/components/ui";
 import {
   contactFaqs,
   contactHeroBenefits,
   contactProcess,
-  interestedInOptions,
   partnerTypes,
 } from "@/data/contact";
 import { pageAssetSlots } from "@/lib/assets";
@@ -22,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 const fieldClass =
-  "mt-1.5 min-h-11 w-full rounded-lg border border-brand-line bg-white px-3.5 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/55 focus:border-brand-blue/40 focus:ring-2 focus:ring-brand-blue/10";
+  "mt-1.5 min-h-11 w-full rounded-lg border border-brand-line bg-white px-3.5 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/55 focus:border-brand-blue/40 focus:ring-2 focus:ring-brand-blue/10 lg:min-h-9 lg:px-3";
 
 function MailIcon() {
   return (
@@ -54,7 +52,7 @@ export default function ContactPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid items-center gap-7 py-10 lg:min-h-[650px] lg:grid-cols-[0.78fr_0.82fr_0.9fr] lg:gap-0 lg:py-12">
+        <Container wide className="grid items-center gap-7 py-10 lg:min-h-[calc(100vh-5.5rem)] lg:grid-cols-[0.78fr_0.82fr_0.9fr] lg:gap-0 lg:py-8">
           <div className="relative z-20 py-4 lg:pr-8">
             <Eyebrow>Partner With Us</Eyebrow>
             <h1 className="mt-5 max-w-[560px] text-balance text-[clamp(3.2rem,5.4vw,5.65rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -73,7 +71,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="relative z-0 min-h-[390px] overflow-hidden rounded-3xl lg:min-h-[570px] lg:rounded-none lg:rounded-bl-[5rem]">
+          <div className="relative z-0 min-h-[390px] overflow-hidden rounded-3xl lg:min-h-[calc(100vh-6.5rem)] lg:rounded-none lg:rounded-bl-[5rem]">
             <Image
               src={pageAssetSlots.contact.hero}
               alt="Student looking toward a model rocket in an innovation lab"
@@ -88,54 +86,40 @@ export default function ContactPage() {
           <form
             action="/contact"
             method="get"
-            className="relative z-30 rounded-3xl border border-brand-line bg-white p-5 shadow-[0_24px_70px_rgba(24,53,103,.15)] sm:p-7 lg:-ml-5 lg:p-8"
+            className="relative z-30 rounded-3xl border border-brand-line bg-white p-5 shadow-[0_24px_70px_rgba(24,53,103,.15)] sm:p-7 lg:-ml-5 lg:p-4"
           >
             <h2 className="text-2xl font-black tracking-[-0.035em] text-brand-blue">Start a Conversation</h2>
             <p className="mt-1 text-sm text-brand-muted">Fill in the details and we’ll get back to you soon.</p>
+            <p className="mt-2 text-xs text-brand-muted"><span className="text-brand-orange">*</span> Required fields</p>
 
-            <div className="mt-5 grid gap-4">
+            <div className="mt-4 grid gap-3 lg:mt-3 lg:grid-cols-2 lg:gap-2">
               <label className="text-xs font-extrabold text-brand-blue">
                 Full Name <span className="text-brand-orange">*</span>
                 <input className={fieldClass} name="name" type="text" required placeholder="Enter your full name" />
               </label>
               <label className="text-xs font-extrabold text-brand-blue">
-                School / Organisation <span className="text-brand-orange">*</span>
-                <input className={fieldClass} name="organisation" type="text" required placeholder="Enter school or organisation name" />
+                Email Address <span className="text-brand-orange">*</span>
+                <input className={fieldClass} name="email" type="email" required placeholder="Enter your email" />
               </label>
               <label className="text-xs font-extrabold text-brand-blue">
-                Designation
-                <input className={fieldClass} name="designation" type="text" placeholder="Your designation" />
+                Phone Number
+                <input className={fieldClass} name="phone" type="tel" placeholder="Enter your phone number" />
               </label>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="text-xs font-extrabold text-brand-blue">
-                  Email <span className="text-brand-orange">*</span>
-                  <input className={fieldClass} name="email" type="email" required placeholder="Enter your email" />
-                </label>
-                <label className="text-xs font-extrabold text-brand-blue">
-                  Phone <span className="text-brand-orange">*</span>
-                  <input className={fieldClass} name="phone" type="tel" required placeholder="Enter your phone number" />
-                </label>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="text-xs font-extrabold text-brand-blue">
-                  City / State
-                  <input className={fieldClass} name="location" type="text" placeholder="Enter your city or state" />
-                </label>
-                <label className="text-xs font-extrabold text-brand-blue">
-                  Interested In <span className="text-brand-orange">*</span>
-                  <select className={fieldClass} name="interest" required defaultValue="">
-                    <option value="" disabled>Select an option</option>
-                    {interestedInOptions.map((option) => <option key={option} value={option}>{option}</option>)}
-                  </select>
-                </label>
-              </div>
               <label className="text-xs font-extrabold text-brand-blue">
-                Message
-                <textarea className={`${fieldClass} min-h-24 resize-y py-3`} name="message" placeholder="Tell us about your requirements..." />
+                Organization / Institution
+                <input className={fieldClass} name="organization" type="text" placeholder="Enter your organization or institution" />
+              </label>
+              <label className="text-xs font-extrabold text-brand-blue lg:col-span-2">
+                Subject
+                <input className={fieldClass} name="subject" type="text" placeholder="What would you like to discuss?" />
+              </label>
+              <label className="text-xs font-extrabold text-brand-blue lg:col-span-2">
+                Message <span className="text-brand-orange">*</span>
+                <textarea className={`${fieldClass} min-h-24 resize-y py-3 lg:min-h-16 lg:py-2`} name="message" required placeholder="Tell us about your requirements..." />
               </label>
             </div>
 
-            <Button type="submit" size="lg" showArrow className="mt-5 w-full">Start a Conversation</Button>
+            <Button type="submit" size="lg" showArrow className="mt-3 w-full lg:min-h-11 lg:px-4 lg:text-sm">Submit</Button>
           </form>
         </Container>
       </section>
@@ -242,7 +226,16 @@ export default function ContactPage() {
               ))}
             </div>
             <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-              <SiteImage src={pageAssetSlots.contact.faqVisual} alt="Student building a robotics project" aspectRatio="16/6.5" className="h-full rounded-none" imageClassName="object-cover" sizes="(max-width: 1024px) 100vw, 38vw" />
+              <video
+                src="/media/homeimg.mp4"
+                poster={pageAssetSlots.home.storyVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-label="Student building a robotics project"
+                className="aspect-[16/6.5] h-full w-full object-cover"
+              />
             </div>
           </div>
         </Container>
