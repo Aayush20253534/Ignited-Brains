@@ -19,7 +19,7 @@ export const solutionShowcase = [
     title: "Space science students can touch.",
     description:
       "A hands-on environment where students explore space science through models, observation and experimentation.",
-    image: "/solutions/space-lab.webp",
+    image: "/media/space.jpeg",
     imageAlt: "Student observing space models through a telescope in a space lab",
     href: "/solutions/space-lab",
     action: "Explore Space Lab",
@@ -34,7 +34,7 @@ export const solutionShowcase = [
     title: "Observe. Think. Design. Build.",
     description:
       "A hands-on environment where students learn STEM through experimentation, engineering and problem solving.",
-    image: "/solutions/stem-lab.webp",
+    image: "/media/stem.jpeg",
     imageAlt: "Students building an engineering structure in a STEM lab",
     href: "/solutions#stem-lab",
     action: "Explore STEM Lab",
@@ -49,7 +49,7 @@ export const solutionShowcase = [
     title: "Code it. Build it. Make it move.",
     description:
       "Students program, prototype and build real-world systems using robotics, coding, AI and digital fabrication.",
-    image: "/solutions/ai-robotics-lab.webp",
+    image: "/media/ai.jpeg",
     imageAlt: "Student programming a robot in an AI and robotics lab",
     href: "/solutions#ai-robotics-lab",
     action: "Explore AI & Robotics",
@@ -64,7 +64,7 @@ export const solutionShowcase = [
     title: "Where science becomes play.",
     description:
       "Interactive science spaces where students discover scientific concepts through movement, experimentation and exploration.",
-    image: "/solutions/science-park.webp",
+    image: "/media/park.png",
     imageAlt: "Students exploring an outdoor interactive science park",
     href: "/solutions#science-park",
     action: "Explore Science Park",

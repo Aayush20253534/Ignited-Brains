@@ -33,21 +33,21 @@ export const projectCards: ProjectCard[] = [
     category: "Space Lab",
     location: "Prayagraj, Uttar Pradesh",
     description: "Students designed and launched model rockets to understand aerodynamics and space science.",
-    image: "/projects/model-rocket.webp",
+    image: "/media/space.jpeg",
   },
   {
     title: "Autonomous Rover Project",
     category: "AI & Robotics",
     location: "Varanasi, Uttar Pradesh",
     description: "Students built and programmed an autonomous rover to navigate obstacles.",
-    image: "/projects/autonomous-rover.webp",
+    image: "/media/car.jpeg",
   },
   {
     title: "Interactive Solar System Park",
     category: "Science Park",
     location: "Lucknow, Uttar Pradesh",
     description: "An outdoor science park with hands-on exhibits to make science fun and engaging.",
-    image: "/projects/solar-system-park.webp",
+    image: "/media/solar-park.png",
   },
 ];
 

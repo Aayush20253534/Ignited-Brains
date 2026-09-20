@@ -171,7 +171,7 @@ export default function AboutPage() {
               <p className="mt-3 max-w-xl text-base leading-7 text-brand-muted">
                 What started as an idea is now a growing movement to bring hands-on, future-ready learning spaces into schools across India.
               </p>
-              <ButtonLink href="#journey" variant="secondary" showArrow className="mt-7">
+              <ButtonLink href="#journey" variant="secondary" showArrow className="mt-7 text-white">
                 Our Journey
               </ButtonLink>
             </div>
