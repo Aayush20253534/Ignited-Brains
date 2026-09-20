@@ -48,21 +48,21 @@ export const homeSolutions: Array<{
     description: "Experiment, engineer and solve real problems through science, technology, engineering and maths.",
     image: pageAssetSlots.home.solutionStemLab,
     icon: "stem",
-    href: "/solutions/stem-lab",
+    href: "/solutions#stem-lab",
   },
   {
     title: "AI & Robotics Lab",
     description: "Robots, coding, AI projects and 3D printing for the next generation of innovators.",
     image: pageAssetSlots.home.solutionAiRobotics,
     icon: "robotics",
-    href: "/solutions/ai-robotics",
+    href: "/solutions#ai-robotics-lab",
   },
   {
     title: "Science Park",
     description: "Interactive exhibits where science is learned through play and exploration.",
     image: pageAssetSlots.home.solutionSciencePark,
     icon: "park",
-    href: "/solutions/science-park",
+    href: "/solutions#science-park",
   },
 ];
 

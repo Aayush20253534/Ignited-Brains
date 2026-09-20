@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   title: "Hands-on STEM, Space & Robotics Learning",
   description:
     "Ignited Brains creates hands-on Space, STEM, AI & Robotics Labs and Science Parks that turn curiosity into real-world learning.",
+  alternates: { canonical: "/" },
 };
 
 function PlayCircle({ className = "" }: { className?: string }) {

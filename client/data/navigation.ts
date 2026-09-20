@@ -16,14 +16,14 @@ export const mainNavigation: NavGroup[] = [
     children: [
       { label: "All Solutions", href: "/solutions" },
       { label: "Space Lab", href: "/solutions/space-lab" },
-      { label: "STEM Lab", href: "/solutions/stem-lab" },
-      { label: "AI & Robotics Lab", href: "/solutions/ai-robotics" },
-      { label: "Science Park", href: "/solutions/science-park" },
+      { label: "STEM Lab", href: "/solutions#stem-lab" },
+      { label: "AI & Robotics Lab", href: "/solutions#ai-robotics-lab" },
+      { label: "Science Park", href: "/solutions#science-park" },
     ],
   },
-  { label: "How It Works", href: "/#how-it-works" },
   { label: "Projects", href: "/projects" },
   { label: "Media", href: "/media" },
+  { label: "Shop", href: "/shop" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -31,15 +31,15 @@ export const footerQuickLinks: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Solutions", href: "/solutions" },
-  { label: "How It Works", href: "/#how-it-works" },
   { label: "Projects", href: "/projects" },
   { label: "Media", href: "/media" },
+  { label: "Shop", href: "/shop" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const footerSolutions: NavItem[] = [
   { label: "Space Lab", href: "/solutions/space-lab" },
-  { label: "STEM Lab", href: "/solutions/stem-lab" },
-  { label: "AI & Robotics Lab", href: "/solutions/ai-robotics" },
-  { label: "Science Park", href: "/solutions/science-park" },
+  { label: "STEM Lab", href: "/solutions#stem-lab" },
+  { label: "AI & Robotics Lab", href: "/solutions#ai-robotics-lab" },
+  { label: "Science Park", href: "/solutions#science-park" },
 ];

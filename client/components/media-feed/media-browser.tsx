@@ -39,7 +39,7 @@ export function MediaBrowser() {
   return (
     <div>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter media by category">
+        <div className="mobile-scroll-row flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0" role="group" aria-label="Filter media by category">
           {mediaCategories.map((item) => {
             const active = item === category;
             return (
@@ -48,7 +48,7 @@ export function MediaBrowser() {
                 type="button"
                 onClick={() => setCategory(item)}
                 className={cn(
-                  "focus-ring min-h-10 rounded-full border px-4 text-xs font-extrabold transition",
+                  "focus-ring min-h-10 shrink-0 snap-start rounded-full border px-4 text-xs font-extrabold transition",
                   active
                     ? "border-brand-blue bg-brand-blue text-white"
                     : "border-brand-line bg-white text-brand-blue hover:border-brand-blue/30 hover:bg-brand-sky",
@@ -85,7 +85,7 @@ export function MediaBrowser() {
       </div>
 
       {visibleArticles.length ? (
-        <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div key={`${category}-${query}`} className="mt-7 grid gap-5 motion-safe:animate-[fadeIn_.28s_ease-out] md:grid-cols-2 lg:grid-cols-3">
           {visibleArticles.map((article) => (
             <article key={article.title} className="card-lift overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
               <div className="relative">
@@ -99,9 +99,9 @@ export function MediaBrowser() {
                 <p className="mt-3 text-sm leading-6 text-brand-muted">{article.description}</p>
                 <div className="mt-5 flex items-end justify-between gap-4">
                   <p className="text-xs font-semibold text-brand-muted">{article.date} <span className="px-1.5">•</span> {article.readTime}</p>
-                  <a href="#" aria-label={`Read ${article.title}`} className="focus-ring grid h-10 w-10 shrink-0 place-items-center rounded-full border border-brand-blue/35 text-brand-blue transition hover:bg-brand-blue hover:text-white">
+                  <span aria-label={`Article detail for ${article.title} is not published yet`} title="Article detail coming soon" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-brand-blue/20 text-brand-blue/55">
                     <ArrowIcon className="h-4 w-4" />
-                  </a>
+                  </span>
                 </div>
               </div>
             </article>

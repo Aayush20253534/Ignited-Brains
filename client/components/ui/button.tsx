@@ -42,7 +42,7 @@ function buttonClassName({
   className,
 }: Pick<SharedButtonProps, "variant" | "size" | "className">) {
   return cn(
-    "focus-ring inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full border font-bold leading-none transition duration-200 ease-out disabled:pointer-events-none disabled:opacity-50",
+    "group focus-ring inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full border font-bold leading-none transition duration-200 ease-out active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50",
     variantClasses[variant],
     sizeClasses[size],
     className,
@@ -69,7 +69,7 @@ export function Button({
       {...props}
     >
       <span>{children}</span>
-      {showArrow ? <ArrowIcon className="h-5 w-5" /> : null}
+      {showArrow ? <ArrowIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" /> : null}
     </button>
   );
 }
@@ -96,7 +96,7 @@ export function ButtonLink({
       {...props}
     >
       <span>{children}</span>
-      {showArrow ? <ArrowIcon className="h-5 w-5" /> : null}
+      {showArrow ? <ArrowIcon className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" /> : null}
     </Link>
   );
 }

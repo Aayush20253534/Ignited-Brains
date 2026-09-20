@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Projects",
   description:
     "Explore Ignited Brains school projects, student builds, space labs, robotics experiences and science parks across India.",
+  alternates: { canonical: "/projects" },
 };
 
 function PlayButton({ label }: { label: string }) {

@@ -22,7 +22,7 @@ export function SiteImage({
   aspectRatio = "16/9",
   sizes = "(max-width: 768px) 100vw, 50vw",
   priority = false,
-  quality = 88,
+  quality = 82,
   className,
   imageClassName,
   overlayClassName,

@@ -66,6 +66,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   function closeMobileMenu() {
     setMobileOpen(false);
@@ -79,9 +80,44 @@ export function SiteHeader() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 12);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMobileMenu();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    closeMobileMenu();
+  }, [pathname]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-brand-line/70 bg-white/95 backdrop-blur-xl">
-      <Container wide className="flex h-[76px] items-center justify-between gap-6 lg:h-[84px]">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300",
+        scrolled
+          ? "border-brand-line bg-white/98 shadow-[0_10px_35px_rgba(4,27,63,0.08)]"
+          : "border-brand-line/70 bg-white/95",
+      )}
+    >
+      <Container
+        wide
+        className={cn(
+          "flex h-[72px] items-center justify-between gap-4 transition-[height] duration-300 sm:gap-6 lg:h-[76px]",
+          scrolled && "lg:h-[72px]",
+        )}
+      >
         <div className="flex shrink-0 items-center gap-3">
           <BrandLogo />
           <span className="hidden border-l border-brand-line pl-3 text-[0.62rem] font-semibold leading-[1.35] text-brand-blue/65 xl:block">
@@ -105,6 +141,7 @@ export function SiteHeader() {
                         "focus-ring relative flex items-center gap-1 rounded-md px-3 text-[0.82rem] font-extrabold transition-colors xl:px-4 xl:text-sm",
                         active ? "text-brand-orange" : "text-brand-blue hover:text-brand-orange",
                       )}
+                      aria-current={active ? "page" : undefined}
                     >
                       {item.label}
                       <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
@@ -147,6 +184,7 @@ export function SiteHeader() {
                       "group focus-ring relative flex items-center rounded-md px-3 text-[0.82rem] font-extrabold transition-colors xl:px-4 xl:text-sm",
                       active ? "text-brand-orange" : "text-brand-blue hover:text-brand-orange",
                     )}
+                    aria-current={active ? "page" : undefined}
                   >
                     {item.label}
                     <span
@@ -183,7 +221,7 @@ export function SiteHeader() {
       <div
         id="mobile-navigation"
         className={cn(
-          "fixed inset-x-0 top-[76px] z-40 h-[calc(100dvh-76px)] overflow-y-auto border-t border-brand-line bg-white transition duration-200 lg:hidden",
+          "fixed inset-x-0 top-[72px] z-40 h-[calc(100dvh-72px)] overflow-y-auto border-t border-brand-line bg-white transition duration-200 lg:hidden",
           mobileOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
         )}
       >

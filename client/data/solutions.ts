@@ -14,6 +14,7 @@ export const solutionHeroPrinciples: Array<{
 export const solutionShowcase = [
   {
     index: "01",
+    slug: "space-lab",
     kicker: "Space Lab",
     title: "Space science students can touch.",
     description:
@@ -28,13 +29,14 @@ export const solutionShowcase = [
   },
   {
     index: "02",
+    slug: "stem-lab",
     kicker: "STEM Lab",
     title: "Observe. Think. Design. Build.",
     description:
       "A hands-on environment where students learn STEM through experimentation, engineering and problem solving.",
     image: "/solutions/stem-lab.webp",
     imageAlt: "Students building an engineering structure in a STEM lab",
-    href: "/solutions/stem-lab",
+    href: "/solutions#stem-lab",
     action: "Explore STEM Lab",
     icon: "stem" as HomeIconName,
     bullets: ["Science experiments", "Engineering models", "Mathematics in action", "Electronics and mechanics"],
@@ -42,13 +44,14 @@ export const solutionShowcase = [
   },
   {
     index: "03",
+    slug: "ai-robotics-lab",
     kicker: "AI & Robotics Lab",
     title: "Code it. Build it. Make it move.",
     description:
       "Students program, prototype and build real-world systems using robotics, coding, AI and digital fabrication.",
     image: "/solutions/ai-robotics-lab.webp",
     imageAlt: "Student programming a robot in an AI and robotics lab",
-    href: "/solutions/ai-robotics",
+    href: "/solutions#ai-robotics-lab",
     action: "Explore AI & Robotics",
     icon: "robotics" as HomeIconName,
     bullets: ["Robotics & automation", "Coding & AI projects", "3D printing & prototyping", "Real-world applications"],
@@ -56,13 +59,14 @@ export const solutionShowcase = [
   },
   {
     index: "04",
+    slug: "science-park",
     kicker: "Science Park",
     title: "Where science becomes play.",
     description:
       "Interactive science spaces where students discover scientific concepts through movement, experimentation and exploration.",
     image: "/solutions/science-park.webp",
     imageAlt: "Students exploring an outdoor interactive science park",
-    href: "/solutions/science-park",
+    href: "/solutions#science-park",
     action: "Explore Science Park",
     icon: "park" as HomeIconName,
     bullets: ["Interactive exhibits", "Physical science models", "Outdoor learning spaces", "Fun, hands-on learning"],
@@ -86,7 +90,7 @@ export const solutionLearningCycle: Array<{
 
 export const solutionTabs = [
   { label: "Space Lab", icon: "space" as HomeIconName, href: "/solutions/space-lab" },
-  { label: "STEM Lab", icon: "stem" as HomeIconName, href: "/solutions/stem-lab" },
-  { label: "AI & Robotics Lab", icon: "robotics" as HomeIconName, href: "/solutions/ai-robotics" },
-  { label: "Science Park", icon: "park" as HomeIconName, href: "/solutions/science-park" },
+  { label: "STEM Lab", icon: "stem" as HomeIconName, href: "/solutions#stem-lab" },
+  { label: "AI & Robotics Lab", icon: "robotics" as HomeIconName, href: "/solutions#ai-robotics-lab" },
+  { label: "Science Park", icon: "park" as HomeIconName, href: "/solutions#science-park" },
 ];

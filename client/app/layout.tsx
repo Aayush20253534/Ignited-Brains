@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 import "./globals.css";
-import { SiteFooter, SiteHeader } from "@/components/layout";
+import { SiteFooter, SiteHeader, SiteMotion } from "@/components/layout";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  manifest: "/manifest.webmanifest",
   keywords: [
     "STEM education",
     "space lab",
@@ -21,8 +22,24 @@ export const metadata: Metadata = {
     "hands-on learning",
     "school innovation",
   ],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "education",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
+    locale: siteConfig.locale,
     siteName: siteConfig.name,
     title: siteConfig.name,
     description: siteConfig.description,
@@ -38,16 +55,43 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
   themeColor: "#ffffff",
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description: siteConfig.description,
+  email: siteConfig.contact.email,
+  telephone: siteConfig.contact.phone,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: siteConfig.contact.city,
+    addressRegion: siteConfig.contact.region,
+    addressCountry: "IN",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <body>
-<div className="flex min-h-screen flex-col">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <div className="flex min-h-screen flex-col">
           <SiteHeader />
-          <div className="flex-1">{children}</div>
+          <SiteMotion />
+          <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </div>
           <SiteFooter />
         </div>
       </body>

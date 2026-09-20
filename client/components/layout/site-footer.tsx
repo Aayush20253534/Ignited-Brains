@@ -6,11 +6,11 @@ import { SocialIcon, type SocialNetwork } from "@/components/layout/social-icon"
 import { ArrowIcon, Container } from "@/components/ui";
 import { footerQuickLinks, footerSolutions } from "@/data/navigation";
 
-const socialLinks: Array<{ label: string; href: string; network: SocialNetwork }> = [
-  { label: "LinkedIn", href: "#", network: "linkedin" },
-  { label: "Instagram", href: "#", network: "instagram" },
-  { label: "YouTube", href: "#", network: "youtube" },
-  { label: "Facebook", href: "#", network: "facebook" },
+const socialLinks: Array<{ label: string; network: SocialNetwork }> = [
+  { label: "LinkedIn", network: "linkedin" },
+  { label: "Instagram", network: "instagram" },
+  { label: "YouTube", network: "youtube" },
+  { label: "Facebook", network: "facebook" },
 ];
 
 function FooterHeading({ children }: { children: ReactNode }) {
@@ -55,22 +55,22 @@ export function SiteFooter() {
         }}
       />
 
-      <Container wide className="relative grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.3fr_0.75fr_0.9fr_1.15fr_1.25fr] lg:gap-10 lg:py-20">
-        <div className="max-w-xs">
+      <Container wide className="relative grid gap-x-8 gap-y-11 py-14 sm:grid-cols-2 sm:py-16 md:grid-cols-3 lg:grid-cols-[1.3fr_0.75fr_0.9fr_1.15fr_1.25fr] lg:gap-10 lg:py-20">
+        <div className="max-w-xs sm:col-span-2 md:col-span-1">
           <BrandLogo inverted />
           <p className="mt-5 text-sm leading-6 text-white/65">
             Transforming education through innovation, hands-on learning and future-ready experiences.
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">
             {socialLinks.map((social) => (
-              <a
+              <span
                 key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                className="focus-ring grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white/80 transition hover:border-brand-orange hover:bg-brand-orange hover:text-white"
+                aria-label={`${social.label} profile link pending`}
+                title={`${social.label} profile link pending`}
+                className="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white/55"
               >
                 <SocialIcon network={social.network} className="h-[18px] w-[18px]" />
-              </a>
+              </span>
             ))}
           </div>
         </div>
@@ -123,12 +123,12 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div>
+        <div className="sm:col-span-2 md:col-span-1">
           <FooterHeading>Newsletter</FooterHeading>
           <p className="mt-5 max-w-xs text-sm leading-6 text-white/65">
             Stay updated with our latest programs and innovations.
           </p>
-          <form action="/contact" className="mt-5 flex rounded-xl border border-white/15 bg-white/[0.04] p-1.5">
+          <form action="/contact" className="mt-5 flex max-w-md rounded-xl border border-white/15 bg-white/[0.04] p-1.5">
             <label htmlFor="footer-email" className="sr-only">
               Email address
             </label>
@@ -152,7 +152,7 @@ export function SiteFooter() {
       </Container>
 
       <div className="relative border-t border-white/10">
-        <Container wide className="flex flex-col gap-5 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+        <Container wide className="flex flex-col gap-4 py-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Ignited Brains. All Rights Reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="transition hover:text-white">

@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "For Schools & Institutions",
   description:
     "Transform your school with future-ready labs, learning environments, science exhibits and hands-on innovation programs from Ignited Brains.",
+  alternates: { canonical: "/schools" },
 };
 
 export default function SchoolsPage() {

@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "Solutions",
   description:
     "Explore Ignited Brains Space Labs, STEM Labs, AI & Robotics Labs and Science Parks designed for hands-on, future-ready learning.",
+  alternates: { canonical: "/solutions" },
 };
 
 function Bullet({ children }: { children: string }) {
@@ -89,7 +90,8 @@ export default function SolutionsPage() {
           {solutionShowcase.map((solution) => (
             <article
               key={solution.kicker}
-              className="relative overflow-hidden rounded-[1.7rem] border border-brand-line bg-white shadow-[0_16px_48px_rgba(21,57,112,.08)]"
+              id={solution.slug}
+              className="scroll-mt-28 relative overflow-hidden rounded-[1.7rem] border border-brand-line bg-white shadow-[0_16px_48px_rgba(21,57,112,.08)]"
             >
               <div className="grid min-h-[360px] lg:grid-cols-2">
                 <div className={solution.imageFirst ? "relative min-h-[300px] lg:order-1" : "relative min-h-[300px] lg:order-2"}>

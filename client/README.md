@@ -32,3 +32,19 @@ npm run assets:check
 - Part 2: shared navbar, navigation, CTA band and footer ✅
 - Part 3: asset architecture, reusable image wrappers and visual asset validation ✅
 - Part 4+: screenshot-matched pages
+
+## Production checks
+
+```bash
+npm run assets:check
+npm run production:check
+npm run typecheck
+npm run lint
+npm run build
+```
+
+Or run the non-build checks together:
+
+```bash
+npm run check
+```

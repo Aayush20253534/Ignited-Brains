@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Space Lab",
   description:
     "Explore the Ignited Brains Space Lab, a hands-on environment for astronomy, observation, model building and future-ready space learning.",
+  alternates: { canonical: "/solutions/space-lab" },
 };
 
 function PlayButton({ small = false }: { small?: boolean }) {

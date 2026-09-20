@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "About Us",
   description:
     "Learn how Ignited Brains is building hands-on, future-ready learning environments that turn curiosity into creativity and innovation.",
+  alternates: { canonical: "/about" },
 };
 
 function ProcessArrow() {

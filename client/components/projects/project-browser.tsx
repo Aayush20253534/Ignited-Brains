@@ -33,7 +33,7 @@ export function ProjectBrowser() {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2.5" role="group" aria-label="Filter projects by category">
+      <div className="mobile-scroll-row flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0" role="group" aria-label="Filter projects by category">
         {projectCategories.map((category) => {
           const active = category === activeCategory;
           return (
@@ -42,7 +42,7 @@ export function ProjectBrowser() {
               type="button"
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "focus-ring min-h-10 rounded-full border px-5 text-xs font-extrabold transition sm:text-sm",
+                "focus-ring min-h-10 shrink-0 snap-start rounded-full border px-5 text-xs font-extrabold transition sm:text-sm",
                 active
                   ? "border-brand-blue bg-brand-blue text-white shadow-sm"
                   : "border-brand-line bg-white text-brand-blue hover:border-brand-blue/30 hover:bg-brand-sky",
@@ -56,7 +56,7 @@ export function ProjectBrowser() {
       </div>
 
       {visibleProjects.length ? (
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div key={activeCategory} className="mt-8 grid gap-5 motion-safe:animate-[fadeIn_.28s_ease-out] md:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((project) => (
             <article key={project.title} className="card-lift overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
               <div className="relative">

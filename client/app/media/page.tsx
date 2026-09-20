@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Media & Insights",
   description:
     "Stories, articles, student projects, videos and ideas from Ignited Brains hands-on learning programs.",
+  alternates: { canonical: "/media" },
 };
 
 function PlayCircle() {

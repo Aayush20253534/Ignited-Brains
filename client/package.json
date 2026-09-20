@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "assets:check": "node scripts/check-assets.mjs"
+    "assets:check": "node scripts/check-assets.mjs",
+    "production:check": "node scripts/check-production.mjs",
+    "check": "npm run assets:check && npm run production:check && npm run typecheck && npm run lint"
   },
   "dependencies": {
     "next": "^16.0.0",

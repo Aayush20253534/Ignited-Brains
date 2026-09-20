@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Partner With Us",
   description:
     "Partner with Ignited Brains to create future-ready learning environments, labs and hands-on student experiences.",
+  alternates: { canonical: "/contact" },
 };
 
 const fieldClass =
@@ -196,9 +197,9 @@ export default function ContactPage() {
             </ul>
             <div className="mt-5 flex gap-2">
               {["linkedin", "instagram", "youtube"].map((network) => (
-                <a key={network} href="#" aria-label={network} className="focus-ring grid h-9 w-9 place-items-center rounded-full bg-brand-blue text-white transition hover:bg-brand-orange">
+                <span key={network} aria-label={`${network} profile link pending`} title={`${network} profile link pending`} className="grid h-9 w-9 place-items-center rounded-full bg-brand-blue/85 text-white">
                   <SocialIcon network={network as "linkedin" | "instagram" | "youtube"} className="h-4 w-4" />
-                </a>
+                </span>
               ))}
             </div>
           </div>
