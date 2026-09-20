@@ -296,9 +296,6 @@ export default function HomePage() {
               className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
             />
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#041b3f]/35 via-transparent to-transparent" />
-            <span className="absolute inset-0 grid place-items-center">
-              <PlayCircle className="h-16 w-16 border-white/60 bg-white/90 text-brand-blue transition group-hover:scale-105" />
-            </span>
           </Link>
         </Container>
       </section>
@@ -354,7 +351,7 @@ export default function HomePage() {
             </ButtonLink>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-[1fr_0.25fr]">
+          <div>
             <SiteImage
               src={pageAssetSlots.home.marsRover}
               alt="Autonomous Mars rover prototype"
@@ -362,18 +359,6 @@ export default function HomePage() {
               sizes="(max-width: 1024px) 100vw, 48vw"
               className="rounded-[1.25rem] border border-brand-line shadow-card"
             />
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-1">
-              {[pageAssetSlots.home.marsThumbOne, pageAssetSlots.home.marsThumbTwo, pageAssetSlots.home.marsThumbThree].map((src, index) => (
-                <SiteImage
-                  key={src}
-                  src={src}
-                  alt={`Mars rover project view ${index + 1}`}
-                  aspectRatio="16/9"
-                  sizes="(max-width: 640px) 30vw, 12vw"
-                  className="rounded-xl border border-brand-line shadow-sm"
-                />
-              ))}
-            </div>
           </div>
         </Container>
       </section>
@@ -401,6 +386,7 @@ export default function HomePage() {
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
               className="object-cover"
+              style={{ objectPosition: "center 30%" }}
             />
           </div>
         </Container>

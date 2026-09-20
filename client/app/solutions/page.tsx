@@ -199,7 +199,7 @@ export default function SolutionsPage() {
 
             <article className="grid overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card sm:grid-cols-[0.82fr_1.18fr]">
               <SiteImage
-                src={pageAssetSlots.solutions.astronaut}
+                src={pageAssetSlots.spaceLab.astronaut}
                 alt="Student imagining future possibilities through science"
                 aspectRatio="1/1"
                 sizes="(max-width: 640px) 100vw, 24vw"
@@ -223,7 +223,7 @@ export default function SolutionsPage() {
         <Container wide className="grid items-center gap-7 lg:grid-cols-[1fr_1.15fr]">
           <div className="grid items-center gap-5 sm:grid-cols-[180px_1fr]">
             <div className="relative aspect-square overflow-hidden rounded-full border border-white/15 bg-white/5">
-              <Image src={pageAssetSlots.solutions.astronaut} alt="Student inspired by space exploration" fill sizes="180px" className="object-cover" />
+              <Image src={pageAssetSlots.spaceLab.astronaut} alt="Student inspired by space exploration" fill sizes="180px" className="object-cover" />
             </div>
             <blockquote>
               <p className="text-balance text-2xl font-bold leading-tight text-white sm:text-3xl">“Ignited Brains turns curiosity into real opportunities.”</p>

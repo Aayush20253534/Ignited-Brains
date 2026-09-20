@@ -23,7 +23,7 @@ export const transformationSteps = [
     caption: "Learn Theory",
     image: pageAssetSlots.home.classroom,
   },
-  { label: "Question", caption: 'Ask "Why?"', image: pageAssetSlots.home.classroom },
+  { label: "Question", caption: 'Ask "Why?"', image: pageAssetSlots.home.question },
   { label: "Experiment", caption: "Explore Possibilities", image: pageAssetSlots.home.experiment },
   { label: "Build", caption: "Create Solutions", image: pageAssetSlots.home.build },
   { label: "Discover", caption: "Make an Impact", image: pageAssetSlots.home.discover },

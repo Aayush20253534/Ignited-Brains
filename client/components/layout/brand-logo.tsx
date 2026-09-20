@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/cn";
@@ -24,27 +25,14 @@ export function BrandLogo({
       )}
       aria-label="Ignited Brains home"
     >
-      <span className="relative grid h-11 w-11 place-items-center sm:h-12 sm:w-12">
-        <svg viewBox="0 0 64 64" className="h-full w-full" aria-hidden="true">
-          <path
-            d="m8 19 24-10 24 10-24 10L8 19Z"
-            fill="currentColor"
-            className={inverted ? "text-white" : "text-brand-blue"}
-          />
-          <path
-            d="M18 24v12c7 5 21 5 28 0V24l-14 6-14-6Z"
-            fill="currentColor"
-            className="text-brand-orange"
-          />
-          <path
-            d="M55 21v13"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            className={inverted ? "text-white" : "text-brand-blue"}
-          />
-          <circle cx="55" cy="37" r="2.5" fill="currentColor" className="text-brand-orange" />
-        </svg>
+      <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-md sm:h-12 sm:w-12">
+        <Image
+          src="/media/logo.png"
+          alt=""
+          width={48}
+          height={48}
+          className="h-full w-full object-contain"
+        />
       </span>
 
       <span className={cn("leading-none", textColor)}>
@@ -55,16 +43,6 @@ export function BrandLogo({
           <span className="rounded-[3px] bg-brand-orange px-1.5 py-0.5 text-[0.67rem] font-black tracking-[0.08em] text-white sm:text-[0.72rem]">
             BRAINS
           </span>
-          {!compact ? (
-            <span
-              className={cn(
-                "pb-0.5 text-[0.48rem] font-extrabold tracking-[0.08em]",
-                inverted ? "text-white/65" : "text-brand-blue/50",
-              )}
-            >
-              .COM
-            </span>
-          ) : null}
         </span>
       </span>
     </Link>
