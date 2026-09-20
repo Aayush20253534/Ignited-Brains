@@ -247,20 +247,28 @@ button:not(:disabled),
   transform: scale(1.025);
 }
 
-.motion-reveal {
-  opacity: 0;
-  transform: translate3d(0, 18px, 0);
-  transition:
-    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: var(--motion-delay, 0ms);
-  will-change: opacity, transform;
+@keyframes section-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.motion-reveal.is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-  will-change: auto;
+@supports (animation-timeline: view()) {
+  main > section,
+  main article {
+    animation-name: section-reveal;
+    animation-duration: 1ms;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: view();
+    animation-range: entry 0% entry 28%;
+  }
 }
 
 .mobile-scroll-row {
@@ -347,8 +355,9 @@ button:not(:disabled),
     transition-duration: 0.01ms !important;
   }
 
-  .motion-reveal,
-  .motion-reveal.is-visible {
+  main > section,
+  main article {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
@@ -463,4 +472,284 @@ section[id] { scroll-margin-top: 6.5rem; }
   }
 
   main > section { content-visibility: visible; }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive-only calibration                                                */
+/* -------------------------------------------------------------------------- */
+/*
+ * Keep the existing UI intact.
+ * These rules only tune dimensions and spacing at breakpoints.
+ * No root font scaling, no component restructuring, no color/content changes.
+ */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+main,
+main section,
+main article,
+main form {
+  min-width: 0;
+}
+
+/* Keep filter rows usable on narrow screens without changing their design. */
+@media (max-width: 767px) {
+  [role="group"][aria-label*="Filter"] {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  [role="group"][aria-label*="Filter"]::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Phones: 320–767px                                                          */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  :root {
+    --page-gutter: clamp(1rem, 4.5vw, 1.25rem);
+    --section-space: clamp(3.5rem, 10vw, 4.4rem);
+    --section-space-tight: clamp(2.6rem, 8vw, 3.25rem);
+  }
+
+  .container-shell,
+  .container-wide {
+    width: calc(100% - (2 * var(--page-gutter)));
+  }
+
+  .display-heading {
+    font-size: clamp(2.45rem, 10.5vw, 3.4rem);
+    line-height: 0.98;
+  }
+
+  .section-heading {
+    font-size: clamp(1.95rem, 8vw, 2.75rem);
+    line-height: 1.04;
+  }
+
+  /*
+   * Compact only the hero wrapper itself.
+   * Critically, do NOT target every [class*="min-h-"] descendant because
+   * buttons also use min-height utilities.
+   */
+  main > section:first-child > .container-wide,
+  main > section:first-child > .container-shell {
+    min-height: auto !important;
+    gap: 1.75rem !important;
+    padding-top: 1.75rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  main > section:first-child h1 {
+    margin-top: 1rem !important;
+    font-size: clamp(2.65rem, 10.5vw, 3.45rem) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  /* Only direct hero visual panels, never nested buttons/cards. */
+  main > section:first-child > .container-wide > [class*="min-h-"],
+  main > section:first-child > .container-shell > [class*="min-h-"] {
+    min-height: clamp(260px, 70vw, 360px) !important;
+  }
+
+  main > section:first-child [class*="mt-7"],
+  main > section:first-child [class*="mt-8"],
+  main > section:first-child [class*="mt-9"] {
+    margin-top: 1.4rem !important;
+  }
+
+  main input,
+  main select,
+  main textarea {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+/* Very small phones. */
+@media (max-width: 479px) {
+  :root {
+    --page-gutter: 1rem;
+  }
+
+  .display-heading {
+    font-size: clamp(2.25rem, 10.8vw, 2.9rem);
+  }
+
+  .section-heading {
+    font-size: clamp(1.8rem, 8.5vw, 2.35rem);
+  }
+
+  main > section:first-child h1 {
+    font-size: clamp(2.35rem, 11vw, 3rem) !important;
+  }
+
+  main > section:first-child > .container-wide > [class*="min-h-"],
+  main > section:first-child > .container-shell > [class*="min-h-"] {
+    min-height: clamp(235px, 72vw, 315px) !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Tablets: 768–1023px                                                        */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --page-gutter: clamp(1.4rem, 3vw, 2.1rem);
+    --section-space: clamp(4rem, 7vw, 5rem);
+    --section-space-tight: clamp(2.9rem, 5vw, 3.7rem);
+  }
+
+  .display-heading {
+    font-size: clamp(3rem, 6.3vw, 4.15rem);
+  }
+
+  .section-heading {
+    font-size: clamp(2.1rem, 4.5vw, 3.1rem);
+  }
+
+  main > section:first-child > .container-wide,
+  main > section:first-child > .container-shell {
+    min-height: auto !important;
+    gap: 2rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  main > section:first-child h1 {
+    margin-top: 1rem !important;
+    font-size: clamp(3.1rem, 6.25vw, 4.15rem) !important;
+    line-height: 0.96 !important;
+  }
+
+  main > section:first-child > .container-wide > [class*="min-h-"],
+  main > section:first-child > .container-shell > [class*="min-h-"] {
+    min-height: clamp(320px, 42vw, 440px) !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Desktop / laptops: 1024px+                                                 */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: clamp(1.5rem, 2.7vw, 3rem);
+  }
+
+  /*
+   * At 100% browser zoom the original 6.15rem home hero is too large.
+   * Clamp the first-page title only; every other UI token stays untouched.
+   */
+  main > section:first-child h1 {
+    font-size: clamp(3.55rem, 4.35vw, 4.8rem) !important;
+    line-height: 0.94 !important;
+    letter-spacing: -0.048em !important;
+  }
+
+  /*
+   * Keep the complete hero inside a normal laptop/desktop viewport.
+   * This targets the hero container only.
+   */
+  main > section:first-child > .container-wide,
+  main > section:first-child > .container-shell {
+    min-height: clamp(500px, calc(100svh - 72px), 560px) !important;
+    gap: clamp(1.75rem, 2.5vw, 2.5rem) !important;
+    padding-top: clamp(1.25rem, 2vh, 1.75rem) !important;
+    padding-bottom: clamp(1.25rem, 2vh, 1.75rem) !important;
+  }
+
+  /*
+   * Only direct hero visual columns get the compact height.
+   * Nested buttons with min-h-11/min-h-14 are intentionally untouched.
+   */
+  main > section:first-child > .container-wide > [class*="min-h-"],
+  main > section:first-child > .container-shell > [class*="min-h-"] {
+    min-height: clamp(500px, calc(100svh - 72px), 560px) !important;
+  }
+
+  main > section:first-child [class*="mt-6"],
+  main > section:first-child [class*="mt-7"],
+  main > section:first-child [class*="mt-8"],
+  main > section:first-child [class*="mt-9"] {
+    margin-top: clamp(1rem, 1.8vh, 1.4rem) !important;
+  }
+}
+
+/* Compact laptops. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  :root {
+    --page-gutter: clamp(1.25rem, 2.2vw, 2rem);
+  }
+
+  main > section:first-child h1 {
+    font-size: clamp(3.25rem, 4.5vw, 4.1rem) !important;
+  }
+
+  main > section:first-child > .container-wide,
+  main > section:first-child > .container-shell,
+  main > section:first-child > .container-wide > [class*="min-h-"],
+  main > section:first-child > .container-shell > [class*="min-h-"] {
+    min-height: clamp(470px, calc(100svh - 72px), 530px) !important;
+  }
+}
+
+/* Standard desktop. */
+@media (min-width: 1280px) and (max-width: 1699px) {
+  main > section:first-child h1 {
+    font-size: clamp(3.8rem, 4vw, 4.7rem) !important;
+  }
+}
+
+/* Large desktop / ultrawide: keep the same UI scale rather than endlessly growing. */
+@media (min-width: 1700px) {
+  main > section:first-child h1 {
+    font-size: clamp(4.15rem, 3.5vw, 4.9rem) !important;
+  }
+
+  main > section:first-child > .container-wide,
+  main > section:first-child > .container-shell,
+  main > section:first-child > .container-wide > [class*="min-h-"],
+  main > section:first-child > .container-shell > [class*="min-h-"] {
+    min-height: 560px !important;
+  }
+}
+
+/* Short-height laptop screens: prioritize showing the entire hero at once. */
+@media (min-width: 1024px) and (max-height: 760px) {
+  main > section:first-child > .container-wide,
+  main > section:first-child > .container-shell {
+    min-height: calc(100svh - 72px) !important;
+    max-height: calc(100svh - 72px);
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  main > section:first-child h1 {
+    margin-top: 0.75rem !important;
+    font-size: clamp(3.05rem, 4vw, 4rem) !important;
+  }
+
+  main > section:first-child > .container-wide > [class*="min-h-"],
+  main > section:first-child > .container-shell > [class*="min-h-"] {
+    min-height: calc(100svh - 72px) !important;
+    max-height: calc(100svh - 72px);
+  }
+
+  main > section:first-child [class*="mt-5"],
+  main > section:first-child [class*="mt-6"],
+  main > section:first-child [class*="mt-7"],
+  main > section:first-child [class*="mt-8"],
+  main > section:first-child [class*="mt-9"] {
+    margin-top: 0.85rem !important;
+  }
 }
