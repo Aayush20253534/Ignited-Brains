@@ -1032,18 +1032,19 @@ export function AdminPortal() {
       return;
     }
 
+    const sessionToken = storedToken;
     let active = true;
 
     async function restoreSession() {
       try {
         const response = await fetch(`${API_BASE_URL}/api/v1/admin/auth/me`, {
-          headers: { Authorization: `Bearer ${storedToken}` },
+          headers: { Authorization: `Bearer ${sessionToken}` },
           cache: "no-store",
         });
         const data = await parseResponse<{ admin: AdminUser }>(response);
 
         if (!active) return;
-        setToken(storedToken);
+        setToken(sessionToken);
         setAdmin(data.admin);
       } catch {
         sessionStorage.removeItem(TOKEN_KEY);

@@ -101,7 +101,6 @@ export default function MediaPage() {
               <article key={video.title}>
                 <div className="group relative overflow-hidden rounded-2xl border border-brand-line shadow-card">
                   <SiteImage src={video.image} alt={video.title} aspectRatio="16/8.5" className="rounded-none" sizes="(max-width: 768px) 100vw, 33vw" />
-                  <span className="absolute bottom-3 right-3 rounded-full bg-brand-navy/70 px-2.5 py-1 text-[0.65rem] font-bold text-white">{video.duration}</span>
                 </div>
                 <h3 className="mt-4 text-lg font-black tracking-[-0.025em] text-brand-blue">{video.title}</h3>
                 <p className="mt-1.5 text-sm leading-6 text-brand-muted">{video.description}</p>
