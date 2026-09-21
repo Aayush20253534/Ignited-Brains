@@ -66,7 +66,7 @@ export const commonAssets = {
 
 export const pageAssetSlots = {
   home: {
-    hero: "/home/hero-robotics.webp",
+    hero: "/media/hero.mp4",
     classroom: "/media/cls.png",
     question: "/media/q.png",
     experiment: "/media/exp.jpeg",

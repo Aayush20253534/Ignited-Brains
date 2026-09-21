@@ -309,6 +309,11 @@ button:not(:disabled),
     --section-space-tight: 3rem;
   }
 
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   .display-heading {
     font-size: clamp(2.6rem, 13vw, 4.8rem);
     line-height: 0.98;
@@ -544,9 +549,13 @@ main form {
   main > section:first-child > .container-wide,
   main > section:first-child > .container-shell {
     min-height: auto !important;
-    gap: 1.75rem !important;
-    padding-top: 1.75rem !important;
-    padding-bottom: 2rem !important;
+    gap: 1.5rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.75rem !important;
+  }
+
+  main > section:first-child .grid {
+    grid-template-columns: 1fr !important;
   }
 
   main > section:first-child h1 {

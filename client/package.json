@@ -13,15 +13,19 @@
     "check": "npm run assets:check && npm run production:check && npm run typecheck && npm run lint"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
     "next": "^16.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.186.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.186.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.0.0",
     "tailwindcss": "^4.0.0",

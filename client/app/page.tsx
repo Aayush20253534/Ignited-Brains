@@ -53,8 +53,8 @@ export default function HomePage() {
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="relative grid min-h-[610px] items-center gap-10 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
-          <div className="relative z-10 py-6 lg:py-14">
+        <Container wide className="relative grid min-h-[610px] items-center gap-6 py-10 sm:gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10 lg:py-0">
+          <div className="relative z-10 py-4 sm:py-6 lg:py-14">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
             </p>
@@ -92,17 +92,34 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative min-h-[390px] self-stretch lg:min-h-[610px]">
-            <div className="absolute inset-y-0 left-[-8%] -right-4 sm:-right-16 lg:-right-20 overflow-hidden rounded-bl-[5rem] lg:left-[-16%]">
-              <Image
-                src={pageAssetSlots.home.hero}
-                alt="Student building a robotics project in an Ignited Brains innovation lab"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover object-center"
+          <div className="relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[610px]">
+            <div className="absolute inset-y-0 left-[-10%] -right-4 sm:-right-12 lg:-right-20 overflow-hidden rounded-bl-[3rem] sm:rounded-bl-[4rem] lg:left-[-20%] lg:rounded-bl-[5rem]">
+              {pageAssetSlots.home.hero.endsWith(".mp4") ? (
+                <video
+                  src={pageAssetSlots.home.hero}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover object-center"
+                />
+              ) : (
+                <Image
+                  src={pageAssetSlots.home.hero}
+                  alt="Student building a robotics project in an Ignited Brains innovation lab"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover object-center"
+                />
+              )}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 16%, rgba(255,255,255,0.78) 30%, rgba(255,255,255,0.42) 44%, rgba(255,255,255,0.12) 58%, rgba(255,255,255,0) 78%)",
+                }}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent lg:from-white/80 lg:via-transparent" />
             </div>
             <div className="absolute right-6 top-12 hidden max-w-40 rotate-[-4deg] text-right text-2xl font-semibold italic leading-tight text-white drop-shadow-md xl:block">
               Young Minds.<br />Bigger Tomorrows.
