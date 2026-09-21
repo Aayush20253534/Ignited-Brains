@@ -25,22 +25,22 @@ export function BrandLogo({
       )}
       aria-label="Ignited Brains home"
     >
-      <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-md sm:h-12 sm:w-12">
+      <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-md sm:h-11 sm:w-11">
         <Image
           src="/media/logo.png"
           alt=""
-          width={48}
-          height={48}
+          width={44}
+          height={44}
           className="h-full w-full object-contain"
         />
       </span>
 
       <span className={cn("leading-none", textColor)}>
-        <span className="block text-[1.35rem] font-black tracking-[-0.045em] sm:text-[1.5rem]">
+        <span className="block text-[1.2rem] font-black tracking-[-0.045em] sm:text-[1.35rem]">
           ignited
         </span>
         <span className="mt-0.5 inline-flex items-end gap-1.5">
-          <span className="rounded-[3px] bg-brand-orange px-1.5 py-0.5 text-[0.67rem] font-black tracking-[0.08em] text-white sm:text-[0.72rem]">
+          <span className="rounded-[3px] bg-brand-orange px-1.5 py-0.5 text-[0.62rem] font-black tracking-[0.08em] text-white sm:text-[0.67rem]">
             BRAINS
           </span>
         </span>

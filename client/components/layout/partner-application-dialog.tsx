@@ -106,31 +106,31 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
       </Button>
 
       {open ? createPortal(
-        <div className="fixed inset-0 z-[60] overflow-y-auto bg-brand-navy/60 px-4 py-6 sm:px-6" role="dialog" aria-modal="true" aria-labelledby="application-dialog-title">
-          <div className="mx-auto max-w-3xl rounded-3xl bg-white p-5 shadow-2xl sm:p-8">
-            <div className="flex items-start justify-between gap-5">
+        <div className="fixed inset-0 z-[60] grid min-h-full place-items-center overflow-y-auto bg-brand-navy/60 px-4 py-5 sm:px-6" role="dialog" aria-modal="true" aria-labelledby="application-dialog-title">
+          <div className="my-auto w-full max-w-2xl rounded-2xl bg-white p-4 shadow-2xl sm:p-6">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-orange">Partner With Us</p>
-                <h2 id="application-dialog-title" className="mt-2 text-3xl font-black tracking-[-0.04em] text-brand-blue">Start an application</h2>
+                <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-brand-orange">Partner With Us</p>
+                <h2 id="application-dialog-title" className="mt-1.5 text-2xl font-black tracking-[-0.035em] text-brand-blue sm:text-[1.7rem]">Start an application</h2>
               </div>
-              <button type="button" onClick={close} className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-brand-line text-2xl text-brand-blue" aria-label="Close application form">&times;</button>
+              <button type="button" onClick={close} className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-brand-line text-xl text-brand-blue transition hover:bg-brand-sky" aria-label="Close application form">&times;</button>
             </div>
 
             {submitted ? (
-              <div className="mt-8 rounded-2xl bg-brand-sky p-6 text-center">
-                <h3 className="text-2xl font-black text-brand-blue">Application submitted</h3>
+              <div className="mt-5 rounded-xl bg-brand-sky p-5 text-center">
+                <h3 className="text-xl font-black text-brand-blue">Application submitted</h3>
                 <p className="mt-2 text-sm text-brand-muted">Thank you. Our team will get back to you soon.</p>
                 <Button type="button" size="md" className="mt-5" onClick={close}>Close</Button>
               </div>
             ) : applicantType === null ? (
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <button type="button" onClick={() => setApplicantType("STUDENT")} className="rounded-2xl border border-brand-line p-6 text-left transition hover:border-brand-orange hover:bg-brand-sky">
-                  <span className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-orange">Student</span>
-                  <span className="mt-2 block text-xl font-black text-brand-blue">Apply as a student</span>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <button type="button" onClick={() => setApplicantType("STUDENT")} className="rounded-xl border border-brand-line p-4 text-left transition hover:border-brand-orange hover:bg-brand-sky sm:p-5">
+                  <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-brand-orange">Student</span>
+                  <span className="mt-1.5 block text-lg font-black text-brand-blue">Apply as a student</span>
                 </button>
-                <button type="button" onClick={() => setApplicantType("ORGANIZATION")} className="rounded-2xl border border-brand-line p-6 text-left transition hover:border-brand-orange hover:bg-brand-sky">
-                  <span className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-orange">Organisation</span>
-                  <span className="mt-2 block text-xl font-black text-brand-blue">Apply for an organisation</span>
+                <button type="button" onClick={() => setApplicantType("ORGANIZATION")} className="rounded-xl border border-brand-line p-4 text-left transition hover:border-brand-orange hover:bg-brand-sky sm:p-5">
+                  <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-brand-orange">Organisation</span>
+                  <span className="mt-1.5 block text-lg font-black text-brand-blue">Apply for an organisation</span>
                 </button>
               </div>
             ) : (

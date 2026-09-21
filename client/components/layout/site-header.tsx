@@ -111,21 +111,21 @@ export function SiteHeader() {
       <Container
         wide
         className={cn(
-          "flex h-[72px] items-center justify-between gap-4 transition-[height] duration-300 sm:gap-6 lg:h-[76px]",
-          scrolled && "lg:h-[72px]",
+          "flex h-[64px] items-center justify-between gap-3 transition-[height] duration-300 sm:gap-4 lg:grid lg:h-[68px] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-4 xl:gap-6",
+          scrolled && "lg:h-[64px]",
         )}
       >
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2.5">
           <BrandLogo />
-          <span className="hidden border-l border-brand-line pl-3 text-[0.62rem] font-semibold leading-[1.35] text-brand-blue/65 xl:block">
+          <span className="hidden border-l border-brand-line pl-3 text-[0.58rem] font-semibold leading-[1.35] text-brand-blue/65 2xl:block">
             Transforming Education
             <br />
             Through Innovation
           </span>
         </div>
 
-        <nav className="hidden h-full items-stretch lg:flex" aria-label="Primary navigation">
-          <ul className="flex h-full items-stretch gap-0.5 xl:gap-2">
+        <nav className="hidden h-full min-w-0 items-stretch justify-center lg:flex" aria-label="Primary navigation">
+          <ul className="flex h-full items-stretch gap-0.5 xl:gap-1">
             {mainNavigation.map((item) => {
               const active = isNavigationItemActive(pathname, item);
 
@@ -135,7 +135,7 @@ export function SiteHeader() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "focus-ring relative flex items-center gap-1 rounded-md px-3 text-[0.82rem] font-extrabold transition-colors xl:px-4 xl:text-sm",
+                        "focus-ring relative flex items-center gap-1 rounded-md px-2.5 text-[0.78rem] font-extrabold transition-colors xl:px-3 xl:text-[0.82rem] 2xl:px-3.5 2xl:text-sm",
                         active ? "text-brand-orange" : "text-brand-blue hover:text-brand-orange",
                       )}
                       aria-current={active ? "page" : undefined}
@@ -144,20 +144,20 @@ export function SiteHeader() {
                       <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
                       <span
                         className={cn(
-                          "absolute inset-x-3 bottom-0 h-0.5 origin-center bg-brand-orange transition-transform xl:inset-x-4",
+                          "absolute inset-x-2.5 bottom-0 h-0.5 origin-center bg-brand-orange transition-transform xl:inset-x-3",
                           active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
                         )}
                       />
                     </Link>
 
-                    <div className="pointer-events-none absolute left-1/2 top-[calc(100%-2px)] w-64 -translate-x-1/2 translate-y-2 pt-3 opacity-0 transition duration-150 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                      <div className="overflow-hidden rounded-2xl border border-brand-line bg-white p-2 shadow-[0_20px_60px_rgba(4,27,63,0.16)]">
+                    <div className="pointer-events-none absolute left-1/2 top-[calc(100%-2px)] w-60 -translate-x-1/2 translate-y-2 pt-3 opacity-0 transition duration-150 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                      <div className="overflow-hidden rounded-xl border border-brand-line bg-white p-2 shadow-[0_20px_60px_rgba(4,27,63,0.16)]">
                         {item.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
                             className={cn(
-                              "focus-ring flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold transition hover:bg-brand-sky hover:text-brand-orange",
+                              "focus-ring flex items-center justify-between rounded-lg px-3.5 py-2.5 text-[0.82rem] font-bold transition hover:bg-brand-sky hover:text-brand-orange",
                               pathname === child.href
                                 ? "bg-brand-sky text-brand-orange"
                                 : "text-brand-blue",
@@ -178,7 +178,7 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "group focus-ring relative flex items-center rounded-md px-3 text-[0.82rem] font-extrabold transition-colors xl:px-4 xl:text-sm",
+                      "group focus-ring relative flex items-center rounded-md px-2.5 text-[0.78rem] font-extrabold transition-colors xl:px-3 xl:text-[0.82rem] 2xl:px-3.5 2xl:text-sm",
                       active ? "text-brand-orange" : "text-brand-blue hover:text-brand-orange",
                     )}
                     aria-current={active ? "page" : undefined}
@@ -186,7 +186,7 @@ export function SiteHeader() {
                     {item.label}
                     <span
                       className={cn(
-                        "absolute inset-x-3 bottom-0 h-0.5 origin-center bg-brand-orange transition-transform xl:inset-x-4",
+                        "absolute inset-x-2.5 bottom-0 h-0.5 origin-center bg-brand-orange transition-transform xl:inset-x-3",
                         active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
                       )}
                     />
@@ -198,12 +198,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden lg:block">
-          <PartnerApplicationDialog className="min-h-11 px-5 xl:px-6" />
+          <PartnerApplicationDialog className="!min-h-10 !rounded-lg px-4 text-sm xl:px-5" />
         </div>
 
         <button
           type="button"
-          className="focus-ring grid h-11 w-11 place-items-center rounded-full border border-brand-line bg-white text-brand-blue lg:hidden"
+          className="focus-ring grid h-10 w-10 place-items-center rounded-lg border border-brand-line bg-white text-brand-blue lg:hidden"
           onClick={() => setMobileOpen((value) => !value)}
           aria-expanded={mobileOpen}
           aria-controls="mobile-navigation"
@@ -216,11 +216,11 @@ export function SiteHeader() {
       <div
         id="mobile-navigation"
         className={cn(
-          "fixed inset-x-0 top-[72px] z-40 h-[calc(100dvh-72px)] overflow-y-auto border-t border-brand-line bg-white transition duration-200 lg:hidden",
+          "fixed inset-x-0 top-[64px] z-40 h-[calc(100dvh-64px)] overflow-y-auto border-t border-brand-line bg-white transition duration-200 lg:hidden",
           mobileOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
         )}
       >
-        <Container className="py-6">
+        <Container className="py-4">
           <nav aria-label="Mobile navigation">
             <ul className="divide-y divide-brand-line/80">
               {mainNavigation.map((item) => {
@@ -234,7 +234,7 @@ export function SiteHeader() {
                           href={item.href}
                           onClick={closeMobileMenu}
                           className={cn(
-                            "focus-ring flex min-h-14 flex-1 items-center rounded-lg text-lg font-extrabold",
+                            "focus-ring flex min-h-12 flex-1 items-center rounded-lg text-base font-extrabold",
                             active ? "text-brand-orange" : "text-brand-blue",
                           )}
                         >
@@ -242,7 +242,7 @@ export function SiteHeader() {
                         </Link>
                         <button
                           type="button"
-                          className="focus-ring grid h-11 w-11 place-items-center rounded-full text-brand-blue"
+                          className="focus-ring grid h-10 w-10 place-items-center rounded-lg text-brand-blue"
                           onClick={() => setMobileSolutionsOpen((value) => !value)}
                           aria-expanded={mobileSolutionsOpen}
                           aria-label="Toggle Solutions menu"
@@ -257,14 +257,14 @@ export function SiteHeader() {
                       </div>
 
                       {mobileSolutionsOpen ? (
-                        <ul className="mb-3 grid gap-1 rounded-2xl bg-brand-mist p-2">
+                        <ul className="mb-3 grid gap-1 rounded-xl bg-brand-mist p-2">
                           {item.children.map((child) => (
                             <li key={child.href}>
                               <Link
                                 href={child.href}
                                 onClick={closeMobileMenu}
                                 className={cn(
-                                  "focus-ring flex min-h-11 items-center justify-between rounded-xl px-4 text-sm font-bold",
+                                  "focus-ring flex min-h-10 items-center justify-between rounded-lg px-3.5 text-sm font-bold",
                                   pathname === child.href
                                     ? "bg-white text-brand-orange shadow-sm"
                                     : "text-brand-blue",
@@ -287,7 +287,7 @@ export function SiteHeader() {
                       href={item.href}
                       onClick={closeMobileMenu}
                       className={cn(
-                        "focus-ring flex min-h-14 items-center rounded-lg text-lg font-extrabold",
+                        "focus-ring flex min-h-12 items-center rounded-lg text-base font-extrabold",
                         active ? "text-brand-orange" : "text-brand-blue",
                       )}
                     >
@@ -299,7 +299,7 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <PartnerApplicationDialog className="mt-7 w-full" />
+          <PartnerApplicationDialog className="mt-5 w-full !rounded-lg" />
         </Container>
       </div>
     </header>

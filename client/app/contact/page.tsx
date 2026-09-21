@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
+import { ContactForm } from "@/components/contact/contact-form";
 import { HomeIcon } from "@/components/home/home-icon";
 import { SocialIcon } from "@/components/layout/social-icon";
-import { ArrowIcon, Button, Container, Eyebrow } from "@/components/ui";
+import { ArrowIcon, Container, Eyebrow } from "@/components/ui";
 import {
   contactFaqs,
   contactHeroBenefits,
@@ -18,9 +19,6 @@ export const metadata: Metadata = {
     "Partner with Ignited Brains to create future-ready learning environments, labs and hands-on student experiences.",
   alternates: { canonical: "/contact" },
 };
-
-const fieldClass =
-  "mt-1.5 min-h-11 w-full rounded-lg border border-brand-line bg-white px-3.5 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/55 focus:border-brand-blue/40 focus:ring-2 focus:ring-brand-blue/10 lg:min-h-9 lg:px-3";
 
 function MailIcon() {
   return (
@@ -83,44 +81,7 @@ export default function ContactPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-transparent lg:from-white/25" />
           </div>
 
-          <form
-            action="/contact"
-            method="get"
-            className="relative z-30 rounded-3xl border border-brand-line bg-white p-5 shadow-[0_24px_70px_rgba(24,53,103,.15)] sm:p-7 lg:-ml-5 lg:p-4"
-          >
-            <h2 className="text-2xl font-black tracking-[-0.035em] text-brand-blue">Start a Conversation</h2>
-            <p className="mt-1 text-sm text-brand-muted">Fill in the details and we’ll get back to you soon.</p>
-            <p className="mt-2 text-xs text-brand-muted"><span className="text-brand-orange">*</span> Required fields</p>
-
-            <div className="mt-4 grid gap-3 lg:mt-3 lg:grid-cols-2 lg:gap-2">
-              <label className="text-xs font-extrabold text-brand-blue">
-                Full Name <span className="text-brand-orange">*</span>
-                <input className={fieldClass} name="name" type="text" required placeholder="Enter your full name" />
-              </label>
-              <label className="text-xs font-extrabold text-brand-blue">
-                Email Address <span className="text-brand-orange">*</span>
-                <input className={fieldClass} name="email" type="email" required placeholder="Enter your email" />
-              </label>
-              <label className="text-xs font-extrabold text-brand-blue">
-                Phone Number
-                <input className={fieldClass} name="phone" type="tel" placeholder="Enter your phone number" />
-              </label>
-              <label className="text-xs font-extrabold text-brand-blue">
-                Organization / Institution
-                <input className={fieldClass} name="organization" type="text" placeholder="Enter your organization or institution" />
-              </label>
-              <label className="text-xs font-extrabold text-brand-blue lg:col-span-2">
-                Subject
-                <input className={fieldClass} name="subject" type="text" placeholder="What would you like to discuss?" />
-              </label>
-              <label className="text-xs font-extrabold text-brand-blue lg:col-span-2">
-                Message <span className="text-brand-orange">*</span>
-                <textarea className={`${fieldClass} min-h-24 resize-y py-3 lg:min-h-16 lg:py-2`} name="message" required placeholder="Tell us about your requirements..." />
-              </label>
-            </div>
-
-            <Button type="submit" size="lg" showArrow className="mt-3 w-full lg:min-h-11 lg:px-4 lg:text-sm">Submit</Button>
-          </form>
+          <ContactForm />
         </Container>
       </section>
 
