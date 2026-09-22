@@ -71,7 +71,7 @@ export default function ProjectsPage() {
           </div>
         </Container>
 
-        <Container wide className="relative z-10 grid grid-cols-2 gap-4 border-t border-brand-line/80 bg-white py-7 lg:grid-cols-4 lg:gap-8">
+        <Container wide className="relative z-10 grid grid-cols-2 gap-4 border-t border-brand-line/80 bg-white py-5 lg:grid-cols-4 lg:gap-6 lg:py-6">
           {projectImpact.map((item) => (
             <div key={item.label} className="flex items-center gap-4 lg:justify-center">
               <HomeIcon name={item.icon} className="h-9 w-9 shrink-0 text-brand-orange" />

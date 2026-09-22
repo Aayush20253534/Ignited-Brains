@@ -85,11 +85,11 @@ export const pageAssetSlots = {
     indiaImpact: "/media/home.png",
   },
   about: {
-    hero: "/media/about hero.png",
+    hero: "/media/about.png",
     story: "/media/img.jpeg",
     mission: "/about/mission-astronaut.webp",
     vision: "/media/space.jpeg",
-    indiaImpact: "/media/india.png",
+    indiaImpact: "/media/about hero.png",
     ctaEarth: "/about/cta-earth.webp",
   },
   solutions: {
@@ -135,7 +135,7 @@ export const pageAssetSlots = {
     testimonialPriya: "/projects/testimonial-priya.webp",
     gallerySpace: "/media/space.png",
     galleryBuild: "/projects/gallery-build.webp",
-    galleryTeam: "/projects/gallery-team.webp",
+    galleryTeam: "/media/field-build.webp",
     galleryPark: "/projects/gallery-park.webp",
   },
   media: {

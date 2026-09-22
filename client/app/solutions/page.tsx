@@ -188,7 +188,7 @@ export default function SolutionsPage() {
                   key={item.label}
                   href={item.href}
                   className={index === 0
-                    ? "focus-ring flex min-h-32 flex-col items-center justify-center rounded-2xl bg-brand-blue p-4 text-center text-white shadow-card transition hover:-translate-y-1"
+                    ? "focus-ring flex min-h-32 flex-col items-center justify-center rounded-2xl border border-brand-line bg-white p-4 text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"
                     : "focus-ring flex min-h-32 flex-col items-center justify-center rounded-2xl border border-brand-line bg-white p-4 text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"}
                 >
                   <HomeIcon name={item.icon} className="h-8 w-8" />
