@@ -71,7 +71,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
         };
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/v1/applications`, {
+      const response = await fetch("/api/v1/applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

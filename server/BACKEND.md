@@ -139,3 +139,8 @@ Application statuses: `NEW`, `IN_REVIEW`, `CONTACTED`, `APPROVED`, `REJECTED`, `
 Set all production environment variables from `.env.example`. `RESEND_FROM` must use a sender/domain approved by Resend. `NOTIFICATION_TO` is the inbox that should receive new contact/application notifications.
 
 Run `npm run db:migrate` against the production database before starting the API, then create the initial admin once. Do not expose `ADMIN_PASSWORD` longer than necessary after bootstrap.
+
+Set `API_ORIGIN` on the deployed Next.js frontend to this server's HTTPS origin.
+The frontend uses a same-origin `/api/v1/*` bridge, so its browser requests do
+not need a public API URL or cross-origin access. Set `CLIENT_ORIGINS` here to
+the frontend URL as required by the production server configuration.
