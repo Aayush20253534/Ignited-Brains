@@ -82,7 +82,8 @@ export const pageAssetSlots = {
     marsThumbOne: "/home/mars-thumb-01.webp",
     marsThumbTwo: "/home/mars-thumb-02.webp",
     marsThumbThree: "/home/mars-thumb-03.webp",
-    indiaImpact: "/media/home.png",
+    // indiaImpact: "/media/home.png",
+    indiaImpact: "/media/india_network_twinkle.gif",
   },
   about: {
     hero: "/media/about.png",
