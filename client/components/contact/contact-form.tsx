@@ -13,9 +13,6 @@ type SubmissionState =
   | { status: "success"; message: string }
   | { status: "error"; message: string };
 
-const apiBaseUrl = (process.env.NEXT_PUBLIC_API_URL?.trim() || "http://localhost:5000")
-  .replace(/\/+$/, "");
-
 export function ContactForm() {
   const [submission, setSubmission] = useState<SubmissionState>({
     status: "idle",
@@ -31,7 +28,7 @@ export function ContactForm() {
     setSubmission({ status: "submitting", message: "" });
 
     try {
-      const response = await fetch(`${apiBaseUrl}/api/v1/contact`, {
+      const response = await fetch("/api/v1/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

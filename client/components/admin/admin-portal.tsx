@@ -12,10 +12,6 @@ import {
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { cn } from "@/lib/cn";
 
-const API_BASE_URL = (
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"
-).replace(/\/$/, "");
-
 const TOKEN_KEY = "ignited-brains-admin-token";
 
 const CONTACT_STATUSES = ["NEW", "IN_PROGRESS", "RESOLVED", "ARCHIVED"] as const;
@@ -307,7 +303,7 @@ function LoginScreen({
     setError("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/admin/auth/login`, {
+      const response = await fetch("/api/v1/admin/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -438,9 +434,6 @@ function LoginScreen({
               </form>
             </div>
 
-            <p className="mt-5 text-center text-xs text-slate-400">
-              API: {API_BASE_URL}
-            </p>
           </div>
         </section>
       </div>
@@ -931,7 +924,7 @@ export function AdminPortal() {
     async <T,>(path: string, options?: RequestInit): Promise<T> => {
       if (!token) throw new Error("Authentication required");
 
-      const response = await fetch(`${API_BASE_URL}${path}`, {
+      const response = await fetch(path, {
         ...options,
         headers: {
           ...(options?.body ? { "Content-Type": "application/json" } : {}),
@@ -1037,7 +1030,7 @@ export function AdminPortal() {
 
     async function restoreSession() {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/admin/auth/me`, {
+        const response = await fetch("/api/v1/admin/auth/me", {
           headers: { Authorization: `Bearer ${sessionToken}` },
           cache: "no-store",
         });
