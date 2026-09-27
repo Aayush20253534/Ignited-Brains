@@ -86,8 +86,8 @@ export const impactStats: Array<{
   label: string;
   icon: HomeIconName;
 }> = [
-  { value: "XX+", label: "Schools Enabled", icon: "school" },
-  { value: "XX+", label: "Labs Created", icon: "lab" },
-  { value: "XX+", label: "Students Engaged", icon: "students" },
-  { value: "XX+", label: "Projects Built", icon: "projects" },
+  { value: "231+", label: "Schools Enabled", icon: "school" },
+  { value: "310+", label: "Labs Created", icon: "lab" },
+  { value: "1467+", label: "Students Engaged", icon: "students" },
+  { value: "307+", label: "Projects Built", icon: "projects" },
 ];

@@ -67,7 +67,7 @@ export function SiteFooter() {
                 key={social.label}
                 aria-label={`${social.label} profile link pending`}
                 title={`${social.label} profile link pending`}
-                className="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white/55"
+                className="grid h-16 w-16 place-items-center rounded-full border border-white/20 text-white/55"
               >
                 <SocialIcon network={social.network} className="h-[18px] w-[18px]" />
               </span>

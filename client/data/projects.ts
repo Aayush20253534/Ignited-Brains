@@ -1,10 +1,10 @@
 import type { HomeIconName } from "@/components/home/home-icon";
 
-export const projectImpact = [
-  { value: "XX+", label: "Schools Enabled", icon: "school" as HomeIconName },
-  { value: "XX+", label: "Labs Created", icon: "lab" as HomeIconName },
-  { value: "XX+", label: "Students Engaged", icon: "students" as HomeIconName },
-  { value: "XX+", label: "Projects Built", icon: "projects" as HomeIconName },
+export const projectImpact = [ 
+  { value: "231+", label: "Schools Enabled", icon: "school" as HomeIconName },
+  { value: "310+", label: "Labs Created", icon: "lab" as HomeIconName },
+  { value: "1467+", label: "Students Engaged", icon: "students" as HomeIconName },
+  { value: "307+", label: "Projects Built", icon: "projects" as HomeIconName },
 ];
 
 export const projectCategories = [
