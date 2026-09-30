@@ -45,7 +45,7 @@ function PinIcon() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-[#031a3a] text-white">
+    <footer className="site-footer relative overflow-hidden bg-[#031a3a] text-white">
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         aria-hidden="true"
@@ -55,21 +55,21 @@ export function SiteFooter() {
         }}
       />
 
-      <Container wide className="relative grid gap-x-8 gap-y-11 py-14 sm:grid-cols-2 sm:py-16 md:grid-cols-3 lg:grid-cols-[1.3fr_0.75fr_0.9fr_1.15fr_1.25fr] lg:gap-10 lg:py-20">
-        <div className="max-w-xs sm:col-span-2 md:col-span-1">
+      <Container wide className="site-footer-grid relative grid grid-cols-1 gap-x-7 gap-y-10 py-12 sm:grid-cols-2 sm:py-14 md:grid-cols-3 lg:grid-cols-[1.3fr_0.75fr_0.9fr_1.15fr_1.25fr] lg:gap-10 lg:py-16 xl:py-20">
+        <div className="min-w-0 max-w-sm sm:col-span-2 md:col-span-1">
           <BrandLogo inverted />
           <p className="mt-5 text-sm leading-6 text-white/65">
             Transforming education through innovation, hands-on learning and future-ready experiences.
           </p>
-          <div className="mt-6 flex flex-wrap gap-2.5">
+          <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3">
             {socialLinks.map((social) => (
               <span
                 key={social.label}
                 aria-label={`${social.label} profile link pending`}
                 title={`${social.label} profile link pending`}
-                className="grid h-16 w-16 place-items-center rounded-full border border-white/20 text-white/55"
+                className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/[0.035] text-white/70 transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[0.07]"
               >
-                <SocialIcon network={social.network} className="h-[18px] w-[18px]" />
+                <SocialIcon network={social.network} className="h-5 w-5" />
               </span>
             ))}
           </div>
@@ -123,12 +123,12 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div className="sm:col-span-2 md:col-span-1">
+        <div className="min-w-0 sm:col-span-2 md:col-span-1">
           <FooterHeading>Newsletter</FooterHeading>
           <p className="mt-5 max-w-xs text-sm leading-6 text-white/65">
             Stay updated with our latest programs and innovations.
           </p>
-          <form action="/contact" className="mt-5 flex max-w-md rounded-xl border border-white/15 bg-white/[0.04] p-1.5">
+          <form action="/contact" className="mt-5 flex w-full max-w-md rounded-xl border border-white/15 bg-white/[0.04] p-1.5">
             <label htmlFor="footer-email" className="sr-only">
               Email address
             </label>
