@@ -137,10 +137,10 @@ export default function MediaPage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-[#031a3a] text-white">
-        <div className="absolute inset-y-0 right-0 w-full opacity-80 sm:w-2/3 lg:w-1/2" aria-hidden="true">
-          <Image src="/media/newsletter-earth.webp" alt="" fill sizes="50vw" className="object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#031a3a] via-[#031a3a]/70 to-transparent" />
+      <section className="dark-space-surface border-y border-white/10 text-white">
+        <div className="pointer-events-none absolute -right-14 top-1/2 h-64 w-64 -translate-y-1/2 opacity-80 sm:right-0 sm:h-80 sm:w-80 lg:right-8 lg:h-96 lg:w-96" aria-hidden="true">
+          <div className="absolute inset-[10%] rounded-full bg-blue-500/20 blur-3xl" />
+          <Image src="/decorative/cta-earth.svg" alt="" fill sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px" className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.28)]" />
         </div>
         <Container wide className="relative py-12 sm:py-14 lg:py-16">
           <div className="max-w-2xl">
