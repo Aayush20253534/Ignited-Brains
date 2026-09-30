@@ -206,17 +206,26 @@ export default function ProjectsPage() {
       </section>
 
       <section className="dark-space-surface border-y border-white/10">
-        <div className="absolute inset-0 opacity-45" aria-hidden="true">
-          <Image src={pageAssetSlots.about.ctaEarth} alt="" fill sizes="100vw" className="object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#031632] via-[#031632]/80 to-[#031632]/25" />
-        </div>
-        <Container wide className="relative flex flex-col gap-8 py-12 sm:py-14 lg:flex-row lg:items-center lg:justify-between lg:py-16">
-          <div>
+        <Container wide className="relative grid items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+          <div
+            className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
+            <Image
+              src="/decorative/cta-earth.svg"
+              alt=""
+              fill
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
+              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
+            />
+          </div>
+          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/60">Be a Part of the Change</p>
             <h2 className="mt-3 max-w-2xl text-balance text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl">Let’s create more stories of innovation.</h2>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-white/70">Partner with Ignited Brains and bring hands-on learning to more schools across India.</p>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/70 sm:mx-0">Partner with Ignited Brains and bring hands-on learning to more schools across India.</p>
           </div>
-          <ButtonLink href="/contact" size="lg" showArrow className="self-start lg:self-auto">Partner With Us</ButtonLink>
+          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">Partner With Us</ButtonLink>
         </Container>
       </section>
     </main>
