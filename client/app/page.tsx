@@ -50,7 +50,7 @@ function SmallArrowLink({ href, children }: { href: string; children: ReactNode 
 
 export default function HomePage() {
   return (
-    <main className="overflow-hidden bg-white">
+    <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
         <Container wide className="relative grid min-h-[610px] items-center gap-6 py-10 sm:gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10 lg:py-0">
@@ -380,7 +380,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
+      <section className="home-india-section relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_54%_50%,rgba(255,108,39,.07),transparent_30rem)]" />
         <Container wide className="relative grid items-center gap-8 lg:grid-cols-[0.72fr_1.28fr]">
           <div>
@@ -402,25 +402,34 @@ export default function HomePage() {
               alt="Ignited Brains vision for innovation across India"
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-cover"
+              className="scale-[1.025] object-cover"
               style={{ objectPosition: "center 30%" }}
             />
           </div>
         </Container>
       </section>
 
-      <section className="dark-space-surface border-y border-white/10">
-        <Container wide className="relative grid items-center gap-8 py-12 sm:py-14 lg:grid-cols-[1fr_auto] lg:py-16">
-          <div className="absolute -bottom-36 -left-20 h-64 w-[45%] rounded-[50%] border-t border-blue-300/20 bg-[radial-gradient(ellipse_at_top,rgba(25,96,202,.65),rgba(4,27,63,.05)_60%)]" aria-hidden="true" />
-          <div className="relative lg:pl-[28%]">
+      <section className="home-school-cta dark-space-surface border-y border-white/10">
+        <Container wide className="relative grid items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+          <div className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80" aria-hidden="true">
+            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
+            <Image
+              src="/decorative/cta-earth.svg"
+              alt=""
+              fill
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
+              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
+            />
+          </div>
+          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
             <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
               Ready to transform your school?
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:text-base">
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:mx-0 sm:text-base">
               Let&apos;s create a space where students don&apos;t just learn about the future. They build it.
             </p>
           </div>
-          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-start lg:justify-self-end">
+          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">
             Partner With Us
           </ButtonLink>
         </Container>
