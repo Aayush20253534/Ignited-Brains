@@ -763,3 +763,93 @@ main form {
     margin-top: 0.85rem !important;
   }
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* Mobile hardening: home impact, CTA and footer                              */
+/* -------------------------------------------------------------------------- */
+
+.home-page,
+.home-page > section,
+.site-footer,
+.site-footer-grid,
+.site-footer-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.home-india-section img {
+  backface-visibility: hidden;
+  transform-origin: center;
+}
+
+.home-school-cta .container-wide {
+  isolation: isolate;
+}
+
+.site-footer input {
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .home-india-section {
+    padding-block: 3.5rem;
+  }
+
+  .home-india-section .container-wide {
+    gap: 1.75rem;
+  }
+
+  .home-india-section h2 {
+    font-size: clamp(2.35rem, 10vw, 3.15rem);
+    line-height: 0.98;
+  }
+
+  .home-india-section [class*="min-h-"] {
+    min-height: clamp(230px, 62vw, 315px) !important;
+    border-radius: 1.25rem;
+  }
+
+  .home-school-cta .container-wide {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .home-school-cta h2 {
+    font-size: clamp(2rem, 8.7vw, 2.7rem);
+    line-height: 1.02;
+  }
+
+  .home-school-cta p {
+    max-width: 34rem;
+  }
+
+  .site-footer-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 2.25rem !important;
+  }
+
+  .site-footer-grid > * {
+    grid-column: 1 / -1 !important;
+  }
+
+  .site-footer form {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .site-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .home-school-cta .container-wide {
+    width: calc(100% - 2rem);
+  }
+
+  .site-footer-grid {
+    width: calc(100% - 2rem);
+  }
+}
