@@ -319,28 +319,29 @@ export default function AboutPage() {
       </section>
 
       <section className="dark-space-surface border-y border-white/10">
-        <Container wide className="relative grid min-h-[190px] items-center gap-8 py-11 sm:py-13 lg:grid-cols-[0.72fr_1.28fr_auto] lg:py-14">
-          <div className="absolute inset-y-0 left-0 hidden w-[31%] overflow-hidden lg:block">
+        <Container wide className="relative grid min-h-[190px] items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+          <div
+            className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
             <Image
-              src={pageAssetSlots.about.ctaEarth}
+              src="/decorative/cta-earth.svg"
               alt=""
               fill
-              sizes="31vw"
-              className="object-cover object-left"
-              aria-hidden="true"
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
+              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#05244f]/10 to-[#05244f]" />
           </div>
-          <div className="hidden lg:block" />
-          <div className="relative">
+          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
             <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">
               Let&apos;s build the future together.
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:text-base">
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:mx-0 sm:text-base">
               Partner with Ignited Brains and be part of a movement that puts curiosity, creativity and innovation at the heart of education.
             </p>
           </div>
-          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-start lg:justify-self-end">
+          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">
             Partner With Us
           </ButtonLink>
         </Container>
