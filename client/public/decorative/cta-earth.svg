@@ -1,0 +1,85 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="ocean" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(252 210) rotate(49) scale(352)">
+      <stop stop-color="#1D7CFF"/>
+      <stop offset=".42" stop-color="#0A4DC8"/>
+      <stop offset=".78" stop-color="#052A73"/>
+      <stop offset="1" stop-color="#021735"/>
+    </radialGradient>
+    <linearGradient id="land" x1="210" y1="154" x2="454" y2="472" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#57D4FF"/>
+      <stop offset=".45" stop-color="#1595FF"/>
+      <stop offset="1" stop-color="#0A4DA6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 324) rotate(90) scale(294)">
+      <stop offset=".74" stop-color="#58C9FF" stop-opacity="0"/>
+      <stop offset=".92" stop-color="#3DBDFF" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#B8EDFF" stop-opacity=".88"/>
+    </radialGradient>
+    <filter id="shadow" x="18" y="28" width="604" height="604" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="24"/>
+    </filter>
+    <filter id="nodeGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <clipPath id="globeClip">
+      <circle cx="320" cy="320" r="218"/>
+    </clipPath>
+  </defs>
+
+  <ellipse cx="320" cy="356" rx="238" ry="238" fill="#0B67FF" fill-opacity=".18" filter="url(#shadow)"/>
+  <circle cx="320" cy="320" r="224" stroke="#50C8FF" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="320" cy="320" r="218" fill="url(#ocean)"/>
+
+  <g clip-path="url(#globeClip)" opacity=".42">
+    <ellipse cx="320" cy="320" rx="218" ry="74" stroke="#8ADFFF" stroke-width="1.5"/>
+    <ellipse cx="320" cy="320" rx="218" ry="142" stroke="#8ADFFF" stroke-width="1.5"/>
+    <ellipse cx="320" cy="320" rx="80" ry="218" stroke="#8ADFFF" stroke-width="1.5"/>
+    <ellipse cx="320" cy="320" rx="148" ry="218" stroke="#8ADFFF" stroke-width="1.5"/>
+    <path d="M102 320H538M118 248H522M118 392H522" stroke="#8ADFFF" stroke-width="1.2"/>
+  </g>
+
+  <g clip-path="url(#globeClip)">
+    <path d="M252 170c24-21 63-35 100-28 31 6 61 22 86 45l33 12 28 33-14 21-32 8-19 31-34-4-18 13-26-8-18 10-17-18-20 2-20-25-28-4-12-31-25-11 12-26 24-20Z" fill="url(#land)" opacity=".96"/>
+    <path d="M261 278l31-15 38 15 19 31-8 44-22 24-9 50-26 39-26-16-7-42-18-31 3-39-15-30 40-30Z" fill="#1286DD" opacity=".94"/>
+    <path d="M400 313l19 8 13 22-10 20-18-10-9-20 5-20Z" fill="#56C6FF" opacity=".9"/>
+    <path d="M381 296l24 10 10 22-7 30-15 25-13-26-8-30 9-31Z" fill="#7BE2FF"/>
+    <path d="M432 257l27 4 16 14-18 12-27-8 2-22Z" fill="#2FA7F5" opacity=".9"/>
+    <path d="M181 211l28-20 30 3 14 21-14 22-32 2-26-28Z" fill="#158AD8" opacity=".88"/>
+  </g>
+
+  <circle cx="320" cy="320" r="218" fill="url(#glow)"/>
+
+  <g stroke="#FFB04A" stroke-width="2" stroke-linecap="round" opacity=".8">
+    <path d="M208 250C264 202 347 191 425 232"/>
+    <path d="M248 379C302 324 369 294 432 286"/>
+    <path d="M278 211C329 244 366 280 394 326"/>
+    <path d="M196 331C263 349 330 349 406 325"/>
+  </g>
+
+  <g fill="#FF9B2F">
+    <circle cx="208" cy="250" r="5"/>
+    <circle cx="278" cy="211" r="5"/>
+    <circle cx="332" cy="229" r="5"/>
+    <circle cx="425" cy="232" r="5"/>
+    <circle cx="248" cy="379" r="5"/>
+    <circle cx="320" cy="343" r="5"/>
+    <circle cx="394" cy="326" r="7"/>
+    <circle cx="432" cy="286" r="5"/>
+  </g>
+
+  <g fill="#FFB04A" opacity=".65" filter="url(#nodeGlow)">
+    <circle cx="394" cy="326" r="16"/>
+    <circle cx="332" cy="229" r="12"/>
+    <circle cx="248" cy="379" r="11"/>
+  </g>
+
+  <g fill="none" stroke="#69D5FF" stroke-opacity=".32" stroke-width="2">
+    <ellipse cx="320" cy="320" rx="294" ry="120" transform="rotate(-16 320 320)"/>
+    <ellipse cx="320" cy="320" rx="284" ry="104" transform="rotate(24 320 320)"/>
+  </g>
+
+  <circle cx="72" cy="363" r="6" fill="#FF9B2F"/>
+  <circle cx="557" cy="237" r="6" fill="#67D7FF"/>
+  <circle cx="532" cy="447" r="5" fill="#FF9B2F"/>
+</svg>
