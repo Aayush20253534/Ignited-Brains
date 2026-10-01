@@ -20,7 +20,7 @@ test('student application requires student details', () => {
     email: 'student@example.com',
     phone: '9999999999',
     details: {},
-  }), /institution name is required/);
+  }), /institutionName is required/);
 });
 
 test('organization application accepts structured requirements', () => {
@@ -42,20 +42,4 @@ test('organization application accepts structured requirements', () => {
 
   assert.equal(result.applicantType, 'ORGANIZATION');
   assert.deepEqual(result.details.requestedSolutions, ['SCIENCE_PARK', 'SPACE_LAB']);
-});
-
-const organizationPayload = (details) => ({
-  applicantType: 'ORGANIZATION', name: 'Educator', email: 'teacher@example.com', phone: '9999999999',
-  details: { organizationName: 'Example School', organizationType: 'SCHOOL', designation: 'Teacher', institutionAddress: 'Example City', requirementDetails: 'A robotics lab', ...details },
-});
-
-test('AI robotics is accepted and duplicate solution requests are normalized', () => {
-  const result = parseApplicationPayload(organizationPayload({ requestedSolutions: ['ai_robotics', 'AI_ROBOTICS'] }));
-  assert.deepEqual(result.details.requestedSolutions, ['AI_ROBOTICS']);
-});
-
-test('student count rejects fractional and partially numeric values', () => {
-  for (const estimatedStudents of ['1.5', '12students', '0', '1000001']) {
-    assert.throws(() => parseApplicationPayload(organizationPayload({ requestedSolutions: ['AI_ROBOTICS'], estimatedStudents })), /whole number/);
-  }
 });

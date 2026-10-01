@@ -1,4 +1,3 @@
-import { CtaBand } from "@/components/layout/cta-band";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -54,7 +53,7 @@ export default function HomePage() {
     <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="page-hero relative grid min-h-[610px] items-center gap-6 py-10 sm:gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10 lg:py-0">
+        <Container wide className="relative grid min-h-[610px] items-center gap-6 py-10 sm:gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10 lg:py-0">
           <div className="relative z-10 py-4 sm:py-6 lg:py-14">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
@@ -71,31 +70,49 @@ export default function HomePage() {
               </ButtonLink>
               <Link
                 href="#our-story"
-                className="focus-ring inline-flex min-h-11 items-center justify-center gap-3 rounded-full border border-brand-line bg-white px-6 font-bold text-brand-blue transition hover:border-brand-blue/35 hover:bg-brand-sky sm:px-7"
+                className="focus-ring inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-brand-line bg-white px-6 font-bold text-brand-blue transition hover:border-brand-blue/35 hover:bg-brand-sky sm:px-7"
               >
                 <PlayCircle className="h-7 w-7 border-0 bg-brand-sky shadow-none [&_svg]:h-3 [&_svg]:w-3" />
-                <span>Watch Learning Film</span>
+                <span>Watch Our Story</span>
               </Link>
             </div>
 
-            <div className="mt-9 grid max-w-2xl grid-cols-3 gap-4 border-t border-brand-line/80 pt-6 sm:grid-cols-3">
+            <div className="mt-9 grid max-w-2xl grid-cols-1 gap-4 border-t border-brand-line/80 pt-6 sm:grid-cols-3">
               {homePrinciples.map((item) => (
-                <div key={item.title} className="flex flex-col items-center gap-2 text-center sm:flex-row sm:gap-3 sm:text-left">
+                <div key={item.title} className="flex items-center gap-3">
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-brand-orange">
                     <HomeIcon name={item.icon} className="h-6 w-6" />
                   </span>
                   <div>
                     <p className="text-sm font-extrabold text-brand-blue">{item.title}</p>
-                    <p className="mt-0.5 hidden text-[0.7rem] font-semibold text-brand-muted sm:block">{item.description}</p>
+                    <p className="mt-0.5 text-[0.7rem] font-semibold text-brand-muted">{item.description}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="hero-visual relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[610px]">
+          <div className="relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[610px]">
             <div className="absolute inset-y-0 left-[-10%] -right-4 sm:-right-12 lg:-right-20 overflow-hidden rounded-bl-[3rem] sm:rounded-bl-[4rem] lg:left-[-20%] lg:rounded-bl-[5rem]">
-              <Image src={pageAssetSlots.home.hero} alt="Space learning environment with rocket models, telescopes and interactive exhibits" fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+              {pageAssetSlots.home.hero.endsWith(".mp4") ? (
+                <video
+                  src={pageAssetSlots.home.hero}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover object-center"
+                />
+              ) : (
+                <Image
+                  src={pageAssetSlots.home.hero}
+                  alt="Student building a robotics project in an Ignited Brains innovation lab"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover object-center"
+                />
+              )}
               <div
                 className="absolute inset-0"
                 style={{
@@ -104,7 +121,10 @@ export default function HomePage() {
                 }}
               />
             </div>
-
+            <div className="absolute right-6 top-12 hidden max-w-40 rotate-[-4deg] text-right text-2xl font-semibold italic leading-tight text-white drop-shadow-md xl:block">
+              Young Minds.<br />Bigger Tomorrows.
+              <span className="ml-auto mt-3 block h-0.5 w-12 rotate-[-8deg] bg-brand-orange" />
+            </div>
           </div>
         </Container>
       </section>
@@ -163,7 +183,7 @@ export default function HomePage() {
             </ButtonLink>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
             {transformationSteps.map((step, index) => (
               <div key={`${step.label}-${index}`} className="group relative">
                 <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
@@ -180,7 +200,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 {index < transformationSteps.length - 1 ? (
-                  <span className="absolute -right-[11px] top-[42%] z-10 hidden h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm xl:grid">
+                  <span className="absolute -right-[11px] top-[42%] z-10 hidden h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:grid">
                     <ArrowIcon className="h-4 w-4" />
                   </span>
                 ) : null}
@@ -206,7 +226,7 @@ export default function HomePage() {
 
           <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {homeSolutions.map((solution) => (
-              <article key={solution.title} className="group flex flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
+              <article key={solution.title} className="group overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
                 <div className="relative">
                   <SiteImage
                     src={solution.image}
@@ -219,10 +239,10 @@ export default function HomePage() {
                     <HomeIcon name={solution.icon} className="h-5 w-5" />
                   </span>
                 </div>
-                <div className="flex flex-1 flex-col px-5 pb-5 pt-8">
+                <div className="px-5 pb-5 pt-8">
                   <h3 className="text-xl font-black tracking-[-0.025em] text-brand-blue">{solution.title}</h3>
                   <p className="mt-2 min-h-16 text-sm leading-6 text-brand-muted">{solution.description}</p>
-                  <div className="mt-auto pt-4">
+                  <div className="mt-4">
                     <SmallArrowLink href={solution.href}>Explore</SmallArrowLink>
                   </div>
                 </div>
@@ -246,7 +266,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-3 lg:grid-cols-7 lg:gap-0">
+          <div className="mt-10 grid gap-y-7 sm:grid-cols-2 lg:grid-cols-7 lg:gap-0">
             {learningCycle.map((item, index) => (
               <div key={item.step} className="relative px-2 text-center">
                 <div className="relative mx-auto grid h-20 w-20 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm">
@@ -275,25 +295,25 @@ export default function HomePage() {
               Don&apos;t just teach science. Let students experience it.
             </h2>
             <p className="mt-5 max-w-lg text-base leading-7 text-white/70">
-              A short visual introduction to our vision for hands-on learning.
+              Watch how Ignited Brains is transforming schools through hands-on learning.
             </p>
-            <ButtonLink href="#story-film" size="lg" showArrow className="mt-7">
-              Watch Learning Film
+            <ButtonLink href="/media" size="lg" showArrow className="mt-7">
+              Play Our Story
             </ButtonLink>
           </div>
 
-          <div id="story-film" className="relative overflow-hidden rounded-[1.3rem] border border-white/20 bg-white/5 shadow-[0_22px_70px_rgba(0,0,0,.26)]">
+          <Link href="/media" className="group focus-ring relative overflow-hidden rounded-[1.3rem] border border-white/20 bg-white/5 shadow-[0_22px_70px_rgba(0,0,0,.26)]">
             <video
               src="/media/homeimg.mp4"
               poster={pageAssetSlots.home.storyVideo}
-              controls
-              preload="none"
+              autoPlay
+              muted
+              loop
               playsInline
-              aria-label="Ignited Brains learning vision film"
               className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
             />
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#041b3f]/35 via-transparent to-transparent" />
-          </div>
+          </Link>
         </Container>
       </section>
 
@@ -343,7 +363,7 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            <ButtonLink href="/projects#featured-project" showArrow className="mt-7">
+            <ButtonLink href="/projects" showArrow className="mt-7">
               View Project Details
             </ButtonLink>
           </div>
@@ -382,14 +402,38 @@ export default function HomePage() {
               alt="Ignited Brains vision for innovation across India"
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-contain"
+              className="scale-[1.025] object-cover"
               style={{ objectPosition: "center 30%" }}
             />
           </div>
         </Container>
       </section>
 
-      <CtaBand className="home-school-cta" title="Ready to transform your school?" description="Let’s create a space where students don’t just learn about the future. They build it." />
+      <section className="home-school-cta dark-space-surface border-y border-white/10">
+        <Container wide className="relative grid items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+          <div className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80" aria-hidden="true">
+            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
+            <Image
+              src="/decorative/cta-earth.svg"
+              alt=""
+              fill
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
+              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
+            />
+          </div>
+          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
+            <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+              Ready to transform your school?
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:mx-0 sm:text-base">
+              Let&apos;s create a space where students don&apos;t just learn about the future. They build it.
+            </p>
+          </div>
+          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">
+            Partner With Us
+          </ButtonLink>
+        </Container>
+      </section>
     </main>
   );
 }

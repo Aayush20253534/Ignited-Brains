@@ -11,6 +11,7 @@ interface BrandLogoProps {
 
 export function BrandLogo({
   className,
+  compact = false,
   inverted = false,
 }: BrandLogoProps) {
   const textColor = inverted ? "text-white" : "text-brand-blue";

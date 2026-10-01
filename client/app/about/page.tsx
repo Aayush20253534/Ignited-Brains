@@ -1,10 +1,9 @@
-import { CtaBand } from "@/components/layout/cta-band";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { HomeIcon } from "@/components/home/home-icon";
-import { ArrowIcon, ButtonLink, Container } from "@/components/ui";
+import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
 import {
   aboutPrinciples,
   aboutValues,
@@ -35,13 +34,13 @@ export default function AboutPage() {
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_34%,rgba(36,117,238,.14),transparent_31rem)]" />
-        <Container wide className="page-hero relative grid min-h-[590px] items-center gap-10 py-10 lg:grid-cols-[0.82fr_1.18fr] lg:py-0">
+        <Container wide className="relative grid min-h-[590px] items-center gap-10 py-10 lg:grid-cols-[0.82fr_1.18fr] lg:py-0">
           <div className="relative z-10 py-6 lg:py-14">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-brand-blue/55 sm:text-xs">
               About Ignited Brains
             </p>
             <h1 className="mt-5 max-w-[680px] text-balance text-[clamp(3.2rem,5.7vw,5.85rem)] font-black leading-[0.94] tracking-[-0.055em] text-brand-blue">
-              Learning that <span className="text-brand-orange">ignites</span> young minds.
+              Education should do more than teach. It should <span className="text-brand-orange">ignite.</span>
             </h1>
             <p className="mt-6 max-w-[610px] text-[0.98rem] font-medium leading-7 text-brand-ink/75 sm:text-[1.04rem]">
               Ignited Brains creates future-ready learning environments where curiosity becomes experimentation, creativity becomes creation and innovation becomes action.
@@ -71,11 +70,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="hero-visual relative min-h-[390px] self-stretch lg:min-h-[590px]">
+          <div className="relative min-h-[390px] self-stretch lg:min-h-[590px]">
             <div className="absolute inset-y-0 left-[-8%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-16 lg:left-[-15%] lg:-right-20">
               <Image
                 src={pageAssetSlots.about.hero}
-                alt="Ignited Brains team and students at a science exhibition"
+                alt="Student building a robotics project in an Ignited Brains learning environment"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 58vw"
@@ -178,7 +177,7 @@ export default function AboutPage() {
                 showArrow
                 className="mt-7 bg-transparent text-brand-blue hover:border-brand-blue/35 hover:bg-brand-sky hover:text-brand-blue"
               >
-                How We Grow
+                Our Journey
               </ButtonLink>
             </div>
 
@@ -197,7 +196,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <ol id="journey" aria-label="Our approach to growing hands-on learning" className="relative ml-3 border-l-2 border-brand-orange/45 pl-7 scroll-mt-28">
+            <ol id="journey" className="relative ml-3 border-l-2 border-brand-orange/45 pl-7 scroll-mt-28">
               {storyMilestones.map((item, index) => (
                 <li key={item.title} className={index === storyMilestones.length - 1 ? "relative" : "relative pb-6"}>
                   <span className="absolute -left-[2.22rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-white bg-brand-orange ring-2 ring-brand-orange" />
@@ -319,7 +318,34 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <CtaBand title="Let’s build the future together." description="Partner with Ignited Brains and put curiosity, creativity and innovation at the heart of education." />
+      <section className="dark-space-surface border-y border-white/10">
+        <Container wide className="relative grid min-h-[190px] items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+          <div
+            className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
+            <Image
+              src="/decorative/cta-earth.svg"
+              alt=""
+              fill
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
+              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
+            />
+          </div>
+          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
+            <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">
+              Let&apos;s build the future together.
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:mx-0 sm:text-base">
+              Partner with Ignited Brains and be part of a movement that puts curiosity, creativity and innovation at the heart of education.
+            </p>
+          </div>
+          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">
+            Partner With Us
+          </ButtonLink>
+        </Container>
+      </section>
     </main>
   );
 }

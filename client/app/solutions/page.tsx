@@ -1,14 +1,15 @@
-import { CtaBand } from "@/components/layout/cta-band";
-import { SolutionSelector } from "@/components/solutions/solution-selector";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import { HomeIcon } from "@/components/home/home-icon";
-import { ButtonLink, Container, Eyebrow } from "@/components/ui";
+import { SiteImage } from "@/components/media";
+import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
 import {
   solutionHeroPrinciples,
   solutionLearningCycle,
   solutionShowcase,
+  solutionTabs,
 } from "@/data/solutions";
 import { pageAssetSlots } from "@/lib/assets";
 
@@ -35,7 +36,7 @@ export default function SolutionsPage() {
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_32%,rgba(38,123,255,.15),transparent_31rem)]" />
-        <Container wide className="page-hero relative grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
+        <Container wide className="relative grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
           <div className="relative z-10 py-6 lg:py-12">
             <Eyebrow>Our Solutions</Eyebrow>
             <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.1rem,5.4vw,5.5rem)] font-black leading-[0.94] tracking-[-0.055em] text-brand-blue">
@@ -48,12 +49,12 @@ export default function SolutionsPage() {
               <ButtonLink href="#solutions" size="lg" showArrow>
                 Explore Our Solutions
               </ButtonLink>
-              <ButtonLink href="/media#latest-videos" size="lg" variant="outline" showArrow>
+              <ButtonLink href="/media" size="lg" variant="outline" showArrow>
                 Watch Video
               </ButtonLink>
             </div>
 
-            <div className="mt-9 grid max-w-3xl grid-cols-2 gap-x-5 gap-y-4 border-t border-brand-line/80 pt-6 sm:grid-cols-2">
+            <div className="mt-9 grid max-w-3xl grid-cols-2 gap-x-5 gap-y-4 border-t border-brand-line/80 pt-6 sm:grid-cols-4">
               {solutionHeroPrinciples.map((item) => (
                 <div key={item.title} className="flex items-center gap-2.5">
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-brand-orange">
@@ -68,11 +69,11 @@ export default function SolutionsPage() {
             </div>
           </div>
 
-          <div className="hero-visual relative min-h-[390px] self-stretch lg:min-h-[560px]">
+          <div className="relative min-h-[390px] self-stretch lg:min-h-[560px]">
             <div className="absolute inset-y-0 left-[-7%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-13%] lg:-right-20">
               <Image
                 src={pageAssetSlots.solutions.hero}
-                alt="AI and robotics learning space with interactive models"
+                alt="Student building a robotics project inside a future-ready learning environment"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 60vw"
@@ -149,7 +150,8 @@ export default function SolutionsPage() {
           </div>
 
           <div className="relative mx-auto w-full max-w-3xl py-3">
-            <div className="relative grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/25 sm:h-[390px] sm:w-[390px]" />
+            <div className="relative grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
               {solutionLearningCycle.map((item) => (
                 <div key={item.title} className="flex flex-col items-center text-center">
                   <span className="grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
@@ -179,7 +181,41 @@ export default function SolutionsPage() {
             </div>
           </div>
 
-          <SolutionSelector />
+          <div className="mt-8 grid gap-5 lg:grid-cols-[1fr_0.9fr] lg:items-stretch">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {solutionTabs.map((item, index) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={index === 0
+                    ? "focus-ring flex min-h-32 flex-col items-center justify-center rounded-2xl border border-brand-line bg-white p-4 text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"
+                    : "focus-ring flex min-h-32 flex-col items-center justify-center rounded-2xl border border-brand-line bg-white p-4 text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"}
+                >
+                  <HomeIcon name={item.icon} className="h-8 w-8" />
+                  <span className="mt-3 text-sm font-black">{item.label}</span>
+                </Link>
+              ))}
+            </div>
+
+            <article className="grid overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card sm:grid-cols-[0.82fr_1.18fr]">
+              <SiteImage
+                src={pageAssetSlots.spaceLab.astronaut}
+                alt="Student imagining future possibilities through science"
+                aspectRatio="1/1"
+                sizes="(max-width: 640px) 100vw, 24vw"
+                className="min-h-48 rounded-none"
+                imageClassName="object-cover"
+              />
+              <div className="flex flex-col justify-center p-6">
+                <h3 className="text-2xl font-black tracking-[-0.035em] text-brand-blue">Space Lab</h3>
+                <p className="mt-2 text-sm leading-6 text-brand-muted">Inspiring the next generation of space explorers through hands-on learning.</p>
+                <ul className="mt-4 grid grid-cols-2 gap-2 text-xs font-bold text-brand-blue/75">
+                  <li>✦ Models</li><li>✦ Experiments</li><li>✦ Observation</li><li>✦ Exploration</li>
+                </ul>
+                <ButtonLink href="/solutions/space-lab" showArrow className="mt-5 self-start">Explore Space Lab</ButtonLink>
+              </div>
+            </article>
+          </div>
         </Container>
       </section>
 
@@ -201,7 +237,28 @@ export default function SolutionsPage() {
         </Container>
       </section>
 
-      <CtaBand title="Let’s build innovation in your school." description="Discover how Ignited Brains can create a future-ready learning environment for your students." buttonLabel="Discuss Your School" buttonHref="/schools#consultation" />
+      <section className="dark-space-surface border-y border-white/10">
+        <Container wide className="relative grid items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+          <div
+            className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
+            <Image
+              src="/decorative/cta-earth.svg"
+              alt=""
+              fill
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
+              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
+            />
+          </div>
+          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
+            <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">Let&apos;s build innovation in your school.</h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/65 sm:mx-0">Discover how Ignited Brains can create a future-ready learning environment for your students.</p>
+          </div>
+          <ButtonLink href="/schools" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">Discuss Your School</ButtonLink>
+        </Container>
+      </section>
     </main>
   );
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { ContactForm } from "@/components/contact/contact-form";
 import { HomeIcon } from "@/components/home/home-icon";
-
+import { SocialIcon } from "@/components/layout/social-icon";
 import { ArrowIcon, Container, Eyebrow } from "@/components/ui";
 import {
   contactFaqs,
@@ -46,12 +46,11 @@ function PinIcon() {
   );
 }
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ subject?: string }> }) {
-  const { subject = "" } = await searchParams;
+export default function ContactPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid items-start gap-8 py-10 lg:grid-cols-[1fr_1fr] lg:gap-12 lg:py-14">
+        <Container wide className="grid items-center gap-7 py-10 lg:min-h-[calc(100vh-5.5rem)] lg:grid-cols-[0.78fr_0.82fr_0.9fr] lg:gap-0 lg:py-8">
           <div className="relative z-20 py-4 lg:pr-8">
             <Eyebrow>Partner With Us</Eyebrow>
             <h1 className="mt-5 max-w-[560px] text-balance text-[clamp(3.2rem,5.4vw,5.65rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -70,7 +69,19 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             </div>
           </div>
 
-          <ContactForm subject={subject.slice(0, 180)} />
+          <div className="relative z-0 min-h-[390px] overflow-hidden rounded-3xl lg:min-h-[calc(100vh-6.5rem)] lg:rounded-none lg:rounded-bl-[5rem]">
+            <Image
+              src={pageAssetSlots.contact.hero}
+              alt="Student looking toward a model rocket in an innovation lab"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 34vw"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-transparent lg:from-white/25" />
+          </div>
+
+          <ContactForm />
         </Container>
       </section>
 
@@ -129,7 +140,13 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                 <div><p className="text-xs text-brand-muted">Location</p><p className="text-sm font-black text-brand-blue">Prayagraj, Uttar Pradesh, India</p></div>
               </li>
             </ul>
-
+            <div className="mt-5 flex gap-2">
+              {["linkedin", "instagram", "youtube"].map((network) => (
+                <span key={network} aria-label={`${network} profile link pending`} title={`${network} profile link pending`} className="grid h-9 w-9 place-items-center rounded-full bg-brand-blue/85 text-white">
+                  <SocialIcon network={network as "linkedin" | "instagram" | "youtube"} className="h-4 w-4" />
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="grid overflow-hidden rounded-3xl border border-brand-line bg-brand-mist shadow-card md:grid-cols-[1.1fr_0.9fr]">
@@ -154,7 +171,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               <h2 className="text-4xl font-black tracking-[-0.045em] text-brand-blue">Frequently Asked Questions</h2>
               <p className="mt-2 text-sm text-brand-muted">Quick answers to common questions.</p>
             </div>
-            <a href="mailto:info@ignitedbrains.com" className="focus-ring hidden items-center gap-2 text-sm font-extrabold text-brand-orange sm:inline-flex">Ask a Question <ArrowIcon className="h-4 w-4" /></a>
+            <a href="mailto:info@ignitedbrains.com" className="focus-ring hidden items-center gap-2 text-sm font-extrabold text-brand-orange sm:inline-flex">View All FAQs <ArrowIcon className="h-4 w-4" /></a>
           </div>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-[1.22fr_0.78fr] lg:items-stretch">
@@ -170,7 +187,16 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               ))}
             </div>
             <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-              <Image src={pageAssetSlots.contact.faqVisual} alt="Hands-on robotics learning" width={720} height={540} sizes="(max-width: 1024px) 100vw, 40vw" className="h-full w-full object-cover" />
+              <video
+                src="/media/homeimg.mp4"
+                poster={pageAssetSlots.home.storyVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-label="Student building a robotics project"
+                className="aspect-[16/6.5] h-full w-full object-cover"
+              />
             </div>
           </div>
         </Container>

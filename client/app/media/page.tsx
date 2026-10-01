@@ -1,12 +1,10 @@
-import { ImageGallery } from "@/components/media/image-gallery";
-import { NewsletterForm } from "@/components/contact/newsletter-form";
 import type { Metadata } from "next";
 import Image from "next/image";
 
 import { HomeIcon } from "@/components/home/home-icon";
 import { MediaBrowser } from "@/components/media-feed/media-browser";
 import { SiteImage } from "@/components/media";
-import { ButtonLink, Container, Eyebrow } from "@/components/ui";
+import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
 import { fieldStories, mediaVideos } from "@/data/media";
 import { pageAssetSlots } from "@/lib/assets";
 
@@ -21,7 +19,7 @@ export default function MediaPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="page-hero grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
+        <Container wide className="grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
           <div className="relative z-10 py-4 lg:py-12">
             <Eyebrow>Media &amp; Insights</Eyebrow>
             <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -51,11 +49,11 @@ export default function MediaPage() {
             </div>
           </div>
 
-          <div className="hero-visual relative min-h-[400px] self-stretch lg:min-h-[560px]">
+          <div className="relative min-h-[400px] self-stretch lg:min-h-[560px]">
             <div className="absolute inset-y-0 left-[-6%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-12%] lg:-right-20">
               <Image
                 src={pageAssetSlots.media.hero}
-                alt="Students and the Ignited Brains team at a science exhibition"
+                alt="Student building a robotics rover"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 62vw"
@@ -73,7 +71,7 @@ export default function MediaPage() {
             <Eyebrow>Featured Story</Eyebrow>
             <h2 className="mt-3 text-balance text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Turning curiosity into real-world solutions</h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-brand-muted">How a group of Class 9 students built an autonomous rover as part of our AI &amp; Robotics Lab program, exploring navigation, sensors and real-world problem solving.</p>
-            <ButtonLink href="/projects#featured-project" className="mt-6" showArrow>Explore the Rover Project</ButtonLink>
+            <ButtonLink href="#latest-articles" className="mt-6" showArrow>Read Full Story</ButtonLink>
           </div>
           <div className="overflow-hidden rounded-3xl shadow-card">
             <SiteImage src={pageAssetSlots.media.featured} alt="Students working on an autonomous rover" aspectRatio="16/8" className="rounded-3xl" sizes="(max-width: 1024px) 100vw, 58vw" />
@@ -95,13 +93,14 @@ export default function MediaPage() {
               <Eyebrow>Latest Videos</Eyebrow>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Stories that inspire.</h2>
             </div>
+            <a href="#field-stories" className="focus-ring hidden items-center gap-2 text-sm font-extrabold text-brand-orange sm:inline-flex">View All Videos <ArrowIcon className="h-4 w-4" /></a>
           </div>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             {mediaVideos.map((video) => (
               <article key={video.title}>
                 <div className="group relative overflow-hidden rounded-2xl border border-brand-line shadow-card">
-                  <video src={video.video} poster={video.image} controls playsInline preload="none" aria-label={video.title} className="aspect-video w-full bg-brand-navy" />
+                  <SiteImage src={video.image} alt={video.title} aspectRatio="16/8.5" className="rounded-none" sizes="(max-width: 768px) 100vw, 33vw" />
                 </div>
                 <h3 className="mt-4 text-lg font-black tracking-[-0.025em] text-brand-blue">{video.title}</h3>
                 <p className="mt-1.5 text-sm leading-6 text-brand-muted">{video.description}</p>
@@ -118,9 +117,23 @@ export default function MediaPage() {
               <Eyebrow>Stories From the Field</Eyebrow>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Real moments. Real inspiration.</h2>
             </div>
+            <div className="hidden gap-2 sm:flex" aria-hidden="true">
+              <span className="grid h-10 w-10 place-items-center rounded-full border border-brand-blue/30 text-brand-blue">←</span>
+              <span className="grid h-10 w-10 place-items-center rounded-full border border-brand-blue/30 text-brand-blue">→</span>
+            </div>
           </div>
 
-          <ImageGallery items={fieldStories.map((story) => ({ image: story.image, label: story.title }))} />
+          <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {fieldStories.map((story) => (
+              <article key={story.title} className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
+                <SiteImage src={story.image} alt={story.title} aspectRatio="16/9" className="rounded-none" sizes="(max-width: 768px) 50vw, 25vw" />
+                <div className="flex items-center justify-between gap-3 px-4 py-3">
+                  <p className="text-xs font-extrabold text-brand-blue">{story.title}</p>
+                  <ArrowIcon className="h-4 w-4 shrink-0 text-brand-blue" />
+                </div>
+              </article>
+            ))}
+          </div>
         </Container>
       </section>
 
@@ -134,7 +147,11 @@ export default function MediaPage() {
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand-orange">Stay Curious</p>
             <h2 className="mt-3 text-balance text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl">Get the latest stories, updates and innovations in your inbox.</h2>
             <p className="mt-4 text-sm leading-6 text-white/70">Join a growing community of educators, students and innovators.</p>
-            <NewsletterForm />
+            <form action="/contact" className="mt-6 flex max-w-xl rounded-full bg-white p-1.5 shadow-xl">
+              <label htmlFor="media-newsletter" className="sr-only">Email address</label>
+              <input id="media-newsletter" name="email" type="email" required placeholder="Enter your email address" className="min-w-0 flex-1 rounded-full bg-transparent px-4 text-sm text-brand-ink outline-none placeholder:text-brand-muted/70" />
+              <button type="submit" className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-orange px-5 text-sm font-extrabold text-white transition hover:bg-brand-orange-dark">Subscribe <ArrowIcon className="h-4 w-4" /></button>
+            </form>
           </div>
         </Container>
       </section>

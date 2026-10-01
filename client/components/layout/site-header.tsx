@@ -92,7 +92,7 @@ export function SiteHeader() {
     if (!mobileOpen) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !document.querySelector("dialog[open]")) closeMobileMenu();
+      if (event.key === "Escape") closeMobileMenu();
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -111,8 +111,8 @@ export function SiteHeader() {
       <Container
         wide
         className={cn(
-          "flex h-[64px] items-center justify-between gap-3 transition-[height] duration-300 sm:gap-4 xl:grid xl:h-[68px] xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-4 xl:gap-6",
-          scrolled && "xl:h-[64px]",
+          "flex h-[64px] items-center justify-between gap-3 transition-[height] duration-300 sm:gap-4 lg:grid lg:h-[68px] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-4 xl:gap-6",
+          scrolled && "lg:h-[64px]",
         )}
       >
         <div className="flex shrink-0 items-center gap-2.5">
@@ -124,7 +124,7 @@ export function SiteHeader() {
           </span>
         </div>
 
-        <nav className="hidden h-full min-w-0 items-stretch justify-center xl:flex" aria-label="Primary navigation">
+        <nav className="hidden h-full min-w-0 items-stretch justify-center lg:flex" aria-label="Primary navigation">
           <ul className="flex h-full items-stretch gap-0.5 xl:gap-1">
             {mainNavigation.map((item) => {
               const active = isNavigationItemActive(pathname, item);
@@ -197,13 +197,13 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden xl:block">
+        <div className="hidden lg:block">
           <PartnerApplicationDialog className="!min-h-10 !rounded-lg px-4 text-sm xl:px-5" />
         </div>
 
         <button
           type="button"
-          className="focus-ring grid h-10 w-10 place-items-center rounded-lg border border-brand-line bg-white text-brand-blue xl:hidden"
+          className="focus-ring grid h-10 w-10 place-items-center rounded-lg border border-brand-line bg-white text-brand-blue lg:hidden"
           onClick={() => setMobileOpen((value) => !value)}
           aria-expanded={mobileOpen}
           aria-controls="mobile-navigation"
@@ -216,7 +216,7 @@ export function SiteHeader() {
       <div
         id="mobile-navigation"
         className={cn(
-          "fixed inset-x-0 top-[64px] z-40 h-[calc(100dvh-64px)] overflow-y-auto border-t border-brand-line bg-white transition duration-200 xl:hidden",
+          "fixed inset-x-0 top-[64px] z-40 h-[calc(100dvh-64px)] overflow-y-auto border-t border-brand-line bg-white transition duration-200 lg:hidden",
           mobileOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
         )}
       >

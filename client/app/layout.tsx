@@ -1,24 +1,9 @@
-import { SiteShell } from "@/components/layout/site-shell";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
-import localFont from "next/font/local";
-import { SiteFooter, SiteHeader } from "@/components/layout";
-import { siteConfig } from "@/lib/site";
 import "./globals.css";
-
-const inter = localFont({
-  src: [
-    { path: "../node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2", weight: "400", style: "normal" },
-    { path: "../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2", weight: "500", style: "normal" },
-    { path: "../node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2", weight: "600", style: "normal" },
-    { path: "../node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2", weight: "700", style: "normal" },
-    { path: "../node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2", weight: "800", style: "normal" },
-    { path: "../node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2", weight: "900", style: "normal" },
-  ],
-  variable: "--font-inter",
-  display: "swap",
-});
+import { SiteFooter, SiteHeader, SiteMotion } from "@/components/layout";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -92,13 +77,23 @@ const organizationSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en">
       <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        <SiteShell header={<SiteHeader />} footer={<SiteFooter />}>{children}</SiteShell>
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <SiteMotion />
+          <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </div>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

@@ -1,13 +1,10 @@
-import { CtaBand } from "@/components/layout/cta-band";
-import { ImageGallery } from "@/components/media/image-gallery";
-import { PartnerApplicationDialog } from "@/components/layout/partner-application-dialog";
 import type { Metadata } from "next";
 import Image from "next/image";
 
 import { HomeIcon } from "@/components/home/home-icon";
 import { SiteImage } from "@/components/media";
 import { ProjectBrowser } from "@/components/projects/project-browser";
-import { ButtonLink, Container, Eyebrow } from "@/components/ui";
+import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
 import {
   featuredProjectBullets,
   projectGallery,
@@ -24,11 +21,24 @@ export const metadata: Metadata = {
   alternates: { canonical: "/projects" },
 };
 
+function PlayButton({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 text-sm font-extrabold text-white">
+      <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-brand-blue shadow-lg" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-[1px]" fill="currentColor">
+          <path d="m8.5 6.5 9 5.5-9 5.5v-11Z" />
+        </svg>
+      </span>
+      {label}
+    </span>
+  );
+}
+
 export default function ProjectsPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="page-hero grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
+        <Container wide className="grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
           <div className="relative z-10 py-4 lg:py-12">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-brand-blue/55">Our Impact &amp; Projects</p>
             <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -39,18 +49,18 @@ export default function ProjectsPage() {
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <ButtonLink href="/solutions" size="lg" showArrow>Explore Our Solutions</ButtonLink>
-              <ButtonLink href="#featured-project" size="lg" variant="outline">Explore Featured Project</ButtonLink>
+              <ButtonLink href="#featured-project" size="lg" variant="outline">Watch Video</ButtonLink>
             </div>
             <p className="mt-8 text-xs font-bold text-brand-muted">
               <span className="text-brand-orange">—</span> Real Schools <span className="px-2 text-brand-orange">+</span> Real Experiences <span className="px-2 text-brand-orange">+</span> Real Possibilities
             </p>
           </div>
 
-          <div className="hero-visual relative min-h-[400px] self-stretch lg:min-h-[560px]">
+          <div className="relative min-h-[400px] self-stretch lg:min-h-[560px]">
             <div className="absolute inset-y-0 left-[-6%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-12%] lg:-right-20">
               <Image
                 src={pageAssetSlots.projects.hero}
-                alt="A hands-on robotics rover prototype"
+                alt="Students collaborating on a robotics rover project"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 62vw"
@@ -100,6 +110,7 @@ export default function ProjectsPage() {
               className="rounded-3xl"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/55 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5"><PlayButton label="Watch Video" /></div>
           </div>
 
           <div className="relative">
@@ -115,7 +126,7 @@ export default function ProjectsPage() {
                 </li>
               ))}
             </ul>
-            <ButtonLink href="/contact" className="mt-7" showArrow>Discuss a Similar Project</ButtonLink>
+            <ButtonLink href="/contact" className="mt-7" showArrow>View Full Project</ButtonLink>
             <span className="pointer-events-none absolute -right-2 -top-10 text-[7rem] font-black leading-none text-brand-blue/[0.045] sm:text-[10rem]">01</span>
           </div>
         </Container>
@@ -150,14 +161,22 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
-      <section id="project-gallery" className="soft-blue-surface border-y border-brand-line/70 py-12 sm:py-14 lg:py-16">
+      <section className="soft-blue-surface border-y border-brand-line/70 py-12 sm:py-14 lg:py-16">
         <Container wide>
           <div className="flex items-end justify-between gap-4">
             <div>
               <Eyebrow>Glimpses From Our Projects</Eyebrow>
             </div>
+            <a href="#project-impact" className="focus-ring inline-flex items-center gap-2 text-sm font-extrabold text-brand-orange">View Gallery <ArrowIcon className="h-4 w-4" /></a>
           </div>
-          <ImageGallery items={projectGallery} />
+          <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {projectGallery.map((item) => (
+              <article key={item.label} className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
+                <SiteImage src={item.image} alt={item.label} aspectRatio="16/9" className="rounded-none" sizes="(max-width: 768px) 50vw, 25vw" />
+                <p className="px-4 py-3 text-xs font-extrabold text-brand-blue">{item.label}</p>
+              </article>
+            ))}
+          </div>
         </Container>
       </section>
 
@@ -167,7 +186,7 @@ export default function ProjectsPage() {
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Our Growing Impact</p>
             <h2 className="mt-3 text-balance text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">More curious minds. A brighter India.</h2>
             <p className="mt-4 max-w-md text-sm leading-6 text-brand-muted">We are working with schools across India to make hands-on learning accessible to every student.</p>
-            <PartnerApplicationDialog className="mt-6" />
+            <ButtonLink href="/contact" className="mt-6" showArrow>Partner With Us</ButtonLink>
           </div>
 
           <div className="relative mx-auto w-full max-w-[520px]">
@@ -186,7 +205,29 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
-      <CtaBand eyebrow="Be a part of the change" title="Let’s create more stories of innovation." description="Partner with Ignited Brains and bring hands-on learning to more schools across India." />
+      <section className="dark-space-surface border-y border-white/10">
+        <Container wide className="relative grid items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+          <div
+            className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
+            <Image
+              src="/decorative/cta-earth.svg"
+              alt=""
+              fill
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
+              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
+            />
+          </div>
+          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
+            <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/60">Be a Part of the Change</p>
+            <h2 className="mt-3 max-w-2xl text-balance text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl">Let’s create more stories of innovation.</h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/70 sm:mx-0">Partner with Ignited Brains and bring hands-on learning to more schools across India.</p>
+          </div>
+          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">Partner With Us</ButtonLink>
+        </Container>
+      </section>
     </main>
   );
 }

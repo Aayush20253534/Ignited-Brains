@@ -67,17 +67,3 @@ Or run the non-build checks together:
 ```bash
 npm run check
 ```
-
-## UI regression checks
-
-Run `npx playwright install chromium` once, then `npm run test:ui`.
-The suite builds and starts its own local production server and checks every page
-at 320, 375, 768, 1024 and 1440 pixels. It also checks dialog focus/Escape behavior,
-project and gallery controls, solution selection, video filters, form payloads,
-error recovery and mobile admin records. API requests are mocked; these checks do
-not create production enquiries or send emails. To use an existing Chromium
-binary, set `UI_CHROMIUM_PATH` to its path.
-
-Newsletter update requests are saved through the enquiries service under the
-subject **Newsletter subscription request** for the team to process. This is not
-an automated mailing-list provider integration.

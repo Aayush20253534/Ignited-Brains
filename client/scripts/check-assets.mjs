@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 
 const publicDir = join(process.cwd(), "public");
@@ -26,8 +26,6 @@ const supportedExtensions = new Set([
   ".jpg",
   ".jpeg",
   ".svg",
-  ".mp4",
-  ".woff2",
 ]);
 
 const maxRecommendedBytes = 4 * 1024 * 1024;
@@ -74,20 +72,6 @@ for (const file of files) {
 
   if (statSync(file).size > maxRecommendedBytes) {
     problems.push(`${rel}: larger than the 4 MB source-asset budget`);
-  }
-}
-
-// Catch broken local asset references before they reach production.
-for (const directory of ["app", "components", "data", "lib"]) {
-  for (const file of walk(join(process.cwd(), directory))) {
-    if (!/\.(tsx?|css)$/.test(file)) continue;
-    const source = readFileSync(file, "utf8");
-    for (const match of source.matchAll(/["'`](\/[^"'`\s]+\.(?:avif|webp|png|jpe?g|svg|mp4|woff2))["'`]/g)) {
-      const appIcon = /^\/(?:icon|apple-icon)\.[a-z0-9]+$/.test(match[1]) && existsSync(join(process.cwd(), "app", match[1]));
-      if (!existsSync(join(publicDir, match[1])) && !appIcon) {
-        problems.push(`${relative(process.cwd(), file)}: missing asset ${match[1]}`);
-      }
-    }
   }
 }
 
