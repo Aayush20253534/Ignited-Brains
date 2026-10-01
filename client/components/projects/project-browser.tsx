@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 
 import { SiteImage } from "@/components/media";
 import { ArrowIcon } from "@/components/ui";
@@ -8,7 +8,10 @@ import {
   projectCards,
   projectCategories,
   type ProjectCategory,
+  type ProjectCard,
 } from "@/data/projects";
+import { Button, ButtonLink } from "@/components/ui/button";
+import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/cn";
 
 function PinIcon() {
@@ -21,6 +24,8 @@ function PinIcon() {
 }
 
 export function ProjectBrowser() {
+  const titleId = useId();
+  const [selected, setSelected] = useState<ProjectCard | null>(null);
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("All");
 
   const visibleProjects = useMemo(
@@ -33,6 +38,15 @@ export function ProjectBrowser() {
 
   return (
     <div>
+      <Modal open={selected !== null} onClose={() => setSelected(null)} labelledBy={titleId} className="w-[48rem]">
+        {selected ? <div className="modal-panel rounded-2xl bg-white p-6">
+          <div className="flex items-start justify-between gap-4"><h2 id={titleId} className="text-2xl font-bold text-brand-blue">{selected.title}</h2><Button variant="outline" onClick={() => setSelected(null)}>Close</Button></div>
+          <p className="mt-2 text-sm text-brand-muted">{selected.category} · {selected.location}</p>
+          <SiteImage src={selected.image} alt={selected.title} aspectRatio="16/10" sizes="90vw" className="mt-5 rounded-xl" fit="contain" />
+          <p className="mt-5 text-base leading-7 text-brand-muted">{selected.description}</p>
+          <ButtonLink href={`/contact?subject=${encodeURIComponent(selected.title)}`} className="mt-6" showArrow>Discuss a similar project</ButtonLink>
+        </div> : null}
+      </Modal>
       <div className="mobile-scroll-row flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0" role="group" aria-label="Filter projects by category">
         {projectCategories.map((category) => {
           const active = category === activeCategory;
@@ -77,13 +91,14 @@ export function ProjectBrowser() {
                   <PinIcon /> {project.location}
                 </p>
                 <p className="mt-4 text-sm leading-6 text-brand-muted">{project.description}</p>
-                <a
-                  href="#featured-project"
+                <button
+                  type="button"
+                  onClick={() => setSelected(project)}
                   aria-label={`Explore ${project.title}`}
                   className="focus-ring mt-5 ml-auto grid h-10 w-10 place-items-center rounded-full border border-brand-blue/35 text-brand-blue transition hover:bg-brand-blue hover:text-white"
                 >
                   <ArrowIcon className="h-4 w-4" />
-                </a>
+                </button>
               </div>
             </article>
           ))}

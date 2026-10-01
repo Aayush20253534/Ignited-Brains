@@ -14,6 +14,7 @@ type SiteImageProps = {
   imageClassName?: string;
   overlayClassName?: string;
   objectPosition?: CSSProperties["objectPosition"];
+  fit?: "cover" | "contain";
 };
 
 export function SiteImage({
@@ -27,6 +28,7 @@ export function SiteImage({
   imageClassName,
   overlayClassName,
   objectPosition = "center",
+  fit = "cover",
 }: SiteImageProps) {
   return (
     <div
@@ -40,7 +42,7 @@ export function SiteImage({
         priority={priority}
         quality={quality}
         sizes={sizes}
-        className={cn("object-cover", imageClassName)}
+        className={cn(fit === "cover" ? "object-cover" : "object-contain", imageClassName)}
         style={{ objectPosition }}
       />
       {overlayClassName ? (

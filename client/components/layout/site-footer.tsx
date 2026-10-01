@@ -1,20 +1,13 @@
+import { NewsletterForm } from "@/components/contact/newsletter-form";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { BrandLogo } from "@/components/layout/brand-logo";
-import { SocialIcon, type SocialNetwork } from "@/components/layout/social-icon";
-import { ArrowIcon, Container } from "@/components/ui";
+import { Container } from "@/components/ui";
 import { footerQuickLinks, footerSolutions } from "@/data/navigation";
 
-const socialLinks: Array<{ label: string; network: SocialNetwork }> = [
-  { label: "LinkedIn", network: "linkedin" },
-  { label: "Instagram", network: "instagram" },
-  { label: "YouTube", network: "youtube" },
-  { label: "Facebook", network: "facebook" },
-];
-
 function FooterHeading({ children }: { children: ReactNode }) {
-  return <h2 className="text-sm font-extrabold text-brand-orange">{children}</h2>;
+  return <h2 className="text-sm font-extrabold text-orange-300">{children}</h2>;
 }
 
 function MailIcon() {
@@ -61,18 +54,7 @@ export function SiteFooter() {
           <p className="mt-5 text-sm leading-6 text-white/65">
             Transforming education through innovation, hands-on learning and future-ready experiences.
           </p>
-          <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3">
-            {socialLinks.map((social) => (
-              <span
-                key={social.label}
-                aria-label={`${social.label} profile link pending`}
-                title={`${social.label} profile link pending`}
-                className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/[0.035] text-white/70 transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[0.07]"
-              >
-                <SocialIcon network={social.network} className="h-5 w-5" />
-              </span>
-            ))}
-          </div>
+
         </div>
 
         <div>
@@ -128,26 +110,7 @@ export function SiteFooter() {
           <p className="mt-5 max-w-xs text-sm leading-6 text-white/65">
             Stay updated with our latest programs and innovations.
           </p>
-          <form action="/contact" className="mt-5 flex w-full max-w-md rounded-xl border border-white/15 bg-white/[0.04] p-1.5">
-            <label htmlFor="footer-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="footer-email"
-              name="email"
-              type="email"
-              required
-              placeholder="Enter your email"
-              className="min-w-0 flex-1 bg-transparent px-3 text-sm text-white outline-none placeholder:text-white/35"
-            />
-            <button
-              type="submit"
-              aria-label="Subscribe"
-              className="focus-ring grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-orange text-white transition hover:bg-brand-orange-dark"
-            >
-              <ArrowIcon className="h-5 w-5" />
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </Container>
 

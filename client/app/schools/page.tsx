@@ -1,9 +1,10 @@
+import { ContactForm } from "@/components/contact/contact-form";
 import type { Metadata } from "next";
 import Image from "next/image";
 
 import { HomeIcon } from "@/components/home/home-icon";
 import { SiteImage } from "@/components/media";
-import { Button, ButtonLink, Container, Eyebrow } from "@/components/ui";
+import { ButtonLink, Container, Eyebrow } from "@/components/ui";
 import {
   institutionBenefits,
   schoolApproach,
@@ -25,11 +26,11 @@ export default function SchoolsPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
+        <Container wide className="page-hero grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
           <div className="relative z-10 py-5 lg:py-12">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-brand-blue/55">For Schools & Institutions</p>
             <h1 className="mt-5 max-w-[670px] text-balance text-[clamp(3rem,5.25vw,5.45rem)] font-black leading-[0.94] tracking-[-0.055em] text-brand-blue">
-              Transform your school into a <span className="text-brand-orange">future-ready</span> learning environment.
+              A <span className="text-brand-orange">future-ready</span> school starts here.
             </h1>
             <p className="mt-5 max-w-[620px] text-base font-medium leading-7 text-brand-ink/75">
               Ignited Brains works with schools and institutions to design, build and enable hands-on learning spaces that ignite curiosity, creativity and innovation in every student.
@@ -38,21 +39,21 @@ export default function SchoolsPage() {
               <ButtonLink href="#consultation" size="lg" showArrow>Discuss Your School</ButtonLink>
               <ButtonLink href="/solutions" size="lg" variant="outline" showArrow>Explore Our Solutions</ButtonLink>
             </div>
-            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-brand-line/80 pt-6 sm:grid-cols-4">
+            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-brand-line/80 pt-6 sm:grid-cols-2 xl:grid-cols-2">
               {schoolHeroBenefits.map((item) => (
                 <div key={item.title} className="flex items-center gap-2.5">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-50 text-brand-orange"><HomeIcon name={item.icon} className="h-6 w-6" /></span>
+                  <span className="grid shrink-0 h-10 w-10 place-items-center rounded-xl bg-orange-50 text-brand-orange"><HomeIcon name={item.icon} className="h-6 w-6" /></span>
                   <p className="text-[0.72rem] font-extrabold leading-4 text-brand-blue">{item.title}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative min-h-[390px] self-stretch lg:min-h-[560px]">
+          <div className="hero-visual relative min-h-[390px] self-stretch lg:min-h-[560px]">
             <div className="absolute inset-y-0 left-[-8%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-14%] lg:-right-20">
               <Image
                 src={pageAssetSlots.schools.hero}
-                alt="Students building a robotics project outside a modern school campus"
+                alt="A science learning space with interactive exhibits and robotics equipment"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 62vw"
@@ -137,7 +138,7 @@ export default function SchoolsPage() {
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">For Students</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.04em] text-brand-blue sm:text-4xl">Designed to unlock potential.</h2>
             <p className="mt-2 text-sm text-brand-muted">Hands-on spaces where students can explore, experiment and innovate.</p>
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {studentBenefits.map((item) => (
                 <article key={item.title} className="rounded-2xl border border-brand-line bg-white p-4 text-center shadow-card">
                   <HomeIcon name={item.icon} className="mx-auto h-7 w-7 text-brand-blue" />
@@ -151,7 +152,7 @@ export default function SchoolsPage() {
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">For Institutions</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.04em] text-brand-blue sm:text-4xl">Built for lasting impact.</h2>
             <p className="mt-2 text-sm text-brand-muted">Future-ready environments that strengthen your school&apos;s vision.</p>
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {institutionBenefits.map((item) => (
                 <article key={item.title} className="rounded-2xl border border-brand-line bg-white p-4 text-center shadow-card">
                   <HomeIcon name={item.icon} className="mx-auto h-7 w-7 text-brand-blue" />
@@ -201,20 +202,7 @@ export default function SchoolsPage() {
           <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Ready to get started?</p>
           <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Let&apos;s build something students remember.</h2>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-brand-muted">Share a few details and our team will get in touch to discuss the right solution for your school.</p>
-          <form className="mt-7 grid gap-4 rounded-2xl border border-brand-line bg-white p-5 shadow-card sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end" aria-label="School consultation request">
-            {[
-              ["name", "Your Name", "Enter your name", "text"],
-              ["school", "School / Organisation", "Enter school name", "text"],
-              ["phone", "Phone Number", "Enter phone number", "tel"],
-              ["location", "City / State", "Enter location", "text"],
-            ].map(([id, label, placeholder, type]) => (
-              <label key={id} htmlFor={id} className="block text-xs font-bold text-brand-blue">
-                {label}
-                <input id={id} name={id} type={type} placeholder={placeholder} className="focus-ring mt-2 min-h-12 w-full rounded-xl border border-brand-line bg-white px-4 text-sm font-medium text-brand-ink placeholder:text-brand-muted/60" />
-              </label>
-            ))}
-            <Button type="submit" size="lg" showArrow className="w-full lg:w-auto">Request a Consultation</Button>
-          </form>
+          <div className="mt-8 max-w-3xl"><ContactForm title="Request a school consultation" subject="School consultation" /></div>
           <p className="mt-2 text-[0.68rem] font-medium text-brand-muted">No obligation. Just a conversation about possibilities.</p>
         </Container>
       </section>

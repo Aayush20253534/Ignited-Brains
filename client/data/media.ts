@@ -4,8 +4,6 @@ export const mediaCategories = [
   "Videos",
   "School Activities",
   "Student Projects",
-  "Events",
-  "Announcements",
 ] as const;
 
 export type MediaCategory = (typeof mediaCategories)[number];
@@ -17,6 +15,8 @@ export type MediaArticle = {
   date: string;
   readTime: string;
   image: string;
+  video?: string;
+  body?: string[];
 };
 
 export const mediaArticles: MediaArticle[] = [
@@ -25,51 +25,47 @@ export const mediaArticles: MediaArticle[] = [
     description: "Exploring how experiential learning builds curiosity, creativity and problem solving skills.",
     category: "Articles",
     date: "Sep 15, 2026",
-    readTime: "5 min read",
-    image: "/media/space.jpeg",
+    readTime: "Overview",
+    image: "/media/article-hands-on.webp",
   },
   {
     title: "Inside a STEM Lab: What Students Really Learn",
     description: "A look at the real skills, mindset and confidence students develop through experimentation.",
     category: "Student Projects",
     date: "Sep 10, 2026",
-    readTime: "4 min read",
-    image: "/media/stem.jpeg",
+    readTime: "Overview",
+    image: "/media/article-stem.webp",
   },
   {
     title: "Science Parks: Making Learning a Hands-on Experience",
     description: "How interactive exhibits turn complex concepts into fun, memorable experiences for students.",
     category: "School Activities",
     date: "Aug 28, 2026",
-    readTime: "5 min read",
-    image: "/media/park.png",
+    readTime: "Overview",
+    image: "/media/article-science-park.webp",
   },
 ];
 
-export const mediaVideos = [
+export const mediaVideos: MediaArticle[] = [
   {
-    title: "A Day at the Space Lab",
-    description: "Explore, experiment and dream beyond the classroom.",
-    
-    image: "/media/v.jpeg",
+    title: "A vision for innovation spaces",
+    description: "A short visual introduction to learning environments that encourage students to explore and build.",
+    category: "Videos", date: "", readTime: "Short film",
+    image: "/home/hero-robotics.webp", video: "/media/hero.mp4",
   },
   {
-    title: "Students Build an Autonomous Rover",
-    description: "From idea to prototype — powered by curiosity.",
-    
-    image: "/media/car.jpeg",
-  },
-  {
-    title: "Science Park in Action",
-    description: "Learning through play, movement and exploration.",
-    
-    image: "/media/park.png",
+    title: "Learning through making",
+    description: "A visual introduction to our approach to hands-on science and robotics learning.",
+    category: "Videos", date: "", readTime: "Short film",
+    image: "/home/story-video.webp", video: "/media/homeimg.mp4",
   },
 ];
+
+export const mediaStories = [...mediaArticles, ...mediaVideos];
 
 export const fieldStories = [
-  { title: "Exploring the universe", image: "/media/tele.jpeg" },
-  { title: "Building together", image: "/media/featured-rover.webp" },
-  { title: "Learning by doing", image: "/media/build.jpeg" },
-  { title: "Science for everyone", image: "/media/solar-park.png" },
+  { title: "Exploring the universe", image: "/media/field-space.webp" },
+  { title: "Building together", image: "/media/field-build.webp" },
+  { title: "Learning by doing", image: "/media/field-learning.webp" },
+  { title: "Science for everyone", image: "/media/field-park.webp" },
 ];

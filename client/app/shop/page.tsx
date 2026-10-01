@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function ShopPage() {
   return (
     <main className="overflow-hidden bg-white">
-      <section className="dark-space-surface relative min-h-[68vh] border-b border-white/10 py-20 sm:py-24 lg:py-28">
-        <Container className="relative flex min-h-[48vh] items-center justify-center">
+      <section className="dark-space-surface relative border-b border-white/10 py-16 sm:py-20">
+        <Container className="relative flex min-h-[35vh] items-center justify-center">
           <div className="mx-auto max-w-3xl text-center">
             <Eyebrow className="text-brand-orange">Ignited Brains Shop</Eyebrow>
             <h1 className="mt-5 text-balance text-5xl font-black leading-[0.95] tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
@@ -23,7 +23,7 @@ export default function ShopPage() {
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <ButtonLink href="/" size="lg" showArrow>Back to Home</ButtonLink>
-              <ButtonLink href="/contact" variant="outline" size="lg" className="!bg-transparent">Contact Us</ButtonLink>
+              <ButtonLink href="/contact" variant="outline" size="lg" className="border-white/40 !bg-transparent !text-white hover:!bg-white/10">Contact Us</ButtonLink>
             </div>
           </div>
         </Container>

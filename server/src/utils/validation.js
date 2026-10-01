@@ -10,6 +10,7 @@ const SOLUTIONS = [
   'SCIENCE_PARK',
   'SPACE_LAB',
   'STEM_LAB',
+  'AI_ROBOTICS',
   'WORKSHOP_TRAINING',
   'TEACHER_TRAINING',
   'CUSTOM',
@@ -17,7 +18,7 @@ const SOLUTIONS = [
 
 const requireString = (value, field, maxLength) => {
   const result = cleanString(value, maxLength);
-  if (!result) throw new HttpError(400, `${field} is required`);
+  if (!result) throw new HttpError(400, `${field.replace(/^details\./, "").replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase()} is required`);
   return result;
 };
 
@@ -53,7 +54,7 @@ const parseStudentDetails = (details = {}) => ({
 const parseOrganizationDetails = (details = {}) => {
   const organizationType = cleanString(details.organizationType, 40).toUpperCase();
   if (!ORGANIZATION_TYPES.includes(organizationType)) {
-    throw new HttpError(400, `details.organizationType must be one of: ${ORGANIZATION_TYPES.join(', ')}`);
+    throw new HttpError(400, 'Please choose an organisation type');
   }
 
   const requestedSolutions = Array.isArray(details.requestedSolutions)
@@ -61,14 +62,14 @@ const parseOrganizationDetails = (details = {}) => {
     : [];
 
   if (requestedSolutions.length === 0 || requestedSolutions.some((item) => !SOLUTIONS.includes(item))) {
-    throw new HttpError(400, `details.requestedSolutions must contain one or more of: ${SOLUTIONS.join(', ')}`);
+    throw new HttpError(400, 'Please choose at least one valid solution');
   }
 
   let estimatedStudents = null;
   if (details.estimatedStudents !== undefined && details.estimatedStudents !== null && details.estimatedStudents !== '') {
-    estimatedStudents = Number.parseInt(details.estimatedStudents, 10);
+    estimatedStudents = Number(details.estimatedStudents);
     if (!Number.isInteger(estimatedStudents) || estimatedStudents < 1 || estimatedStudents > 1_000_000) {
-      throw new HttpError(400, 'details.estimatedStudents must be a positive integer');
+      throw new HttpError(400, 'Estimated students must be a whole number between 1 and 1,000,000');
     }
   }
 

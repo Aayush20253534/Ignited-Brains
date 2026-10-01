@@ -1,3 +1,4 @@
+import { PartnerApplicationDialog } from "@/components/layout/partner-application-dialog";
 import type { ReactNode } from "react";
 import Image from "next/image";
 
@@ -39,7 +40,7 @@ export function CtaBand({
         </div>
 
         <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
-          {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+          {eyebrow ? <Eyebrow className="!text-orange-300">{eyebrow}</Eyebrow> : null}
           <h2 className="mt-4 max-w-4xl text-balance text-3xl font-extrabold leading-[1.05] tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
             {title}
           </h2>
@@ -49,9 +50,7 @@ export function CtaBand({
             </div>
           ) : null}
         </div>
-        <ButtonLink href={buttonHref} size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">
-          {buttonLabel}
-        </ButtonLink>
+        {buttonLabel === "Partner With Us" ? <PartnerApplicationDialog className="relative justify-self-center sm:justify-self-start lg:justify-self-end" /> : <ButtonLink href={buttonHref} size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">{buttonLabel}</ButtonLink>}
       </Container>
     </section>
   );

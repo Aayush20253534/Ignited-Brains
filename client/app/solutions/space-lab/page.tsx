@@ -1,3 +1,5 @@
+import { CtaBand } from "@/components/layout/cta-band";
+import { ImageGallery } from "@/components/media/image-gallery";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,7 +42,7 @@ export default function SpaceLabPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid min-h-[560px] items-center gap-8 py-9 lg:grid-cols-[0.75fr_1.25fr] lg:py-0">
+        <Container wide className="page-hero grid min-h-[560px] items-center gap-8 py-9 lg:grid-cols-[0.75fr_1.25fr] lg:py-0">
           <div className="relative z-10 py-5 lg:py-12">
             <p className="mb-6 text-xs font-bold text-brand-muted">
               <Link href="/" className="hover:text-brand-blue">Home</Link>
@@ -79,11 +81,11 @@ export default function SpaceLabPage() {
             </div>
           </div>
 
-          <div className="relative min-h-[390px] self-stretch lg:min-h-[560px]">
+          <div className="hero-visual relative min-h-[390px] self-stretch lg:min-h-[560px]">
             <div className="absolute inset-y-0 left-[-8%] -right-5 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-15%] lg:-right-20">
               <Image
                 src={pageAssetSlots.spaceLab.hero}
-                alt="Student using a telescope in an immersive Space Lab"
+                alt="Space Lab with telescopes, rocket models and science exhibits"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 62vw"
@@ -107,7 +109,7 @@ export default function SpaceLabPage() {
             </p>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-3">
             {spaceExperience.map((item, index) => (
               <article key={item.title} className="card-lift rounded-2xl border border-brand-line bg-white p-5 shadow-card">
                 <span className={index === 3 ? "grid h-11 w-11 place-items-center rounded-full bg-orange-50 text-brand-orange" : "grid h-11 w-11 place-items-center rounded-full bg-brand-sky text-brand-blue"}>
@@ -128,38 +130,15 @@ export default function SpaceLabPage() {
               <Eyebrow>Inside the Space Lab</Eyebrow>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">A closer look at the experience.</h2>
             </div>
-            <div className="hidden gap-2 sm:flex" aria-hidden="true">
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-brand-line bg-white text-brand-blue">←</span>
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-brand-line bg-white text-brand-blue">→</span>
-            </div>
           </div>
 
-          <div className="mt-8 grid gap-3 lg:grid-cols-[1.12fr_0.88fr]">
-            <figure className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-              <SiteImage
-                src={pageAssetSlots.spaceLab.galleryMain}
-                alt="Interactive Space Lab with rockets, rover and planetary models"
-                aspectRatio="16/10"
-                sizes="(max-width: 1024px) 100vw, 56vw"
-                className="rounded-none"
-              />
-              <figcaption className="px-4 py-3 text-xs font-semibold text-brand-blue">Interactive space lab with rocket, rover and planetary models</figcaption>
-            </figure>
-
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                [pageAssetSlots.spaceLab.telescope, "Telescope observation setup"],
-                [pageAssetSlots.spaceLab.satellite, "Satellite and spacecraft models"],
-                [pageAssetSlots.spaceLab.lunar, "Lunar surface simulation"],
-                [pageAssetSlots.spaceLab.planetary, "Planetary exploration models"],
-              ].map(([src, caption]) => (
-                <figure key={caption} className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-                  <SiteImage src={src} alt={caption} aspectRatio="4/3" sizes="(max-width: 1024px) 50vw, 22vw" className="rounded-none" />
-                  <figcaption className="px-3 py-2 text-[0.7rem] font-semibold leading-4 text-brand-blue">{caption}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
+          <ImageGallery items={[
+            { image: pageAssetSlots.spaceLab.galleryMain, label: "Inside the Space Lab" },
+            { image: pageAssetSlots.spaceLab.telescope, label: "Telescope observation" },
+            { image: pageAssetSlots.spaceLab.satellite, label: "Satellite models" },
+            { image: pageAssetSlots.spaceLab.lunar, label: "Lunar simulation" },
+            { image: pageAssetSlots.spaceLab.planetary, label: "Planetary models" },
+          ]} />
         </Container>
       </section>
 
@@ -216,7 +195,7 @@ export default function SpaceLabPage() {
         <Container wide>
           <Eyebrow>Key Components</Eyebrow>
           <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">World-class learning infrastructure.</h2>
-          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-3">
             {spaceComponents.map((item) => (
               <article key={item.title} className="card-lift overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
                 <SiteImage src={item.image} alt={item.title} aspectRatio="4/3" sizes="(max-width: 768px) 50vw, 17vw" className="rounded-none" />
@@ -237,9 +216,9 @@ export default function SpaceLabPage() {
             <Eyebrow>See It in Action</Eyebrow>
             <h2 className="mt-4 text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl">Experience the excitement.</h2>
             <p className="mt-4 max-w-md text-base leading-7 text-white/65">Watch how students explore, experiment and bring space science to life at Ignited Brains.</p>
-            <ButtonLink href="/media" size="lg" showArrow className="mt-7">Play Video</ButtonLink>
+            <ButtonLink href="/media#latest-videos" size="lg" showArrow className="mt-7">Watch Learning Films</ButtonLink>
           </div>
-          <Link href="/media" className="group focus-ring relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 shadow-[0_22px_70px_rgba(0,0,0,.25)]">
+          <Link href="/media#latest-videos" className="group focus-ring relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 shadow-[0_22px_70px_rgba(0,0,0,.25)]">
             <SiteImage
               src={pageAssetSlots.spaceLab.video}
               alt="Space exploration learning video preview"
@@ -261,10 +240,6 @@ export default function SpaceLabPage() {
               <Eyebrow>Student Projects</Eyebrow>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Young minds. Real ideas.</h2>
             </div>
-            <div className="hidden gap-2 sm:flex" aria-hidden="true">
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-brand-line text-brand-blue">←</span>
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-brand-line text-brand-blue">→</span>
-            </div>
           </div>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {spaceProjects.map((project) => (
@@ -275,7 +250,7 @@ export default function SpaceLabPage() {
                     <h3 className="text-lg font-black text-brand-blue">{project.title}</h3>
                     <p className="mt-2 text-xs leading-5 text-brand-muted">{project.description}</p>
                   </div>
-                  <Link href="/projects" className="focus-ring grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-orange text-white"><ArrowIcon className="h-4 w-4" /></Link>
+                  <Link href="/projects" aria-label={`Explore projects including ${project.title}`} className="focus-ring grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-orange text-white"><ArrowIcon className="h-4 w-4" /></Link>
                 </div>
               </article>
             ))}
@@ -283,28 +258,7 @@ export default function SpaceLabPage() {
         </Container>
       </section>
 
-      <section className="dark-space-surface border-y border-white/10">
-        <Container wide className="relative grid items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
-          <div
-            className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80"
-            aria-hidden="true"
-          >
-            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
-            <Image
-              src="/decorative/cta-earth.svg"
-              alt=""
-              fill
-              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
-              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
-            />
-          </div>
-          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
-            <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">Bring the wonders of space to your school.</h2>
-            <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-white/65 sm:mx-0">Let&apos;s create a Space Lab that inspires the next generation of explorers, innovators and problem solvers.</p>
-          </div>
-          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">Start a Conversation</ButtonLink>
-        </Container>
-      </section>
+      <CtaBand title="Bring the universe to your classroom." description="Create a Space Lab where students explore, experiment and discover." buttonLabel="Discuss Space Lab" buttonHref="/contact?subject=Space%20Lab" />
     </main>
   );
 }

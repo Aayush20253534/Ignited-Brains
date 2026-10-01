@@ -54,11 +54,11 @@ export const aboutValues: Array<{
 ];
 
 export const storyMilestones = [
-  { title: "The Idea", description: "A simple belief in the power of hands-on learning." },
-  { title: "First Steps", description: "Building initial labs and learning experiences." },
-  { title: "Growing Impact", description: "Working with more schools and institutions." },
-  { title: "A Bigger Vision", description: "Igniting curiosity and innovation at scale." },
-  { title: "The Journey Continues", description: "Building a brighter, innovation-driven India." },
+  { title: "Start with a purpose", description: "A simple belief in the power of hands-on learning." },
+  { title: "Create learning spaces", description: "Building initial labs and learning experiences." },
+  { title: "Work with schools", description: "Working with more schools and institutions." },
+  { title: "Reach more learners", description: "Igniting curiosity and innovation at scale." },
+  { title: "Keep improving", description: "Building a brighter, innovation-driven India." },
 ];
 
 export const differentiators: Array<{

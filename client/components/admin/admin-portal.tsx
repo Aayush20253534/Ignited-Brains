@@ -6,9 +6,12 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
+  useId,
   useState,
 } from "react";
 
+import { Modal } from "@/components/ui/modal";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { cn } from "@/lib/cn";
 
@@ -194,6 +197,7 @@ function formatDate(value: string) {
 function humanize(value: string | null | undefined) {
   if (!value) return "—";
   return value
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
     .toLowerCase()
     .replaceAll("_", " ")
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
@@ -237,7 +241,7 @@ function StatCard({
   accent = "blue",
 }: {
   label: string;
-  value: number;
+  value: number | string;
   helper: string;
   icon: string;
   accent?: "blue" | "orange" | "violet" | "green";
@@ -288,8 +292,10 @@ async function parseResponse<T>(response: Response): Promise<T> {
 
 function LoginScreen({
   onAuthenticated,
+  notice,
 }: {
   onAuthenticated: (token: string, admin: AdminUser) => void;
+  notice?: string;
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -347,9 +353,9 @@ function LoginScreen({
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-brand-orange">
               Administration Portal
             </p>
-            <h1 className="mt-5 text-balance text-5xl font-black leading-[0.98] tracking-[-0.05em] xl:text-6xl">
+            <h2 className="mt-5 text-balance text-5xl font-black leading-[0.98] tracking-[-0.05em] xl:text-6xl">
               Keep every enquiry and application moving.
-            </h1>
+            </h2>
             <p className="mt-6 max-w-xl text-base leading-7 text-white/65">
               Review incoming leads, track applicants, update statuses and keep
               the Ignited Brains team aligned from one secure workspace.
@@ -371,9 +377,9 @@ function LoginScreen({
               <span className="inline-flex rounded-full bg-orange-50 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.13em] text-brand-orange">
                 Secure Admin
               </span>
-              <h2 className="mt-5 text-3xl font-black tracking-[-0.04em] text-brand-blue">
+              <h1 className="mt-5 text-3xl font-black tracking-[-0.04em] text-brand-blue">
                 Welcome back.
-              </h2>
+              </h1>
               <p className="mt-2 text-sm leading-6 text-slate-500">
                 Sign in with your Ignited Brains administrator credentials.
               </p>
@@ -415,12 +421,12 @@ function LoginScreen({
                   </span>
                 </label>
 
-                {error ? (
+                {(error || notice) ? (
                   <div
                     role="alert"
                     className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700"
                   >
-                    {error}
+                    {error || notice}
                   </div>
                 ) : null}
 
@@ -476,7 +482,7 @@ function Sidebar({
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-[140] flex w-[270px] flex-col bg-[#031a3a] text-white shadow-2xl transition-transform duration-200 lg:translate-x-0",
-          mobileOpen ? "translate-x-0" : "-translate-x-full",
+          mobileOpen ? "visible translate-x-0" : "invisible -translate-x-full lg:visible",
         )}
       >
         <div className="flex h-20 items-center justify-between border-b border-white/10 px-6">
@@ -628,6 +634,7 @@ function FilterBar({
 
       {setType ? (
         <select
+          aria-label="Filter by applicant type"
           value={type}
           onChange={(event) => setType(event.target.value)}
           className="h-11 rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold text-brand-blue outline-none focus:border-brand-blue/40"
@@ -642,6 +649,7 @@ function FilterBar({
       ) : null}
 
       <select
+        aria-label="Filter by submission status"
         value={status}
         onChange={(event) => setStatus(event.target.value)}
         className="h-11 rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold text-brand-blue outline-none focus:border-brand-blue/40"
@@ -710,12 +718,15 @@ function DetailDrawer({
   busy,
   onClose,
   onStatusChange,
+  error,
 }: {
   selected: SelectedRecord | null;
   busy: boolean;
   onClose: () => void;
   onStatusChange: (status: ContactStatus | ApplicationStatus) => void;
+  error?: string;
 }) {
+  const titleId = useId();
   if (!selected) return null;
 
   const record = selected.record;
@@ -723,20 +734,14 @@ function DetailDrawer({
   const statuses = isContact ? CONTACT_STATUSES : APPLICATION_STATUSES;
 
   return (
-    <>
-      <button
-        type="button"
-        className="fixed inset-0 z-[150] bg-slate-950/35 backdrop-blur-[2px]"
-        aria-label="Close details"
-        onClick={onClose}
-      />
-      <aside className="fixed inset-y-0 right-0 z-[160] w-full max-w-xl overflow-y-auto border-l border-slate-200 bg-white shadow-2xl">
+    <Modal open onClose={onClose} labelledBy={titleId} className="!ml-auto !mr-0 !my-0 !max-h-[100dvh] w-full max-w-xl">
+      <aside className="modal-panel !max-h-[100dvh] min-h-[100dvh] w-full overflow-y-auto border-l border-slate-200 bg-white shadow-2xl">
         <div className="sticky top-0 z-10 flex min-h-[72px] items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur sm:px-6">
           <div>
             <p className="text-[0.65rem] font-black uppercase tracking-[0.14em] text-brand-orange">
               {isContact ? "Contact enquiry" : "Application"}
             </p>
-            <h2 className="mt-1 text-xl font-black text-brand-ink">{record.name}</h2>
+            <h2 id={titleId} className="mt-1 text-xl font-black text-brand-ink">{record.name}</h2>
           </div>
           <button
             type="button"
@@ -749,6 +754,7 @@ function DetailDrawer({
         </div>
 
         <div className="space-y-6 p-5 sm:p-6">
+          {error ? <p role="alert" className="rounded-xl bg-red-50 p-4 text-sm text-red-700">{error}</p> : null}
           <section className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
@@ -765,6 +771,7 @@ function DetailDrawer({
                 </span>
               </div>
               <select
+                aria-label="Update submission status"
                 value={record.status}
                 disabled={busy}
                 onChange={(event) =>
@@ -869,7 +876,7 @@ function DetailDrawer({
           </p>
         </div>
       </aside>
-    </>
+    </Modal>
   );
 }
 
@@ -892,7 +899,14 @@ function DetailItem({
   );
 }
 
+function useDebouncedValue(value: string) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => { const timer = window.setTimeout(() => setDebounced(value), 250); return () => window.clearTimeout(timer); }, [value]);
+  return debounced;
+}
+
 export function AdminPortal() {
+  const refreshRequest = useRef<AbortController | null>(null);
   const [token, setToken] = useState("");
   const [admin, setAdmin] = useState<AdminUser | null>(null);
   const [booting, setBooting] = useState(true);
@@ -920,6 +934,9 @@ export function AdminPortal() {
   const [applicationType, setApplicationType] = useState("");
   const [applicationQuery, setApplicationQuery] = useState("");
 
+  const debouncedContactQuery = useDebouncedValue(contactQuery);
+  const debouncedApplicationQuery = useDebouncedValue(applicationQuery);
+
   const apiFetch = useCallback(
     async <T,>(path: string, options?: RequestInit): Promise<T> => {
       if (!token) throw new Error("Authentication required");
@@ -938,6 +955,8 @@ export function AdminPortal() {
         sessionStorage.removeItem(TOKEN_KEY);
         setToken("");
         setAdmin(null);
+        setSelected(null);
+        setError("Your session has expired. Please sign in again.");
         throw new Error("Your session has expired. Please sign in again.");
       }
 
@@ -946,13 +965,14 @@ export function AdminPortal() {
     [token],
   );
 
-  const loadSummary = useCallback(async () => {
+  const loadSummary = useCallback(async (signal?: AbortSignal) => {
     if (!token) return;
-    const data = await apiFetch<DashboardSummary>("/api/v1/admin/dashboard/summary");
+    const data = await apiFetch<DashboardSummary>("/api/v1/admin/dashboard/summary", { signal });
+    if (signal?.aborted) return;
     setSummary(data);
   }, [apiFetch, token]);
 
-  const loadContacts = useCallback(async () => {
+  const loadContacts = useCallback(async (signal?: AbortSignal) => {
     if (!token) return;
 
     const params = new URLSearchParams({
@@ -960,16 +980,17 @@ export function AdminPortal() {
       limit: "20",
     });
     if (contactStatus) params.set("status", contactStatus);
-    if (contactQuery.trim()) params.set("query", contactQuery.trim());
+    if (debouncedContactQuery.trim()) params.set("query", debouncedContactQuery.trim());
 
     const data = await apiFetch<ApiList<ContactSubmission>>(
-      `/api/v1/admin/contacts?${params.toString()}`,
+      `/api/v1/admin/contacts?${params.toString()}`, { signal },
     );
+    if (signal?.aborted) return;
     setContacts(data.data);
     setContactPagination(data.pagination);
-  }, [apiFetch, contactPage, contactQuery, contactStatus, token]);
+  }, [apiFetch, contactPage, debouncedContactQuery, contactStatus, token]);
 
-  const loadApplications = useCallback(async () => {
+  const loadApplications = useCallback(async (signal?: AbortSignal) => {
     if (!token) return;
 
     const params = new URLSearchParams({
@@ -978,17 +999,18 @@ export function AdminPortal() {
     });
     if (applicationStatus) params.set("status", applicationStatus);
     if (applicationType) params.set("type", applicationType);
-    if (applicationQuery.trim()) params.set("query", applicationQuery.trim());
+    if (debouncedApplicationQuery.trim()) params.set("query", debouncedApplicationQuery.trim());
 
     const data = await apiFetch<ApiList<ApplicationSubmission>>(
-      `/api/v1/admin/applications?${params.toString()}`,
+      `/api/v1/admin/applications?${params.toString()}`, { signal },
     );
+    if (signal?.aborted) return;
     setApplications(data.data);
     setApplicationPagination(data.pagination);
   }, [
     apiFetch,
     applicationPage,
-    applicationQuery,
+    debouncedApplicationQuery,
     applicationStatus,
     applicationType,
     token,
@@ -996,39 +1018,41 @@ export function AdminPortal() {
 
   const refreshCurrent = useCallback(async () => {
     if (!token) return;
+    refreshRequest.current?.abort();
+    const request = new AbortController();
+    refreshRequest.current = request;
     setRefreshing(true);
     setError("");
 
     try {
       if (tab === "overview") {
-        await Promise.all([loadSummary(), loadContacts(), loadApplications()]);
+        await Promise.all([loadSummary(request.signal), loadContacts(request.signal), loadApplications(request.signal)]);
       } else if (tab === "contacts") {
-        await Promise.all([loadSummary(), loadContacts()]);
+        await Promise.all([loadSummary(request.signal), loadContacts(request.signal)]);
       } else {
-        await Promise.all([loadSummary(), loadApplications()]);
+        await Promise.all([loadSummary(request.signal), loadApplications(request.signal)]);
       }
     } catch (refreshError) {
+      if (request.signal.aborted) return;
       setError(
         refreshError instanceof Error
           ? refreshError.message
           : "Unable to load admin data.",
       );
     } finally {
-      setRefreshing(false);
+      if (!request.signal.aborted) setRefreshing(false);
     }
   }, [loadApplications, loadContacts, loadSummary, tab, token]);
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem(TOKEN_KEY);
-    if (!storedToken) {
-      setBooting(false);
-      return;
-    }
 
-    const sessionToken = storedToken;
+
+    const sessionToken = storedToken || "";
     let active = true;
 
     async function restoreSession() {
+      if (!storedToken) { setBooting(false); return; }
       try {
         const response = await fetch("/api/v1/admin/auth/me", {
           headers: { Authorization: `Bearer ${sessionToken}` },
@@ -1040,31 +1064,27 @@ export function AdminPortal() {
         setToken(sessionToken);
         setAdmin(data.admin);
       } catch {
+        if (!active) return;
+        setError("Your session has expired. Please sign in again.");
         sessionStorage.removeItem(TOKEN_KEY);
       } finally {
         if (active) setBooting(false);
       }
     }
 
-    void restoreSession();
+    const start = window.setTimeout(() => void restoreSession(), 0);
 
     return () => {
       active = false;
+      window.clearTimeout(start);
     };
   }, []);
 
   useEffect(() => {
     if (!token || !admin) return;
-    void refreshCurrent();
+    const start = window.setTimeout(() => void refreshCurrent(), 0);
+    return () => { window.clearTimeout(start); refreshRequest.current?.abort(); };
   }, [admin, refreshCurrent, token]);
-
-  useEffect(() => {
-    setContactPage(1);
-  }, [contactQuery, contactStatus]);
-
-  useEffect(() => {
-    setApplicationPage(1);
-  }, [applicationQuery, applicationStatus, applicationType]);
 
   const pageMeta = useMemo(() => {
     if (tab === "contacts") {
@@ -1088,6 +1108,7 @@ export function AdminPortal() {
   }, [tab]);
 
   function handleAuthenticated(nextToken: string, nextAdmin: AdminUser) {
+    setError("");
     setToken(nextToken);
     setAdmin(nextAdmin);
     setBooting(false);
@@ -1164,7 +1185,7 @@ export function AdminPortal() {
   }
 
   if (!token || !admin) {
-    return <LoginScreen onAuthenticated={handleAuthenticated} />;
+    return <LoginScreen onAuthenticated={handleAuthenticated} notice={error} />;
   }
 
   return (
@@ -1187,7 +1208,7 @@ export function AdminPortal() {
           onRefresh={() => void refreshCurrent()}
         />
 
-        <main className="min-h-0 flex-1 overflow-y-auto">
+        <main aria-busy={refreshing} className="min-h-0 flex-1 overflow-y-auto">
           <div className="mx-auto w-full max-w-[1500px] p-4 sm:p-6 lg:p-8">
             {error ? (
               <div
@@ -1210,28 +1231,28 @@ export function AdminPortal() {
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                   <StatCard
                     label="Contact enquiries"
-                    value={summary?.contacts.total ?? 0}
-                    helper={`${summary?.contacts.new ?? 0} new enquiries`}
+                    value={summary?.contacts.total ?? "—"}
+                    helper={summary ? `${summary.contacts.new} new enquiries` : "Loading enquiries…"}
                     icon="contacts"
                     accent="blue"
                   />
                   <StatCard
                     label="Applications"
-                    value={summary?.applications.total ?? 0}
-                    helper={`${summary?.applications.new ?? 0} awaiting review`}
+                    value={summary?.applications.total ?? "—"}
+                    helper={summary ? `${summary.applications.new} awaiting review` : "Loading applications…"}
                     icon="applications"
                     accent="orange"
                   />
                   <StatCard
                     label="Students"
-                    value={summary?.applications.students ?? 0}
+                    value={summary?.applications.students ?? "—"}
                     helper="Student applications"
                     icon="applications"
                     accent="violet"
                   />
                   <StatCard
                     label="Organisations"
-                    value={summary?.applications.organizations ?? 0}
+                    value={summary?.applications.organizations ?? "—"}
                     helper="Institutional applications"
                     icon="overview"
                     accent="green"
@@ -1366,15 +1387,20 @@ export function AdminPortal() {
               <section>
                 <FilterBar
                   query={contactQuery}
-                  setQuery={setContactQuery}
+                  setQuery={(value) => { setContactQuery(value); setContactPage(1); }}
                   status={contactStatus}
-                  setStatus={setContactStatus}
+                  setStatus={(value) => { setContactStatus(value); setContactPage(1); }}
                   statusOptions={CONTACT_STATUSES}
                 />
 
+                <div className="mt-4 grid gap-3 md:hidden">
+                  {contacts.map((record) => <button type="button" key={record.id} onClick={() => setSelected({ kind: "contact", record })} className="focus-ring rounded-xl border border-slate-200 bg-white p-4 text-left">
+                    <span className="block font-bold text-brand-blue">{record.name}</span><span className="mt-1 block break-all text-sm text-slate-500">{record.email}</span><span className="mt-3 block text-xs font-semibold text-brand-blue">{humanize(record.status)} · {formatDate(record.created_at)}</span><span className="mt-3 block text-sm font-bold text-brand-orange">View enquiry →</span>
+                  </button>)}
+                </div>
                 <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_24px_rgba(15,39,78,.04)]">
-                  <div className="overflow-x-auto">
-                    <table className="w-full min-w-[850px] border-collapse text-left">
+                  <div className="hidden overflow-x-auto md:block">
+                    <table className="w-full min-w-[750px] border-collapse text-left">
                       <thead>
                         <tr className="border-b border-slate-200 bg-slate-50/80 text-[0.65rem] font-black uppercase tracking-[0.1em] text-slate-400">
                           <th className="px-5 py-3.5">Contact</th>
@@ -1450,7 +1476,7 @@ export function AdminPortal() {
                   </div>
                 </div>
 
-                {!contacts.length ? <EmptyState label="contact enquiries" /> : null}
+                {!contacts.length && !refreshing && !error ? <EmptyState label="contact enquiries" /> : null}
                 <PaginationBar
                   pagination={contactPagination}
                   onPage={setContactPage}
@@ -1462,17 +1488,22 @@ export function AdminPortal() {
               <section>
                 <FilterBar
                   query={applicationQuery}
-                  setQuery={setApplicationQuery}
+                  setQuery={(value) => { setApplicationQuery(value); setApplicationPage(1); }}
                   status={applicationStatus}
-                  setStatus={setApplicationStatus}
+                  setStatus={(value) => { setApplicationStatus(value); setApplicationPage(1); }}
                   statusOptions={APPLICATION_STATUSES}
                   type={applicationType}
-                  setType={setApplicationType}
+                  setType={(value) => { setApplicationType(value); setApplicationPage(1); }}
                 />
 
+                <div className="mt-4 grid gap-3 md:hidden">
+                  {applications.map((record) => <button type="button" key={record.id} onClick={() => setSelected({ kind: "application", record })} className="focus-ring rounded-xl border border-slate-200 bg-white p-4 text-left">
+                    <span className="block font-bold text-brand-blue">{record.name}</span><span className="mt-1 block break-all text-sm text-slate-500">{record.email}</span><span className="mt-3 block text-xs font-semibold text-brand-blue">{humanize(record.applicant_type)} · {humanize(record.status)}</span><span className="mt-3 block text-sm font-bold text-brand-orange">View application →</span>
+                  </button>)}
+                </div>
                 <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_24px_rgba(15,39,78,.04)]">
-                  <div className="overflow-x-auto">
-                    <table className="w-full min-w-[900px] border-collapse text-left">
+                  <div className="hidden overflow-x-auto md:block">
+                    <table className="w-full min-w-[800px] border-collapse text-left">
                       <thead>
                         <tr className="border-b border-slate-200 bg-slate-50/80 text-[0.65rem] font-black uppercase tracking-[0.1em] text-slate-400">
                           <th className="px-5 py-3.5">Applicant</th>
@@ -1542,7 +1573,7 @@ export function AdminPortal() {
                   </div>
                 </div>
 
-                {!applications.length ? <EmptyState label="applications" /> : null}
+                {!applications.length && !refreshing && !error ? <EmptyState label="applications" /> : null}
                 <PaginationBar
                   pagination={applicationPagination}
                   onPage={setApplicationPage}
@@ -1554,6 +1585,7 @@ export function AdminPortal() {
       </div>
 
       <DetailDrawer
+        error={error}
         selected={selected}
         busy={statusBusy}
         onClose={() => setSelected(null)}
