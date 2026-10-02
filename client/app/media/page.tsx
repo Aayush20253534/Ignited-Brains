@@ -19,7 +19,7 @@ export default function MediaPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid min-h-[500px] items-center gap-8 py-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-8">
+        <Container wide className="grid min-h-[480px] items-center gap-8 py-6 lg:grid-cols-[1fr_1fr] lg:gap-10 lg:py-4">
           <div className="relative z-10 py-4 lg:py-12">
             <Eyebrow>Media &amp; Insights</Eyebrow>
             <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -49,8 +49,8 @@ export default function MediaPage() {
             </div>
           </div>
 
-          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
-            <div className="media-hero-visual absolute inset-y-3 left-0 right-0 overflow-hidden rounded-[2rem] sm:inset-y-4 lg:left-[4%] lg:rounded-[2.75rem]">
+          <div className="relative min-h-[300px] self-stretch sm:min-h-[340px] lg:min-h-[420px]">
+            <div className="media-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[8%]">
               <Image
                 src={pageAssetSlots.media.hero}
                 alt="Student building a robotics rover"
