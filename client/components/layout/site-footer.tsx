@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { SocialIcon, type SocialNetwork } from "@/components/layout/social-icon";
-import { ArrowIcon, Container } from "@/components/ui";
+import { FooterNewsletter } from "@/components/layout/footer-newsletter";
+import { Container } from "@/components/ui";
 import { footerQuickLinks, footerSolutions } from "@/data/navigation";
 
 const socialLinks: Array<{ label: string; network: SocialNetwork }> = [
@@ -128,26 +129,7 @@ export function SiteFooter() {
           <p className="mt-5 max-w-xs text-sm leading-6 text-white/65">
             Stay updated with our latest programs and innovations.
           </p>
-          <form action="/contact" className="mt-5 flex w-full max-w-md rounded-xl border border-white/15 bg-white/[0.04] p-1.5">
-            <label htmlFor="footer-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="footer-email"
-              name="email"
-              type="email"
-              required
-              placeholder="Enter your email"
-              className="min-w-0 flex-1 bg-transparent px-3 text-sm text-white outline-none placeholder:text-white/35"
-            />
-            <button
-              type="submit"
-              aria-label="Subscribe"
-              className="focus-ring grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-orange text-white transition hover:bg-brand-orange-dark"
-            >
-              <ArrowIcon className="h-5 w-5" />
-            </button>
-          </form>
+          <FooterNewsletter />
         </div>
       </Container>
 

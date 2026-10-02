@@ -25,27 +25,38 @@ function ChevronDown({ className }: { className?: string }) {
 }
 
 function MenuIcon({ open }: { open: boolean }) {
+  if (open) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M6.5 6.5 17.5 17.5M17.5 6.5 6.5 17.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  }
+
   return (
-    <span className="relative block h-5 w-6" aria-hidden="true">
-      <span
-        className={cn(
-          "absolute left-0 top-1 h-0.5 w-6 rounded-full bg-current transition",
-          open && "top-2.5 rotate-45",
-        )}
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M5 7h14M5 12h14M5 17h14"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
-      <span
-        className={cn(
-          "absolute left-0 top-2.5 h-0.5 w-6 rounded-full bg-current transition",
-          open && "opacity-0",
-        )}
-      />
-      <span
-        className={cn(
-          "absolute left-0 top-4 h-0.5 w-6 rounded-full bg-current transition",
-          open && "top-2.5 -rotate-45",
-        )}
-      />
-    </span>
+    </svg>
   );
 }
 
@@ -203,7 +214,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="focus-ring grid h-10 w-10 place-items-center rounded-lg border border-brand-line bg-white text-brand-blue lg:hidden"
+          className="focus-ring grid h-11 w-11 place-items-center rounded-full border border-brand-blue/15 bg-white text-brand-blue shadow-[0_4px_14px_rgba(15,39,78,.06)] transition hover:border-brand-blue/30 hover:bg-brand-sky lg:hidden"
           onClick={() => setMobileOpen((value) => !value)}
           aria-expanded={mobileOpen}
           aria-controls="mobile-navigation"
