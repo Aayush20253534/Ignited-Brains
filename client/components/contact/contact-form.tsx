@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui";
 
 const fieldClass =
-  "mt-1.5 min-h-11 w-full rounded-lg border border-brand-line bg-white px-3.5 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/55 focus:border-brand-blue/40 focus:ring-2 focus:ring-brand-blue/10 lg:min-h-9 lg:px-3";
+  "mt-1.5 min-h-11 w-full rounded-lg border border-brand-line bg-white px-3.5 text-sm text-brand-ink outline-none transition placeholder:text-brand-muted/55 focus:border-brand-blue/40 focus:ring-2 focus:ring-brand-blue/10 lg:min-h-11 lg:px-3.5";
 
 type SubmissionState =
   | { status: "idle"; message: "" }
@@ -76,7 +76,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative z-30 rounded-3xl border border-brand-line bg-white p-5 shadow-[0_24px_70px_rgba(24,53,103,.15)] sm:p-7 lg:-ml-5 lg:p-4"
+      className="relative z-30 rounded-3xl border border-brand-line bg-white p-5 shadow-[0_24px_70px_rgba(24,53,103,.15)] sm:p-7 lg:-ml-2 lg:p-6 xl:p-7"
     >
       <h2 className="text-2xl font-black tracking-[-0.035em] text-brand-blue">
         Start a Conversation
@@ -88,7 +88,7 @@ export function ContactForm() {
         <span className="text-brand-orange">*</span> Required fields
       </p>
 
-      <div className="mt-4 grid gap-3 lg:mt-3 lg:grid-cols-2 lg:gap-2">
+      <div className="mt-4 grid gap-3 lg:mt-4 lg:grid-cols-2 lg:gap-3">
         <label className="text-xs font-extrabold text-brand-blue">
           Full Name <span className="text-brand-orange">*</span>
           <input
@@ -158,7 +158,7 @@ export function ContactForm() {
         <label className="text-xs font-extrabold text-brand-blue lg:col-span-2">
           Message <span className="text-brand-orange">*</span>
           <textarea
-            className={`${fieldClass} min-h-24 resize-y py-3 lg:min-h-16 lg:py-2`}
+            className={`${fieldClass} min-h-24 resize-y py-3 lg:min-h-20 lg:py-2.5`}
             name="message"
             required
             maxLength={5000}
