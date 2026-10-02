@@ -77,7 +77,15 @@ export default function HomePage() {
                 href="#our-story"
                 className="focus-ring group inline-flex min-h-11 w-fit items-center justify-center gap-2.5 rounded-full border-2 border-brand-blue/25 bg-white px-5 text-[0.9rem] font-extrabold text-brand-blue shadow-[0_8px_20px_rgba(15,39,78,.1)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/45 hover:bg-brand-sky hover:shadow-[0_10px_24px_rgba(15,39,78,.14)] active:translate-y-0 sm:min-h-12 sm:px-6 sm:text-[0.95rem]"
               >
-                <PlayCircle className="h-7 w-7 border-0 bg-brand-blue text-white shadow-none transition group-hover:bg-brand-navy [&_svg]:h-3 [&_svg]:w-3" />
+                <span
+                  className="grid h-7 w-7 shrink-0 place-items-center rounded-full shadow-sm transition group-hover:scale-105"
+                  style={{ backgroundColor: "#0b3392", color: "#ffffff" }}
+                  aria-hidden="true"
+                >
+                  <svg viewBox="0 0 20 20" className="ml-0.5 h-3.5 w-3.5" fill="currentColor">
+                    <path d="m7 5 8 5-8 5V5Z" />
+                  </svg>
+                </span>
                 <span>Watch Our Story</span>
               </Link>
             </div>
@@ -98,7 +106,7 @@ export default function HomePage() {
           </div>
 
           <div className="relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[610px]">
-            <div className="absolute inset-y-0 left-[-10%] -right-4 sm:-right-12 lg:-right-20 overflow-hidden rounded-bl-[3rem] sm:rounded-bl-[4rem] lg:left-[-20%] lg:rounded-bl-[5rem]">
+            <div className="absolute inset-y-0 left-[-10%] -right-4 overflow-hidden rounded-[2rem] sm:-right-12 sm:rounded-[2.75rem] lg:left-[-6%] lg:-right-8 lg:rounded-l-[3.5rem] lg:rounded-r-none">
               {pageAssetSlots.home.hero.endsWith(".mp4") ? (
                 <video
                   src={pageAssetSlots.home.hero}
@@ -122,7 +130,7 @@ export default function HomePage() {
                 className="pointer-events-none absolute inset-0 hidden lg:block"
                 style={{
                   background:
-                    "linear-gradient(to right, rgba(255,255,255,.88) 0%, rgba(255,255,255,.52) 13%, rgba(255,255,255,.16) 28%, rgba(255,255,255,0) 48%)",
+                    "linear-gradient(to right, rgba(255,255,255,.52) 0%, rgba(255,255,255,.18) 9%, rgba(255,255,255,.04) 17%, rgba(255,255,255,0) 26%)",
                 }}
               />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/20 to-transparent lg:hidden" />
@@ -398,7 +406,7 @@ export default function HomePage() {
 
       <section className="home-india-section relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_54%_50%,rgba(255,108,39,.07),transparent_30rem)]" />
-        <Container wide className="relative grid items-center gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+        <Container wide className="relative grid items-center gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-10">
           <div>
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">For A Brighter India</p>
             <h2 className="mt-3 max-w-xl text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
@@ -416,13 +424,13 @@ export default function HomePage() {
             </ButtonLink>
           </div>
 
-          <div className="home-india-visual relative min-h-[300px] overflow-hidden rounded-[2rem] bg-brand-mist sm:min-h-[350px]">
+          <div className="home-india-visual relative min-h-[300px] overflow-hidden rounded-[2rem] bg-brand-mist sm:min-h-[350px] lg:min-h-[310px] lg:w-full lg:max-w-[720px] lg:justify-self-end">
             <Image
               src={pageAssetSlots.home.indiaImpact}
               alt="Ignited Brains vision for innovation across India"
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-contain p-1 sm:p-0"
+              className="object-contain p-1 sm:p-2 lg:p-6"
               style={{ objectPosition: "center" }}
             />
           </div>
@@ -431,7 +439,7 @@ export default function HomePage() {
 
       <section className="home-school-cta dark-space-surface border-y border-white/10">
         <Container wide className="relative grid items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
-          <div className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80" aria-hidden="true">
+          <div className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-14 lg:left-3 lg:h-56 lg:w-56 xl:left-6 xl:h-60 xl:w-60" aria-hidden="true">
             <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
             <Image
               src="/decorative/cta-earth.svg"
@@ -441,7 +449,7 @@ export default function HomePage() {
               className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
             />
           </div>
-          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
+          <div className="relative text-center sm:text-left lg:pl-[18%] xl:pl-[18%]">
             <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
               Ready to transform your school?
             </h2>
