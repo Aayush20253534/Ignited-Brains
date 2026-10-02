@@ -38,7 +38,7 @@ export default function ProjectsPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
+        <Container wide className="grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
           <div className="relative z-10 py-4 lg:py-12">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-brand-blue/55">Our Impact &amp; Projects</p>
             <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -56,17 +56,17 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <div className="relative min-h-[400px] self-stretch lg:min-h-[560px]">
-            <div className="absolute inset-y-0 left-[-6%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-12%] lg:-right-20">
+          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
+            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
               <Image
                 src={pageAssetSlots.projects.hero}
                 alt="Students collaborating on a robotics rover project"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 62vw"
+                sizes="(max-width: 1024px) 100vw, 52vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-white via-white/5 to-transparent lg:from-white/55 lg:via-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent lg:hidden" />
             </div>
           </div>
         </Container>
