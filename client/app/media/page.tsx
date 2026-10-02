@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { HomeIcon } from "@/components/home/home-icon";
+import { AnimatedEarth } from "@/components/layout/animated-earth";
 import { MediaBrowser } from "@/components/media-feed/media-browser";
 import { SiteImage } from "@/components/media";
 import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
@@ -138,11 +139,7 @@ export default function MediaPage() {
       </section>
 
       <section className="dark-space-surface border-y border-white/10 text-white">
-        <div className="pointer-events-none absolute -right-14 top-1/2 h-64 w-64 -translate-y-1/2 opacity-80 sm:right-0 sm:h-80 sm:w-80 lg:right-8 lg:h-96 lg:w-96" aria-hidden="true">
-          <div className="absolute inset-[10%] rounded-full bg-blue-500/20 blur-3xl" />
-          <Image src="/decorative/cta-earth.svg" alt="" fill sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px" className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.28)]" />
-        </div>
-        <Container wide className="relative py-12 sm:py-14 lg:py-16">
+        <Container wide className="relative grid items-center gap-8 py-10 sm:py-12 lg:grid-cols-[minmax(0,1fr)_210px] lg:gap-12 lg:py-12 xl:grid-cols-[minmax(0,1fr)_230px]">
           <div className="max-w-2xl">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand-orange">Stay Curious</p>
             <h2 className="mt-3 text-balance text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl">Get the latest stories, updates and innovations in your inbox.</h2>
@@ -152,6 +149,13 @@ export default function MediaPage() {
               <input id="media-newsletter" name="email" type="email" required placeholder="Enter your email address" className="min-w-0 flex-1 rounded-full bg-transparent px-4 text-sm text-brand-ink outline-none placeholder:text-brand-muted/70" />
               <button type="submit" className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-orange px-5 text-sm font-extrabold text-white transition hover:bg-brand-orange-dark">Subscribe <ArrowIcon className="h-4 w-4" /></button>
             </form>
+          </div>
+
+          <div
+            className="pointer-events-none mx-auto w-40 sm:w-48 lg:w-[210px] xl:w-[230px]"
+            aria-hidden="true"
+          >
+            <AnimatedEarth className="h-auto w-full drop-shadow-[0_18px_38px_rgba(0,91,255,.34)]" />
           </div>
         </Container>
       </section>

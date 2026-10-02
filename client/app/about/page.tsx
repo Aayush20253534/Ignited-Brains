@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HomeIcon } from "@/components/home/home-icon";
+import { AnimatedEarth } from "@/components/layout/animated-earth";
 import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
 import {
   aboutPrinciples,
@@ -323,21 +324,14 @@ export default function AboutPage() {
       </section>
 
       <section className="dark-space-surface border-y border-white/10">
-        <Container wide className="relative grid min-h-[190px] items-center gap-6 py-10 sm:gap-8 sm:py-12 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
+        <Container wide className="relative grid items-center gap-6 py-8 sm:gap-8 sm:py-10 lg:grid-cols-[190px_minmax(0,1fr)_auto] lg:gap-10 lg:py-8 xl:grid-cols-[210px_minmax(0,1fr)_auto]">
           <div
-            className="pointer-events-none relative mx-auto h-40 w-40 sm:h-48 sm:w-48 lg:absolute lg:-bottom-20 lg:-left-5 lg:h-72 lg:w-72 xl:left-2 xl:h-80 xl:w-80"
+            className="pointer-events-none mx-auto w-36 sm:w-44 lg:w-[190px] xl:w-[210px]"
             aria-hidden="true"
           >
-            <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-2xl" />
-            <Image
-              src="/decorative/cta-earth.svg"
-              alt=""
-              fill
-              sizes="(max-width: 640px) 160px, (max-width: 1024px) 192px, 320px"
-              className="object-contain drop-shadow-[0_18px_38px_rgba(0,91,255,.3)]"
-            />
+            <AnimatedEarth className="h-auto w-full drop-shadow-[0_18px_38px_rgba(0,91,255,.34)]" />
           </div>
-          <div className="relative text-center sm:text-left lg:pl-[23%] xl:pl-[24%]">
+          <div className="relative text-center sm:text-left">
             <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">
               Let&apos;s build the future together.
             </h2>
