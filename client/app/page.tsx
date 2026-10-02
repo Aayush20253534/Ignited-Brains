@@ -54,7 +54,7 @@ export default function HomePage() {
     <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="home-hero-shell relative grid items-center gap-7 py-5 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8 lg:py-5 xl:grid-cols-[1fr_1fr]">
+        <Container wide className="home-hero-shell relative grid items-center gap-7 py-6 lg:grid-cols-[0.97fr_1.03fr] lg:gap-8 lg:py-6 xl:grid-cols-[0.95fr_1.05fr]">
           <div className="relative z-10 py-2 lg:py-4">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
@@ -105,7 +105,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="home-hero-visual relative aspect-[16/10] w-full max-w-[720px] justify-self-end overflow-hidden rounded-[1.6rem] bg-brand-mist sm:aspect-[16/9] lg:aspect-[16/10] xl:aspect-[16/9]">
+          <div className="home-hero-visual relative aspect-[16/10] w-full max-w-[780px] justify-self-end overflow-hidden rounded-[1.6rem] bg-brand-mist sm:aspect-[16/9] lg:aspect-[16/10] xl:aspect-[16/10]">
             <div className="home-hero-media absolute inset-0 overflow-hidden rounded-[inherit]">
               {pageAssetSlots.home.hero.endsWith(".mp4") ? (
                 <video
