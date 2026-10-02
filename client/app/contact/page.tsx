@@ -137,7 +137,7 @@ export default function ContactPage() {
               </li>
               <li className="flex gap-3">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-orange text-white"><PinIcon /></span>
-                <div><p className="text-xs text-brand-muted">Location</p><p className="text-sm font-black text-brand-blue">Prayagraj, Uttar Pradesh, India</p></div>
+                <div><p className="text-xs text-brand-muted">Location</p><p className="text-sm font-black text-brand-blue">Lucknow, Uttar Pradesh, India</p></div>
               </li>
             </ul>
             <div className="mt-5 flex gap-2">

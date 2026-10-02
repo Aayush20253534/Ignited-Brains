@@ -10,7 +10,7 @@ export const siteConfig = {
   contact: {
     email: "info@ignitedbrains.com",
     phone: "+91 94544 88061",
-    city: "Prayagraj",
+    city: "Lucknow",
     region: "Uttar Pradesh",
     country: "India",
   },

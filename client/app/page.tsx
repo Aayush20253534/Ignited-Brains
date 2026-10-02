@@ -64,15 +64,20 @@ export default function HomePage() {
             <p className="mt-6 max-w-[610px] text-[0.96rem] font-medium leading-7 text-brand-ink/75 sm:text-[1.05rem]">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <ButtonLink href="/solutions" size="lg" showArrow>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ButtonLink
+                href="/solutions"
+                size="lg"
+                showArrow
+                className="min-h-14 w-full rounded-full px-7 shadow-[0_12px_28px_rgba(255,96,24,.22)] sm:w-auto"
+              >
                 Explore Our Solutions
               </ButtonLink>
               <Link
                 href="#our-story"
-                className="focus-ring inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-brand-line bg-white px-6 font-bold text-brand-blue transition hover:border-brand-blue/35 hover:bg-brand-sky sm:px-7"
+                className="focus-ring group inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full border border-brand-blue/15 bg-white px-7 font-extrabold text-brand-blue shadow-[0_10px_28px_rgba(15,39,78,.08)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/30 hover:bg-brand-sky hover:shadow-[0_14px_32px_rgba(15,39,78,.12)] active:translate-y-0 sm:w-auto"
               >
-                <PlayCircle className="h-7 w-7 border-0 bg-brand-sky shadow-none [&_svg]:h-3 [&_svg]:w-3" />
+                <PlayCircle className="h-8 w-8 border-0 bg-brand-sky shadow-none transition group-hover:bg-white [&_svg]:h-3 [&_svg]:w-3" />
                 <span>Watch Our Story</span>
               </Link>
             </div>
@@ -114,12 +119,13 @@ export default function HomePage() {
                 />
               )}
               <div
-                className="absolute inset-0"
+                className="pointer-events-none absolute inset-0 hidden lg:block"
                 style={{
                   background:
-                    "linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 16%, rgba(255,255,255,0.78) 30%, rgba(255,255,255,0.42) 44%, rgba(255,255,255,0.12) 58%, rgba(255,255,255,0) 78%)",
+                    "linear-gradient(to right, rgba(255,255,255,.88) 0%, rgba(255,255,255,.52) 13%, rgba(255,255,255,.16) 28%, rgba(255,255,255,0) 48%)",
                 }}
               />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/20 to-transparent lg:hidden" />
             </div>
             <div className="absolute right-6 top-12 hidden max-w-40 rotate-[-4deg] text-right text-2xl font-semibold italic leading-tight text-white drop-shadow-md xl:block">
               Young Minds.<br />Bigger Tomorrows.
@@ -266,21 +272,31 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-y-7 sm:grid-cols-2 lg:grid-cols-7 lg:gap-0">
+          <div className="mt-10 grid gap-y-0 sm:grid-cols-2 sm:gap-y-7 lg:grid-cols-7 lg:gap-0">
             {learningCycle.map((item, index) => (
-              <div key={item.step} className="relative px-2 text-center">
-                <div className="relative mx-auto grid h-20 w-20 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm">
-                  <HomeIcon name={item.icon} className="h-8 w-8" />
+              <div
+                key={item.step}
+                className="relative grid grid-cols-[4.5rem_1fr] gap-4 pb-8 text-left sm:block sm:px-2 sm:pb-0 sm:text-center"
+              >
+                <div className="relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:mx-auto sm:h-20 sm:w-20">
+                  <HomeIcon name={item.icon} className="h-7 w-7 sm:h-8 sm:w-8" />
                 </div>
+
                 {index < learningCycle.length - 1 ? (
-                  <div className="absolute left-[calc(50%+2.5rem)] right-[calc(-50%+2.5rem)] top-10 hidden items-center lg:flex">
-                    <span className="h-px flex-1 bg-brand-line" />
-                    <ArrowIcon className="h-4 w-4 text-brand-orange" />
-                  </div>
+                  <>
+                    <div className="absolute left-8 top-16 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-brand-orange/30 sm:hidden" />
+                    <div className="absolute left-[calc(50%+2.5rem)] right-[calc(-50%+2.5rem)] top-10 hidden items-center lg:flex">
+                      <span className="h-px flex-1 bg-brand-line" />
+                      <ArrowIcon className="h-4 w-4 text-brand-orange" />
+                    </div>
+                  </>
                 ) : null}
-                <p className="mt-5 text-[0.66rem] font-black text-brand-orange">{item.step}</p>
-                <h3 className="mt-1 text-sm font-black text-brand-blue">{item.title}</h3>
-                <p className="mt-1 whitespace-pre-line text-xs font-medium leading-5 text-brand-muted">{item.description}</p>
+
+                <div className="pt-1 sm:pt-0">
+                  <p className="text-[0.66rem] font-black text-brand-orange sm:mt-5">{item.step}</p>
+                  <h3 className="mt-1 text-base font-black text-brand-blue sm:text-sm">{item.title}</h3>
+                  <p className="mt-1 whitespace-pre-line text-sm font-medium leading-5 text-brand-muted sm:text-xs">{item.description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -391,12 +407,16 @@ export default function HomePage() {
             <p className="mt-5 max-w-lg text-base leading-7 text-brand-muted">
               Our mission is to bring hands-on, future-ready learning spaces into every school and ignite curiosity, creativity and innovation in every student.
             </p>
-            <ButtonLink href="/contact" showArrow className="mt-7">
+            <ButtonLink
+              href="/contact"
+              showArrow
+              className="mt-7 min-h-12 rounded-full px-6 shadow-[0_10px_24px_rgba(255,96,24,.2)]"
+            >
               Be Part of the Journey
             </ButtonLink>
           </div>
 
-          <div className="relative min-h-[300px] overflow-hidden rounded-[2rem] bg-brand-mist sm:min-h-[350px]">
+          <div className="home-india-visual relative min-h-[300px] overflow-hidden rounded-[2rem] bg-brand-mist sm:min-h-[350px]">
             <Image
               src={pageAssetSlots.home.indiaImpact}
               alt="Ignited Brains vision for innovation across India"

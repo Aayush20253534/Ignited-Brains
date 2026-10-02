@@ -118,7 +118,7 @@ export function SiteFooter() {
             </li>
             <li className="flex gap-3">
               <PinIcon />
-              <span>Prayagraj, Uttar Pradesh, India</span>
+              <span>Lucknow, Uttar Pradesh, India</span>
             </li>
           </ul>
         </div>

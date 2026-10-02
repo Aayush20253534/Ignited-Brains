@@ -805,7 +805,7 @@ main form {
     line-height: 0.98;
   }
 
-  .home-india-section [class*="min-h-"] {
+  .home-india-section .home-india-visual {
     min-height: clamp(230px, 62vw, 315px) !important;
     border-radius: 1.25rem;
   }
