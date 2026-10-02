@@ -53,7 +53,7 @@ export default function HomePage() {
     <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="relative grid min-h-[610px] items-center gap-6 py-10 sm:gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-0">
+        <Container wide className="home-hero-shell relative grid min-h-[520px] items-center gap-6 py-8 sm:gap-8 lg:grid-cols-[0.98fr_1.02fr] lg:gap-8 lg:py-5">
           <div className="relative z-10 py-4 sm:py-6 lg:py-14">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
@@ -69,13 +69,13 @@ export default function HomePage() {
                 href="/solutions"
                 size="lg"
                 showArrow
-                className="min-h-11 w-[13.75rem] rounded-full px-5 text-[0.9rem] shadow-[0_8px_20px_rgba(255,96,24,.2)] sm:min-h-12 sm:text-[0.95rem]"
+                className="min-h-11 w-[15rem] rounded-full px-5 text-[0.9rem] shadow-[0_8px_20px_rgba(255,96,24,.2)] sm:min-h-12 sm:text-[0.95rem]"
               >
                 Explore Our Solutions
               </ButtonLink>
               <Link
                 href="#our-story"
-                className="focus-ring group inline-flex min-h-11 w-[13.75rem] items-center justify-center gap-2.5 rounded-full border-2 border-brand-blue/25 bg-white px-5 text-[0.9rem] font-extrabold text-brand-blue shadow-[0_8px_20px_rgba(15,39,78,.1)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/45 hover:bg-brand-sky hover:shadow-[0_10px_24px_rgba(15,39,78,.14)] active:translate-y-0 sm:min-h-12 sm:text-[0.95rem]"
+                className="focus-ring group inline-flex min-h-11 w-[15rem] items-center justify-center gap-2.5 rounded-full border-2 border-brand-blue/25 bg-white px-5 text-[0.9rem] font-extrabold text-brand-blue shadow-[0_8px_20px_rgba(15,39,78,.1)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/45 hover:bg-brand-sky hover:shadow-[0_10px_24px_rgba(15,39,78,.14)] active:translate-y-0 sm:min-h-12 sm:text-[0.95rem]"
               >
                 <svg
                   viewBox="0 0 28 28"
@@ -104,8 +104,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[610px]">
-            <div className="home-hero-media absolute inset-y-0 left-[-10%] -right-4 overflow-hidden rounded-[2rem] sm:-right-12 sm:rounded-[2.75rem] lg:left-[7%] lg:right-0 lg:rounded-l-[3.5rem] lg:rounded-r-none">
+          <div className="home-hero-visual relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[480px]">
+            <div className="home-hero-media absolute inset-y-3 left-[-6%] -right-4 overflow-hidden sm:-right-8 lg:inset-y-2 lg:left-[10%] lg:right-0">
               {pageAssetSlots.home.hero.endsWith(".mp4") ? (
                 <video
                   src={pageAssetSlots.home.hero}
