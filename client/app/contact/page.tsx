@@ -50,7 +50,7 @@ export default function ContactPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid items-center gap-8 py-8 lg:min-h-[640px] lg:grid-cols-[0.84fr_1.16fr] lg:gap-10 lg:py-8 xl:grid-cols-[0.8fr_1.2fr] xl:gap-12">
+        <Container wide className="grid items-center gap-8 py-8 lg:min-h-[660px] lg:grid-cols-[0.82fr_1.18fr] lg:gap-10 lg:py-8 xl:grid-cols-[0.78fr_1.22fr] xl:gap-12">
           <div className="relative z-10 py-4 lg:py-8">
             <Eyebrow>Partner With Us</Eyebrow>
             <h1 className="mt-5 max-w-[590px] text-balance text-[clamp(3.15rem,5vw,5.35rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -75,17 +75,25 @@ export default function ContactPage() {
           </div>
 
           <div className="overflow-hidden rounded-[1.75rem] border border-brand-line bg-white shadow-[0_24px_70px_rgba(24,53,103,.12)]">
-            <div className="grid xl:grid-cols-[1.08fr_0.92fr]">
-              <div className="relative min-h-[260px] overflow-hidden bg-[#eef5fb] sm:min-h-[320px] xl:min-h-[560px]">
+            <div className="grid xl:grid-cols-[1.02fr_0.98fr]">
+              <div className="relative min-h-[300px] overflow-hidden bg-[#eaf2f8] sm:min-h-[380px] xl:min-h-[600px]">
                 <Image
                   src={pageAssetSlots.contact.hero}
-                  alt="Student looking toward a model rocket in an innovation lab"
+                  alt=""
+                  fill
+                  aria-hidden="true"
+                  sizes="(max-width: 1279px) 100vw, 36vw"
+                  className="scale-110 object-cover object-center opacity-35 blur-xl"
+                />
+                <div className="absolute inset-0 bg-white/10" />
+                <Image
+                  src={pageAssetSlots.contact.hero}
+                  alt="Student imagining the future beside an Indian space-learning display"
                   fill
                   priority
                   sizes="(max-width: 1279px) 100vw, 36vw"
-                  className="object-cover object-[52%_center]"
+                  className="object-contain object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/10 via-transparent to-transparent xl:bg-gradient-to-r xl:from-transparent xl:via-transparent xl:to-white/10" />
               </div>
 
               <div className="border-t border-brand-line/70 xl:border-l xl:border-t-0">
