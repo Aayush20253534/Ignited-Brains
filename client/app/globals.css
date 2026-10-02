@@ -896,3 +896,50 @@ main form {
     width: calc(100% - 2rem);
   }
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* Animated CTA Earth                                                         */
+/* -------------------------------------------------------------------------- */
+
+.animated-earth__land {
+  animation: animated-earth-drift 24s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.animated-earth__orbit {
+  animation: animated-earth-orbit 18s linear infinite;
+  transform-box: view-box;
+  transform-origin: 110px 110px;
+}
+
+.animated-earth__lights {
+  animation-duration: 24s, 2.8s;
+  animation-name: animated-earth-drift, animated-earth-pulse;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+
+@keyframes animated-earth-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-220px); }
+}
+
+@keyframes animated-earth-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes animated-earth-pulse {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-earth__land,
+  .animated-earth__orbit,
+  .animated-earth__lights {
+    animation: none !important;
+  }
+}
