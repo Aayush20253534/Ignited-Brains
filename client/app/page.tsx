@@ -333,9 +333,9 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="bg-white">
-        <Container wide className="grid items-stretch lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="py-14 pr-0 sm:py-16 lg:pr-12 lg:py-20">
+      <section className="bg-white py-14 sm:py-16 lg:py-20">
+        <Container wide className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10">
+          <div className="pr-0 lg:pr-4">
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Real Impact. Brighter Tomorrows.</p>
             <h2 className="mt-3 max-w-xl text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
               Building future-ready learners.
@@ -350,15 +350,15 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="relative min-h-[330px] overflow-hidden lg:min-h-full">
+          <div className="relative min-h-[300px] overflow-hidden rounded-[2rem] border border-brand-line bg-brand-mist shadow-card sm:min-h-[340px] lg:min-h-[370px]">
             <Image
               src={pageAssetSlots.home.impactStudent}
               alt="Student inspired by hands-on science learning"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+              className="object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-transparent to-transparent lg:from-white/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent" />
           </div>
         </Container>
       </section>

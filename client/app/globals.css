@@ -673,6 +673,22 @@ main form {
     );
   }
 
+  .about-india-hero,
+  .media-hero-visual {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.55) 5%,
+      #000 13%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.55) 5%,
+      #000 13%
+    );
+  }
+
   /*
    * At 100% browser zoom the original 6.15rem home hero is too large.
    * Clamp the first-page title only; every other UI token stays untouched.

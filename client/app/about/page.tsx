@@ -34,7 +34,7 @@ export default function AboutPage() {
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_34%,rgba(36,117,238,.14),transparent_31rem)]" />
-        <Container wide className="relative grid min-h-[590px] items-center gap-10 py-10 lg:grid-cols-[0.82fr_1.18fr] lg:py-0">
+        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-8">
           <div className="relative z-10 py-6 lg:py-14">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-brand-blue/55 sm:text-xs">
               About Ignited Brains
@@ -70,17 +70,17 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative min-h-[390px] self-stretch lg:min-h-[590px]">
-            <div className="absolute inset-y-0 left-[-8%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-16 lg:left-[-15%] lg:-right-20">
+          <div className="relative min-h-[300px] self-stretch sm:min-h-[340px] lg:min-h-[450px]">
+            <div className="about-india-hero absolute inset-y-3 left-0 right-0 overflow-hidden rounded-[2rem] bg-white lg:inset-y-4 lg:left-[4%]">
               <Image
                 src={pageAssetSlots.about.hero}
-                alt="Student building a robotics project in an Ignited Brains learning environment"
+                alt="Animated connected map of India representing Ignited Brains learning impact"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 58vw"
-                className="object-cover object-center"
+                unoptimized
+                sizes="(max-width: 1024px) 100vw, 52vw"
+                className="object-contain object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent lg:from-white/75 lg:via-transparent" />
             </div>
           </div>
         </Container>
@@ -144,8 +144,10 @@ export default function AboutPage() {
             {aboutValues.map((value) => (
               <article key={value.title} className="card-lift relative rounded-2xl border border-brand-line bg-white p-6 shadow-card sm:p-7">
                 <span className="absolute right-6 top-6 text-2xl font-black text-brand-blue/10">{value.index}</span>
-                <HomeIcon name={value.icon} className="h-11 w-11 text-brand-orange" />
-                <h3 className="mt-6 text-2xl font-black tracking-[-0.03em] text-brand-blue">{value.title}</h3>
+                <span className="grid h-12 w-12 place-items-center rounded-xl border border-orange-100 bg-orange-50 text-brand-orange shadow-sm">
+                  <HomeIcon name={value.icon} className="h-7 w-7" />
+                </span>
+                <h3 className="mt-5 text-2xl font-black tracking-[-0.03em] text-brand-blue">{value.title}</h3>
                 <p className="mt-3 max-w-sm text-base leading-7 text-brand-muted">{value.description}</p>
                 <Link href="/contact" className="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-brand-orange transition hover:gap-3">
                   {value.action}
@@ -291,13 +293,15 @@ export default function AboutPage() {
             </ButtonLink>
           </div>
 
-          <div className="relative min-h-[330px] overflow-hidden rounded-[2rem] sm:min-h-[390px]">
+          <div className="relative aspect-[2/1] w-full overflow-hidden rounded-[1.5rem] bg-white">
             <Image
               src={pageAssetSlots.about.indiaImpact}
-              alt="India represented as a connected network of learning opportunities"
+              alt="Animated connected map of India representing learning opportunities"
               fill
+              unoptimized
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-contain"
+              className="object-cover object-center"
+              style={{ clipPath: "inset(0 0 0 1.4%)", transform: "scale(1.025)" }}
             />
           </div>
 

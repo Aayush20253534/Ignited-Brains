@@ -19,7 +19,7 @@ export default function MediaPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
+        <Container wide className="grid min-h-[500px] items-center gap-8 py-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-8">
           <div className="relative z-10 py-4 lg:py-12">
             <Eyebrow>Media &amp; Insights</Eyebrow>
             <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -49,17 +49,17 @@ export default function MediaPage() {
             </div>
           </div>
 
-          <div className="relative min-h-[400px] self-stretch lg:min-h-[560px]">
-            <div className="absolute inset-y-0 left-[-6%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-12%] lg:-right-20">
+          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
+            <div className="media-hero-visual absolute inset-y-3 left-0 right-0 overflow-hidden rounded-[2rem] sm:inset-y-4 lg:left-[4%] lg:rounded-[2.75rem]">
               <Image
                 src={pageAssetSlots.media.hero}
                 alt="Student building a robotics rover"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 62vw"
+                sizes="(max-width: 1024px) 100vw, 52vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-white via-white/5 to-transparent lg:from-white/55 lg:via-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent lg:hidden" />
             </div>
           </div>
         </Container>
