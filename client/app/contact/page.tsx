@@ -50,7 +50,7 @@ export default function ContactPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid items-center gap-7 py-10 lg:min-h-[calc(100vh-5.5rem)] lg:grid-cols-[0.78fr_0.82fr_0.9fr] lg:gap-0 lg:py-8">
+        <Container wide className="grid items-center gap-7 py-8 lg:min-h-[620px] lg:grid-cols-[0.72fr_0.72fr_1.06fr] lg:gap-4 lg:py-6">
           <div className="relative z-20 py-4 lg:pr-8">
             <Eyebrow>Partner With Us</Eyebrow>
             <h1 className="mt-5 max-w-[560px] text-balance text-[clamp(3.2rem,5.4vw,5.65rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
@@ -69,7 +69,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="relative z-0 min-h-[390px] overflow-hidden rounded-3xl lg:min-h-[calc(100vh-6.5rem)] lg:rounded-none lg:rounded-bl-[5rem]">
+          <div className="relative z-0 min-h-[390px] overflow-hidden rounded-3xl lg:min-h-[560px] lg:rounded-[2rem]">
             <Image
               src={pageAssetSlots.contact.hero}
               alt="Student looking toward a model rocket in an innovation lab"
