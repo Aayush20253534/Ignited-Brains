@@ -418,11 +418,14 @@ export default function HomePage() {
               alt="Ignited Brains vision for innovation across India"
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="scale-[1.04] object-cover object-center"
+              className="object-cover object-center"
+              style={{
+                transform: "scale(1.07) translateX(-1.2%)",
+              }}
             />
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 z-10 w-2 bg-white"
+              className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-white"
             />
           </div>
         </Container>
