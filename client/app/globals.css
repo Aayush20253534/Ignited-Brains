@@ -871,12 +871,27 @@ main form {
   }
 
   .site-footer-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 2.25rem !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    column-gap: 1.25rem !important;
+    row-gap: 2.25rem !important;
   }
 
   .site-footer-grid > * {
+    grid-column: auto !important;
+  }
+
+  .site-footer-grid .footer-brand,
+  .site-footer-grid .footer-contact,
+  .site-footer-grid .footer-newsletter {
     grid-column: 1 / -1 !important;
+  }
+
+  .site-footer-grid .footer-quick-links {
+    grid-column: 1 !important;
+  }
+
+  .site-footer-grid .footer-solutions {
+    grid-column: 2 !important;
   }
 
   .site-footer form {
