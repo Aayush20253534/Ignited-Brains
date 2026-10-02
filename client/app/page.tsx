@@ -64,20 +64,20 @@ export default function HomePage() {
             <p className="mt-6 max-w-[610px] text-[0.96rem] font-medium leading-7 text-brand-ink/75 sm:text-[1.05rem]">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-7 flex flex-wrap items-center gap-2.5">
               <ButtonLink
                 href="/solutions"
                 size="lg"
                 showArrow
-                className="min-h-14 w-full rounded-full px-7 shadow-[0_12px_28px_rgba(255,96,24,.22)] sm:w-auto"
+                className="min-h-11 w-fit rounded-full px-5 text-[0.9rem] shadow-[0_8px_20px_rgba(255,96,24,.2)] sm:min-h-12 sm:px-6 sm:text-[0.95rem]"
               >
                 Explore Our Solutions
               </ButtonLink>
               <Link
                 href="#our-story"
-                className="focus-ring group inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full border border-brand-blue/15 bg-white px-7 font-extrabold text-brand-blue shadow-[0_10px_28px_rgba(15,39,78,.08)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/30 hover:bg-brand-sky hover:shadow-[0_14px_32px_rgba(15,39,78,.12)] active:translate-y-0 sm:w-auto"
+                className="focus-ring group inline-flex min-h-11 w-fit items-center justify-center gap-2.5 rounded-full border-2 border-brand-blue/25 bg-white px-5 text-[0.9rem] font-extrabold text-brand-blue shadow-[0_8px_20px_rgba(15,39,78,.1)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/45 hover:bg-brand-sky hover:shadow-[0_10px_24px_rgba(15,39,78,.14)] active:translate-y-0 sm:min-h-12 sm:px-6 sm:text-[0.95rem]"
               >
-                <PlayCircle className="h-8 w-8 border-0 bg-brand-sky shadow-none transition group-hover:bg-white [&_svg]:h-3 [&_svg]:w-3" />
+                <PlayCircle className="h-7 w-7 border-0 bg-brand-blue text-white shadow-none transition group-hover:bg-brand-navy [&_svg]:h-3 [&_svg]:w-3" />
                 <span>Watch Our Story</span>
               </Link>
             </div>
@@ -410,7 +410,7 @@ export default function HomePage() {
             <ButtonLink
               href="/contact"
               showArrow
-              className="mt-7 min-h-12 rounded-full px-6 shadow-[0_10px_24px_rgba(255,96,24,.2)]"
+              className="mt-7 min-h-11 w-fit rounded-full px-5 text-[0.9rem] shadow-[0_8px_20px_rgba(255,96,24,.18)] sm:min-h-12 sm:px-6 sm:text-[0.95rem]"
             >
               Be Part of the Journey
             </ButtonLink>
@@ -422,8 +422,8 @@ export default function HomePage() {
               alt="Ignited Brains vision for innovation across India"
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="scale-[1.025] object-cover"
-              style={{ objectPosition: "center 30%" }}
+              className="object-contain p-1 sm:p-0"
+              style={{ objectPosition: "center" }}
             />
           </div>
         </Container>
