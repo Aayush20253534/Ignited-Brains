@@ -13,7 +13,7 @@ type SubmissionState =
   | { status: "success"; message: string }
   | { status: "error"; message: string };
 
-export function ContactForm() {
+export function ContactForm({ embedded = false }: { embedded?: boolean }) {
   const [submission, setSubmission] = useState<SubmissionState>({
     status: "idle",
     message: "",
@@ -76,7 +76,10 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative z-30 rounded-3xl border border-brand-line bg-white p-5 shadow-[0_24px_70px_rgba(24,53,103,.15)] sm:p-7 lg:-ml-2 lg:p-6 xl:p-7"
+      className={embedded
+        ? "relative z-10 bg-white p-5 sm:p-6 lg:p-6"
+        : "relative z-30 rounded-3xl border border-brand-line bg-white p-5 shadow-[0_24px_70px_rgba(24,53,103,.15)] sm:p-7 lg:p-6 xl:p-7"
+      }
     >
       <h2 className="text-2xl font-black tracking-[-0.035em] text-brand-blue">
         Start a Conversation

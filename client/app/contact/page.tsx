@@ -50,38 +50,49 @@ export default function ContactPage() {
   return (
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid items-center gap-7 py-8 lg:min-h-[620px] lg:grid-cols-[0.72fr_0.72fr_1.06fr] lg:gap-4 lg:py-6">
-          <div className="relative z-20 py-4 lg:pr-8">
+        <Container wide className="grid items-center gap-8 py-8 lg:min-h-[620px] lg:grid-cols-[0.9fr_1.1fr] lg:gap-10 lg:py-8 xl:grid-cols-[0.86fr_1.14fr] xl:gap-12">
+          <div className="relative z-10 py-4 lg:py-8">
             <Eyebrow>Partner With Us</Eyebrow>
-            <h1 className="mt-5 max-w-[560px] text-balance text-[clamp(3.2rem,5.4vw,5.65rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
+            <h1 className="mt-5 max-w-[590px] text-balance text-[clamp(3.15rem,5vw,5.35rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
               Let’s build the future <span className="text-brand-orange">together.</span>
             </h1>
-            <p className="mt-5 max-w-[530px] text-base font-medium leading-7 text-brand-ink/75">
+            <p className="mt-5 max-w-[560px] text-base font-medium leading-7 text-brand-ink/75">
               Tell us about your school, institution or learning initiative. We’ll get in touch to discuss how Ignited Brains can help you create hands-on learning spaces for curious minds.
             </p>
-            <div className="mt-9 grid grid-cols-3 gap-3 border-t border-brand-line/75 pt-6">
+
+            <div className="mt-8 grid max-w-[590px] gap-3 border-t border-brand-line/75 pt-5 sm:grid-cols-3">
               {contactHeroBenefits.map((item) => (
                 <div key={item.title} className="flex items-center gap-2.5">
-                  <HomeIcon name={item.icon} className="h-7 w-7 shrink-0 text-brand-orange" />
-                  <p className="text-[0.68rem] font-black leading-4 text-brand-blue sm:text-xs">{item.title}</p>
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
+                    <HomeIcon name={item.icon} className="h-5 w-5" />
+                  </span>
+                  <p className="text-[0.68rem] font-black leading-4 text-brand-blue sm:text-xs">
+                    {item.title}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative z-0 min-h-[390px] overflow-hidden rounded-3xl lg:min-h-[560px] lg:rounded-[2rem]">
-            <Image
-              src={pageAssetSlots.contact.hero}
-              alt="Student looking toward a model rocket in an innovation lab"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 34vw"
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-transparent lg:from-white/25" />
-          </div>
+          <div className="overflow-hidden rounded-[1.75rem] border border-brand-line bg-white shadow-[0_24px_70px_rgba(24,53,103,.12)]">
+            <div className="grid xl:grid-cols-[0.82fr_1.18fr]">
+              <div className="relative min-h-[230px] sm:min-h-[280px] xl:min-h-full">
+                <Image
+                  src={pageAssetSlots.contact.hero}
+                  alt="Student looking toward a model rocket in an innovation lab"
+                  fill
+                  priority
+                  sizes="(max-width: 1279px) 100vw, 30vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/10 via-transparent to-transparent xl:bg-gradient-to-r xl:from-transparent xl:via-transparent xl:to-white/10" />
+              </div>
 
-          <ContactForm />
+              <div className="border-t border-brand-line/70 xl:border-l xl:border-t-0">
+                <ContactForm embedded />
+              </div>
+            </div>
+          </div>
         </Container>
       </section>
 
