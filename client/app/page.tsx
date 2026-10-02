@@ -394,13 +394,13 @@ export default function HomePage() {
 
       <section className="home-india-section relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_54%_50%,rgba(255,108,39,.07),transparent_30rem)]" />
-        <Container wide className="relative grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10">
+        <Container wide className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-3 xl:gap-4">
           <div>
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">For A Brighter India</p>
             <h2 className="mt-3 max-w-xl text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
               Building future,<br />one curious mind at a time.
             </h2>
-            <p className="mt-5 max-w-lg text-base leading-7 text-brand-muted">
+            <p className="mt-5 max-w-[620px] text-base leading-7 text-brand-muted">
               Our mission is to bring hands-on, future-ready learning spaces into every school and ignite curiosity, creativity and innovation in every student.
             </p>
             <ButtonLink
@@ -412,7 +412,7 @@ export default function HomePage() {
             </ButtonLink>
           </div>
 
-          <div className="home-india-visual relative aspect-[2/1] w-full overflow-hidden rounded-[1.5rem] bg-white lg:max-w-[600px] lg:justify-self-end xl:max-w-[640px]">
+          <div className="home-india-visual relative aspect-[2/1] w-full overflow-hidden rounded-[1.5rem] bg-white lg:max-w-[680px] lg:justify-self-start xl:max-w-[720px]">
             <Image
               src={pageAssetSlots.home.indiaImpact}
               alt="Ignited Brains vision for innovation across India"
