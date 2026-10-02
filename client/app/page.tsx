@@ -53,7 +53,7 @@ export default function HomePage() {
     <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="home-hero-shell relative grid min-h-[520px] items-center gap-6 py-8 sm:gap-8 lg:grid-cols-[0.98fr_1.02fr] lg:gap-8 lg:py-5">
+        <Container wide className="home-hero-shell relative grid min-h-[500px] items-center gap-6 py-8 sm:gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10 lg:py-5">
           <div className="relative z-10 py-4 sm:py-6 lg:py-14">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
@@ -104,8 +104,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="home-hero-visual relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[480px]">
-            <div className="home-hero-media absolute inset-y-3 left-[-6%] -right-4 overflow-hidden sm:-right-8 lg:inset-y-2 lg:left-[10%] lg:right-0">
+          <div className="home-hero-visual relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[420px] lg:max-w-[700px] lg:justify-self-end">
+            <div className="home-hero-media absolute inset-y-3 left-[-6%] -right-4 overflow-hidden sm:-right-8 lg:inset-y-0 lg:left-[8%] lg:right-0">
               {pageAssetSlots.home.hero.endsWith(".mp4") ? (
                 <video
                   src={pageAssetSlots.home.hero}
@@ -126,10 +126,6 @@ export default function HomePage() {
                 />
               )}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/20 to-transparent lg:hidden" />
-            </div>
-            <div className="absolute right-6 top-12 hidden max-w-40 rotate-[-4deg] text-right text-2xl font-semibold italic leading-tight text-white drop-shadow-md xl:block">
-              Young Minds.<br />Bigger Tomorrows.
-              <span className="ml-auto mt-3 block h-0.5 w-12 rotate-[-8deg] bg-brand-orange" />
             </div>
           </div>
         </Container>
