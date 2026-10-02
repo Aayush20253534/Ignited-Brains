@@ -75,15 +75,15 @@ export default function ContactPage() {
           </div>
 
           <div className="overflow-hidden rounded-[1.75rem] border border-brand-line bg-white shadow-[0_24px_70px_rgba(24,53,103,.12)]">
-            <div className="grid xl:grid-cols-[0.82fr_1.18fr]">
-              <div className="relative min-h-[230px] sm:min-h-[280px] xl:min-h-full">
+            <div className="grid xl:grid-cols-[0.92fr_1.08fr]">
+              <div className="relative min-h-[230px] overflow-hidden bg-brand-mist sm:min-h-[280px] xl:min-h-[520px]">
                 <Image
                   src={pageAssetSlots.contact.hero}
                   alt="Student looking toward a model rocket in an innovation lab"
                   fill
                   priority
                   sizes="(max-width: 1279px) 100vw, 30vw"
-                  className="object-cover object-center"
+                  className="scale-[1.04] object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/10 via-transparent to-transparent xl:bg-gradient-to-r xl:from-transparent xl:via-transparent xl:to-white/10" />
               </div>

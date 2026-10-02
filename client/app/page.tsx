@@ -54,18 +54,18 @@ export default function HomePage() {
     <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
-          <div className="relative z-10 py-4 lg:py-12">
+        <Container wide className="home-hero-shell relative grid items-center gap-7 py-5 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8 lg:py-5 xl:grid-cols-[1fr_1fr]">
+          <div className="relative z-10 py-2 lg:py-4">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
             </p>
-            <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
+            <h1 className="mt-4 max-w-[620px] text-balance text-[clamp(3rem,5vw,5rem)] font-black leading-[0.94] tracking-[-0.052em] text-brand-blue">
               The future isn&apos;t found in books. It is <span className="text-brand-orange">created.</span>
             </h1>
-            <p className="mt-5 max-w-[600px] text-base font-medium leading-7 text-brand-ink/75">
+            <p className="mt-4 max-w-[590px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <ButtonLink
                 href="/solutions"
                 size="lg"
@@ -90,7 +90,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-8 grid max-w-[650px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-5 sm:grid-cols-3 sm:gap-4">
+            <div className="mt-6 grid max-w-[620px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-4 sm:grid-cols-3 sm:gap-4">
               {homePrinciples.map((item) => (
                 <div key={item.title} className="flex items-center gap-2.5">
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
@@ -105,8 +105,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
-            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
+          <div className="home-hero-visual relative aspect-[16/10] w-full max-w-[720px] justify-self-end overflow-hidden rounded-[1.6rem] bg-brand-mist sm:aspect-[16/9] lg:aspect-[16/10] xl:aspect-[16/9]">
+            <div className="home-hero-media absolute inset-0 overflow-hidden rounded-[inherit]">
               {pageAssetSlots.home.hero.endsWith(".mp4") ? (
                 <video
                   src={pageAssetSlots.home.hero}
@@ -122,11 +122,11 @@ export default function HomePage() {
                   alt="Student building a robotics project in an Ignited Brains innovation lab"
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-center"
                 />
               )}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent lg:hidden" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/15 via-transparent to-transparent lg:hidden" />
             </div>
           </div>
         </Container>
