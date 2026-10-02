@@ -34,7 +34,7 @@ export default function AboutPage() {
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_34%,rgba(36,117,238,.14),transparent_31rem)]" />
-        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-8">
+        <Container wide className="relative grid min-h-[480px] items-center gap-8 py-4 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-0">
           <div className="relative z-10 py-6 lg:py-14">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-brand-blue/55 sm:text-xs">
               About Ignited Brains
@@ -70,8 +70,8 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative min-h-[300px] self-stretch sm:min-h-[340px] lg:min-h-[450px]">
-            <div className="about-india-hero absolute inset-y-3 left-0 right-0 overflow-hidden rounded-[2rem] bg-white lg:inset-y-4 lg:left-[4%]">
+          <div className="relative min-h-[300px] self-stretch sm:min-h-[340px] lg:min-h-[440px]">
+            <div className="about-india-hero absolute inset-0 left-0 right-0 overflow-hidden lg:left-[2%]">
               <Image
                 src={pageAssetSlots.about.hero}
                 alt="Animated connected map of India representing Ignited Brains learning impact"
