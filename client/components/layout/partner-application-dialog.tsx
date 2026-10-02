@@ -127,23 +127,23 @@ function ChoiceCard({
     <button
       type="button"
       onClick={onClick}
-      className="group focus-ring relative flex min-h-[156px] flex-col rounded-2xl border border-brand-line bg-white p-5 text-left shadow-[0_12px_34px_rgba(24,53,103,.055)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/25 hover:shadow-[0_18px_42px_rgba(24,53,103,.1)] sm:p-6"
+      className="group focus-ring relative flex min-h-[126px] flex-col rounded-xl border border-brand-line bg-white p-4 text-left shadow-[0_10px_28px_rgba(24,53,103,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/25 hover:shadow-[0_14px_34px_rgba(24,53,103,.09)] sm:p-4.5"
     >
       <div className="flex w-full items-start justify-between gap-4">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-sky text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-sky text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white">
           {icon}
         </span>
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-brand-line text-brand-blue transition group-hover:border-brand-orange group-hover:bg-brand-orange group-hover:text-white">
+        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-brand-line text-brand-blue transition group-hover:border-brand-orange group-hover:bg-brand-orange group-hover:text-white">
           <ArrowIcon className="h-4 w-4" />
         </span>
       </div>
-      <span className="mt-5 text-[0.68rem] font-black uppercase tracking-[0.16em] text-brand-orange">
+      <span className="mt-3.5 text-[0.64rem] font-black uppercase tracking-[0.16em] text-brand-orange">
         {eyebrow}
       </span>
-      <span className="mt-1.5 block text-xl font-black tracking-[-0.025em] text-brand-blue">
+      <span className="mt-1 block text-lg font-black tracking-[-0.025em] text-brand-blue">
         {title}
       </span>
-      <span className="mt-2 block max-w-sm text-sm leading-5 text-brand-muted">
+      <span className="mt-1.5 block max-w-sm text-[0.82rem] leading-5 text-brand-muted">
         {description}
       </span>
     </button>
@@ -290,15 +290,15 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
                 if (event.target === event.currentTarget) close();
               }}
             >
-              <div className="my-auto flex max-h-[min(92dvh,860px)] w-full max-w-3xl flex-col overflow-hidden rounded-[1.5rem] border border-white/70 bg-white shadow-[0_32px_100px_rgba(4,27,63,.28)] sm:rounded-[1.75rem]">
-                <div className="flex shrink-0 items-start justify-between gap-4 border-b border-brand-line/70 px-5 py-5 sm:px-7 sm:py-6">
+              <div className="my-auto flex max-h-[min(88dvh,760px)] w-full max-w-2xl flex-col overflow-hidden rounded-[1.25rem] border border-white/70 bg-white shadow-[0_28px_80px_rgba(4,27,63,.26)] sm:rounded-[1.5rem]">
+                <div className="flex shrink-0 items-start justify-between gap-4 border-b border-brand-line/70 px-5 py-4 sm:px-6 sm:py-4.5">
                   <div>
                     <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-brand-orange">
                       Partner With Us
                     </p>
                     <h2
                       id="application-dialog-title"
-                      className="mt-1.5 text-2xl font-black tracking-[-0.035em] text-brand-blue sm:text-[1.75rem]"
+                      className="mt-1 text-xl font-black tracking-[-0.03em] text-brand-blue sm:text-2xl"
                     >
                       {applicantType === null
                         ? "Start an application"
@@ -306,7 +306,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
                           ? "Student application"
                           : "Organisation application"}
                     </h2>
-                    <p className="mt-1 max-w-xl text-sm leading-6 text-brand-muted">
+                    <p className="mt-1 max-w-xl text-[0.82rem] leading-5 text-brand-muted">
                       {applicantType === null
                         ? "Choose the application type that best matches you."
                         : "Complete the details below. Required fields are marked with an asterisk."}
@@ -323,7 +323,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
                   </button>
                 </div>
 
-                <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-7 sm:py-6">
+                <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5">
                   {submitted ? (
                     <div className="mx-auto max-w-lg py-8 text-center sm:py-12">
                       <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-50 text-emerald-700">
@@ -353,7 +353,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
                       </Button>
                     </div>
                   ) : applicantType === null ? (
-                    <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="grid gap-3 sm:grid-cols-2">
                       <ChoiceCard
                         icon={<StudentIcon />}
                         eyebrow="Student"
@@ -371,7 +371,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
                     </div>
                   ) : (
                     <form onSubmit={submitApplication}>
-                      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-brand-line bg-brand-mist px-4 py-3">
+                      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-brand-line bg-brand-mist px-4 py-2.5">
                         <div className="flex items-center gap-3">
                           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white text-brand-blue shadow-sm">
                             {applicantType === "STUDENT" ? (
@@ -403,7 +403,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
                         </button>
                       </div>
 
-                      <div className="grid gap-x-4 gap-y-4 sm:grid-cols-2">
+                      <div className="grid gap-x-4 gap-y-3.5 sm:grid-cols-2">
                         <SectionHeading
                           step="1"
                           title="Contact details"
@@ -758,7 +758,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
                         </p>
                       ) : null}
 
-                      <div className="mt-6 flex flex-col-reverse gap-3 border-t border-brand-line/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="mt-5 flex flex-col-reverse gap-3 border-t border-brand-line/70 pt-4 sm:flex-row sm:items-center sm:justify-between">
                         <p className="text-xs leading-5 text-brand-muted">
                           By submitting, you agree to be contacted about this application.
                         </p>
