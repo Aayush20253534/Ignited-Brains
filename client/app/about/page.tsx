@@ -47,10 +47,10 @@ export default function AboutPage() {
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <ButtonLink href="#our-story" size="lg" showArrow>
+              <ButtonLink href="#our-story" size="lg" showArrow className="w-[15rem]">
                 Our Story
               </ButtonLink>
-              <ButtonLink href="/solutions" size="lg" variant="outline" showArrow>
+              <ButtonLink href="/solutions" size="lg" variant="outline" showArrow className="w-[15rem]">
                 Explore Our Solutions
               </ButtonLink>
             </div>
