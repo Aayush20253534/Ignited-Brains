@@ -36,7 +36,7 @@ export default function SolutionsPage() {
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_32%,rgba(38,123,255,.15),transparent_31rem)]" />
-        <Container wide className="relative grid min-h-[560px] items-center gap-8 py-10 lg:grid-cols-[0.78fr_1.22fr] lg:py-0">
+        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
           <div className="relative z-10 py-6 lg:py-12">
             <Eyebrow>Our Solutions</Eyebrow>
             <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.1rem,5.4vw,5.5rem)] font-black leading-[0.94] tracking-[-0.055em] text-brand-blue">
@@ -69,17 +69,17 @@ export default function SolutionsPage() {
             </div>
           </div>
 
-          <div className="relative min-h-[390px] self-stretch lg:min-h-[560px]">
-            <div className="absolute inset-y-0 left-[-7%] -right-4 overflow-hidden rounded-bl-[5rem] sm:-right-14 lg:left-[-13%] lg:-right-20">
+          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
+            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
               <Image
                 src={pageAssetSlots.solutions.hero}
                 alt="Student building a robotics project inside a future-ready learning environment"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 60vw"
+                sizes="(max-width: 1024px) 100vw, 52vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-white via-white/5 to-transparent lg:from-white/55 lg:via-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent lg:hidden" />
             </div>
           </div>
         </Container>
