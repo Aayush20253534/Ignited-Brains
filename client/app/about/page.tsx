@@ -34,44 +34,44 @@ export default function AboutPage() {
     <main className="overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_34%,rgba(36,117,238,.14),transparent_31rem)]" />
-        <Container wide className="relative grid min-h-[480px] items-center gap-8 py-4 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-0">
-          <div className="relative z-10 py-6 lg:py-14">
+        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
+          <div className="relative z-10 py-4 lg:py-12">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-brand-blue/55 sm:text-xs">
               About Ignited Brains
             </p>
-            <h1 className="mt-5 max-w-[680px] text-balance text-[clamp(3.2rem,5.7vw,5.85rem)] font-black leading-[0.94] tracking-[-0.055em] text-brand-blue">
+            <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
               Education should do more than teach. It should <span className="text-brand-orange">ignite.</span>
             </h1>
-            <p className="mt-6 max-w-[610px] text-[0.98rem] font-medium leading-7 text-brand-ink/75 sm:text-[1.04rem]">
+            <p className="mt-5 max-w-[600px] text-base font-medium leading-7 text-brand-ink/75">
               Ignited Brains creates future-ready learning environments where curiosity becomes experimentation, creativity becomes creation and innovation becomes action.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <ButtonLink href="#our-story" size="lg" showArrow className="w-[15rem]">
+              <ButtonLink href="#our-story" size="lg" showArrow>
                 Our Story
               </ButtonLink>
-              <ButtonLink href="/solutions" size="lg" variant="outline" showArrow className="w-[15rem]">
+              <ButtonLink href="/solutions" size="lg" variant="outline" showArrow>
                 Explore Our Solutions
               </ButtonLink>
             </div>
 
-            <div className="mt-9 grid max-w-2xl grid-cols-1 gap-4 border-t border-brand-line/80 pt-6 sm:grid-cols-3">
+            <div className="mt-8 grid max-w-[650px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-5 sm:grid-cols-3 sm:gap-4">
               {aboutPrinciples.map((item) => (
-                <div key={item.title} className="flex items-center gap-3">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-brand-orange">
-                    <HomeIcon name={item.icon} className="h-6 w-6" />
+                <div key={item.title} className="flex items-center gap-2.5">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
+                    <HomeIcon name={item.icon} className="h-5 w-5" />
                   </span>
-                  <div>
-                    <p className="text-sm font-extrabold text-brand-blue">{item.title}</p>
-                    <p className="mt-0.5 text-[0.7rem] font-semibold text-brand-muted">{item.description}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs font-extrabold text-brand-blue sm:text-sm">{item.title}</p>
+                    <p className="mt-0.5 text-[0.66rem] font-semibold leading-4 text-brand-muted sm:text-[0.7rem]">{item.description}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative min-h-[300px] self-stretch sm:min-h-[340px] lg:min-h-[440px]">
-            <div className="about-india-hero absolute inset-0 left-0 right-0 overflow-hidden lg:left-[2%]">
+          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
+            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
               <Image
                 src={pageAssetSlots.about.hero}
                 alt="Animated connected map of India representing Ignited Brains learning impact"
@@ -79,7 +79,7 @@ export default function AboutPage() {
                 priority
                 unoptimized
                 sizes="(max-width: 1024px) 100vw, 52vw"
-                className="object-contain object-center"
+                className="object-contain object-center lg:scale-[0.98]"
               />
             </div>
           </div>

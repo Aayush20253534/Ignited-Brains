@@ -53,18 +53,18 @@ export default function HomePage() {
     <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="home-hero-shell relative grid min-h-[500px] items-center gap-6 py-8 sm:gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10 lg:py-5">
-          <div className="relative z-10 py-4 sm:py-6 lg:py-14">
+        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
+          <div className="relative z-10 py-4 lg:py-12">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
             </p>
-            <h1 className="mt-5 max-w-[760px] text-balance text-[clamp(3.25rem,6vw,6.15rem)] font-black leading-[0.9] tracking-[-0.055em] text-brand-blue">
+            <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
               The future isn&apos;t found in books. It is <span className="text-brand-orange">created.</span>
             </h1>
-            <p className="mt-6 max-w-[610px] text-[0.96rem] font-medium leading-7 text-brand-ink/75 sm:text-[1.05rem]">
+            <p className="mt-5 max-w-[600px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-2.5">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <ButtonLink
                 href="/solutions"
                 size="lg"
@@ -89,23 +89,23 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-9 grid max-w-2xl grid-cols-1 gap-4 border-t border-brand-line/80 pt-6 sm:grid-cols-3">
+            <div className="mt-8 grid max-w-[650px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-5 sm:grid-cols-3 sm:gap-4">
               {homePrinciples.map((item) => (
-                <div key={item.title} className="flex items-center gap-3">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-brand-orange">
-                    <HomeIcon name={item.icon} className="h-6 w-6" />
+                <div key={item.title} className="flex items-center gap-2.5">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
+                    <HomeIcon name={item.icon} className="h-5 w-5" />
                   </span>
-                  <div>
-                    <p className="text-sm font-extrabold text-brand-blue">{item.title}</p>
-                    <p className="mt-0.5 text-[0.7rem] font-semibold text-brand-muted">{item.description}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs font-extrabold text-brand-blue sm:text-sm">{item.title}</p>
+                    <p className="mt-0.5 text-[0.66rem] font-semibold leading-4 text-brand-muted sm:text-[0.7rem]">{item.description}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="home-hero-visual relative min-h-[290px] w-full self-stretch sm:min-h-[340px] lg:min-h-[420px] lg:max-w-[700px] lg:justify-self-end">
-            <div className="home-hero-media absolute inset-y-3 left-[-6%] -right-4 overflow-hidden sm:-right-8 lg:inset-y-0 lg:left-[8%] lg:right-0">
+          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
+            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
               {pageAssetSlots.home.hero.endsWith(".mp4") ? (
                 <video
                   src={pageAssetSlots.home.hero}
@@ -125,7 +125,7 @@ export default function HomePage() {
                   className="object-cover object-center"
                 />
               )}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/20 to-transparent lg:hidden" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent lg:hidden" />
             </div>
           </div>
         </Container>
