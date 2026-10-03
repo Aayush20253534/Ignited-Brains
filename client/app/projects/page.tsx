@@ -190,8 +190,9 @@ export default function ProjectsPage() {
             <ButtonLink href="/contact" className="mt-6" showArrow>Partner With Us</ButtonLink>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[520px]">
+          <div className="relative mx-auto w-full max-w-[520px] overflow-hidden">
             <Image src={pageAssetSlots.home.indiaImpact} alt="Ignited Brains impact network across India" width={640} height={436} className="h-auto w-full object-contain" />
+            <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 w-[3px] bg-white" />
           </div>
 
           <ul className="space-y-4">
