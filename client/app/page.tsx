@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { PhoneHomeMotion } from "@/components/home/phone-home-motion";
 import { HomeIcon } from "@/components/home/home-icon";
 import { ImpactCount } from "@/components/home/impact-count";
 import { ContinuousRow } from "@/components/home/continuous-row";
@@ -25,19 +26,6 @@ export const metadata: Metadata = {
     "Ignited Brains creates hands-on Space, STEM, AI & Robotics Labs and Science Parks that turn curiosity into real-world learning.",
   alternates: { canonical: "/" },
 };
-
-function PlayCircle({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border border-brand-blue/20 bg-white text-brand-blue shadow-sm ${className}`}
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 20 20" className="ml-0.5 h-4 w-4" fill="currentColor">
-        <path d="m7 5 8 5-8 5V5Z" />
-      </svg>
-    </span>
-  );
-}
 
 function SmallArrowLink({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -157,15 +145,15 @@ export default function HomePage() {
           </div>
 
           <div className="grid items-center gap-6 sm:grid-cols-[1fr_0.8fr]">
-            <div className="relative min-h-[170px] overflow-hidden rounded-3xl bg-brand-mist p-8 sm:min-h-[210px]">
+            <div className="home-question-card relative min-h-[170px] overflow-hidden rounded-3xl bg-brand-mist p-8 sm:min-h-[210px]">
               <span className="absolute left-6 top-4 text-[clamp(4rem,9vw,8rem)] font-black leading-none tracking-[-0.08em] text-brand-blue/[0.08]">
                 WHY?
               </span>
               <p className="relative mt-16 text-center text-[clamp(2.8rem,6vw,5.8rem)] font-black leading-none tracking-[-0.06em] text-brand-blue">
-                WHY <span className="text-brand-orange">NOT?</span>
+                WHY <span className="phone-draw-underline text-brand-orange">NOT?</span>
               </p>
             </div>
-            <div className="space-y-5">
+            <div className="home-impact-words space-y-5">
               {impactWords.map((item) => (
                 <div key={item.number} className="grid grid-cols-[3rem_1fr] gap-4">
                   <span className="text-4xl font-black leading-none text-brand-blue/10">{item.number}</span>
@@ -196,7 +184,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
 
-            <ContinuousRow label="Classroom transformation" variant="transformation" duration={20}>
+            <ContinuousRow label="Classroom transformation" variant="transformation" phoneSlides={transformationSteps.map((step) => step.label)} duration={20}>
               {transformationSteps.map((step, index) => (
                 <div key={`${step.label}-${index}`} className="home-marquee-item group relative">
                   <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
@@ -204,7 +192,7 @@ export default function HomePage() {
                       src={step.image}
                       alt={step.label === "Question" ? "Student raising a hand to ask about a science demonstration" : `${step.label} learning stage`}
                       aspectRatio="4/3"
-                      sizes="(max-width: 640px) 152px, (max-width: 1386px) 15vw, 208px"
+                      sizes="(max-width: 767px) 85vw, (max-width: 1386px) 15vw, 208px"
                       imageClassName="transition duration-300 group-hover:scale-[1.03]"
                     />
                     <div className="min-h-20 p-3.5">
@@ -239,7 +227,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
 
-            <ContinuousRow label="Our solutions" variant="solutions" duration={28} className="mt-9 lg:mt-7">
+            <ContinuousRow label="Our solutions" variant="solutions" phoneSlides={homeSolutions.map((solution) => solution.title)} duration={28} className="mt-9 lg:mt-7">
               {homeSolutions.map((solution) => (
                 <div className="home-marquee-item" key={solution.title}>
                   <article className="group flex h-full flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
@@ -248,10 +236,10 @@ export default function HomePage() {
                         src={solution.image}
                         alt={`${solution.title} learning experience`}
                         aspectRatio="16/10"
-                        sizes="(max-width: 1090px) 240px, (max-width: 1454px) 22vw, 320px"
+                        sizes="(max-width: 767px) 85vw, (max-width: 1090px) 240px, (max-width: 1454px) 22vw, 320px"
                         imageClassName="transition duration-500 group-hover:scale-[1.04]"
                       />
-                      <span className="absolute -bottom-5 left-5 grid h-11 w-11 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm">
+                      <span data-solution-icon={solution.icon} className="absolute -bottom-5 left-5 grid h-11 w-11 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm">
                         <HomeIcon name={solution.icon} className="h-5 w-5" />
                       </span>
                     </div>
@@ -297,7 +285,7 @@ export default function HomePage() {
 
                   {index < learningCycle.length - 1 ? (
                     <>
-                      <div className="absolute left-8 top-16 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-brand-orange/30 sm:hidden" />
+                      <div className="phone-cycle-connector absolute left-8 top-16 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-brand-orange/30 sm:hidden" />
                       <div className="absolute left-[calc(50%+2.5rem)] right-[calc(-50%+1rem)] top-10 hidden items-center lg:flex">
                         <span className="h-px flex-1 bg-brand-line" />
                         <ArrowIcon className="h-4 w-4 text-brand-orange" />
@@ -354,7 +342,7 @@ export default function HomePage() {
             <h2 className="mt-3 max-w-xl text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
               Building future-ready learners.
             </h2>
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="home-impact-stats mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {impactStats.map((stat) => (
                 <div key={stat.label} className="rounded-2xl border border-brand-line bg-white p-4 shadow-card">
                   <HomeIcon name={stat.icon} className="h-7 w-7 text-brand-orange" />
@@ -364,7 +352,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="relative min-h-[300px] overflow-hidden rounded-[2rem] border border-brand-line bg-brand-mist shadow-card sm:min-h-[340px] lg:min-h-[370px]">
+          <div className="home-impact-photo relative min-h-[300px] overflow-hidden rounded-[2rem] border border-brand-line bg-brand-mist shadow-card sm:min-h-[340px] lg:min-h-[370px]">
             <Image
               src={pageAssetSlots.home.impactStudent}
               alt="Student inspired by hands-on science learning"
@@ -385,7 +373,7 @@ export default function HomePage() {
             <p className="mt-4 max-w-xl text-base leading-7 text-brand-muted">
               A student-built autonomous rover that navigates rocky terrains, collects environmental data and transmits it back to Earth.
             </p>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="home-rover-features mt-6 grid gap-3 sm:grid-cols-2">
               {["AI based obstacle avoidance", "Real-time data transmission", "Rugged terrain mobility", "Solar powered system"].map((item) => (
                 <div key={item} className="flex items-center gap-2.5 text-sm font-semibold text-brand-blue">
                   <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-orange text-[0.65rem] font-black text-white">✓</span>
@@ -404,7 +392,7 @@ export default function HomePage() {
               alt="Autonomous Mars rover prototype"
               aspectRatio="16/8.4"
               sizes="(max-width: 1024px) 100vw, 48vw"
-              className="rounded-[1.25rem] border border-brand-line shadow-card"
+              className="home-rover-photo rounded-[1.25rem] border border-brand-line shadow-card"
             />
           </div>
         </Container>
@@ -467,6 +455,7 @@ export default function HomePage() {
           </ButtonLink>
         </Container>
       </section>
+      <PhoneHomeMotion />
     </main>
   );
 }

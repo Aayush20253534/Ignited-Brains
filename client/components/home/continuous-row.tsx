@@ -9,7 +9,9 @@ export function ContinuousRow({
   variant,
   duration = 24,
   className = "",
+  phoneSlides,
 }: {
+  phoneSlides?: string[];
   children: ReactNode;
   label: string;
   variant: "transformation" | "solutions" | "learning-cycle" | "idea" | "values" | "differences";
@@ -19,6 +21,47 @@ export function ContinuousRow({
   const [paused, setPaused] = useState(false);
   const duplicateRef = useRef<HTMLDivElement>(null);
   const id = useId();
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!phoneSlides || !viewport) return;
+    const phone = window.matchMedia("(max-width: 767px)");
+    const cards = Array.from(viewport.querySelectorAll<HTMLElement>("[data-marquee-original] > .home-marquee-item"));
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (!phone.matches) return;
+      const left = viewport.getBoundingClientRect().left;
+      let closest = 0;
+      cards.forEach((card, index) => {
+        if (Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[closest].getBoundingClientRect().left - left)) closest = index;
+      });
+      cards.forEach((card, index) => { card.dataset.phoneActive = String(index === closest); });
+      setActiveSlide(closest);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    viewport.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    update();
+    return () => {
+      cancelAnimationFrame(frame);
+      viewport.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      cards.forEach((card) => { delete card.dataset.phoneActive; });
+    };
+  }, [phoneSlides]);
+
+  function goToSlide(index: number) {
+    const viewport = viewportRef.current;
+    const card = viewport?.querySelectorAll<HTMLElement>("[data-marquee-original] > .home-marquee-item")[index];
+    if (!viewport || !card) return;
+    viewport.scrollTo({
+      left: viewport.scrollLeft + card.getBoundingClientRect().left - viewport.getBoundingClientRect().left,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+  }
 
   useEffect(() => {
     // The visual copy keeps pointer links working, with only one set of tab stops.
@@ -30,6 +73,7 @@ export function ContinuousRow({
     <div
       className={`home-marquee home-marquee--${variant} ${className}`}
       data-paused={paused}
+      data-phone-swipe={phoneSlides ? true : undefined}
       style={{ "--marquee-duration": `${duration}s` } as CSSProperties}
     >
       <div className="home-marquee-controls mb-2 flex justify-end">
@@ -45,6 +89,7 @@ export function ContinuousRow({
         </button>
       </div>
       <div
+        ref={viewportRef}
         id={id}
         className="home-marquee-viewport"
         role="region"
@@ -60,7 +105,7 @@ export function ContinuousRow({
           }
         }}
         onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.scrollLeft = 0;
+          if (window.matchMedia("(min-width: 1024px)").matches && !event.currentTarget.contains(event.relatedTarget)) event.currentTarget.scrollLeft = 0;
         }}
       >
         <div className="home-marquee-track">
@@ -72,6 +117,19 @@ export function ContinuousRow({
           </div>
         </div>
       </div>
+      {phoneSlides ? (
+        <div className="phone-slide-navigation">
+          <div className="phone-slide-dots" aria-label={`${label} cards`}>
+            {phoneSlides.map((title, index) => (
+              <button key={title} type="button" className="focus-ring" aria-controls={id}
+                aria-label={`Show ${title}`} aria-current={activeSlide === index ? "step" : undefined}
+                onClick={() => goToSlide(index)}><span /></button>
+            ))}
+          </div>
+          <p aria-live="polite" aria-atomic="true">{activeSlide + 1} / {phoneSlides.length} · {phoneSlides[activeSlide]}</p>
+          {variant === "transformation" ? <div className="phone-stage-progress" aria-hidden="true"><span style={{ width: `${((activeSlide + 1) / phoneSlides.length) * 100}%` }} /></div> : null}
+        </div>
+      ) : null}
     </div>
   );
 }

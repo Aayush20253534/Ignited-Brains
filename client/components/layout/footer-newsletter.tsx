@@ -119,7 +119,7 @@ export function FooterNewsletter() {
 
       {state.status === "success" ? (
         <p
-          className="mt-2 text-xs font-semibold text-emerald-300"
+          className="footer-subscribe-success mt-2 text-xs font-semibold text-emerald-300"
           role="status"
           aria-live="polite"
         >
