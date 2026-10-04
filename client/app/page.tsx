@@ -64,7 +64,7 @@ export default function HomePage() {
             <h1 className="max-w-[720px] text-balance text-[clamp(3rem,5vw,5rem)] font-black leading-[1.08] tracking-[-0.04em] text-brand-blue">
               The future isn&apos;t found in books. It is <span className="text-brand-orange">created.</span>
             </h1>
-            <p className="max-w-[680px] text-base font-medium leading-7 text-brand-ink/75">
+            <p className="home-hero-description max-w-[680px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
             <p className="hidden max-w-[680px] text-sm leading-6 text-brand-muted xl:block">
@@ -75,7 +75,7 @@ export default function HomePage() {
               <p className="text-sm leading-6 text-brand-muted"><strong className="font-extrabold text-brand-blue">Create.</strong> Build robotics and STEM projects with real-world purpose.</p>
               <p className="text-sm leading-6 text-brand-muted"><strong className="font-extrabold text-brand-blue">Collaborate.</strong> Test ideas, learn together and keep improving.</p>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="home-hero-actions flex flex-wrap items-center gap-3">
               <ButtonLink
                 href="/solutions"
                 size="lg"
