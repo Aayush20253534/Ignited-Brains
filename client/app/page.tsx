@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { DesktopHomeMotion } from "@/components/home/desktop-home-motion";
 import { PhoneHomeMotion } from "@/components/home/phone-home-motion";
 import { HomeIcon } from "@/components/home/home-icon";
 import { ImpactCount } from "@/components/home/impact-count";
@@ -55,7 +56,7 @@ export default function HomePage() {
             <p className="home-hero-description max-w-[680px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
-            <p className="hidden max-w-[680px] text-sm leading-6 text-brand-muted xl:block">
+            <p className="home-hero-detail hidden max-w-[680px] text-sm leading-6 text-brand-muted xl:block">
               From a first experiment to a working prototype, students learn by doing. Our spaces connect classroom concepts with practical experiences in observation, engineering, coding and teamwork.
             </p>
             <div className="home-hero-learning hidden max-w-[680px] gap-2 border-l-2 border-brand-orange/40 pl-4 lg:grid">
@@ -129,7 +130,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="relative bg-white pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20">
+      <section data-home-desktop="question" className="relative bg-white pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20">
         <Container wide className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Eyebrow>A Better Tomorrow Starts With A Question</Eyebrow>
@@ -305,7 +306,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section id="our-story" className="dark-space-surface border-y border-white/10 py-12 sm:py-14 lg:py-16">
+      <section data-home-desktop="story" id="our-story" className="dark-space-surface border-y border-white/10 py-12 sm:py-14 lg:py-16">
         <Container wide className="relative grid items-center gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
           <div>
             <Eyebrow className="text-brand-orange">See it. Feel it. Believe it.</Eyebrow>
@@ -335,7 +336,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="bg-white py-14 sm:py-16 lg:py-20">
+      <section data-home-desktop="impact" className="bg-white py-14 sm:py-16 lg:py-20">
         <Container wide className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10">
           <div className="pr-0 lg:pr-4">
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Real Impact. Brighter Tomorrows.</p>
@@ -365,7 +366,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
+      <section data-home-desktop="project" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
         <Container wide className="grid gap-9 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
           <div>
             <Eyebrow>Featured Project</Eyebrow>
@@ -398,7 +399,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="home-india-section relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
+      <section data-home-desktop="india" className="home-india-section relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_54%_50%,rgba(255,108,39,.07),transparent_30rem)]" />
         <Container wide className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-3 xl:gap-4">
           <div>
@@ -437,7 +438,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="home-school-cta dark-space-surface border-y border-white/10">
+      <section data-home-desktop="cta" className="home-school-cta dark-space-surface border-y border-white/10">
         <Container wide className="relative grid items-center gap-6 py-8 sm:gap-8 sm:py-10 lg:grid-cols-[190px_minmax(0,1fr)_auto] lg:gap-10 lg:py-8 xl:grid-cols-[210px_minmax(0,1fr)_auto]">
           <div className="pointer-events-none mx-auto w-36 sm:w-44 lg:w-[190px] xl:w-[210px]" aria-hidden="true">
             <AnimatedEarth className="h-auto w-full drop-shadow-[0_18px_38px_rgba(0,91,255,.34)]" />
@@ -456,6 +457,7 @@ export default function HomePage() {
         </Container>
       </section>
       <PhoneHomeMotion />
+      <DesktopHomeMotion />
     </main>
   );
 }
