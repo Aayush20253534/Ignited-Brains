@@ -1029,6 +1029,14 @@ main form {
   }
 }
 
+/* Keep one video and place it between the heading and description on mobile. */
+@media (max-width: 1023px) {
+  .home-hero-shell { row-gap: 1.25rem; }
+  .home-hero-copy { display: contents; }
+  .home-hero-visual { order: 1; }
+  .home-hero-copy > :nth-child(n + 3) { order: 2; }
+}
+
 /* Fill the laptop's first screen while leaving the restored mobile hero intact. */
 @media (min-width: 1024px) {
   .home-page > section:first-child .home-hero-shell {
