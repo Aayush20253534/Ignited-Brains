@@ -25,6 +25,20 @@ const createContact = async (payload) => {
   return { ...contact, notification_status: notification.status };
 };
 
+const findNewsletterSubscriptionByEmail = async (email) => {
+  const { rows } = await pool.query(
+    `SELECT id, email
+     FROM contact_submissions
+     WHERE LOWER(email) = LOWER($1)
+       AND LOWER(COALESCE(subject, '')) = LOWER('Newsletter Subscription')
+     ORDER BY created_at ASC
+     LIMIT 1`,
+    [email],
+  );
+
+  return rows[0] || null;
+};
+
 const createApplication = async (payload) => {
   const id = crypto.randomUUID();
   const { rows } = await pool.query(
@@ -61,4 +75,4 @@ const createApplication = async (payload) => {
   return { ...application, notification_status: notification.status };
 };
 
-module.exports = { createContact, createApplication };
+module.exports = { createContact, createApplication, findNewsletterSubscriptionByEmail };
