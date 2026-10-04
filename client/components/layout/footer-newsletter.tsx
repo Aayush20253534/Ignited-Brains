@@ -53,9 +53,18 @@ export function FooterNewsletter() {
       }
 
       form.reset();
+
+      if (payload?.alreadySubscribed) {
+        setState({
+          status: "success",
+          message: "Already subscribed.",
+        });
+        return;
+      }
+
       setState({
         status: "success",
-        message: "Subscribed successfully.",
+        message: payload?.message || "Subscribed successfully.",
       });
     } catch (error) {
       setState({
