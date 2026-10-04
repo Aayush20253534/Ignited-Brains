@@ -1,76 +1,48 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 
-import { AboutArtwork } from "@/components/about/about-artwork";
-import { HomeIcon, type HomeIconName } from "@/components/home/home-icon";
-import { Container } from "@/components/ui";
 import styles from "./engagement.module.css";
 
-export function Blueprint() {
+export type PageIconName = "kit" | "innovation" | "science" | "mail" | "phone" | "pin";
+
+/** Small interface symbols drawn for these pages; illustrations are separate assets. */
+export function PageIcon({ name }: { name: PageIconName }) {
   return (
-    <svg className={styles.blueprint} viewBox="0 0 600 600" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1">
-        <ellipse cx="300" cy="300" rx="260" ry="170" transform="rotate(-28 300 300)" />
-        <path d="M40 360h90l55-55h115l80-80h180M80 145h115l55 55h95M355 470h100v-85h90" />
-        <path d="M55 65h30m-15-15v30M525 90h30m-15-15v30M75 500h30m-15-15v30M500 530h30m-15-15v30" />
-        <circle cx="300" cy="300" r="230" strokeDasharray="2 15" />
-      </g>
-      <g className={styles.nodes} fill="currentColor">
-        <circle cx="185" cy="305" r="4" /><circle cx="380" cy="225" r="4" />
-        <circle cx="455" cy="385" r="4" /><circle cx="195" cy="145" r="4" />
-      </g>
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {name === "kit" && <><path d="m5 10 11-6 11 6v13l-11 6-11-6V10Z" /><path d="m5 10 11 6 11-6M16 16v13M10.5 7 22 13v5" /></>}
+      {name === "innovation" && <><path d="M12 20 8 16C13 6 19 3 28 4c1 9-2 15-12 20l-4-4Z" /><circle cx="21" cy="11" r="3" /><path d="m9 14-5 2-1 6 7-2M18 23l-2 6-6 1 2-8M7 25l-4 4" /></>}
+      {name === "science" && <><ellipse cx="16" cy="16" rx="14" ry="5.5" /><ellipse cx="16" cy="16" rx="14" ry="5.5" transform="rotate(60 16 16)" /><ellipse cx="16" cy="16" rx="14" ry="5.5" transform="rotate(120 16 16)" /><circle cx="16" cy="16" r="2" fill="currentColor" stroke="none" /></>}
+      {name === "mail" && <><rect x="4" y="7" width="24" height="18" rx="3" /><path d="m5 9 11 9L27 9M5 24l8-8M27 24l-8-8" /></>}
+      {name === "phone" && <path d="m10 4 4 7-4 3c2 4 4 6 8 8l3-4 7 4-1 5c-.2 1-1 2-3 1C12 26 6 20 4 8c-.5-2 0-3 1-3l5-1Z" />}
+      {name === "pin" && <><path d="M26 13c0 8-10 16-10 16S6 21 6 13a10 10 0 1 1 20 0Z" /><circle cx="16" cy="13" r="3.5" /></>}
     </svg>
   );
 }
 
-export function Status({ large = false, children = "Coming Soon" }: { large?: boolean; children?: ReactNode }) {
-  return <span className={`${styles.status} ${large ? styles.statusLarge : ""}`}><span aria-hidden="true" />{children}</span>;
+export function Status() {
+  return <span className={styles.status}><span aria-hidden="true" />Coming Soon</span>;
 }
 
-export function Journey({ items, label }: {
-  items: Array<{ step: string; title: string; description: string; icon: HomeIconName }>;
+export function SceneHero({ image, alt, label, title, children, variant = "shop" }: {
+  image: string;
+  alt: string;
   label: string;
-}) {
-  return (
-    <ol className={styles.journey} aria-label={label}>
-      {items.map((item, index) => (
-        <li key={item.step} data-reveal data-delay={index}>
-          <span className={styles.journeyIcon}><HomeIcon name={item.icon} /></span>
-          <div><span className={styles.step}>{item.step}</span><h3>{item.title}</h3><p>{item.description}</p></div>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-export function ClosingScene({ eyebrow, title, children, actions, comingSoon = false }: {
-  eyebrow: string;
   title: ReactNode;
   children: ReactNode;
-  actions: ReactNode;
-  comingSoon?: boolean;
+  variant?: "shop" | "contact";
 }) {
   return (
-    <section className={`${styles.closing} ${styles.dark}`} aria-label={eyebrow}>
-      <Container wide className={styles.closingGrid}>
-        <div className={styles.closingCopy} data-reveal>
-          <p className={styles.eyebrow}>{eyebrow}</p>
-          <h2 className={styles.title}>{title}</h2>
-          <p className={styles.copy}>{children}</p>
-          {comingSoon && <Status large />}
-          <div className={styles.actions}>{actions}</div>
+    <section className={`${styles.hero} ${variant === "contact" ? styles.contactHero : ""}`} aria-labelledby={`${variant}-title`}>
+      <div className={styles.heroImage}>
+        <Image src={image} alt={alt} fill preload sizes="100vw" className={styles.cover} />
+      </div>
+      <div className={styles.container}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow} data-reveal>{label}</p>
+          <h1 id={`${variant}-title`} className={styles.heroTitle} data-reveal data-delay="1">{title}</h1>
+          {children}
         </div>
-        <div className={styles.closingEarth} aria-hidden="true">
-          <AboutArtwork name="earth" className={styles.earthPicture} />
-          <Blueprint />
-        </div>
-      </Container>
+      </div>
     </section>
   );
-}
-
-export function LearningImage({ src, alt, className = "", sizes = "(max-width: 767px) 100vw, 33vw" }: {
-  src: string; alt: string; className?: string; sizes?: string;
-}) {
-  return <div className={`${styles.learningImage} ${className}`}><Image src={src} alt={alt} fill sizes={sizes} className={styles.cover} /></div>;
 }
