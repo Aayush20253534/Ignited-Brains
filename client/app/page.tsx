@@ -343,7 +343,7 @@ export default function HomePage() {
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
               unoptimized
-              className="object-contain object-center"
+              className="object-contain object-center scale-[1.01]"
             />
           </div>
         </Container>
