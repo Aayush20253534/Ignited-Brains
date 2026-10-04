@@ -1,352 +1,123 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import type { ReactNode } from "react";
 import Link from "next/link";
-
-import { ContinuousRow } from "@/components/home/continuous-row";
-import { HomeIcon } from "@/components/home/home-icon";
-import { AnimatedEarth } from "@/components/layout/animated-earth";
-import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
-import {
-  aboutPrinciples,
-  aboutValues,
-  differentiators,
-  discoveryJourney,
-  indiaCommitments,
-  storyMilestones,
-} from "@/data/about";
-import { pageAssetSlots } from "@/lib/assets";
+import { AboutArtwork } from "@/components/about/about-artwork";
+import { AboutMotion } from "@/components/about/about-motion";
+import { HomeIcon, type HomeIconName } from "@/components/home/home-icon";
+import { ArrowIcon } from "@/components/ui";
+import { aboutValues, storyMilestones } from "@/data/about";
+import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description:
-    "Learn how Ignited Brains is building hands-on, future-ready learning environments that turn curiosity into creativity and innovation.",
+  description: "Learn how Ignited Brains is building hands-on, future-ready learning environments that turn curiosity into creativity and innovation.",
   alternates: { canonical: "/about" },
 };
 
+function Action({ href, children, primary = false }: { href: string; children: ReactNode; primary?: boolean }) {
+  return <Link href={href} className={`${styles.button} ${primary ? styles.primary : styles.outline}`}>{children}<ArrowIcon className="h-4 w-4" /></Link>;
+}
+function Badge({ name, orange = false }: { name: HomeIconName; orange?: boolean }) {
+  return <span className={`${styles.badge} ${orange ? styles.orange : ""}`}><HomeIcon name={name} /></span>;
+}
+function Orbit({ small = false }: { small?: boolean }) {
+  return <div className={`${styles.orbitArt} ${small ? styles.smallOrbit : ""}`}>
+    <AboutArtwork name="earth" alt="A rotating blue and ivory Earth with moving orbital planets" className={styles.earth} />
+    <span className={styles.orbitBadge}><Badge name="school" /></span>
+    <span className={styles.orbitBadge}><Badge name="innovation" orange /></span>
+    <span className={styles.orbitBadge}><Badge name="creativity" orange /></span>
+  </div>;
+}
+const strengths: { title: string; icon: HomeIconName }[] = [
+  { title: "Hands-on Learning", icon: "stem" }, { title: "Real-world Problem Solving", icon: "creativity" },
+  { title: "Technology Driven", icon: "robotics" }, { title: "Future Ready Minds", icon: "innovation" },
+];
+const exploration: { title: string; description: string; icon: HomeIconName }[] = [
+  { title: "Explore", description: "Open minds to new possibilities.", icon: "observe" },
+  { title: "Experiment", description: "Turn curiosity into hands-on learning.", icon: "test" },
+  { title: "Create", description: "Build, prototype and iterate.", icon: "build" },
+  { title: "Innovate", description: "Apply ideas to real-world impact.", icon: "innovation" },
+];
+const approach: { title: string; description: string; icon: HomeIconName }[] = [
+  { title: "Hands-on Experiences", description: "Learning by doing, not just observing.", icon: "stem" },
+  { title: "Real-world Projects", description: "Solving meaningful problems.", icon: "test" },
+  { title: "Guidance & Mentorship", description: "Support from experts and educators.", icon: "innovation" },
+];
+
 export default function AboutPage() {
-  return (
-    <main className="about-page overflow-hidden bg-white">
-      <section className="relative border-b border-brand-line/70 bg-white">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_34%,rgba(36,117,238,.14),transparent_31rem)]" />
-        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
-          <div className="relative z-10 py-4 lg:py-12">
-            <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.16em] text-brand-blue/55 sm:text-xs">
-              About Ignited Brains
-            </p>
-            <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
-              Education should do more than teach. It should <span className="text-brand-orange">ignite.</span>
-            </h1>
-            <p className="mt-5 max-w-[600px] text-base font-medium leading-7 text-brand-ink/75">
-              Ignited Brains creates future-ready learning environments where curiosity becomes experimentation, creativity becomes creation and innovation becomes action.
-            </p>
+  return <AboutMotion><main className={styles.page}>
+    <section className={styles.hero} aria-labelledby="about-title">
+      <div className={`${styles.container} ${styles.heroGrid}`}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow} data-reveal>About Ignited Brains</p>
+          <h1 id="about-title" data-reveal data-delay="1">Education should<br className={styles.desktopBreak} /> do more than teach.<br className={styles.desktopBreak} /> It should <em>ignite.</em></h1>
+          <p className={styles.heroDescription} data-reveal data-delay="2">Ignited Brains creates future-ready learning environments where curiosity becomes experimentation, creativity becomes creation and innovation becomes action.</p>
+          <div className={styles.heroActions} data-reveal data-delay="3"><Action href="#our-story" primary>Our Story</Action><Action href="/solutions">Explore Our Solutions</Action></div>
+          <div className={styles.strengths} data-reveal data-delay="4">{strengths.map((item, i) => <div key={item.title}><Badge name={item.icon} orange={i === 3} /><span>{item.title}</span></div>)}</div>
+        </div>
+        <div className={styles.heroArt}>
+          <div className={styles.heroOrbit} aria-hidden="true"><i /><i /><i /></div>
+          <div className={styles.heroOrbitSecond} aria-hidden="true"><i /><i /></div>
+          <AboutArtwork name="hero" alt="A friendly robot, rocket, globe and experiments rising from an open book" priority className={styles.heroPicture} />
+          <span className={styles.artNote}>Curiosity<br />Today</span><span className={styles.artNote}>Innovation<br />Tomorrow</span>
+        </div>
+      </div>
+    </section>
 
-            <div className="mt-7 grid w-fit max-w-full grid-cols-1 gap-3 sm:grid-cols-2">
-              <ButtonLink href="#our-story" size="lg" showArrow>
-                Our Story
-              </ButtonLink>
-              <ButtonLink href="/solutions" size="lg" variant="outline" showArrow>
-                Explore Our Solutions
-              </ButtonLink>
-            </div>
+    <section className={styles.belief} aria-labelledby="belief-title">
+      <div className={styles.container}>
+        <div className={styles.beliefTop}>
+          <div data-reveal><p className={styles.eyebrow}>Our Belief</p><h2 id="belief-title">We don’t teach students what to think.<br /><em>We create environments where they learn how to discover.</em></h2></div>
+          <blockquote data-reveal data-delay="1"><span aria-hidden="true">“</span><p>Curiosity leads to questions.<br />Questions lead to experimentation.<br />Experimentation leads to creation.<br />And creation leads to a better tomorrow.</p></blockquote>
+        </div>
+        <div className={styles.values}>{aboutValues.map((value, index) => <article key={value.title} className={styles.valueCard} data-reveal data-delay={index}>
+          <Badge name={value.icon} orange={index !== 1} /><div><h3>{value.title}</h3><p>{index === 0 ? "Ask better questions. Explore beyond the obvious." : index === 1 ? "Build what you imagine. Turn ideas into meaningful solutions." : "Turn ideas into action. Create real-world impact."}</p></div>
+        </article>)}</div>
+      </div>
+    </section>
 
-            <div className="mt-8 grid max-w-[650px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-5 sm:grid-cols-3 sm:gap-4">
-              {aboutPrinciples.map((item) => (
-                <div key={item.title} className="flex items-center gap-2.5">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
-                    <HomeIcon name={item.icon} className="h-5 w-5" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-xs font-extrabold text-brand-blue sm:text-sm">{item.title}</p>
-                    <p className="mt-0.5 text-[0.66rem] font-semibold leading-4 text-brand-muted sm:text-[0.7rem]">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+    <section className={styles.learning} aria-labelledby="learning-title">
+      <div className={`${styles.container} ${styles.learningGrid}`}>
+        <div data-reveal><p className={styles.eyebrow}>What Ignited Brains Is</p><h2 id="learning-title">Learning becomes powerful when students can touch, build, test <em>and question it.</em></h2></div>
+        <div className={styles.learningCopy} data-reveal data-delay="1"><p>Ignited Brains designs and delivers hands-on, inquiry-driven learning experiences that connect real-world problems with creativity, technology and scientific thinking.</p><p>We work with students, educators and institutions to build programs, products and ecosystems that make learning active, meaningful and future-ready.</p><Action href="#our-story">Know More About Us</Action></div>
+        <div className={styles.exploration}><Orbit small /><div className={styles.explorationList}>{exploration.map((item, index) => <div key={item.title} data-reveal data-delay={index}><Badge name={item.icon} orange={index === 1} /><div><h3>{item.title}</h3><p>{item.description}</p></div></div>)}</div></div>
+      </div>
+    </section>
 
-          <div className="about-hero-art relative isolate w-full self-stretch overflow-hidden rounded-[2rem]">
-            <div className="about-hero-orbit about-hero-orbit--outer" aria-hidden="true"><span /><span /><span /></div>
-            <div className="about-hero-orbit about-hero-orbit--inner" aria-hidden="true"><span /><span /><span /></div>
-            <div className="about-hero-orbit about-hero-orbit--third" aria-hidden="true"><span /><span /><span /></div>
-            <div className="about-hero-sparks" aria-hidden="true"><span /><span /><span /><span /></div>
-            <div className="about-hero-illustration absolute inset-4 sm:inset-6">
-              <Image
-                src={pageAssetSlots.about.hero}
-                alt="An open book bringing a rocket, robot and science experiments to life"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 52vw"
-                className="object-contain object-center"
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
+    <section id="our-story" className={`${styles.story} ${styles.dark}`} aria-labelledby="story-title">
+      <AboutArtwork name="story" className={styles.backdrop} />
+      <div className={`${styles.container} ${styles.storyGrid}`}>
+        <div className={styles.storyCopy} data-reveal><p className={styles.eyebrow}>Our Story</p><h2 id="story-title">A journey driven<br />by curiosity and<br />a belief in <em>young minds.</em></h2><p>Ignited Brains began with a simple belief — every student has the potential to create real change, given the right environment, tools and inspiration. What started as an idea is a growing movement to bring hands-on learning spaces into schools across India.</p><Action href="#journey">Our Full Story</Action></div>
+        <ol id="journey" className={styles.timeline} aria-label="Our journey">{storyMilestones.map((item, index) => <li key={item.title} data-reveal data-delay={index}><Badge name={(["creativity", "students", "projects", "space", "innovation"] as HomeIconName[])[index]} orange={index % 2 === 1} /><h3>{item.title}</h3><p>{item.description}</p></li>)}</ol>
+      </div>
+    </section>
 
-      <section data-home-motion="idea" className="relative overflow-hidden bg-gradient-to-b from-[#f8fbff] to-white py-14 sm:py-16 lg:py-20">
-        <div className="pointer-events-none absolute left-[18%] top-8 h-64 w-64 rounded-full bg-blue-100/50 blur-3xl" />
-        <Container wide className="relative grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-          <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Our Big Idea</p>
-            <h2 className="mt-4 max-w-xl text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
-              The future isn&apos;t found in books. It is <span className="text-brand-orange">created.</span>
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-7 text-brand-muted">
-              We believe education should move beyond passive learning and inspire students to question, explore, experiment and build real solutions for real-world challenges.
-            </p>
-            <ButtonLink href="/solutions" variant="outline" showArrow className="mt-6">
-              Our Philosophy
-            </ButtonLink>
-          </div>
+    <section className={styles.purpose} aria-labelledby="mission-title">
+      <div className={`${styles.container} ${styles.purposeGrid}`}>
+        <div data-reveal><p className={styles.eyebrow}>Our Purpose</p><div className={styles.purposeTitle}><span>01</span><h2 id="mission-title">Our Mission</h2></div><p className={styles.purposeText}>To create engaging, hands-on learning experiences that make students curious, confident and future-ready.</p></div>
+        <Orbit />
+        <div data-reveal data-delay="1"><div className={styles.purposeTitle}><span>02</span><h2>Our Vision</h2></div><p className={styles.purposeText}>To build a generation of thinkers, creators and problem solvers who use science to shape a better tomorrow and build India’s future.</p></div>
+      </div>
+    </section>
 
-          <div className="min-w-0">
-            <p className="mb-7 text-center text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">
-              From a question to a brighter tomorrow
-            </p>
-            <ContinuousRow label="Our Big Idea discovery journey" variant="idea" duration={20}>
-              {discoveryJourney.map((step, index) => (
-                <div key={step.title} className="home-marquee-item idea-step relative flex min-w-0 flex-col items-center text-center">
-                  <span className="idea-step-icon relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
-                    <HomeIcon name={step.icon} className="h-7 w-7" />
-                  </span>
-                  <p className="mt-3 text-sm font-extrabold text-brand-blue">{step.title}</p>
-                  <p className="mt-0.5 text-xs font-semibold text-brand-muted">{step.caption}</p>
-                  {index < discoveryJourney.length - 1 ? (
-                    <span className="idea-step-connector" aria-hidden="true">
-                      <span className="h-px flex-1 bg-brand-line" />
-                      <ArrowIcon className="h-4 w-4 shrink-0 text-brand-orange" />
-                    </span>
-                  ) : null}
-                </div>
-              ))}
-            </ContinuousRow>
-          </div>
-        </Container>
-      </section>
+    <section className={styles.approach} aria-labelledby="approach-title">
+      <div className={`${styles.container} ${styles.approachGrid}`}>
+        <div data-reveal><p className={styles.eyebrow}>Our Approach</p><h2 id="approach-title">From curiosity<br />to <em>real-world impact.</em></h2><p>We combine experiential learning, technology and mentorship to create programs that go beyond textbooks and prepare students for the challenges of tomorrow.</p><Action href="/solutions">Explore Our Approach</Action></div>
+        <div className={styles.approachCards}>{approach.map((item, index) => <article key={item.title} data-reveal data-delay={index}><Badge name={item.icon} orange={index === 1} /><h3>{item.title}</h3><p>{item.description}</p></article>)}</div>
+      </div>
+    </section>
 
-      <section data-home-motion="values" className="relative border-y border-brand-line/70 bg-white py-14 sm:py-16 lg:py-20">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/10" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/10" />
-        <Container wide className="relative">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Our Values</p>
-              <h2 className="mt-3 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                Curiosity. Creativity. Innovation.
-              </h2>
-            </div>
-            <p className="max-w-sm text-sm font-medium leading-6 text-brand-muted sm:text-right">
-              The beliefs that drive everything we do.
-            </p>
-          </div>
+    <section className={`${styles.impact} ${styles.dark}`} aria-labelledby="impact-title">
+      <AboutArtwork name="impact" className={styles.backdrop} />
+      <div className={styles.container}>
+        <div className={styles.impactCopy} data-reveal><p className={styles.eyebrow}>Our Impact</p><h2 id="impact-title">Empowering<br />the next generation<br />of <em>innovators.</em></h2><p>Through our programs, initiatives and community, we help students discover their potential and turn ideas into impactful solutions.</p><Action href="/projects">See Our Work</Action></div>
+        <span className={styles.impactNote}>Small Learners<br />Big Ideas</span>
+        <div className={styles.impactLabels}>{[{icon:"students",title:"Students Engaged"},{icon:"observe",title:"Learning Programs"},{icon:"school",title:"Communities Built"},{icon:"build",title:"Ideas Turned Into Action"}].map((item,index)=><div key={item.title} data-reveal data-delay={index}><Badge name={item.icon as HomeIconName}/><span>{item.title}</span></div>)}</div>
+      </div>
+    </section>
 
-          <ContinuousRow label="Our values" variant="values" duration={26} className="mt-9">
-            {aboutValues.map((value) => (
-              <div key={value.title} className="home-marquee-item">
-                <article className="card-lift relative flex h-full flex-col rounded-2xl border border-brand-line bg-white p-6 shadow-card sm:p-7">
-                  <span className="absolute right-6 top-6 text-2xl font-black text-brand-blue/10">{value.index}</span>
-                  <span className="grid h-12 w-12 place-items-center rounded-xl border border-orange-100 bg-orange-50 text-brand-orange shadow-sm">
-                    <HomeIcon name={value.icon} className="h-7 w-7" />
-                  </span>
-                  <h3 className="mt-5 text-2xl font-black tracking-[-0.03em] text-brand-blue">{value.title}</h3>
-                  <p className="mt-3 max-w-sm text-base leading-7 text-brand-muted">{value.description}</p>
-                  <Link href="/contact" className="focus-ring mt-auto inline-flex items-center gap-2 pt-6 text-sm font-extrabold text-brand-orange transition hover:gap-3">
-                    {value.action}
-                    <ArrowIcon className="h-4 w-4" />
-                  </Link>
-                </article>
-              </div>
-            ))}
-          </ContinuousRow>
-        </Container>
-      </section>
-
-      <section id="our-story" className="bg-white py-14 sm:py-16 lg:py-20 scroll-mt-24">
-        <Container wide>
-          <div className="grid gap-8 lg:grid-cols-[0.78fr_0.84fr_0.88fr] lg:items-center">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Our Story</p>
-              <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                A movement for young innovators.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-7 text-brand-muted">
-                Ignited Brains began with a simple belief that every student has the potential to create real change, if given the right environment, the right tools and the right inspiration.
-              </p>
-              <p className="mt-3 max-w-xl text-base leading-7 text-brand-muted">
-                What started as an idea is now a growing movement to bring hands-on, future-ready learning spaces into schools across India.
-              </p>
-              <ButtonLink
-                href="#journey"
-                variant="secondary"
-                showArrow
-                className="mt-7 bg-transparent text-brand-blue hover:border-brand-blue/35 hover:bg-brand-sky hover:text-brand-blue"
-              >
-                Our Journey
-              </ButtonLink>
-            </div>
-
-            <div className="relative mx-auto w-full max-w-md">
-              <div className="relative aspect-[1.08/1] overflow-hidden rounded-2xl border border-brand-line bg-brand-mist shadow-card">
-                <Image
-                  src={pageAssetSlots.about.story}
-                  alt="Students collaborating on an Ignited Brains project"
-                  fill
-                  sizes="(max-width: 1024px) 90vw, 32vw"
-                  className="object-cover"
-                />
-              </div>
-              <p className="mt-3 rotate-[-4deg] text-center text-xl font-semibold italic text-brand-blue">
-                Ideas · Students · Impact
-              </p>
-            </div>
-
-            <ol id="journey" className="relative ml-3 border-l-2 border-brand-orange/45 pl-7 scroll-mt-28">
-              {storyMilestones.map((item, index) => (
-                <li key={item.title} className={index === storyMilestones.length - 1 ? "relative" : "relative pb-6"}>
-                  <span className="absolute -left-[2.22rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-white bg-brand-orange ring-2 ring-brand-orange" />
-                  <h3 className="text-sm font-extrabold text-brand-blue">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-brand-muted">{item.description}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </Container>
-      </section>
-
-      <section data-home-motion="differences" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
-        <Container wide>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">What Makes Us Different</p>
-              <h2 className="mt-3 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                More than a lab. A learning revolution.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-6 text-brand-muted sm:text-right">
-              We don&apos;t just build equipment. We create environments where students can explore, experiment and innovate.
-            </p>
-          </div>
-
-          <ContinuousRow label="What makes us different" variant="differences" duration={26} className="mt-9">
-            {differentiators.map((item) => (
-              <div key={item.title} className="home-marquee-item">
-                <article className="card-lift h-full rounded-2xl border border-brand-line bg-white p-6 shadow-card">
-                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-orange-50 text-brand-orange">
-                    <HomeIcon name={item.icon} className="h-7 w-7" />
-                  </span>
-                  <h3 className="mt-5 text-lg font-black tracking-[-0.02em] text-brand-blue">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-brand-muted">{item.description}</p>
-                </article>
-              </div>
-            ))}
-          </ContinuousRow>
-        </Container>
-      </section>
-
-      <section className="grid lg:grid-cols-2">
-        <article className="relative isolate min-h-[440px] overflow-hidden bg-[#073173] text-white sm:min-h-[500px]">
-          <Image
-            src={pageAssetSlots.about.mission}
-            alt="Astronaut looking toward Earth"
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="-z-20 object-cover object-bottom"
-          />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#082e6f] via-[#082e6f]/90 to-[#041b3f]/35" />
-          <div className="mx-auto flex h-full max-w-[770px] flex-col px-[var(--page-gutter)] py-12 sm:py-14 lg:min-h-[500px] lg:py-16">
-            <p className="text-xs font-extrabold uppercase tracking-[0.17em] text-white/70">Our Mission</p>
-            <h2 className="mt-5 max-w-xl text-balance text-3xl font-bold leading-[1.14] tracking-[-0.035em] text-white sm:text-4xl">
-              To bring hands-on, future-ready labs into every school and ignite curiosity, creativity and innovation in every student.
-            </h2>
-            <span className="mt-7 h-0.5 w-12 bg-brand-orange" />
-          </div>
-        </article>
-
-        <article className="relative isolate min-h-[440px] overflow-hidden bg-[#fffaf5] sm:min-h-[500px]">
-          <Image
-            src={pageAssetSlots.about.vision}
-            alt="Student looking toward a future city"
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="-z-20 object-cover object-bottom"
-          />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white/95 to-white/10" />
-          <div className="mx-auto flex h-full max-w-[770px] flex-col px-[var(--page-gutter)] py-12 sm:py-14 lg:min-h-[500px] lg:py-16">
-            <p className="text-xs font-extrabold uppercase tracking-[0.17em] text-brand-blue/55">Our Vision</p>
-            <h2 className="mt-5 max-w-xl text-balance text-3xl font-bold leading-[1.14] tracking-[-0.035em] text-brand-ink sm:text-4xl">
-              A generation of Indian students who don&apos;t just learn science but <span className="font-black text-brand-blue">create with it</span>, and build the nation&apos;s future.
-            </h2>
-            <span className="mt-7 h-0.5 w-12 bg-brand-orange" />
-          </div>
-        </article>
-      </section>
-
-      <section className="relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_53%_48%,rgba(255,102,30,.08),transparent_29rem)]" />
-        <Container wide className="relative grid gap-9 lg:grid-cols-[0.72fr_0.95fr_0.6fr] lg:items-center">
-          <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Our Commitment To India</p>
-            <h2 className="mt-4 max-w-xl text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-              Building India&apos;s future through curious minds.
-            </h2>
-            <p className="mt-5 max-w-lg text-base leading-7 text-brand-muted">
-              We envision a nation where every school, in every corner of India, has the opportunity to nurture innovators, problem solvers and change makers.
-            </p>
-            <ButtonLink href="/contact" showArrow className="mt-7">
-              Be Part of the Change
-            </ButtonLink>
-          </div>
-
-          <div className="relative aspect-[2/1] w-full overflow-hidden rounded-[1.5rem] bg-white">
-            <Image
-              src={pageAssetSlots.about.indiaImpact}
-              alt="Animated connected map of India representing learning opportunities"
-              fill
-              unoptimized
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover object-center"
-              style={{ clipPath: "inset(0 0 0 1.4%)", transform: "scale(1.025)" }}
-            />
-          </div>
-
-          <div className="grid gap-5">
-            {indiaCommitments.map((item) => (
-              <div key={item.title} className="flex items-center gap-4">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
-                  <HomeIcon name={item.icon} className="h-5 w-5" />
-                </span>
-                <p className="text-sm font-extrabold text-brand-blue">{item.title}</p>
-              </div>
-            ))}
-            <div className="mt-2 flex items-center gap-3 border-t border-brand-line pt-5">
-              <Image src="/icons/india-flag.svg" alt="India flag" width={30} height={20} />
-              <p className="text-sm font-semibold text-brand-muted">Together for a brighter tomorrow.</p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="dark-space-surface border-y border-white/10">
-        <Container wide className="relative grid items-center gap-6 py-8 sm:gap-8 sm:py-10 lg:grid-cols-[190px_minmax(0,1fr)_auto] lg:gap-10 lg:py-8 xl:grid-cols-[210px_minmax(0,1fr)_auto]">
-          <div
-            className="pointer-events-none mx-auto w-36 sm:w-44 lg:w-[190px] xl:w-[210px]"
-            aria-hidden="true"
-          >
-            <AnimatedEarth className="h-auto w-full drop-shadow-[0_18px_38px_rgba(0,91,255,.34)]" />
-          </div>
-          <div className="relative text-center sm:text-left">
-            <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">
-              Let&apos;s build the future together.
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:mx-0 sm:text-base">
-              Partner with Ignited Brains and be part of a movement that puts curiosity, creativity and innovation at the heart of education.
-            </p>
-          </div>
-          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">
-            Partner With Us
-          </ButtonLink>
-        </Container>
-      </section>
-    </main>
-  );
+    <section className={styles.closing} aria-labelledby="closing-title">
+      <div className={`${styles.container} ${styles.closingGrid}`}><span className={styles.closingIcon} aria-hidden="true"><HomeIcon name="innovation" /></span><div data-reveal><p className={styles.eyebrow}>Let’s Build Together</p><h2 id="closing-title">The future belongs to curious minds.</h2><p>Partner with us to create impactful learning experiences for students and communities.</p></div><Action href="/contact" primary>Partner With Us</Action></div>
+    </section>
+  </main></AboutMotion>;
 }
