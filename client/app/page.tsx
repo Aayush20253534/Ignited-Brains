@@ -20,6 +20,7 @@ import {
   transformationSteps,
 } from "@/data/home";
 import { pageAssetSlots } from "@/lib/assets";
+import heroStyles from "./home-hero.module.css";
 
 export const metadata: Metadata = {
   title: "Hands-on STEM, Space & Robotics Learning",
@@ -43,7 +44,7 @@ function SmallArrowLink({ href, children }: { href: string; children: ReactNode 
 export default function HomePage() {
   return (
     <main className="home-page overflow-hidden bg-white">
-      <section className="home-hero-section relative border-b border-brand-line/80 bg-white">
+      <section className={`home-hero-section relative border-b border-brand-line/80 bg-white ${heroStyles.hero}`}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
         <Container wide className="home-hero-shell relative grid items-center gap-7 py-6 lg:grid-cols-2 lg:gap-8 lg:py-6 xl:grid-cols-[1.02fr_0.98fr]">
           <div className="home-hero-copy relative z-10 grid content-center gap-5 py-2 lg:gap-6 lg:py-4">
@@ -51,7 +52,7 @@ export default function HomePage() {
               Transforming Education Through Innovation
             </p>
             <h1 className="max-w-[720px] text-balance text-[clamp(3rem,5vw,5rem)] font-black leading-[1.08] tracking-[-0.04em] text-brand-blue">
-              The future isn&apos;t found in books. It is <span className="text-brand-orange">created.</span>
+              The future isn&apos;t<br className={heroStyles.desktopBreak} />{" "}found in books.<br className={heroStyles.desktopBreak} />{" "}It is <span className="text-brand-orange">created.</span>
             </h1>
             <p className="home-hero-description max-w-[680px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.

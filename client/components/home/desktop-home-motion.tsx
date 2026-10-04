@@ -28,7 +28,6 @@ export function DesktopHomeMotion() {
       };
       add(".home-hero-copy > :not(.home-hero-principles)", "up", 55);
       add(".home-hero-principles > div", "up", 70, 300);
-      add(".home-hero-visual", "media");
       add('[data-home-desktop="question"] > div > div:first-child', "left");
       add(".home-question-card", "up");
       add(".home-impact-words > div", "up", 90);
@@ -88,6 +87,37 @@ export function DesktopHomeMotion() {
       dispose?.();
       desktop.removeEventListener("change", setup);
       reduced.removeEventListener("change", setup);
+    };
+  }, []);
+
+  useEffect(() => {
+    const home = marker.current?.closest<HTMLElement>(".home-page");
+    const video = home?.querySelector<HTMLVideoElement>(".home-hero-visual video");
+    if (!video || !("IntersectionObserver" in window)) return;
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = true;
+    const update = () => {
+      // The phone controller owns playback below this breakpoint.
+      if (!desktop.matches) return;
+      if (visible && !document.hidden && !reduced.matches) void video.play().catch(() => {});
+      else video.pause();
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      update();
+    }, { threshold: 0.1 });
+    observer.observe(video);
+    desktop.addEventListener("change", update);
+    reduced.addEventListener("change", update);
+    document.addEventListener("visibilitychange", update);
+    update();
+    return () => {
+      observer.disconnect();
+      desktop.removeEventListener("change", update);
+      reduced.removeEventListener("change", update);
+      document.removeEventListener("visibilitychange", update);
+      video.pause();
     };
   }, []);
 
