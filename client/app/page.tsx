@@ -54,29 +54,29 @@ export default function HomePage() {
     <main className="home-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
-        <Container wide className="home-hero-shell relative grid items-center gap-7 py-6 lg:grid-cols-[0.97fr_1.03fr] lg:gap-8 lg:py-6 xl:grid-cols-[0.95fr_1.05fr]">
-          <div className="relative z-10 py-2 lg:py-4">
+        <Container wide className="home-hero-shell relative grid items-center gap-7 py-6 lg:grid-cols-2 lg:gap-8 lg:py-6 xl:grid-cols-[1.02fr_0.98fr]">
+          <div className="home-hero-copy relative z-10 grid content-center gap-5 py-2 lg:gap-6 lg:py-4">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-brand-blue/55 sm:text-xs">
               Transforming Education Through Innovation
             </p>
-            <h1 className="mt-4 max-w-[620px] text-balance text-[clamp(3rem,5vw,5rem)] font-black leading-[0.94] tracking-[-0.052em] text-brand-blue">
+            <h1 className="max-w-[720px] text-balance text-[clamp(3rem,5vw,5rem)] font-black leading-[1.08] tracking-[-0.04em] text-brand-blue">
               The future isn&apos;t found in books. It is <span className="text-brand-orange">created.</span>
             </h1>
-            <p className="mt-4 max-w-[590px] text-base font-medium leading-7 text-brand-ink/75">
+            <p className="max-w-[680px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <ButtonLink
                 href="/solutions"
                 size="lg"
                 showArrow
-                className="min-h-11 w-[15rem] rounded-full px-5 text-[0.9rem] shadow-[0_8px_20px_rgba(255,96,24,.2)] sm:min-h-12 sm:text-[0.95rem]"
+                className="min-h-11 w-[16rem] whitespace-nowrap rounded-full px-5 text-[0.9rem] shadow-[0_8px_20px_rgba(255,96,24,.2)] sm:min-h-12 sm:px-5 sm:text-[0.95rem]"
               >
                 Explore Our Solutions
               </ButtonLink>
               <Link
                 href="#our-story"
-                className="focus-ring group inline-flex min-h-11 w-[15rem] items-center justify-center gap-2.5 rounded-full border-2 border-brand-blue/25 bg-white px-5 text-[0.9rem] font-extrabold text-brand-blue shadow-[0_8px_20px_rgba(15,39,78,.1)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/45 hover:bg-brand-sky hover:shadow-[0_10px_24px_rgba(15,39,78,.14)] active:translate-y-0 sm:min-h-12 sm:text-[0.95rem]"
+                className="focus-ring group inline-flex min-h-11 w-[16rem] whitespace-nowrap items-center justify-center gap-2.5 rounded-full border-2 border-brand-blue/25 bg-white px-5 text-[0.9rem] font-extrabold text-brand-blue shadow-[0_8px_20px_rgba(15,39,78,.1)] transition duration-200 hover:-translate-y-0.5 hover:border-brand-blue/45 hover:bg-brand-sky hover:shadow-[0_10px_24px_rgba(15,39,78,.14)] active:translate-y-0 sm:min-h-12 sm:text-[0.95rem]"
               >
                 <svg
                   viewBox="0 0 28 28"
@@ -90,7 +90,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-6 grid max-w-[620px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-4 sm:grid-cols-3 sm:gap-4">
+            <div className="grid max-w-[680px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-4 sm:grid-cols-3 sm:gap-4">
               {homePrinciples.map((item) => (
                 <div key={item.title} className="flex items-center gap-2.5">
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
@@ -98,7 +98,7 @@ export default function HomePage() {
                   </span>
                   <div className="min-w-0">
                     <p className="text-xs font-extrabold text-brand-blue sm:text-sm">{item.title}</p>
-                    <p className="mt-0.5 text-[0.66rem] font-semibold leading-4 text-brand-muted sm:text-[0.7rem]">{item.description}</p>
+                    <p className="mt-1 text-[0.66rem] font-semibold leading-5 text-brand-muted sm:text-[0.7rem]">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -132,7 +132,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="relative bg-white py-14 sm:py-16 lg:py-20">
+      <section className="relative bg-white pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20">
         <Container wide className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Eyebrow>A Better Tomorrow Starts With A Question</Eyebrow>
