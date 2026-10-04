@@ -47,7 +47,7 @@ export default function AboutPage() {
               Ignited Brains creates future-ready learning environments where curiosity becomes experimentation, creativity becomes creation and innovation becomes action.
             </p>
 
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 grid w-fit max-w-full grid-cols-1 gap-3 sm:grid-cols-2">
               <ButtonLink href="#our-story" size="lg" showArrow>
                 Our Story
               </ButtonLink>

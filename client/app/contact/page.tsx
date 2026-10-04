@@ -88,7 +88,7 @@ export default function ContactPage() {
                 <div className="absolute inset-0 bg-white/10" />
                 <Image
                   src={pageAssetSlots.contact.hero}
-                  alt="Student imagining the future beside an Indian space-learning display"
+                  alt="Illustration of an educator and student collaborating on a robotics project in a science lab"
                   fill
                   priority
                   sizes="(max-width: 1279px) 100vw, 36vw"

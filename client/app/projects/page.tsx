@@ -48,7 +48,7 @@ export default function ProjectsPage() {
             <p className="mt-5 max-w-[600px] text-base font-medium leading-7 text-brand-ink/75">
               Explore the schools, learning spaces and student experiences shaped through hands-on innovation. From space models to real-world prototypes, these are stories of curiosity turning into impact.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 grid w-fit max-w-full grid-cols-1 gap-3 sm:grid-cols-2">
               <ButtonLink href="/solutions" size="lg" showArrow>Explore Our Solutions</ButtonLink>
               <ButtonLink href="#featured-project" size="lg" variant="outline">Watch Video</ButtonLink>
             </div>

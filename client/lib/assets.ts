@@ -155,7 +155,7 @@ export const pageAssetSlots = {
     newsletterEarth: "/media/newsletter-earth.webp",
   },
   contact: {
-    hero: "/contact/hero-student-rocket.webp",
+    hero: "/contact/partnership-learning.webp",
     indiaCoverage: "/media/india_network_twinkle.gif",
     faqVisual: "/contact/faq-robotics.webp",
   },

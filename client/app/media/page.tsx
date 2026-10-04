@@ -29,7 +29,7 @@ export default function MediaPage() {
             <p className="mt-5 max-w-[600px] text-base font-medium leading-7 text-brand-ink/75">
               Stories, updates and ideas from the world of hands-on learning, innovation and curious minds.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 grid w-fit max-w-full grid-cols-1 gap-3 sm:grid-cols-2">
               <ButtonLink href="#stories" size="lg" showArrow>Explore Our Stories</ButtonLink>
               <ButtonLink href="#latest-videos" size="lg" variant="outline">Watch Our Video</ButtonLink>
             </div>
