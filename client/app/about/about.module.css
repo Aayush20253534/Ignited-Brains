@@ -22,6 +22,7 @@
 .hero { background:radial-gradient(ellipse at 78% 45%,#dfeeff 0,transparent 60%),linear-gradient(115deg,#fff 30%,#f4f9ff); }
 .heroGrid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); align-items:center; min-height:clamp(610px,47vw,890px); padding-block:40px; gap:0; }
 .heroCopy { position:relative; z-index:2; }
+@media(min-width:768px){.heroCopy{transform:translateY(-52px);}}
 .heroDescription { max-width:620px; margin-top:24px!important; font-weight:500; }
 .heroActions { display:flex; gap:16px; margin-top:28px; }
 .heroActions .button { width:clamp(175px,16.3vw,285px); height:clamp(48px,3.5vw,64px); padding-inline:12px; }
