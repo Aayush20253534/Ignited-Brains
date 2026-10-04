@@ -68,7 +68,7 @@ export const pageAssetSlots = {
   home: {
     hero: "/media/hero.mp4",
     classroom: "/media/cls.png",
-    question: "/media/q.png",
+    question: "/media/q.webp",
     experiment: "/media/exp.jpeg",
     build: "/media/buil.jpeg",
     discover: "/home/hero-robotics.webp",
