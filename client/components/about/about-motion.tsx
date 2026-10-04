@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import styles from "@/app/about/about.module.css";
 
 export function AboutMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
-
   useEffect(() => {
     const page = root.current;
     if (!page || !("IntersectionObserver" in window)) return;
@@ -69,14 +67,9 @@ export function AboutMotion({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  useEffect(() => { root.current?.dispatchEvent(new Event("about-motion-change")); }, [paused]);
-
   return (
-    <div ref={root} className={styles.motionRoot} data-motion-paused={paused}>
+    <div ref={root} className={styles.motionRoot} data-motion-paused="false">
       {children}
-      <button type="button" className={styles.motionToggle} aria-pressed={paused} onClick={() => setPaused(value => !value)}>
-        {paused ? "Resume animation" : "Pause animation"}
-      </button>
     </div>
   );
 }
