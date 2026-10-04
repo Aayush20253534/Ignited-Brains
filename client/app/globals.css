@@ -1037,31 +1037,71 @@ main form {
   .home-hero-copy > :nth-child(n + 3) { order: 2; }
 }
 
-/* Fit the mobile introduction and both actions within the first screen. */
+/* The phone hero shares one video background with its transparent header. */
 @media (max-width: 767px) {
+  .home-video-header { margin-bottom: -65px; }
+  .home-video-header[data-solid="false"] {
+    background: transparent;
+    border-color: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+  .home-video-header[data-solid="false"] [aria-label="Ignited Brains home"] > span:last-child { color: white; }
+  .home-hero-section { isolation: isolate; background: #031124; border-color: #031124; }
   .home-page > section:first-child .home-hero-shell {
-    gap: clamp(0.625rem, 1.65svh, 1rem) !important;
-    padding-block: clamp(0.75rem, 2svh, 1.25rem) !important;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100svh !important;
+    gap: clamp(0.625rem, 1.7svh, 1rem) !important;
+    padding-top: calc(65px + clamp(0.75rem, 2.2svh, 1.5rem)) !important;
+    padding-bottom: clamp(0.75rem, 2svh, 1.5rem) !important;
   }
+  .home-hero-copy > * { position: relative; z-index: 2; }
   .home-hero-copy > p:first-child {
-    font-size: 0.625rem;
-    line-height: 1.4;
-    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #abcafa;
+    font-size: 0.6rem;
+    line-height: 1.5;
+    letter-spacing: 0.16em;
   }
+  .home-hero-copy > p:first-child::before { content: ""; width: 1.25rem; height: 1px; flex-shrink: 0; background: #698fc8; }
   .home-page > section:first-child h1 {
-    font-size: clamp(1.8rem, min(8.2vw, 5.2svh), 2.4rem) !important;
-    line-height: 1.06 !important;
+    color: white;
+    font-size: clamp(1.95rem, min(9vw, 5.4svh), 2.6rem) !important;
+    line-height: 1.05 !important;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.24);
   }
+  .home-page > section:first-child h1 > span { position: relative; text-shadow: 0 0 24px rgba(255, 96, 24, 0.4); }
+  .home-page > section:first-child h1 > span::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; border-radius: 50%; background: linear-gradient(90deg, transparent, var(--brand-orange), transparent); transform: rotate(-3deg); }
   .home-hero-visual {
-    height: clamp(7rem, 25svh, 14rem);
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
     aspect-ratio: auto;
-    border-radius: 1.25rem;
+    border-radius: 0;
+    background: #031124;
+  }
+  .home-hero-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2, 10, 25, 0.88) 0%, rgba(3, 16, 38, 0.7) 30%, rgba(3, 16, 38, 0.25) 48%, rgba(3, 16, 38, 0.85) 72%, rgba(2, 10, 25, 0.94) 100%);
+    pointer-events: none;
   }
   .home-hero-description {
+    margin-top: auto;
+    color: #dae4f5;
     font-size: clamp(0.8125rem, 3.4vw, 0.9375rem);
     line-height: 1.45;
   }
-  .home-hero-actions { flex-wrap: nowrap; gap: 0.5rem; }
+  .home-hero-actions { flex-wrap: nowrap; gap: 0.625rem; }
   .home-hero-actions > a {
     flex: 1 1 0;
     width: auto;
@@ -1075,8 +1115,21 @@ main form {
     white-space: normal;
     text-align: center;
   }
+  .home-hero-actions > a:first-child { flex-grow: 1.2; color: #051d48; background: linear-gradient(120deg, #ff771c, #ff5217); border-color: #ff9949; box-shadow: 0 0 28px rgba(255, 96, 24, 0.25); }
+  .home-hero-actions > a:last-child { border-color: #72a7fa; box-shadow: 0 0 24px rgba(38, 123, 255, 0.22); }
   .home-hero-actions > a > svg { width: 1rem; height: 1rem; flex-shrink: 0; }
   .home-hero-actions > a:last-child > svg { width: 1.25rem; height: 1.25rem; }
+  .home-page > section:first-child .home-hero-principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.75rem;
+    padding-top: clamp(0.25rem, 1svh, 0.75rem);
+    border: none;
+  }
+  .home-hero-principles > div { flex-direction: column; align-items: flex-start; gap: 0.375rem; }
+  .home-hero-principles > div > span { color: white; background: rgba(255, 96, 24, 0.1); border: 1px solid rgba(255, 137, 52, 0.5); box-shadow: 0 0 20px rgba(255, 96, 24, 0.1); }
+  .home-hero-principles > div > div > p:first-child { color: white; font-size: clamp(0.75rem, 3.4vw, 0.875rem); }
+  .home-hero-principles > div > div > p:last-child { color: #bdcbe0; margin-top: 0.25rem; font-size: 0.625rem; line-height: 1.4; }
+  .home-hero-principles > div::after { content: ""; width: 1.5rem; height: 2px; margin-top: auto; background: var(--brand-orange); }
 }
 
 /* Fill the laptop's first screen while retaining the desktop layout. */

@@ -112,8 +112,10 @@ export function SiteHeader() {
 
   return (
     <header
+      data-solid={scrolled || mobileOpen}
       className={cn(
         "sticky top-0 z-50 border-b backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300",
+        pathname === "/" && "home-video-header",
         scrolled
           ? "border-brand-line bg-white/98 shadow-[0_10px_35px_rgba(4,27,63,0.08)]"
           : "border-brand-line/70 bg-white/95",

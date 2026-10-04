@@ -54,7 +54,7 @@ function SmallArrowLink({ href, children }: { href: string; children: ReactNode 
 export default function HomePage() {
   return (
     <main className="home-page overflow-hidden bg-white">
-      <section className="relative border-b border-brand-line/80 bg-white">
+      <section className="home-hero-section relative border-b border-brand-line/80 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(45,125,235,.12),transparent_28rem)]" />
         <Container wide className="home-hero-shell relative grid items-center gap-7 py-6 lg:grid-cols-2 lg:gap-8 lg:py-6 xl:grid-cols-[1.02fr_0.98fr]">
           <div className="home-hero-copy relative z-10 grid content-center gap-5 py-2 lg:gap-6 lg:py-4">
