@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" fill="none">
+  <defs><linearGradient id="orbit"><stop stop-color="#75cfff" stop-opacity="0"/><stop offset=".5" stop-color="#75cfff" stop-opacity=".7"/><stop offset="1" stop-color="#ff813d" stop-opacity="0"/></linearGradient></defs>
+  <path d="M170 465C320 92 824 16 1105 230" stroke="url(#orbit)" stroke-width="1"/>
+  <path d="M370 560C650 640 1070 540 1140 110" stroke="url(#orbit)" stroke-width=".7" stroke-dasharray="2 9"/>
+  <g stroke="#afd9f5" stroke-opacity=".35"><path d="M385 145v-18h18M886 101h18v18M1150 360v18h-18M414 539h-18v-18"/><path d="M655 82v12m-6-6h12M1070 470v12m-6-6h12"/></g>
+  <g fill="#99dcff"><circle cx="401" cy="185" r="2"/><circle cx="833" cy="127" r="2.5"/><circle cx="1098" cy="280" r="1.8"/></g>
+  <g fill="#ff934b"><circle cx="674" cy="129" r="2.5"/><circle cx="968" cy="526" r="2"/></g>
+</svg>
