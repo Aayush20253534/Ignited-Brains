@@ -15,6 +15,7 @@ export type HomeIconName =
   | "stem"
   | "robotics"
   | "park"
+  | "science-show"
   | "school"
   | "lab"
   | "students"
@@ -26,6 +27,14 @@ type HomeIconProps = SVGProps<SVGSVGElement> & {
 
 function Paths({ name }: { name: HomeIconName }) {
   switch (name) {
+    case "science-show":
+      return (
+        <>
+          <rect x="3" y="9" width="7" height="6" rx="1.5" />
+          <rect x="14" y="9" width="7" height="6" rx="1.5" />
+          <path d="M10 11h4M3 10 2 6M21 10l1-4M5 12l2-1M16 12l2-1" />
+        </>
+      );
     case "curiosity":
       return (
         <>

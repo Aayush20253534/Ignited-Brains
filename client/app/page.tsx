@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HomeIcon } from "@/components/home/home-icon";
+import { MotionReveal } from "@/components/home/motion-reveal";
 import { AnimatedEarth } from "@/components/layout/animated-earth";
 import { SiteImage } from "@/components/media";
 import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
@@ -171,132 +172,141 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
-        <Container wide className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:items-center">
-          <div>
-            <Eyebrow>From Classrooms To Real-world Impact</Eyebrow>
-            <h2 className="mt-5 text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
-              More than theory.<br />A hands-on future.
-            </h2>
-            <p className="mt-5 max-w-lg text-base leading-7 text-brand-muted">
-              We turn traditional classrooms into innovation spaces where students experiment, build and solve real-world problems.
-            </p>
-            <ButtonLink href="/schools" showArrow className="mt-6">
-              Our Approach
-            </ButtonLink>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-            {transformationSteps.map((step, index) => (
-              <div key={`${step.label}-${index}`} className="group relative">
-                <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-                  <SiteImage
-                    src={step.image}
-                    alt=""
-                    aspectRatio="4/3"
-                    sizes="(max-width: 640px) 50vw, 16vw"
-                    imageClassName="transition duration-300 group-hover:scale-[1.03]"
-                  />
-                  <div className="min-h-20 p-3.5">
-                    <p className="text-xs font-extrabold leading-tight text-brand-blue">{step.label}</p>
-                    <p className="mt-1 text-[0.68rem] font-medium text-brand-muted">{step.caption}</p>
-                  </div>
-                </div>
-                {index < transformationSteps.length - 1 ? (
-                  <span className="absolute -right-[11px] top-[42%] z-10 hidden h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:grid">
-                    <ArrowIcon className="h-4 w-4" />
-                  </span>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-white py-14 sm:py-16 lg:py-20">
+      <section data-home-motion="transformation" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
         <Container wide>
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <Eyebrow>Our Solutions</Eyebrow>
-              <h2 className="mt-4 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                Where curiosity becomes tangible.
+          <MotionReveal className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:items-center">
+            <div data-reveal-item>
+              <Eyebrow>From Classrooms To Real-world Impact</Eyebrow>
+              <h2 className="mt-5 text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
+                More than theory.<br />A hands-on future.
               </h2>
+              <p className="mt-5 max-w-lg text-base leading-7 text-brand-muted">
+                We turn traditional classrooms into innovation spaces where students experiment, build and solve real-world problems.
+              </p>
+              <ButtonLink href="/schools" showArrow className="mt-6">
+                Our Approach
+              </ButtonLink>
             </div>
-            <ButtonLink href="/solutions" variant="outline" size="sm" showArrow>
-              View All Solutions
-            </ButtonLink>
-          </div>
 
-          <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {homeSolutions.map((solution) => (
-              <article key={solution.title} className="group overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
-                <div className="relative">
-                  <SiteImage
-                    src={solution.image}
-                    alt={`${solution.title} learning environment`}
-                    aspectRatio="16/10"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                    imageClassName="transition duration-500 group-hover:scale-[1.04]"
-                  />
-                  <span className="absolute -bottom-5 left-5 grid h-11 w-11 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm">
-                    <HomeIcon name={solution.icon} className="h-5 w-5" />
-                  </span>
-                </div>
-                <div className="px-5 pb-5 pt-8">
-                  <h3 className="text-xl font-black tracking-[-0.025em] text-brand-blue">{solution.title}</h3>
-                  <p className="mt-2 min-h-16 text-sm leading-6 text-brand-muted">{solution.description}</p>
-                  <div className="mt-4">
-                    <SmallArrowLink href={solution.href}>Explore</SmallArrowLink>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
-        <Container wide>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">The Ignited Brains Learning System</p>
-              <h2 className="mt-3 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                From curiosity to creation.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm font-medium leading-6 text-brand-muted">
-              A continuous cycle of learning, doing and improving.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-y-0 sm:grid-cols-2 sm:gap-y-7 lg:grid-cols-7 lg:gap-0">
-            {learningCycle.map((item, index) => (
-              <div
-                key={item.step}
-                className="relative grid grid-cols-[4.5rem_1fr] gap-4 pb-8 text-left sm:block sm:px-2 sm:pb-0 sm:text-center"
-              >
-                <div className="relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:mx-auto sm:h-20 sm:w-20">
-                  <HomeIcon name={item.icon} className="h-7 w-7 sm:h-8 sm:w-8" />
-                </div>
-
-                {index < learningCycle.length - 1 ? (
-                  <>
-                    <div className="absolute left-8 top-16 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-brand-orange/30 sm:hidden" />
-                    <div className="absolute left-[calc(50%+2.5rem)] right-[calc(-50%+2.5rem)] top-10 hidden items-center lg:flex">
-                      <span className="h-px flex-1 bg-brand-line" />
-                      <ArrowIcon className="h-4 w-4 text-brand-orange" />
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {transformationSteps.map((step, index) => (
+                <div data-reveal-item key={`${step.label}-${index}`} className="group relative">
+                  <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
+                    <SiteImage
+                      src={step.image}
+                      alt={step.label === "Question" ? "Student raising a hand to ask about a science demonstration" : `${step.label} learning stage`}
+                      aspectRatio="4/3"
+                      sizes="(max-width: 640px) 50vw, 16vw"
+                      imageClassName="transition duration-300 group-hover:scale-[1.03]"
+                    />
+                    <div className="min-h-20 p-3.5">
+                      <p className="text-xs font-extrabold leading-tight text-brand-blue">{step.label}</p>
+                      <p className="mt-1 text-[0.68rem] font-medium text-brand-muted">{step.caption}</p>
                     </div>
-                  </>
-                ) : null}
-
-                <div className="pt-1 sm:pt-0">
-                  <p className="text-[0.66rem] font-black text-brand-orange sm:mt-5">{item.step}</p>
-                  <h3 className="mt-1 text-base font-black text-brand-blue sm:text-sm">{item.title}</h3>
-                  <p className="mt-1 whitespace-pre-line text-sm font-medium leading-5 text-brand-muted sm:text-xs">{item.description}</p>
+                  </div>
+                  {index < transformationSteps.length - 1 ? (
+                    <span className="absolute -right-[11px] top-[42%] z-10 hidden h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:grid">
+                      <ArrowIcon className="h-4 w-4" />
+                    </span>
+                  ) : null}
                 </div>
+              ))}
+            </div>
+          </MotionReveal>
+        </Container>
+      </section>
+
+      <section data-home-motion="solutions" className="bg-white py-14 sm:py-16 lg:py-20">
+        <Container wide>
+          <MotionReveal>
+            <div data-reveal-item className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <Eyebrow>Our Solutions</Eyebrow>
+                <h2 className="mt-4 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
+                  Where curiosity becomes tangible.
+                </h2>
               </div>
-            ))}
-          </div>
+              <ButtonLink href="/solutions" variant="outline" size="sm" showArrow>
+                View All Solutions
+              </ButtonLink>
+            </div>
+
+            <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+              {homeSolutions.map((solution) => (
+                <div data-reveal-item key={solution.title}>
+                  <article className="group flex h-full flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
+                    <div className="relative">
+                      <SiteImage
+                        src={solution.image}
+                        alt={`${solution.title} learning experience`}
+                        aspectRatio="16/10"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 20vw"
+                        imageClassName="transition duration-500 group-hover:scale-[1.04]"
+                      />
+                      <span className="absolute -bottom-5 left-5 grid h-11 w-11 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm">
+                        <HomeIcon name={solution.icon} className="h-5 w-5" />
+                      </span>
+                    </div>
+                    <div className="flex flex-1 flex-col px-5 pb-5 pt-8">
+                      <h3 className="text-xl font-black tracking-[-0.025em] text-brand-blue">{solution.title}</h3>
+                      <p className="mt-2 min-h-16 text-sm leading-6 text-brand-muted">{solution.description}</p>
+                      <div className="mt-auto pt-4">
+                        <SmallArrowLink href={solution.href}>Explore</SmallArrowLink>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              ))}
+            </div>
+          </MotionReveal>
+        </Container>
+      </section>
+
+      <section data-home-motion="learning-cycle" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
+        <Container wide>
+          <MotionReveal>
+            <div data-reveal-item className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">The Ignited Brains Learning System</p>
+                <h2 className="mt-3 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
+                  From curiosity to creation.
+                </h2>
+              </div>
+              <p className="max-w-md text-sm font-medium leading-6 text-brand-muted">
+                A continuous cycle of learning, doing and improving.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-y-0 sm:grid-cols-2 sm:gap-y-7 lg:grid-cols-7 lg:gap-0">
+              {learningCycle.map((item, index) => (
+                <div
+                  data-reveal-item
+                  key={item.step}
+                  className="relative grid grid-cols-[4.5rem_1fr] gap-4 pb-8 text-left sm:block sm:px-2 sm:pb-0 sm:text-center"
+                >
+                  <div className="relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:mx-auto sm:h-20 sm:w-20">
+                    <HomeIcon name={item.icon} className="h-7 w-7 sm:h-8 sm:w-8" />
+                  </div>
+
+                  {index < learningCycle.length - 1 ? (
+                    <>
+                      <div className="absolute left-8 top-16 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-brand-orange/30 sm:hidden" />
+                      <div className="absolute left-[calc(50%+2.5rem)] right-[calc(-50%+2.5rem)] top-10 hidden items-center lg:flex">
+                        <span className="h-px flex-1 bg-brand-line" />
+                        <ArrowIcon className="h-4 w-4 text-brand-orange" />
+                      </div>
+                    </>
+                  ) : null}
+
+                  <div className="pt-1 sm:pt-0">
+                    <p className="text-[0.66rem] font-black text-brand-orange sm:mt-5">{item.step}</p>
+                    <h3 className="mt-1 text-base font-black text-brand-blue sm:text-sm">{item.title}</h3>
+                    <p className="mt-1 whitespace-pre-line text-sm font-medium leading-5 text-brand-muted sm:text-xs">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </MotionReveal>
         </Container>
       </section>
 

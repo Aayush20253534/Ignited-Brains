@@ -64,6 +64,13 @@ export const homeSolutions: Array<{
     icon: "park",
     href: "/solutions#science-park",
   },
+  {
+    title: "3D Science Show",
+    description: "Immersive 3D screenings that bring space, nature and scientific ideas to life for students.",
+    image: pageAssetSlots.home.solutionScienceShow,
+    icon: "science-show",
+    href: "/contact",
+  },
 ];
 
 export const learningCycle: Array<{
