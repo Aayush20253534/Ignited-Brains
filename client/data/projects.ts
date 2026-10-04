@@ -62,19 +62,19 @@ export const projectTestimonials = [
     quote: "I never thought I could build a working robot. Now I want to become an engineer!",
     name: "Ananya Sharma",
     role: "Class 10 Student",
-    image: "/media/ananya.png",
+    image: "/projects/review-ananya.webp",
   },
   {
     quote: "The Space Lab made science real for me. It’s not just a subject anymore.",
     name: "Raghav Singh",
     role: "Class 9 Student",
-    image: "/media/raghav.png",
+    image: "/projects/review-raghav.webp",
   },
   {
     quote: "Ignited Brains has brought a new energy to our school. Students are more curious, confident and creative.",
     name: "Priya Verma",
     role: "Science Teacher",
-    image: "/media/mam.png",
+    image: "/projects/review-priya.webp",
   },
 ];
 

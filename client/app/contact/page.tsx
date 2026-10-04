@@ -160,8 +160,8 @@ export default function ContactPage() {
           </div>
 
           <div className="grid overflow-hidden rounded-3xl border border-brand-line bg-brand-mist shadow-card md:grid-cols-[1.1fr_0.9fr]">
-            <div className="relative min-h-[260px] sm:min-h-[320px]">
-              <Image src={pageAssetSlots.contact.indiaCoverage} alt="Ignited Brains school network across India" fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover object-center" />
+            <div className="min-w-0 self-center">
+              <Image src={pageAssetSlots.contact.indiaCoverage} alt="Ignited Brains school network across India" width={1267} height={601} sizes="(max-width: 768px) 100vw, 45vw" className="h-auto w-full" />
             </div>
             <div className="flex items-center p-7 sm:p-9">
               <div>

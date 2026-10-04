@@ -140,14 +140,14 @@ export default function MediaPage() {
 
       <section className="dark-space-surface border-y border-white/10 text-white">
         <Container wide className="relative grid items-center gap-8 py-10 sm:py-12 lg:grid-cols-[minmax(0,1fr)_210px] lg:gap-12 lg:py-12 xl:grid-cols-[minmax(0,1fr)_230px]">
-          <div className="max-w-2xl">
+          <div className="min-w-0 max-w-2xl">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand-orange">Stay Curious</p>
             <h2 className="mt-3 text-balance text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl">Get the latest stories, updates and innovations in your inbox.</h2>
             <p className="mt-4 text-sm leading-6 text-white/70">Join a growing community of educators, students and innovators.</p>
-            <form action="/contact" className="mt-6 flex max-w-xl rounded-full bg-white p-1.5 shadow-xl">
+            <form action="/contact" className="mt-6 flex w-full min-w-0 max-w-xl flex-col gap-2 rounded-3xl bg-white p-1.5 shadow-xl sm:flex-row sm:gap-0 sm:rounded-full">
               <label htmlFor="media-newsletter" className="sr-only">Email address</label>
-              <input id="media-newsletter" name="email" type="email" required placeholder="Enter your email address" className="min-w-0 flex-1 rounded-full bg-transparent px-4 text-sm text-brand-ink outline-none placeholder:text-brand-muted/70" />
-              <button type="submit" className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-orange px-5 text-sm font-extrabold text-white transition hover:bg-brand-orange-dark">Subscribe <ArrowIcon className="h-4 w-4" /></button>
+              <input id="media-newsletter" name="email" type="email" required placeholder="Enter your email address" className="min-h-12 w-full min-w-0 flex-1 rounded-full bg-transparent px-4 text-base text-brand-ink outline-none placeholder:text-brand-muted/70 sm:w-auto sm:text-sm" />
+              <button type="submit" className="focus-ring inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-orange px-5 text-sm font-extrabold text-white transition hover:bg-brand-orange-dark">Subscribe <ArrowIcon className="h-4 w-4" /></button>
             </form>
           </div>
 
