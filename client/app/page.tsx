@@ -91,7 +91,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="grid max-w-[680px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-4 sm:grid-cols-3 sm:gap-4">
+            <div className="home-hero-principles grid max-w-[680px] grid-cols-1 gap-3 border-t border-brand-line/80 pt-4 sm:grid-cols-3 sm:gap-4">
               {homePrinciples.map((item) => (
                 <div key={item.title} className="flex items-center gap-2.5">
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
@@ -127,7 +127,6 @@ export default function HomePage() {
                   className="object-cover object-center"
                 />
               )}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/15 via-transparent to-transparent lg:hidden" />
             </div>
           </div>
         </Container>
@@ -205,7 +204,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   {index < transformationSteps.length - 1 ? (
-                    <span className="absolute -right-[11px] top-[42%] z-10 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm">
+                    <span className="absolute -right-[11px] top-[42%] z-10 hidden h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:grid">
                       <ArrowIcon className="h-4 w-4" />
                     </span>
                   ) : null}
@@ -231,7 +230,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
 
-            <ContinuousRow label="Our solutions" variant="solutions" duration={52} className="mt-7">
+            <ContinuousRow label="Our solutions" variant="solutions" duration={52} className="mt-9 lg:mt-7">
               {homeSolutions.map((solution) => (
                 <div className="home-marquee-item" key={solution.title}>
                   <article className="group flex h-full flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
@@ -277,27 +276,28 @@ export default function HomePage() {
               </p>
             </div>
 
-            <ContinuousRow label="Observe to Share learning cycle" variant="learning-cycle" duration={48} className="mt-8">
+            <ContinuousRow label="Observe to Share learning cycle" variant="learning-cycle" duration={48} className="mt-10 lg:mt-8">
               {learningCycle.map((item, index) => (
                 <div
                   key={item.step}
-                  className="home-marquee-item relative px-2 text-center"
+                  className="home-marquee-item relative grid grid-cols-[4.5rem_1fr] gap-4 pb-8 text-left sm:block sm:px-2 sm:pb-0 sm:text-center"
                 >
-                  <div className="relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm mx-auto sm:h-20 sm:w-20">
+                  <div className="relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:mx-auto sm:h-20 sm:w-20">
                     <HomeIcon name={item.icon} className="h-7 w-7 sm:h-8 sm:w-8" />
                   </div>
 
                   {index < learningCycle.length - 1 ? (
                     <>
-                      <div className="absolute left-[calc(50%+2rem)] right-[calc(-50%+0.5rem)] top-8 flex items-center sm:left-[calc(50%+2.5rem)] sm:right-[calc(-50%+1rem)] sm:top-10">
+                      <div className="absolute left-8 top-16 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-brand-orange/30 sm:hidden" />
+                      <div className="absolute left-[calc(50%+2.5rem)] right-[calc(-50%+1rem)] top-10 hidden items-center lg:flex">
                         <span className="h-px flex-1 bg-brand-line" />
                         <ArrowIcon className="h-4 w-4 text-brand-orange" />
                       </div>
                     </>
                   ) : null}
 
-                  <div className="pt-0">
-                    <p className="mt-5 text-[0.66rem] font-black text-brand-orange">{item.step}</p>
+                  <div className="pt-1 sm:pt-0">
+                    <p className="sm:mt-5 text-[0.66rem] font-black text-brand-orange">{item.step}</p>
                     <h3 className="mt-1 text-base font-black text-brand-blue sm:text-sm">{item.title}</h3>
                     <p className="mt-1 whitespace-pre-line text-sm font-medium leading-5 text-brand-muted sm:text-xs">{item.description}</p>
                   </div>

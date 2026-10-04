@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ContinuousRow } from "@/components/home/continuous-row";
 import { HomeIcon } from "@/components/home/home-icon";
 import { AnimatedEarth } from "@/components/layout/animated-earth";
 import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
@@ -22,17 +23,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-function ProcessArrow() {
-  return (
-    <span className="hidden h-px flex-1 bg-gradient-to-r from-brand-line via-brand-orange/40 to-brand-line md:block" aria-hidden="true">
-      <ArrowIcon className="ml-auto -mt-2 h-4 w-4 translate-x-1/2 text-brand-orange" />
-    </span>
-  );
-}
-
 export default function AboutPage() {
   return (
-    <main className="overflow-hidden bg-white">
+    <main className="about-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_34%,rgba(36,117,238,.14),transparent_31rem)]" />
         <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
@@ -71,23 +64,24 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
-            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
+          <div className="about-hero-art relative isolate w-full self-stretch overflow-hidden rounded-[2rem]">
+            <div className="about-hero-orbit about-hero-orbit--outer" aria-hidden="true"><span /></div>
+            <div className="about-hero-orbit about-hero-orbit--inner" aria-hidden="true"><span /></div>
+            <div className="about-hero-illustration absolute inset-4 sm:inset-6">
               <Image
                 src={pageAssetSlots.about.hero}
-                alt="Animated connected map of India representing Ignited Brains learning impact"
+                alt="An open book bringing a rocket, robot and science experiments to life"
                 fill
                 priority
-                unoptimized
                 sizes="(max-width: 1024px) 100vw, 52vw"
-                className="object-contain object-center lg:scale-[0.98]"
+                className="object-contain object-center"
               />
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#f8fbff] to-white py-14 sm:py-16 lg:py-20">
+      <section data-home-motion="idea" className="relative overflow-hidden bg-gradient-to-b from-[#f8fbff] to-white py-14 sm:py-16 lg:py-20">
         <div className="pointer-events-none absolute left-[18%] top-8 h-64 w-64 rounded-full bg-blue-100/50 blur-3xl" />
         <Container wide className="relative grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
@@ -103,24 +97,27 @@ export default function AboutPage() {
             </ButtonLink>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <p className="mb-7 text-center text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">
               From a question to a brighter tomorrow
             </p>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:flex md:items-start md:gap-2">
+            <ContinuousRow label="Our Big Idea discovery journey" variant="idea" duration={38}>
               {discoveryJourney.map((step, index) => (
-                <div key={step.title} className="contents">
-                  <div className="flex min-w-0 flex-1 flex-col items-center text-center">
-                    <span className="grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
-                      <HomeIcon name={step.icon} className="h-7 w-7" />
+                <div key={step.title} className="home-marquee-item idea-step relative flex min-w-0 flex-col items-center text-center">
+                  <span className="idea-step-icon relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
+                    <HomeIcon name={step.icon} className="h-7 w-7" />
+                  </span>
+                  <p className="mt-3 text-sm font-extrabold text-brand-blue">{step.title}</p>
+                  <p className="mt-0.5 text-xs font-semibold text-brand-muted">{step.caption}</p>
+                  {index < discoveryJourney.length - 1 ? (
+                    <span className="idea-step-connector" aria-hidden="true">
+                      <span className="h-px flex-1 bg-brand-line" />
+                      <ArrowIcon className="h-4 w-4 shrink-0 text-brand-orange" />
                     </span>
-                    <p className="mt-3 text-sm font-extrabold text-brand-blue">{step.title}</p>
-                    <p className="mt-0.5 text-xs font-semibold text-brand-muted">{step.caption}</p>
-                  </div>
-                  {index < discoveryJourney.length - 1 ? <ProcessArrow /> : null}
+                  ) : null}
                 </div>
               ))}
-            </div>
+            </ContinuousRow>
           </div>
         </Container>
       </section>

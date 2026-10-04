@@ -12,7 +12,7 @@ export function ContinuousRow({
 }: {
   children: ReactNode;
   label: string;
-  variant: "transformation" | "solutions" | "learning-cycle";
+  variant: "transformation" | "solutions" | "learning-cycle" | "idea";
   duration?: number;
   className?: string;
 }) {
@@ -51,11 +51,13 @@ export function ContinuousRow({
         aria-label={label}
         onMouseDown={(event) => {
           // Pointer links keep their position; only keyboard focus switches to the static row.
-          if (event.button === 0 && (event.target as HTMLElement).closest("a")) event.preventDefault();
+          if (window.matchMedia("(min-width: 1024px)").matches && event.button === 0 && (event.target as HTMLElement).closest("a")) event.preventDefault();
         }}
         onFocus={(event) => {
           // Focus removes the loop transform; scroll after that layout change.
-          event.target.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+          if (window.matchMedia("(min-width: 1024px)").matches) {
+            event.target.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+          }
         }}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.scrollLeft = 0;

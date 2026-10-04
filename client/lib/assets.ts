@@ -87,7 +87,7 @@ export const pageAssetSlots = {
     indiaImpact: "/media/india_network_twinkle.gif",
   },
   about: {
-    hero: "/media/india_network_twinkle.gif",
+    hero: "/about/ideas-in-motion.webp",
     story: "/media/img.jpeg",
     mission: "/about/mission-astronaut.webp",
     vision: "/media/space.jpeg",
