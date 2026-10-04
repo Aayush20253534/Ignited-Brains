@@ -1,228 +1,156 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
-import { HomeIcon } from "@/components/home/home-icon";
-import { AnimatedEarth } from "@/components/layout/animated-earth";
-import { SiteImage } from "@/components/media";
-import { ProjectBrowser } from "@/components/projects/project-browser";
-import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
-import {
-  featuredProjectBullets,
-  projectGallery,
-  projectImpact,
-  projectImpactBenefits,
-  projectTestimonials,
-} from "@/data/projects";
-import { pageAssetSlots } from "@/lib/assets";
+import { ProjectBrowser, ProjectDetailsButton } from "@/components/projects/project-browser";
+import { buildStages, featuredRover, galleryScenes, journey } from "@/components/projects/projects-content";
+import { ProjectsIcon, type ProjectsIconName } from "@/components/projects/projects-icon";
+import { ProjectsMotion } from "@/components/projects/projects-motion";
+import { ProjectsOverlay } from "@/components/projects/projects-overlay";
+import { projectImpact, projectImpactBenefits, projectTestimonials } from "@/data/projects";
+import styles from "@/components/projects/projects.module.css";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description:
-    "Explore Ignited Brains school projects, student builds, space labs, robotics experiences and science parks across India.",
+  description: "Explore Ignited Brains school projects, student builds, space labs, robotics experiences and science parks across India.",
   alternates: { canonical: "/projects" },
 };
 
-function PlayButton({ label }: { label: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 text-sm font-extrabold text-white">
-      <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-brand-blue shadow-lg" aria-hidden="true">
-        <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-[1px]" fill="currentColor">
-          <path d="m8.5 6.5 9 5.5-9 5.5v-11Z" />
-        </svg>
-      </span>
-      {label}
-    </span>
-  );
-}
+const impactIcons: ProjectsIconName[] = ["school", "lab", "students", "rocket"];
+const benefitIcons: ProjectsIconName[] = ["students", "school", "rocket", "community"];
 
 export default function ProjectsPage() {
   return (
-    <main className="overflow-hidden bg-white">
-      <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
-          <div className="relative z-10 py-4 lg:py-12">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-brand-blue/55">Our Impact &amp; Projects</p>
-            <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.2rem,5.7vw,5.8rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
-              See curiosity <span className="text-brand-orange">in action.</span>
-            </h1>
-            <p className="mt-5 max-w-[600px] text-base font-medium leading-7 text-brand-ink/75">
-              Explore the schools, learning spaces and student experiences shaped through hands-on innovation. From space models to real-world prototypes, these are stories of curiosity turning into impact.
-            </p>
-            <div className="mt-7 grid w-fit max-w-full grid-cols-1 gap-3 sm:grid-cols-2">
-              <ButtonLink href="/solutions" size="lg" showArrow>Explore Our Solutions</ButtonLink>
-              <ButtonLink href="#featured-project" size="lg" variant="outline">Watch Video</ButtonLink>
-            </div>
-            <p className="mt-8 text-xs font-bold text-brand-muted">
-              <span className="text-brand-orange">—</span> Real Schools <span className="px-2 text-brand-orange">+</span> Real Experiences <span className="px-2 text-brand-orange">+</span> Real Possibilities
-            </p>
-          </div>
-
-          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
-            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
-              <Image
-                src={pageAssetSlots.projects.hero}
-                alt="Students collaborating on a robotics rover project"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 52vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent lg:hidden" />
+    <ProjectsMotion>
+      <main className={styles.page}>
+        <section className={styles.hero} aria-labelledby="projects-title" data-motion-section>
+          <div className={styles.heroScene}>
+            <Image src="/projects-v2/hero-projects.webp" alt="Concept illustration of Indian students assembling an educational rover in a robotics lab" fill preload sizes="(max-width: 767px) 900px, 100vw" />
+            <ProjectsOverlay name="hero" className={styles.heroOverlay} />
+            <div className={styles.heroLabels} aria-hidden="true">
+              <span>AI Vision</span><span>Sensors</span><span>Student Built</span><span>Real-world Testing</span>
             </div>
           </div>
-        </Container>
+          <div className={styles.container}>
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow} data-reveal>Our Projects</p>
+              <h1 id="projects-title" data-reveal>Where curiosity<br />becomes something<br />you can <em>build.</em></h1>
+              <p className={styles.heroLead} data-reveal>From rockets and autonomous rovers to interactive science experiences, students turn questions into working ideas through hands-on exploration.</p>
+              <div className={styles.actions} data-reveal>
+                <a href="#project-showcase" className={styles.primaryButton}>Explore Projects <span aria-hidden="true">→</span></a>
+                <a href="#project-impact" className={styles.outlineButton}>See Our Impact <span aria-hidden="true">↓</span></a>
+              </div>
+              <p className={styles.categoryLine} data-reveal>Space <i /> STEM <i /> AI &amp; Robotics <i /> Science</p>
+            </div>
+          </div>
+          <div className={styles.impactRail}>
+            <div className={styles.container}>
+              <div className={styles.railLine} aria-hidden="true" />
+              {projectImpact.map((metric, i) => <div key={metric.label} className={styles.railMetric}>
+                <span className={styles.railNode} aria-hidden="true" style={{ animationDelay: `${i * .22}s` }} />
+                <ProjectsIcon name={impactIcons[i]} />
+                <div><strong data-count={metric.value} aria-hidden="true">{metric.value}</strong><span className={styles.srOnly}>{metric.value}</span><p>{metric.label}</p></div>
+              </div>)}
+            </div>
+          </div>
+        </section>
 
-        <Container wide className="relative z-10 grid grid-cols-2 gap-4 border-t border-brand-line/80 bg-white py-5 lg:grid-cols-4 lg:gap-6 lg:py-6">
-          {projectImpact.map((item) => (
-            <div key={item.label} className="flex items-center gap-4 lg:justify-center">
-              <HomeIcon name={item.icon} className="h-9 w-9 shrink-0 text-brand-orange" />
-              <div>
-                <p className="text-3xl font-black tracking-[-0.04em] text-brand-blue sm:text-4xl">{item.value}</p>
-                <p className="text-xs font-extrabold text-brand-blue sm:text-sm">{item.label}</p>
+        <section id="project-showcase" className={styles.showcase} aria-labelledby="showcase-title" data-motion-section>
+          <div className={styles.container}><ProjectBrowser /><p className={styles.sectionNote}>Project concept imagery. Programme details reflect our work.</p></div>
+        </section>
+
+        <section id="featured-project" className={styles.featured} aria-labelledby="rover-title" data-motion-section>
+          <div className={styles.featuredScene}>
+            <Image src="/projects-v2/featured-rover.webp" alt={featuredRover.alt} fill sizes="(max-width: 767px) 900px, 100vw" />
+            <ProjectsOverlay name="rover" className={styles.roverOverlay} />
+            <div className={styles.scanner} data-ambient aria-hidden="true" />
+            <div className={styles.roverLabels} aria-hidden="true"><span>AI / Camera</span><span>Sensors</span><span>Controller</span><span>Terrain Mobility</span><span>Power System</span><span><i /> Live Data</span></div>
+          </div>
+          <div className={styles.container}>
+            <div className={styles.featuredCopy} data-reveal>
+              <p className={styles.eyebrow}>Featured Project / 01</p>
+              <h2 id="rover-title" className={styles.title}>Building a rover<br />for <em>another world.</em></h2>
+              <p className={styles.featuredName}>{featuredRover.title}</p>
+              <p className={styles.featuredLead}>Student-built engineering. Rocky terrain.<br />Real-time data.</p>
+              <ProjectDetailsButton project={featuredRover} className={styles.primaryButton}>View Project Details <span aria-hidden="true">→</span></ProjectDetailsButton>
+            </div>
+            <dl className={styles.roverFacts}>
+              <div><dt>The Challenge</dt><dd>Navigate rocky terrain</dd></div>
+              <div><dt>The Build</dt><dd>Environmental data + transmission</dd></div>
+              <div><dt>The Learning</dt><dd>Hands-on engineering + coding</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section className={styles.creation} aria-labelledby="journey-title" data-motion-section>
+          <div className={styles.container}>
+            <div className={styles.journeyHeader} data-reveal><p className={styles.eyebrow}>How Ideas Become Projects</p><h2 id="journey-title" className={styles.title}>It starts with a question.<br />It ends with <em>something real.</em></h2></div>
+            <ol className={styles.journey} aria-label="Project creation journey">
+              {journey.map((stage, i) => <li key={stage.title} data-reveal style={{ transitionDelay: `${i * 70}ms` }}><span className={styles.journeyIcon}><ProjectsIcon name={stage.icon} /></span><span className={styles.stageNumber}>0{i + 1}</span><h3>{stage.title}</h3><p>{stage.caption}</p></li>)}
+            </ol>
+            <div className={styles.buildSection}>
+              <div className={styles.buildCopy} data-reveal><p className={styles.eyebrow}>Inside the Build</p><h2 className={styles.title}>The learning<br />happens in<br /><em>the build.</em></h2><p>Design. Assemble. Program.<br />Test an idea. Make it better.</p></div>
+              <div className={styles.buildMosaic}>
+                {buildStages.map((stage, i) => <figure key={stage.image} className={styles.buildTile} data-reveal style={{ transitionDelay: `${i * 60}ms` }}><Image src={`/projects-v2/${stage.image}.webp`} alt={stage.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 32vw, 460px" /><figcaption><ProjectsIcon name={stage.icon} /><span>{stage.title}</span></figcaption></figure>)}
               </div>
             </div>
-          ))}
-        </Container>
-      </section>
+          </div>
+        </section>
 
-      <section className="bg-white py-12 sm:py-14 lg:py-16">
-        <Container wide>
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <Eyebrow>Explore Our Projects</Eyebrow>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Real stories. Real impact.</h2>
+        <section className={styles.voices} aria-labelledby="voices-title" data-motion-section>
+          <div className={styles.container}>
+            <div className={styles.voicesHeading} data-reveal><p className={styles.eyebrow}>Student Voices</p><h2 id="voices-title" className={styles.title}>Real experiences.<br />Lasting <em>impact.</em></h2></div>
+            <div className={styles.voicesGrid}>
+              <figure className={styles.studentMosaic} data-reveal>
+                <div><Image src="/projects-v2/student-featured.webp" alt="Anonymous editorial illustration of a student beside a completed robotics project" fill sizes="(max-width: 767px) 60vw, 340px" /></div>
+                <div><Image src="/projects-v2/student-secondary-01.webp" alt="Anonymous editorial illustration of a student experimenting with a sensor" fill sizes="(max-width: 767px) 30vw, 200px" /></div>
+                <div><Image src="/projects-v2/student-secondary-02.webp" alt="Anonymous editorial illustration of students collaborating in a lab" fill sizes="(max-width: 767px) 30vw, 200px" /></div>
+                <figcaption>Editorial student illustrations; not portraits of the quoted contributors.</figcaption>
+              </figure>
+              <div className={styles.quotes}>
+                {projectTestimonials.map((quote, i) => <blockquote key={quote.name} data-reveal style={{ transitionDelay: `${i * 80}ms` }}><span aria-hidden="true">“</span><p>{quote.quote}</p><footer><strong>{quote.name}</strong><span>{quote.role}</span></footer></blockquote>)}
+              </div>
             </div>
-            <p className="max-w-lg text-sm leading-6 text-brand-muted lg:text-right">Every project is a step towards a more curious, creative and innovative generation.</p>
           </div>
-          <div className="mt-7">
-            <ProjectBrowser />
-          </div>
-        </Container>
-      </section>
+        </section>
 
-      <section id="featured-project" className="soft-blue-surface border-y border-brand-line/70 py-12 sm:py-14 lg:py-16">
-        <Container wide className="grid items-center gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
-          <div className="relative overflow-hidden rounded-3xl shadow-card">
-            <SiteImage
-              src={pageAssetSlots.projects.featured}
-              alt="Mars rover prototype in a simulated planetary landscape"
-              aspectRatio="16/10"
-              sizes="(max-width: 1024px) 100vw, 52vw"
-              className="rounded-3xl"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/55 via-transparent to-transparent" />
-            <div className="absolute bottom-5 left-5"><PlayButton label="Watch Video" /></div>
-          </div>
-
-          <div className="relative">
-            <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-orange">Featured Project</p>
-            <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Mars Rover Prototype</h2>
-            <p className="mt-1 text-sm font-extrabold text-brand-blue">AI &amp; Robotics Lab <span className="px-2 text-brand-orange">|</span> NIT Mentorship Program</p>
-            <p className="mt-5 max-w-xl text-base leading-7 text-brand-muted">A student-built Mars rover designed to navigate rocky terrain, collect environmental data and transmit it back to a base station.</p>
-            <ul className="mt-6 space-y-4">
-              {featuredProjectBullets.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-sm font-semibold text-brand-blue">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange"><HomeIcon name="innovation" className="h-4 w-4" /></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <ButtonLink href="/contact" className="mt-7" showArrow>View Full Project</ButtonLink>
-            <span className="pointer-events-none absolute -right-2 -top-10 text-[7rem] font-black leading-none text-brand-blue/[0.045] sm:text-[10rem]">01</span>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-white py-12 sm:py-14 lg:py-16">
-        <Container wide>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <Eyebrow>Student Voices</Eyebrow>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">From curiosity to confidence.</h2>
+        <section className={styles.gallerySection} aria-labelledby="gallery-title" data-motion-section>
+          <div className={styles.container}>
+            <div className={styles.galleryHeader} data-reveal><div><p className={styles.eyebrow}>A Closer Look</p><h2 id="gallery-title" className={styles.title}>Curiosity, <em>in motion.</em></h2></div><p>Space. Robotics. Science.<br />A world to explore through making.</p></div>
+            <div className={styles.gallery}>
+              {galleryScenes.map((scene, i) => <figure key={scene.image} data-reveal style={{ transitionDelay: `${i * 65}ms` }}><Image src={`/projects-v2/${scene.image}.webp`} alt={scene.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 50vw, 640px" /><figcaption>{scene.caption}<span aria-hidden="true" /></figcaption></figure>)}
             </div>
-            <p className="text-sm text-brand-muted">Real experiences from students, teachers and school leaders.</p>
           </div>
+        </section>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {projectTestimonials.map((testimonial) => (
-              <article key={testimonial.name} className="rounded-2xl border border-brand-line bg-white p-6 shadow-card">
-                <div className="flex gap-5">
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-4 border-brand-mist">
-                    <Image src={testimonial.image} alt={testimonial.name} fill sizes="80px" className="object-cover" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium leading-6 text-brand-ink/80"><span className="mr-1 text-xl font-black text-brand-orange">“</span>{testimonial.quote}</p>
-                    <p className="mt-4 text-sm font-black text-brand-blue">{testimonial.name}</p>
-                    <p className="text-xs text-brand-muted">{testimonial.role}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="soft-blue-surface border-y border-brand-line/70 py-12 sm:py-14 lg:py-16">
-        <Container wide>
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <Eyebrow>Glimpses From Our Projects</Eyebrow>
+        <section id="project-impact" className={styles.indiaSection} aria-labelledby="impact-title" data-motion-section>
+          <div className={styles.container}>
+            <div className={styles.indiaGrid}>
+              <div className={styles.indiaCopy} data-reveal><p className={styles.eyebrow}>Projects Across India</p><h2 id="impact-title" className={styles.title}>Projects across classrooms.<br />Impact across <em>India.</em></h2><p>Bringing hands-on learning to schools and institutions across the country.</p></div>
+              <figure className={styles.indiaVisual}>
+                <picture data-network-picture data-motion="/projects-v2/projects-india-network.webp" data-poster="/projects-v2/projects-india-poster.webp">
+                  <source media="(prefers-reduced-motion: reduce)" srcSet="/projects-v2/projects-india-poster.webp" />
+                  <source data-network-source srcSet="/projects-v2/projects-india-poster.webp" />
+                  <Image src="/projects-v2/projects-india-poster.webp" alt="Illustrated map of India with a conceptual learning network" width={680} height={720} unoptimized sizes="(max-width: 767px) 90vw, 40vw" />
+                </picture>
+                <ProjectsOverlay name="india" className={styles.indiaOverlay} />
+                <figcaption>Conceptual learning network</figcaption>
+              </figure>
+              <div className={styles.indiaMetrics}>{projectImpact.map((metric, i) => <div key={metric.label} data-reveal><ProjectsIcon name={impactIcons[i]} /><div><strong>{metric.value}</strong><p>{metric.label}</p></div></div>)}</div>
             </div>
-            <a href="#project-impact" className="focus-ring inline-flex items-center gap-2 text-sm font-extrabold text-brand-orange">View Gallery <ArrowIcon className="h-4 w-4" /></a>
+            <ul className={styles.impactBenefits}>{projectImpactBenefits.map((item, i) => <li key={item.label}><ProjectsIcon name={benefitIcons[i]} /><span>{item.label}</span></li>)}</ul>
           </div>
-          <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {projectGallery.map((item) => (
-              <article key={item.label} className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-                <SiteImage src={item.image} alt={item.label} aspectRatio="16/9" className="rounded-none" sizes="(max-width: 768px) 50vw, 25vw" />
-                <p className="px-4 py-3 text-xs font-extrabold text-brand-blue">{item.label}</p>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
+        </section>
 
-      <section id="project-impact" className="relative bg-white py-12 sm:py-14 lg:py-16">
-        <Container wide className="grid items-center gap-8 lg:grid-cols-[0.78fr_1fr_0.72fr] lg:gap-12">
-          <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Our Growing Impact</p>
-            <h2 className="mt-3 text-balance text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">More curious minds. A brighter India.</h2>
-            <p className="mt-4 max-w-md text-sm leading-6 text-brand-muted">We are working with schools across India to make hands-on learning accessible to every student.</p>
-            <ButtonLink href="/contact" className="mt-6" showArrow>Partner With Us</ButtonLink>
+        <section className={styles.finalScene} aria-labelledby="next-project-title" data-motion-section>
+          <Image src="/projects-v2/final-earth.webp" alt="" fill sizes="(max-width: 767px) 1200px, 100vw" />
+          <ProjectsOverlay name="earth" className={styles.earthOverlay} />
+          <div className={`${styles.container} ${styles.finalGrid}`}>
+            <div data-reveal><p className={styles.eyebrow}>Build the Next Project</p><h2 id="next-project-title" className={styles.title}>What will your<br />students <em>create?</em></h2><p>Bring hands-on Space, STEM, AI and Robotics experiences to your school.</p></div>
+            <div className={styles.actions} data-reveal><Link href="/contact" className={styles.primaryButton}>Partner With Us <span aria-hidden="true">→</span></Link><Link href="/solutions" className={styles.outlineButton}>Explore Solutions <span aria-hidden="true">↗</span></Link></div>
           </div>
-
-          <div className="relative mx-auto w-full max-w-[520px] overflow-hidden">
-            <Image src={pageAssetSlots.home.indiaImpact} alt="Ignited Brains impact network across India" width={640} height={436} className="h-auto w-full object-contain" />
-            <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 w-[3px] bg-white" />
-          </div>
-
-          <ul className="space-y-4">
-            {projectImpactBenefits.map((item) => (
-              <li key={item.label} className="flex items-center gap-3 text-sm font-extrabold text-brand-blue">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-orange-50 text-brand-orange"><HomeIcon name={item.icon} className="h-5 w-5" /></span>
-                {item.label}
-              </li>
-            ))}
-            <li className="pt-4 text-2xl font-semibold italic leading-tight text-brand-blue">Together for a brighter tomorrow. <span className="ml-2 text-base">🇮🇳</span></li>
-          </ul>
-        </Container>
-      </section>
-
-      <section className="dark-space-surface border-y border-white/10">
-        <Container wide className="relative grid items-center gap-6 py-8 sm:gap-8 sm:py-10 lg:grid-cols-[190px_minmax(0,1fr)_auto] lg:gap-10 lg:py-8 xl:grid-cols-[210px_minmax(0,1fr)_auto]">
-          <div
-            className="pointer-events-none mx-auto w-36 sm:w-44 lg:w-[190px] xl:w-[210px]"
-            aria-hidden="true"
-          >
-            <AnimatedEarth className="h-auto w-full drop-shadow-[0_18px_38px_rgba(0,91,255,.34)]" />
-          </div>
-          <div className="relative text-center sm:text-left">
-            <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/60">Be a Part of the Change</p>
-            <h2 className="mt-3 max-w-2xl text-balance text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl">Let’s create more stories of innovation.</h2>
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/70 sm:mx-0">Partner with Ignited Brains and bring hands-on learning to more schools across India.</p>
-          </div>
-          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">Partner With Us</ButtonLink>
-        </Container>
-      </section>
-    </main>
+        </section>
+      </main>
+    </ProjectsMotion>
   );
 }

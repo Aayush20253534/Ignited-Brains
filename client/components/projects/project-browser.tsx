@@ -1,98 +1,88 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useId, useRef, useState } from "react";
 
-import { SiteImage } from "@/components/media";
-import { ArrowIcon } from "@/components/ui";
-import {
-  projectCards,
-  projectCategories,
-  type ProjectCategory,
-} from "@/data/projects";
-import { cn } from "@/lib/cn";
+import { showcaseProjects, type ProjectDetail } from "./projects-content";
+import styles from "./projects.module.css";
 
-function PinIcon() {
-  return (
-    <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
-      <path d="M10 17s5-4.7 5-9a5 5 0 1 0-10 0c0 4.3 5 9 5 9Z" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="10" cy="8" r="1.7" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
+export function ProjectDetailsButton({ project, children, className = "" }: {
+  project: ProjectDetail;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const previousOverflow = useRef("");
+  const titleId = useId();
+  useEffect(() => {
+    const element = dialog.current;
+    return () => { if (element?.open) document.body.style.overflow = previousOverflow.current; };
+  }, []);
+
+  return <>
+    <button ref={trigger} type="button" className={className} aria-label={`View details: ${project.title}`} aria-haspopup="dialog" onClick={() => {
+      previousOverflow.current = document.body.style.overflow;
+      dialog.current?.showModal();
+      document.body.style.overflow = "hidden";
+      dialog.current?.querySelector<HTMLButtonElement>("[data-close]")?.focus();
+    }}>{children}</button>
+    <dialog ref={dialog} className={styles.projectDialog} aria-labelledby={titleId} onClose={() => {
+      document.body.style.overflow = previousOverflow.current;
+      trigger.current?.focus();
+    }} onClick={event => { if (event.target === dialog.current) dialog.current?.close(); }} onKeyDown={event => {
+      if (event.key !== "Tab") return;
+      const controls = event.currentTarget.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]");
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    }}>
+      <div className={styles.dialogInner}>
+        <button type="button" data-close className={styles.dialogClose} aria-label="Close project details" onClick={() => dialog.current?.close()}>×</button>
+        <div className={styles.dialogImage}><Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 94vw, 900px" /></div>
+        <div className={styles.dialogCopy}>
+          <p className={styles.eyebrow}>{project.category}</p>
+          <h2 id={titleId}>{project.title}</h2>
+          <p className={styles.location}>{project.location}</p>
+          <p>{project.description}</p>
+          {project.features && <ul>{project.features.map(feature => <li key={feature}>{feature}</li>)}</ul>}
+          <p className={styles.imageNote}>Concept illustration of the project.</p>
+          <Link href="/contact" className={styles.primaryButton} onClick={() => dialog.current?.close()}>Discuss a School Project <span aria-hidden="true">→</span></Link>
+        </div>
+      </div>
+    </dialog>
+  </>;
 }
 
+const categories = ["All", ...new Set(showcaseProjects.map(project => project.category))];
+
 export function ProjectBrowser() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("All");
+  const [category, setCategory] = useState("All");
+  const visible = category === "All" ? showcaseProjects : showcaseProjects.filter(project => project.category === category);
 
-  const visibleProjects = useMemo(
-    () =>
-      activeCategory === "All"
-        ? projectCards
-        : projectCards.filter((project) => project.category === activeCategory),
-    [activeCategory],
-  );
-
-  return (
-    <div>
-      <div className="mobile-scroll-row flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0" role="group" aria-label="Filter projects by category">
-        {projectCategories.map((category) => {
-          const active = category === activeCategory;
-          return (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setActiveCategory(category)}
-              className={cn(
-                "focus-ring min-h-10 shrink-0 snap-start rounded-full border px-5 text-xs font-extrabold transition sm:text-sm",
-                active
-                  ? "border-brand-blue bg-brand-blue text-white shadow-sm"
-                  : "border-brand-line bg-white text-brand-blue hover:border-brand-blue/30 hover:bg-brand-sky",
-              )}
-              aria-pressed={active}
-            >
-              {category}
-            </button>
-          );
-        })}
+  return <div>
+    <div className={styles.showcaseHeader}>
+      <div><p className={styles.eyebrow}>Built by Curious Minds</p><h2 id="showcase-title" className={styles.title}>Different questions.<br />Different <em>creations.</em></h2></div>
+      <div className={styles.filters} role="group" aria-label="Filter projects by category">
+        {categories.map(item => <button key={item} type="button" aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}
       </div>
-
-      {visibleProjects.length ? (
-        <div key={activeCategory} className="mt-8 grid gap-5 motion-safe:animate-[fadeIn_.28s_ease-out] md:grid-cols-2 lg:grid-cols-3">
-          {visibleProjects.map((project) => (
-            <article key={project.title} className="card-lift overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-              <div className="relative">
-                <SiteImage
-                  src={project.image}
-                  alt={project.title}
-                  aspectRatio="16/9"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="rounded-none"
-                />
-                <span className="absolute bottom-3 left-3 rounded-full bg-brand-orange px-3 py-1 text-[0.68rem] font-extrabold text-white shadow-sm">
-                  {project.category}
-                </span>
-              </div>
-              <div className="p-5 sm:p-6">
-                <h3 className="text-xl font-black tracking-[-0.025em] text-brand-blue">{project.title}</h3>
-                <p className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-brand-orange">
-                  <PinIcon /> {project.location}
-                </p>
-                <p className="mt-4 text-sm leading-6 text-brand-muted">{project.description}</p>
-                <a
-                  href="#featured-project"
-                  aria-label={`Explore ${project.title}`}
-                  className="focus-ring mt-5 ml-auto grid h-10 w-10 place-items-center rounded-full border border-brand-blue/35 text-brand-blue transition hover:bg-brand-blue hover:text-white"
-                >
-                  <ArrowIcon className="h-4 w-4" />
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <div className="mt-8 rounded-2xl border border-dashed border-brand-line bg-brand-mist px-6 py-12 text-center text-sm text-brand-muted">
-          More {activeCategory} stories are being prepared for this showcase.
-        </div>
-      )}
     </div>
-  );
+    <p className={styles.srOnly} aria-live="polite">{visible.length} {visible.length === 1 ? "project" : "projects"} shown.</p>
+    <div className={`${styles.showcaseGrid} ${category !== "All" ? styles.filteredGrid : ""}`}>
+      {visible.map(project => <article key={project.id} className={`${styles.projectCard} ${project.id === "autonomous-rover" ? styles.mainProject : ""}`}>
+        <div className={styles.projectImage}>
+          <Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 48vw, 650px" />
+          <span className={styles.projectGridLines} aria-hidden="true" />
+        </div>
+        <div className={styles.projectCopy}>
+          <p className={styles.category}>{project.category}</p>
+          <h3>{project.title}</h3>
+          <p className={styles.projectDescription}>{project.description}</p>
+          <ProjectDetailsButton project={project} className={styles.projectArrow}><span aria-hidden="true">↗</span></ProjectDetailsButton>
+        </div>
+      </article>)}
+    </div>
+  </div>;
 }
