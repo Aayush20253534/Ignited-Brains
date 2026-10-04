@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HomeIcon } from "@/components/home/home-icon";
+import { ImpactCount } from "@/components/home/impact-count";
 import { ContinuousRow } from "@/components/home/continuous-row";
 import { AnimatedEarth } from "@/components/layout/animated-earth";
 import { SiteImage } from "@/components/media";
@@ -66,6 +67,14 @@ export default function HomePage() {
             <p className="max-w-[680px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
             </p>
+            <p className="hidden max-w-[680px] text-sm leading-6 text-brand-muted xl:block">
+              From a first experiment to a working prototype, students learn by doing. Our spaces connect classroom concepts with practical experiences in observation, engineering, coding and teamwork.
+            </p>
+            <div className="home-hero-learning hidden max-w-[680px] gap-2 border-l-2 border-brand-orange/40 pl-4 lg:grid">
+              <p className="text-sm leading-6 text-brand-muted"><strong className="font-extrabold text-brand-blue">Explore.</strong> Discover space and science through models and experiments.</p>
+              <p className="text-sm leading-6 text-brand-muted"><strong className="font-extrabold text-brand-blue">Create.</strong> Build robotics and STEM projects with real-world purpose.</p>
+              <p className="text-sm leading-6 text-brand-muted"><strong className="font-extrabold text-brand-blue">Collaborate.</strong> Test ideas, learn together and keep improving.</p>
+            </div>
             <div className="flex flex-wrap items-center gap-3">
               <ButtonLink
                 href="/solutions"
@@ -187,7 +196,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
 
-            <ContinuousRow label="Classroom transformation" variant="transformation" duration={36}>
+            <ContinuousRow label="Classroom transformation" variant="transformation" duration={20}>
               {transformationSteps.map((step, index) => (
                 <div key={`${step.label}-${index}`} className="home-marquee-item group relative">
                   <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
@@ -230,7 +239,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
 
-            <ContinuousRow label="Our solutions" variant="solutions" duration={52} className="mt-9 lg:mt-7">
+            <ContinuousRow label="Our solutions" variant="solutions" duration={28} className="mt-9 lg:mt-7">
               {homeSolutions.map((solution) => (
                 <div className="home-marquee-item" key={solution.title}>
                   <article className="group flex h-full flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
@@ -276,7 +285,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <ContinuousRow label="Observe to Share learning cycle" variant="learning-cycle" duration={48} className="mt-10 lg:mt-8">
+            <ContinuousRow label="Observe to Share learning cycle" variant="learning-cycle" duration={24} className="mt-10 lg:mt-8">
               {learningCycle.map((item, index) => (
                 <div
                   key={item.step}
@@ -349,7 +358,7 @@ export default function HomePage() {
               {impactStats.map((stat) => (
                 <div key={stat.label} className="rounded-2xl border border-brand-line bg-white p-4 shadow-card">
                   <HomeIcon name={stat.icon} className="h-7 w-7 text-brand-orange" />
-                  <p className="mt-3 text-3xl font-black tracking-[-0.04em] text-brand-blue">{stat.value}</p>
+                  <p className="mt-3 text-3xl font-black tracking-[-0.04em] text-brand-blue"><ImpactCount value={stat.value} /></p>
                   <p className="mt-1 text-xs font-semibold leading-5 text-brand-muted">{stat.label}</p>
                 </div>
               ))}

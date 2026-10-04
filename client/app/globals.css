@@ -273,7 +273,8 @@ button:not(:disabled),
 
 /* Continuous Home rows own their motion instead of the generic section reveal. */
 .home-page > section[data-home-motion],
-.about-page > section[data-home-motion] {
+.about-page > section[data-home-motion],
+.solutions-page > section[data-learning-motion] {
   animation: none;
   opacity: 1;
   transform: none;
@@ -298,6 +299,8 @@ button:not(:disabled),
 .home-marquee--solutions .home-marquee-group { gap: 1.25rem; }
 .home-marquee--learning-cycle .home-marquee-group { gap: 0; }
 .home-marquee--idea .home-marquee-group { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.home-marquee--values .home-marquee-group { gap: 1.25rem; }
+.home-marquee--differences .home-marquee-group { gap: 1rem; }
 
 .idea-step-connector { display: none; }
 
@@ -305,10 +308,12 @@ button:not(:disabled),
   .home-marquee--transformation .home-marquee-group { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .home-marquee--learning-cycle .home-marquee-group { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.75rem; }
   .home-marquee--idea .home-marquee-group { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .home-marquee--differences .home-marquee-group { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 768px) {
   .home-marquee--solutions .home-marquee-group { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-marquee--values .home-marquee-group { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .home-marquee--idea .home-marquee-group { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .idea-step-connector {
     position: absolute;
@@ -340,6 +345,8 @@ button:not(:disabled),
   .home-marquee--solutions .home-marquee-item { width: clamp(15rem, 22vw, 20rem); }
   .home-marquee--learning-cycle .home-marquee-item { width: clamp(9rem, 15vw, 14.5rem); }
   .home-marquee--idea .home-marquee-item { width: clamp(7.5rem, 10vw, 10rem); }
+  .home-marquee--values .home-marquee-item { width: clamp(22rem, 36vw, 35rem); }
+  .home-marquee--differences .home-marquee-item { width: clamp(17rem, 26vw, 25rem); }
   .home-marquee[data-paused="true"] .home-marquee-track { animation-play-state: paused; }
 
   /* Keyboard users get one stationary, scrollable row of the original links. */
@@ -366,6 +373,7 @@ button:not(:disabled),
 @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
   .home-marquee--solutions .home-marquee-group { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .home-marquee--learning-cycle .home-marquee-group { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .home-marquee--differences .home-marquee-group { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 .mobile-scroll-row {
@@ -1029,8 +1037,12 @@ main form {
     padding-block: clamp(1.5rem, 4vh, 3rem) !important;
   }
   .home-hero-copy {
-    align-self: center;
-    gap: clamp(1.5rem, 3vh, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    justify-content: space-between;
+    padding-block: 0;
+    gap: clamp(1rem, 2vh, 1.5rem);
   }
   .home-hero-visual {
     aspect-ratio: auto;
@@ -1040,6 +1052,12 @@ main form {
   .home-page > section:first-child h1 {
     font-size: clamp(3.35rem, 4.1vw, 5rem) !important;
   }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .home-hero-copy { gap: 0.75rem; }
+  .home-hero-learning { gap: 0.25rem; }
+  .home-hero-learning p { font-size: 0.75rem; line-height: 1.25rem; }
 }
 
 @media (min-width: 1024px) and (max-height: 760px) {
@@ -1086,4 +1104,84 @@ main form {
 }
 @media (prefers-reduced-motion: reduce) {
   .about-hero-illustration, .about-hero-orbit { animation: none !important; }
+}
+
+/* More orbital detail for the About hero, confined to laptop screens. */
+.about-hero-orbit span:nth-child(n + 2), .about-hero-orbit--third, .about-hero-sparks { display: none; }
+@media (min-width: 1024px) {
+  .about-hero-illustration { animation-duration: 5s; }
+  .about-hero-orbit--outer { animation-duration: 16s; }
+  .about-hero-orbit--inner { animation-duration: 12s; }
+  .about-hero-orbit--third { display: block; inset: 32% 5%; animation-duration: 20s; }
+  .about-hero-orbit span {
+    width: 1rem;
+    height: 1rem;
+    top: -0.5rem;
+    background: radial-gradient(circle at 30% 25%, #ffd6a7, var(--brand-orange) 60%, #cc4200);
+    box-shadow: 0 4px 12px rgba(255, 90, 20, 0.22);
+  }
+  .about-hero-orbit span:nth-child(2) {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    left: calc(100% - 0.75rem);
+    top: calc(50% - 0.75rem);
+    background: radial-gradient(circle at 30% 25%, #a7d8ff, var(--brand-blue-bright) 60%, #062e7e);
+    box-shadow: 0 4px 12px rgba(23, 75, 183, 0.2);
+  }
+  .about-hero-orbit span:nth-child(3) {
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    top: calc(100% - 0.375rem);
+    left: calc(50% - 0.375rem);
+  }
+  .about-hero-orbit--inner span:first-child { background: radial-gradient(circle at 30% 25%, #a7d8ff, var(--brand-blue-bright) 60%, #062e7e); }
+  .about-hero-orbit--third span { width: 0.75rem; height: 0.75rem; }
+  .about-hero-sparks { display: block; position: absolute; inset: 0; pointer-events: none; }
+  .about-hero-sparks span { position: absolute; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--brand-orange); animation: about-spark 3.6s ease-in-out infinite; }
+  .about-hero-sparks span:nth-child(1) { left: 12%; top: 24%; }
+  .about-hero-sparks span:nth-child(2) { left: 88%; top: 18%; animation-delay: -0.9s; background: var(--brand-blue-bright); }
+  .about-hero-sparks span:nth-child(3) { left: 10%; top: 78%; animation-delay: -1.8s; background: var(--brand-blue-bright); }
+  .about-hero-sparks span:nth-child(4) { left: 92%; top: 66%; animation-delay: -2.7s; }
+}
+@keyframes about-spark {
+  0%, 100% { opacity: 0.35; transform: translateY(0) scale(0.8); }
+  50% { opacity: 0.9; transform: translateY(-8px) scale(1.2); }
+}
+
+/* A circular, sequential learning path on laptop; retain the mobile grid. */
+.solution-cycle-orbit, .solution-cycle-eyebrow { display: none; }
+@media (min-width: 1024px) {
+  .solution-cycle-visual { max-width: 640px; aspect-ratio: 1; padding: 0; }
+  .solution-cycle-backdrop { width: 71%; height: 71%; border-color: rgba(23, 75, 183, 0.15); }
+  .solution-cycle-backdrop::after { content: ""; position: absolute; inset: 18%; border: 1px dashed rgba(23, 75, 183, 0.12); border-radius: 50%; }
+  .solution-cycle-grid { display: block; position: absolute; inset: 0; }
+  .solution-cycle-node { position: absolute; left: var(--node-x); top: var(--node-y); width: 6.5rem; transform: translate(-50%, -2rem); }
+  .solution-cycle-icon { animation: learning-node 12.6s ease-in-out infinite; animation-delay: var(--node-delay); }
+  .solution-cycle-orbit { display: block; position: absolute; inset: 14.5%; border-radius: 50%; animation: about-art-orbit 12.6s linear infinite; }
+  .solution-cycle-orbit span { position: absolute; left: calc(50% - 0.4rem); top: -0.4rem; width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--brand-orange); box-shadow: 0 0 20px rgba(255, 90, 20, 0.4); }
+  .solution-cycle-center { position: absolute; left: 50%; top: 50%; width: 11rem; height: 11rem; margin: 0; transform: translate(-50%, -50%); background: radial-gradient(circle at top, white, #f4f8ff); box-shadow: 0 12px 42px rgba(23, 75, 183, 0.12); }
+  .solution-cycle-eyebrow { display: block; }
+}
+@keyframes learning-node {
+  0%, 12% { border-color: var(--brand-orange); background: #fff4e9; color: var(--brand-orange); box-shadow: 0 0 0 6px rgba(255, 90, 20, 0.08), 0 10px 28px rgba(23, 75, 183, 0.12); transform: scale(1.06); }
+  16%, 100% { border-color: var(--brand-line); background: white; color: var(--brand-blue); box-shadow: var(--elevation-card); transform: scale(1); }
+}
+
+/* Actual lab photographs replace the empty solution tiles. */
+@media (min-width: 1024px) {
+  .solution-choice-image img { animation: lab-image-drift 8s ease-in-out infinite; animation-delay: var(--choice-delay); }
+  .solution-choice-icon { animation: lab-icon-float 4s ease-in-out infinite; animation-delay: var(--choice-delay); }
+}
+@keyframes lab-image-drift {
+  0%, 100% { transform: scale(1.02) translateX(-1%); }
+  50% { transform: scale(1.1) translateX(1%); }
+}
+@keyframes lab-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-hero-sparks span, .solution-cycle-icon, .solution-cycle-orbit, .solution-choice-image img, .solution-choice-icon { animation: none !important; }
 }

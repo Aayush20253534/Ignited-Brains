@@ -65,8 +65,10 @@ export default function AboutPage() {
           </div>
 
           <div className="about-hero-art relative isolate w-full self-stretch overflow-hidden rounded-[2rem]">
-            <div className="about-hero-orbit about-hero-orbit--outer" aria-hidden="true"><span /></div>
-            <div className="about-hero-orbit about-hero-orbit--inner" aria-hidden="true"><span /></div>
+            <div className="about-hero-orbit about-hero-orbit--outer" aria-hidden="true"><span /><span /><span /></div>
+            <div className="about-hero-orbit about-hero-orbit--inner" aria-hidden="true"><span /><span /><span /></div>
+            <div className="about-hero-orbit about-hero-orbit--third" aria-hidden="true"><span /><span /><span /></div>
+            <div className="about-hero-sparks" aria-hidden="true"><span /><span /><span /><span /></div>
             <div className="about-hero-illustration absolute inset-4 sm:inset-6">
               <Image
                 src={pageAssetSlots.about.hero}
@@ -101,7 +103,7 @@ export default function AboutPage() {
             <p className="mb-7 text-center text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">
               From a question to a brighter tomorrow
             </p>
-            <ContinuousRow label="Our Big Idea discovery journey" variant="idea" duration={38}>
+            <ContinuousRow label="Our Big Idea discovery journey" variant="idea" duration={20}>
               {discoveryJourney.map((step, index) => (
                 <div key={step.title} className="home-marquee-item idea-step relative flex min-w-0 flex-col items-center text-center">
                   <span className="idea-step-icon relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
@@ -122,7 +124,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="relative border-y border-brand-line/70 bg-white py-14 sm:py-16 lg:py-20">
+      <section data-home-motion="values" className="relative border-y border-brand-line/70 bg-white py-14 sm:py-16 lg:py-20">
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/10" />
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/10" />
         <Container wide className="relative">
@@ -138,22 +140,24 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="mt-9 grid gap-5 md:grid-cols-3">
+          <ContinuousRow label="Our values" variant="values" duration={26} className="mt-9">
             {aboutValues.map((value) => (
-              <article key={value.title} className="card-lift relative rounded-2xl border border-brand-line bg-white p-6 shadow-card sm:p-7">
-                <span className="absolute right-6 top-6 text-2xl font-black text-brand-blue/10">{value.index}</span>
-                <span className="grid h-12 w-12 place-items-center rounded-xl border border-orange-100 bg-orange-50 text-brand-orange shadow-sm">
-                  <HomeIcon name={value.icon} className="h-7 w-7" />
-                </span>
-                <h3 className="mt-5 text-2xl font-black tracking-[-0.03em] text-brand-blue">{value.title}</h3>
-                <p className="mt-3 max-w-sm text-base leading-7 text-brand-muted">{value.description}</p>
-                <Link href="/contact" className="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-brand-orange transition hover:gap-3">
-                  {value.action}
-                  <ArrowIcon className="h-4 w-4" />
-                </Link>
-              </article>
+              <div key={value.title} className="home-marquee-item">
+                <article className="card-lift relative flex h-full flex-col rounded-2xl border border-brand-line bg-white p-6 shadow-card sm:p-7">
+                  <span className="absolute right-6 top-6 text-2xl font-black text-brand-blue/10">{value.index}</span>
+                  <span className="grid h-12 w-12 place-items-center rounded-xl border border-orange-100 bg-orange-50 text-brand-orange shadow-sm">
+                    <HomeIcon name={value.icon} className="h-7 w-7" />
+                  </span>
+                  <h3 className="mt-5 text-2xl font-black tracking-[-0.03em] text-brand-blue">{value.title}</h3>
+                  <p className="mt-3 max-w-sm text-base leading-7 text-brand-muted">{value.description}</p>
+                  <Link href="/contact" className="focus-ring mt-auto inline-flex items-center gap-2 pt-6 text-sm font-extrabold text-brand-orange transition hover:gap-3">
+                    {value.action}
+                    <ArrowIcon className="h-4 w-4" />
+                  </Link>
+                </article>
+              </div>
             ))}
-          </div>
+          </ContinuousRow>
         </Container>
       </section>
 
@@ -209,7 +213,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
+      <section data-home-motion="differences" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
         <Container wide>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -223,17 +227,19 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ContinuousRow label="What makes us different" variant="differences" duration={26} className="mt-9">
             {differentiators.map((item) => (
-              <article key={item.title} className="card-lift rounded-2xl border border-brand-line bg-white p-6 shadow-card">
-                <span className="grid h-12 w-12 place-items-center rounded-xl bg-orange-50 text-brand-orange">
-                  <HomeIcon name={item.icon} className="h-7 w-7" />
-                </span>
-                <h3 className="mt-5 text-lg font-black tracking-[-0.02em] text-brand-blue">{item.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-brand-muted">{item.description}</p>
-              </article>
+              <div key={item.title} className="home-marquee-item">
+                <article className="card-lift h-full rounded-2xl border border-brand-line bg-white p-6 shadow-card">
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-orange-50 text-brand-orange">
+                    <HomeIcon name={item.icon} className="h-7 w-7" />
+                  </span>
+                  <h3 className="mt-5 text-lg font-black tracking-[-0.02em] text-brand-blue">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-brand-muted">{item.description}</p>
+                </article>
+              </div>
             ))}
-          </div>
+          </ContinuousRow>
         </Container>
       </section>
 

@@ -7,12 +7,12 @@ export function ContinuousRow({
   children,
   label,
   variant,
-  duration = 45,
+  duration = 24,
   className = "",
 }: {
   children: ReactNode;
   label: string;
-  variant: "transformation" | "solutions" | "learning-cycle" | "idea";
+  variant: "transformation" | "solutions" | "learning-cycle" | "idea" | "values" | "differences";
   duration?: number;
   className?: string;
 }) {

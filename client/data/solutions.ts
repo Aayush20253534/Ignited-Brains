@@ -89,8 +89,8 @@ export const solutionLearningCycle: Array<{
 ];
 
 export const solutionTabs = [
-  { label: "Space Lab", icon: "space" as HomeIconName, href: "/solutions/space-lab" },
-  { label: "STEM Lab", icon: "stem" as HomeIconName, href: "/solutions#stem-lab" },
-  { label: "AI & Robotics Lab", icon: "robotics" as HomeIconName, href: "/solutions#ai-robotics-lab" },
-  { label: "Science Park", icon: "park" as HomeIconName, href: "/solutions#science-park" },
+  { label: "Space Lab", icon: "space" as HomeIconName, href: "/solutions/space-lab", image: solutionShowcase[0].image, imageAlt: "Space Lab with rocket and satellite exhibits", caption: "Explore the universe" },
+  { label: "STEM Lab", icon: "stem" as HomeIconName, href: "/solutions#stem-lab", image: solutionShowcase[1].image, imageAlt: "STEM Lab with science and engineering models", caption: "Experiment and engineer" },
+  { label: "AI & Robotics Lab", icon: "robotics" as HomeIconName, href: "/solutions#ai-robotics-lab", image: solutionShowcase[2].image, imageAlt: "AI and Robotics Lab with coding and automation exhibits", caption: "Code, build and automate" },
+  { label: "Science Park", icon: "park" as HomeIconName, href: "/solutions#science-park", image: solutionShowcase[3].image, imageAlt: "Science Park entrance and outdoor learning exhibits", caption: "Discover through play" },
 ];

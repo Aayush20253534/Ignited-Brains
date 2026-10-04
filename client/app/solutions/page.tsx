@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,7 +35,7 @@ function Bullet({ children }: { children: string }) {
 
 export default function SolutionsPage() {
   return (
-    <main className="overflow-hidden bg-white">
+    <main className="solutions-page overflow-hidden bg-white">
       <section className="relative border-b border-brand-line/70 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_32%,rgba(38,123,255,.15),transparent_31rem)]" />
         <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
@@ -135,7 +136,7 @@ export default function SolutionsPage() {
         </Container>
       </section>
 
-      <section className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
+      <section data-learning-motion className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
         <Container wide className="grid items-center gap-10 lg:grid-cols-[0.72fr_1.28fr]">
           <div>
             <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">The Ignited Brains Learning System</p>
@@ -150,23 +151,38 @@ export default function SolutionsPage() {
             </ButtonLink>
           </div>
 
-          <div className="relative mx-auto w-full max-w-3xl py-3">
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/25 sm:h-[390px] sm:w-[390px]" />
-            <div className="relative grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
-              {solutionLearningCycle.map((item) => (
-                <div key={item.title} className="flex flex-col items-center text-center">
-                  <span className="grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
-                    <HomeIcon name={item.icon} className="h-7 w-7" />
-                  </span>
-                  <p className="mt-2 text-[0.62rem] font-black text-brand-orange">{item.step}</p>
-                  <p className="text-sm font-black text-brand-blue">{item.title}</p>
-                </div>
-              ))}
+          <div className="solution-cycle-visual relative mx-auto w-full max-w-3xl py-3">
+            <div className="solution-cycle-backdrop pointer-events-none absolute left-1/2 top-1/2 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/25 sm:h-[390px] sm:w-[390px]" aria-hidden="true" />
+            <div className="solution-cycle-orbit" aria-hidden="true"><span /></div>
+            <div className="solution-cycle-grid relative grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
+              {solutionLearningCycle.map((item, index) => {
+                const angle = -Math.PI / 2 + (index * 2 * Math.PI) / solutionLearningCycle.length;
+                return (
+                  <div
+                    key={item.title}
+                    className="solution-cycle-node flex flex-col items-center text-center"
+                    style={{
+                      "--node-x": `${50 + 35.5 * Math.cos(angle)}%`,
+                      "--node-y": `${50 + 35.5 * Math.sin(angle)}%`,
+                      "--node-delay": `${index * 1.8}s`,
+                    } as CSSProperties}
+                  >
+                    <span className="solution-cycle-icon grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
+                      <HomeIcon name={item.icon} className="h-7 w-7" />
+                    </span>
+                    <p className="mt-2 text-[0.62rem] font-black text-brand-orange">{item.step}</p>
+                    <p className="text-sm font-black text-brand-blue">{item.title}</p>
+                  </div>
+                );
+              })}
             </div>
-            <div className="mx-auto mt-8 grid h-32 w-32 place-items-center rounded-full border border-brand-orange/30 bg-white text-center shadow-card sm:h-40 sm:w-40">
-              <p className="text-sm font-black uppercase leading-5 tracking-[0.08em] text-brand-blue">
-                Create<br />a brighter<br />tomorrow
-              </p>
+            <div className="solution-cycle-center mx-auto mt-8 grid h-32 w-32 place-items-center rounded-full border border-brand-orange/30 bg-white text-center shadow-card sm:h-40 sm:w-40">
+              <div>
+                <p className="solution-cycle-eyebrow text-[0.6rem] font-extrabold uppercase tracking-[0.12em] text-brand-orange">Learn by doing</p>
+                <p className="mt-2 text-sm font-black uppercase leading-5 tracking-[0.08em] text-brand-blue">
+                  Create<br />a brighter<br />tomorrow
+                </p>
+              </div>
             </div>
           </div>
         </Container>
@@ -188,12 +204,20 @@ export default function SolutionsPage() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={index === 0
-                    ? "focus-ring flex min-h-32 flex-col items-center justify-center rounded-2xl border border-brand-line bg-white p-4 text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"
-                    : "focus-ring flex min-h-32 flex-col items-center justify-center rounded-2xl border border-brand-line bg-white p-4 text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"}
+                  className="solution-choice focus-ring group flex min-h-56 flex-col overflow-hidden rounded-2xl border border-brand-line bg-white text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"
+                  style={{ "--choice-delay": `${index * -1.4}s` } as CSSProperties}
                 >
-                  <HomeIcon name={item.icon} className="h-8 w-8" />
-                  <span className="mt-3 text-sm font-black">{item.label}</span>
+                  <div className="solution-choice-image relative min-h-28 flex-1 overflow-hidden">
+                    <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw" className="object-cover" />
+                  </div>
+                  <div className="relative flex flex-col items-center px-3 pb-4 pt-6">
+                    <span className="solution-choice-icon absolute -top-4 grid h-9 w-9 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm">
+                      <HomeIcon name={item.icon} className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-black leading-5">{item.label}</span>
+                    <span className="mt-1 text-[0.65rem] leading-4 text-brand-muted">{item.caption}</span>
+                    <ArrowIcon className="mt-3 h-4 w-4 text-brand-orange transition group-hover:translate-x-1" />
+                  </div>
                 </Link>
               ))}
             </div>
