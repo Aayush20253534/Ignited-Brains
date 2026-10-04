@@ -14,6 +14,10 @@ app.use(securityHeaders);
 app.use(cors);
 app.use(express.json({ limit: '64kb' }));
 
+app.get('/', (_req, res) => {
+  res.status(200).json({ status: 'ok', service: 'ignited-brains-api' });
+});
+
 app.get('/health', asyncHandler(async (_req, res) => {
   await pool.query('SELECT 1');
   res.json({ status: 'ok', service: 'ignited-brains-api' });
