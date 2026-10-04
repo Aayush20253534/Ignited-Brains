@@ -271,6 +271,18 @@ button:not(:disabled),
   }
 }
 
+/* Home entrances are controlled by its existing viewport motion components. */
+.home-page > section,
+.home-page article {
+  animation-name: none;
+  opacity: 1;
+}
+
+.home-page > section {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
+}
+
 /* Continuous Home rows own their motion instead of the generic section reveal. */
 .home-page > section[data-home-motion],
 .about-page > section[data-home-motion],
@@ -1075,8 +1087,8 @@ main form {
     line-height: 1.05 !important;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.24);
   }
-  .home-page > section:first-child h1 > span { position: relative; text-shadow: 0 0 24px rgba(255, 96, 24, 0.4); }
-  .home-page > section:first-child h1 > span::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; border-radius: 50%; background: linear-gradient(90deg, transparent, var(--brand-orange), transparent); transform: rotate(-3deg); }
+  .home-page > section:first-child h1 .home-hero-created { position: relative; text-shadow: 0 0 24px rgba(255, 96, 24, 0.4); }
+  .home-page > section:first-child h1 .home-hero-created::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; border-radius: 50%; background: linear-gradient(90deg, transparent, var(--brand-orange), transparent); transform: rotate(-3deg); }
   .home-hero-visual {
     position: absolute;
     inset: 0;

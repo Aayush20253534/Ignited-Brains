@@ -56,11 +56,11 @@
     text-wrap: initial;
     text-shadow: 0 2px 18px rgba(0,0,0,.16);
   }
-  .hero:global(.home-hero-section):first-child h1 > span {
+  .hero:global(.home-hero-section):first-child h1 :global(.home-hero-created) {
     position: relative;
     color: #ff5a14;
   }
-  .hero:global(.home-hero-section):first-child h1 > span::after {
+  .hero:global(.home-hero-section):first-child h1 :global(.home-hero-created)::after {
     content: "";
     position: absolute;
     left: 2%;
@@ -69,7 +69,9 @@
     height: 4px;
     border-radius: 50%;
     background: linear-gradient(90deg, transparent, #ff5a14 35%, #ff5a14 65%, transparent);
-    transform: rotate(-2deg);
+    transform: rotate(-2deg) scaleX(0);
+    transform-origin: left;
+    animation: home-created-underline 750ms 700ms ease-out forwards;
   }
   .hero:global(.home-hero-section):first-child :global(.home-hero-description) {
     max-width: 44rem;
@@ -156,14 +158,23 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(90deg, rgba(2,12,29,.9) 0%, rgba(3,17,36,.78) 25%, rgba(3,17,36,.5) 43%, rgba(3,17,36,.12) 60%, transparent 76%), linear-gradient(0deg, rgba(2,12,29,.3), transparent 32%);
+    background: linear-gradient(90deg, rgba(2,12,29,.93) 0%, rgba(3,17,36,.78) 25%, rgba(3,17,36,.5) 43%, rgba(3,17,36,.12) 60%, transparent 76%), linear-gradient(0deg, rgba(2,12,29,.67), transparent 34%), radial-gradient(circle at 76% 43%, rgba(255,112,34,.10), transparent 24%);
   }
   .hero:global(.home-hero-section):first-child :global(.home-hero-media) { border-radius: 0; }
   .hero:global(.home-hero-section):first-child :global(.home-hero-media) video {
     width: 120%;
     max-width: none;
     object-position: left center;
+    animation: home-cinematic-drift 24s ease-in-out infinite alternate;
   }
+}
+
+@keyframes home-created-underline { to { transform: rotate(-2deg) scaleX(1); } }
+@keyframes home-cinematic-drift { from { transform: scale(1); } to { transform: scale(1.035); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero:global(.home-hero-section):first-child h1 :global(.home-hero-created)::after { animation: none; transform: rotate(-2deg) scaleX(1); }
+  .hero:global(.home-hero-section):first-child :global(.home-hero-media) video { animation: none; }
 }
 
 @media (min-width: 1440px) {

@@ -31,8 +31,10 @@ export function DesktopHomeMotion() {
       add('[data-home-desktop="question"] > div > div:first-child', "left");
       add(".home-question-card", "up");
       add(".home-impact-words > div", "up", 90);
-      add("#our-story > div > div:first-child", "left");
-      add("#our-story > div > a", "media");
+      add('[data-home-motion="transformation"] .home-marquee', "up");
+      add('[data-home-motion="solutions"] .home-marquee', "up");
+      add(".home-story-copy", "left");
+      add(".home-story-preview", "media");
       add('[data-home-desktop="impact"] > div > div:first-child > p, [data-home-desktop="impact"] h2', "up", 80);
       add(".home-impact-stats > div", "up", 70);
       add(".home-impact-photo", "media");
@@ -40,7 +42,7 @@ export function DesktopHomeMotion() {
       add(".home-rover-features > div", "left", 90);
       add(".home-rover-photo", "media");
       add(".home-india-section > div:last-child > div:first-child", "left");
-      add(".home-school-cta > div > div:nth-child(2), .home-school-cta > div > a", "up");
+      add(".home-school-cta > div > div:nth-child(2), .home-school-cta > div > div:nth-child(2) > a", "up");
 
       const reveal = (node: HTMLElement) => {
         // Previously viewed elements remain still after resizing or a preference change.
@@ -92,32 +94,34 @@ export function DesktopHomeMotion() {
 
   useEffect(() => {
     const home = marker.current?.closest<HTMLElement>(".home-page");
-    const video = home?.querySelector<HTMLVideoElement>(".home-hero-visual video");
-    if (!video || !("IntersectionObserver" in window)) return;
-    const desktop = window.matchMedia("(min-width: 1024px)");
+    const videos = Array.from(home?.querySelectorAll<HTMLVideoElement>(".home-hero-visual video, .home-story-preview video") ?? []);
+    if (!videos.length || !("IntersectionObserver" in window)) return;
+    const notPhone = window.matchMedia("(min-width: 768px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let visible = true;
+    const visible = new Map(videos.map((video) => [video, true]));
     const update = () => {
       // The phone controller owns playback below this breakpoint.
-      if (!desktop.matches) return;
-      if (visible && !document.hidden && !reduced.matches) void video.play().catch(() => {});
-      else video.pause();
+      if (!notPhone.matches) return;
+      videos.forEach((video) => {
+        if (visible.get(video) && !document.hidden && !reduced.matches) void video.play().catch(() => {});
+        else video.pause();
+      });
     };
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => visible.set(entry.target as HTMLVideoElement, entry.isIntersecting));
       update();
     }, { threshold: 0.1 });
-    observer.observe(video);
-    desktop.addEventListener("change", update);
+    videos.forEach((video) => observer.observe(video));
+    notPhone.addEventListener("change", update);
     reduced.addEventListener("change", update);
     document.addEventListener("visibilitychange", update);
     update();
     return () => {
       observer.disconnect();
-      desktop.removeEventListener("change", update);
+      notPhone.removeEventListener("change", update);
       reduced.removeEventListener("change", update);
       document.removeEventListener("visibilitychange", update);
-      video.pause();
+      videos.forEach((video) => video.pause());
     };
   }, []);
 

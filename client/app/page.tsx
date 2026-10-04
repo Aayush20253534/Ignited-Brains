@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { DesktopHomeMotion } from "@/components/home/desktop-home-motion";
 import { PhoneHomeMotion } from "@/components/home/phone-home-motion";
+import { HomeQuestionScene } from "@/components/home/home-question-scene";
+import { LearningSystem } from "@/components/home/learning-system";
+import { HomeStorySection } from "@/components/home/home-story-section";
 import { HomeIcon } from "@/components/home/home-icon";
 import { ImpactCount } from "@/components/home/impact-count";
 import { ContinuousRow } from "@/components/home/continuous-row";
@@ -16,11 +18,11 @@ import {
   homeSolutions,
   impactStats,
   impactWords,
-  learningCycle,
   transformationSteps,
 } from "@/data/home";
 import { pageAssetSlots } from "@/lib/assets";
 import heroStyles from "./home-hero.module.css";
+import styles from "./home-redesign.module.css";
 
 export const metadata: Metadata = {
   title: "Hands-on STEM, Space & Robotics Learning",
@@ -28,18 +30,6 @@ export const metadata: Metadata = {
     "Ignited Brains creates hands-on Space, STEM, AI & Robotics Labs and Science Parks that turn curiosity into real-world learning.",
   alternates: { canonical: "/" },
 };
-
-function SmallArrowLink({ href, children }: { href: string; children: ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="focus-ring inline-flex items-center gap-2 text-sm font-extrabold text-brand-orange transition hover:gap-3"
-    >
-      {children}
-      <ArrowIcon className="h-4 w-4" />
-    </Link>
-  );
-}
 
 export default function HomePage() {
   return (
@@ -52,7 +42,9 @@ export default function HomePage() {
               Transforming Education Through Innovation
             </p>
             <h1 className="max-w-[720px] text-balance text-[clamp(3rem,5vw,5rem)] font-black leading-[1.08] tracking-[-0.04em] text-brand-blue">
-              The future isn&apos;t<br className={heroStyles.desktopBreak} />{" "}found in books.<br className={heroStyles.desktopBreak} />{" "}It is <span className="text-brand-orange">created.</span>
+              <span className={styles.heroLine}>The future isn&apos;t</span>{" "}
+              <span className={styles.heroLine}>found in books.</span>{" "}
+              <span className={styles.heroLine}>It is <span className="home-hero-created text-brand-orange">created.</span></span>
             </h1>
             <p className="home-hero-description max-w-[680px] text-base font-medium leading-7 text-brand-ink/75">
               Hands-on Space, STEM, AI &amp; Robotics Labs and Science Parks that transform schools into environments where students discover, build and innovate.
@@ -103,6 +95,9 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+            <a href="#curiosity" className={`${styles.scrollCue} focus-ring hidden lg:inline-flex`}>
+              <span aria-hidden="true">↓</span> Scroll to explore
+            </a>
           </div>
 
           <div className="home-hero-visual relative aspect-[16/10] w-full max-w-[780px] justify-self-end overflow-hidden rounded-[1.6rem] bg-brand-mist sm:aspect-[16/9] lg:aspect-[16/10] xl:aspect-[16/10]">
@@ -131,34 +126,23 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section data-home-desktop="question" className="relative bg-white pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20">
-        <Container wide className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
+      <section id="curiosity" data-home-desktop="question" className={`${styles.questionSection} relative bg-white py-14 sm:py-16 lg:py-0`}>
+        <Container wide className={`${styles.questionInner} grid items-center gap-10 lg:grid-cols-[0.82fr_1.18fr]`}>
+          <div className={styles.questionCopy}>
             <Eyebrow>A Better Tomorrow Starts With A Question</Eyebrow>
             <h2 className="mt-5 max-w-2xl text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
               Education should <span className="text-brand-orange">ignite curiosity.</span>
             </h2>
             <p className="mt-4 max-w-xl text-base font-medium leading-7 text-brand-muted">
-              Every discovery starts with a simple question.
+              Every great discovery begins with a question. We create environments where students feel empowered to ask “Why?”, explore possibilities and turn curiosity into real-world solutions.
             </p>
-            <ButtonLink href="/about" variant="outline" showArrow className="mt-6">
+            <ButtonLink href="/about" variant="outline" showArrow className={`${styles.questionButton} mt-6`}>
               Learn More About Us
             </ButtonLink>
-          </div>
-
-          <div className="grid items-center gap-6 sm:grid-cols-[1fr_0.8fr]">
-            <div className="home-question-card relative min-h-[170px] overflow-hidden rounded-3xl bg-brand-mist p-8 sm:min-h-[210px]">
-              <span className="absolute left-6 top-4 text-[clamp(4rem,9vw,8rem)] font-black leading-none tracking-[-0.08em] text-brand-blue/[0.08]">
-                WHY?
-              </span>
-              <p className="relative mt-16 text-center text-[clamp(2.8rem,6vw,5.8rem)] font-black leading-none tracking-[-0.06em] text-brand-blue">
-                WHY <span className="phone-draw-underline text-brand-orange">NOT?</span>
-              </p>
-            </div>
-            <div className="home-impact-words space-y-5">
+            <div className="home-impact-words mt-8 grid gap-4 sm:grid-cols-3 lg:hidden">
               {impactWords.map((item) => (
-                <div key={item.number} className="grid grid-cols-[3rem_1fr] gap-4">
-                  <span className="text-4xl font-black leading-none text-brand-blue/10">{item.number}</span>
+                <div key={item.number} className="grid grid-cols-[2.5rem_1fr] gap-3">
+                  <span className="text-3xl font-black leading-none text-brand-blue/10">{item.number}</span>
                   <div>
                     <h3 className="font-extrabold text-brand-blue">{item.title}</h3>
                     <p className="mt-1 text-sm font-medium text-brand-muted">{item.description}</p>
@@ -167,89 +151,86 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+          <HomeQuestionScene />
         </Container>
       </section>
 
-      <section data-home-motion="transformation" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
+      <section data-home-motion="transformation" className={`${styles.journeySection} soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20`}>
         <Container wide>
-          <div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:items-center">
-            <div>
-              <Eyebrow>From Classrooms To Real-world Impact</Eyebrow>
-              <h2 className="mt-5 text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                More than theory.<br />A hands-on future.
-              </h2>
-              <p className="mt-5 max-w-lg text-base leading-7 text-brand-muted">
-                We turn traditional classrooms into innovation spaces where students experiment, build and solve real-world problems.
-              </p>
-              <ButtonLink href="/schools" showArrow className="mt-6">
-                Our Approach
-              </ButtonLink>
-            </div>
-
-            <ContinuousRow label="Classroom transformation" variant="transformation" phoneSlides={transformationSteps.map((step) => step.label)} duration={20}>
-              {transformationSteps.map((step, index) => (
-                <div key={`${step.label}-${index}`} className="home-marquee-item group relative">
-                  <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-                    <SiteImage
-                      src={step.image}
-                      alt={step.label === "Question" ? "Student raising a hand to ask about a science demonstration" : `${step.label} learning stage`}
-                      aspectRatio="4/3"
-                      sizes="(max-width: 767px) 85vw, (max-width: 1386px) 15vw, 208px"
-                      imageClassName="transition duration-300 group-hover:scale-[1.03]"
-                    />
-                    <div className="min-h-20 p-3.5">
-                      <p className="text-xs font-extrabold leading-tight text-brand-blue">{step.label}</p>
-                      <p className="mt-1 text-[0.68rem] font-medium text-brand-muted">{step.caption}</p>
-                    </div>
-                  </div>
-                  {index < transformationSteps.length - 1 ? (
-                    <span className="absolute -right-[11px] top-[42%] z-10 hidden h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:grid">
-                      <ArrowIcon className="h-4 w-4" />
-                    </span>
-                  ) : null}
-                </div>
-              ))}
-            </ContinuousRow>
+          <div className={styles.sectionIntro}>
+            <Eyebrow>The Transformation Journey</Eyebrow>
+            <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
+              From Classrooms to <span className="text-brand-orange">Real-world Impact</span>
+            </h2>
+            <p className="mt-2 text-base font-medium text-brand-muted">More than theory. A hands-on future.</p>
           </div>
+
+          <ContinuousRow label="Classroom transformation" variant="transformation" phoneSlides={transformationSteps.map((step) => step.label)} duration={20} className={styles.journeyRow}>
+            {transformationSteps.map((step, index) => (
+              <div key={step.label} className={`${styles.journeyItem} home-marquee-item group relative`}>
+                <span className={styles.journeyNumber} aria-label={`Stage ${index + 1}`}>{index + 1}</span>
+                <div className={`${styles.journeyCard} overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card`}>
+                  <SiteImage
+                    src={step.image}
+                    alt={step.label === "Question" ? "Student raising a hand to ask about a science demonstration" : `${step.label} learning stage`}
+                    aspectRatio="4/3"
+                    sizes="(max-width: 767px) 85vw, (max-width: 1023px) 18vw, 18vw"
+                    imageClassName="transition duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div className={`${styles.journeyCaption} min-h-20 p-3.5`}>
+                    <h3 className="text-xs font-extrabold leading-tight text-brand-blue">{step.label}</h3>
+                    <p className="mt-1 text-[0.68rem] font-medium text-brand-muted">{step.caption}</p>
+                  </div>
+                </div>
+                {index < transformationSteps.length - 1 ? (
+                  <span className={`${styles.journeyArrow} absolute -right-[11px] top-[42%] z-10 hidden h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:grid`} aria-hidden="true">
+                    <ArrowIcon className="h-4 w-4" />
+                  </span>
+                ) : null}
+              </div>
+            ))}
+          </ContinuousRow>
         </Container>
       </section>
 
-      <section data-home-motion="solutions" className="bg-white py-14 sm:py-16 lg:py-20">
+      <section data-home-motion="solutions" className={`${styles.solutionsSection} bg-white py-14 sm:py-16 lg:py-20`}>
         <Container wide>
           <div>
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <Eyebrow>Our Solutions</Eyebrow>
                 <h2 className="mt-4 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                  Where curiosity becomes tangible.
+                  Build the spaces where <span className="text-brand-orange">tomorrow begins.</span>
                 </h2>
               </div>
-              <ButtonLink href="/solutions" variant="outline" size="sm" showArrow>
-                View All Solutions
-              </ButtonLink>
+              <Link href="/solutions" className={`${styles.solutionsAll} focus-ring inline-flex items-center gap-2 font-extrabold text-brand-blue`}>
+                Explore All Solutions <ArrowIcon className="h-4 w-4 text-brand-orange" />
+              </Link>
             </div>
 
-            <ContinuousRow label="Our solutions" variant="solutions" phoneSlides={homeSolutions.map((solution) => solution.title)} duration={28} className="mt-9 lg:mt-7">
+            <ContinuousRow label="Our solutions" variant="solutions" phoneSlides={homeSolutions.map((solution) => solution.title)} duration={28} className={`${styles.solutionsRow} mt-9 lg:mt-7`}>
               {homeSolutions.map((solution) => (
-                <div className="home-marquee-item" key={solution.title}>
-                  <article className="group flex h-full flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover">
-                    <div className="relative">
+                <div className={`${styles.solutionItem} home-marquee-item`} key={solution.title}>
+                  <article className={`${styles.solutionTile} group flex h-full flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover`}>
+                    <div className={`${styles.solutionImage} relative`}>
                       <SiteImage
                         src={solution.image}
                         alt={`${solution.title} learning experience`}
                         aspectRatio="16/10"
-                        sizes="(max-width: 767px) 85vw, (max-width: 1090px) 240px, (max-width: 1454px) 22vw, 320px"
+                        sizes="(max-width: 767px) 85vw, (max-width: 1023px) 45vw, 50vw"
                         imageClassName="transition duration-500 group-hover:scale-[1.04]"
                       />
-                      <span data-solution-icon={solution.icon} className="absolute -bottom-5 left-5 grid h-11 w-11 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm">
+                    </div>
+                    <div className={`${styles.solutionContent} flex flex-1 flex-col px-5 pb-5 pt-8`}>
+                      <span data-solution-icon={solution.icon} className={`${styles.solutionIcon} grid h-11 w-11 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm`}>
                         <HomeIcon name={solution.icon} className="h-5 w-5" />
                       </span>
-                    </div>
-                    <div className="flex flex-1 flex-col px-5 pb-5 pt-8">
                       <h3 className="text-xl font-black tracking-[-0.025em] text-brand-blue">{solution.title}</h3>
                       <p className="mt-2 min-h-16 text-sm leading-6 text-brand-muted">{solution.description}</p>
                       <div className="mt-auto pt-4">
-                        <SmallArrowLink href={solution.href}>Explore</SmallArrowLink>
+                        <Link href={solution.href} className={`${styles.solutionLink} focus-ring inline-flex items-center gap-2 font-extrabold text-brand-orange`} aria-label={`Explore ${solution.title}`}>
+                          <span>Explore</span><ArrowIcon className="h-4 w-4" />
+                        </Link>
                       </div>
                     </div>
                   </article>
@@ -260,154 +241,89 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section data-home-motion="learning-cycle" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
-        <Container wide>
-          <div>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">The Ignited Brains Learning System</p>
-                <h2 className="mt-3 text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-                  From curiosity to creation.
-                </h2>
-              </div>
-              <p className="max-w-md text-sm font-medium leading-6 text-brand-muted">
-                A continuous cycle of learning, doing and improving.
-              </p>
-            </div>
+      <LearningSystem />
 
-            <ContinuousRow label="Observe to Share learning cycle" variant="learning-cycle" duration={24} className="mt-10 lg:mt-8">
-              {learningCycle.map((item, index) => (
-                <div
-                  key={item.step}
-                  className="home-marquee-item relative grid grid-cols-[4.5rem_1fr] gap-4 pb-8 text-left sm:block sm:px-2 sm:pb-0 sm:text-center"
-                >
-                  <div className="relative z-10 grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-sm sm:mx-auto sm:h-20 sm:w-20">
-                    <HomeIcon name={item.icon} className="h-7 w-7 sm:h-8 sm:w-8" />
-                  </div>
+      <HomeStorySection />
 
-                  {index < learningCycle.length - 1 ? (
-                    <>
-                      <div className="phone-cycle-connector absolute left-8 top-16 h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-brand-orange/30 sm:hidden" />
-                      <div className="absolute left-[calc(50%+2.5rem)] right-[calc(-50%+1rem)] top-10 hidden items-center lg:flex">
-                        <span className="h-px flex-1 bg-brand-line" />
-                        <ArrowIcon className="h-4 w-4 text-brand-orange" />
-                      </div>
-                    </>
-                  ) : null}
-
-                  <div className="pt-1 sm:pt-0">
-                    <p className="sm:mt-5 text-[0.66rem] font-black text-brand-orange">{item.step}</p>
-                    <h3 className="mt-1 text-base font-black text-brand-blue sm:text-sm">{item.title}</h3>
-                    <p className="mt-1 whitespace-pre-line text-sm font-medium leading-5 text-brand-muted sm:text-xs">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </ContinuousRow>
-          </div>
-        </Container>
-      </section>
-
-      <section data-home-desktop="story" id="our-story" className="dark-space-surface border-y border-white/10 py-12 sm:py-14 lg:py-16">
-        <Container wide className="relative grid items-center gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
-          <div>
-            <Eyebrow className="text-brand-orange">See it. Feel it. Believe it.</Eyebrow>
-            <h2 className="mt-5 max-w-xl text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-white sm:text-5xl">
-              Don&apos;t just teach science. Let students experience it.
-            </h2>
-            <p className="mt-5 max-w-lg text-base leading-7 text-white/70">
-              Watch how Ignited Brains is transforming schools through hands-on learning.
-            </p>
-            <ButtonLink href="/media" size="lg" showArrow className="mt-7">
-              Play Our Story
-            </ButtonLink>
-          </div>
-
-          <Link href="/media" className="group focus-ring relative overflow-hidden rounded-[1.3rem] border border-white/20 bg-white/5 shadow-[0_22px_70px_rgba(0,0,0,.26)]">
-            <video
-              src="/media/homeimg.mp4"
-              poster={pageAssetSlots.home.storyVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-            />
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#041b3f]/35 via-transparent to-transparent" />
-          </Link>
-        </Container>
-      </section>
-
-      <section data-home-desktop="impact" className="bg-white py-14 sm:py-16 lg:py-20">
-        <Container wide className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10">
+      <section data-home-desktop="impact" className={`${styles.impactSection} bg-white py-14 sm:py-16 lg:py-20`}>
+        <Container wide className={`${styles.impactInner} grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10`}>
           <div className="pr-0 lg:pr-4">
-            <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Real Impact. Brighter Tomorrows.</p>
+            <Eyebrow>Our Impact</Eyebrow>
             <h2 className="mt-3 max-w-xl text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-              Building future-ready learners.
+              Real Impact. <span className="text-brand-orange">Brighter Tomorrows.</span>
             </h2>
-            <div className="home-impact-stats mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className={`${styles.impactStats} home-impact-stats mt-8 grid grid-cols-2 gap-3`}>
               {impactStats.map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-brand-line bg-white p-4 shadow-card">
-                  <HomeIcon name={stat.icon} className="h-7 w-7 text-brand-orange" />
-                  <p className="mt-3 text-3xl font-black tracking-[-0.04em] text-brand-blue"><ImpactCount value={stat.value} /></p>
-                  <p className="mt-1 text-xs font-semibold leading-5 text-brand-muted">{stat.label}</p>
+                <div key={stat.label} className={`${styles.impactStat} flex items-center gap-4`}>
+                  <HomeIcon name={stat.icon} className={`${styles.impactIcon} h-8 w-8 shrink-0 text-brand-blue`} />
+                  <div>
+                    <p className="text-3xl font-black tracking-[-0.04em] text-brand-blue"><ImpactCount value={stat.value} /></p>
+                    <p className="mt-1 text-xs font-semibold leading-5 text-brand-muted">{stat.label}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="home-impact-photo relative min-h-[300px] overflow-hidden rounded-[2rem] border border-brand-line bg-brand-mist shadow-card sm:min-h-[340px] lg:min-h-[370px]">
+          <div className={`${styles.impactPhoto} home-impact-photo relative min-h-[300px] overflow-hidden rounded-[2rem] border border-brand-line bg-brand-mist shadow-card sm:min-h-[340px] lg:min-h-[370px]`}>
             <Image
               src={pageAssetSlots.home.impactStudent}
-              alt="Student inspired by hands-on science learning"
+              alt="Ignited Brains educator presenting a hands-on space and AI learning lab"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-center"
+              className="object-cover"
+              style={{ objectPosition: "65% 44%" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-transparent" />
           </div>
         </Container>
       </section>
 
-      <section data-home-desktop="project" className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
-        <Container wide className="grid gap-9 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
+      <section data-home-desktop="project" className={`${styles.roverSection} border-y border-white/10 py-14 sm:py-16 lg:py-20`}>
+        <Container wide className={`${styles.roverInner} grid gap-9 lg:grid-cols-[0.76fr_1.24fr] lg:items-center`}>
           <div>
-            <Eyebrow>Featured Project</Eyebrow>
-            <h2 className="mt-4 text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">Autonomous Mars Rover</h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-brand-muted">
+            <Eyebrow className="text-white/70">Featured Project</Eyebrow>
+            <h2 className="mt-4 text-4xl font-black leading-none tracking-[-0.045em] text-white sm:text-5xl">Autonomous <span className="text-brand-orange">Mars Rover</span></h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-white/75">
               A student-built autonomous rover that navigates rocky terrains, collects environmental data and transmits it back to Earth.
             </p>
-            <div className="home-rover-features mt-6 grid gap-3 sm:grid-cols-2">
+            <div className={`${styles.roverFeatures} home-rover-features mt-6 grid gap-3 sm:grid-cols-2`}>
               {["AI based obstacle avoidance", "Real-time data transmission", "Rugged terrain mobility", "Solar powered system"].map((item) => (
-                <div key={item} className="flex items-center gap-2.5 text-sm font-semibold text-brand-blue">
-                  <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-orange text-[0.65rem] font-black text-white">✓</span>
+                <div key={item} className="flex items-center gap-2.5 text-sm font-semibold text-white/90">
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-brand-orange text-[0.65rem] font-black text-brand-orange">✓</span>
                   {item}
                 </div>
               ))}
             </div>
-            <ButtonLink href="/projects" showArrow className="mt-7">
+            <ButtonLink href="/projects" showArrow className={`${styles.roverButton} mt-7`}>
               View Project Details
             </ButtonLink>
           </div>
 
-          <div>
+          <div className={styles.roverVisual}>
             <SiteImage
               src={pageAssetSlots.home.marsRover}
-              alt="Autonomous Mars rover prototype"
-              aspectRatio="16/8.4"
+              alt="Student-built autonomous rover prototype with its sensors and mobility components"
+              aspectRatio="16/9"
               sizes="(max-width: 1024px) 100vw, 48vw"
-              className="home-rover-photo rounded-[1.25rem] border border-brand-line shadow-card"
+              className="home-rover-photo rounded-[1.25rem] border border-white/20 shadow-card"
+              imageClassName="object-contain"
             />
+            <span className={`${styles.roverCallout} ${styles.roverCalloutCamera}`} aria-hidden="true">AI / camera</span>
+            <span className={`${styles.roverCallout} ${styles.roverCalloutMobility}`} aria-hidden="true">Terrain mobility</span>
+            <span className={`${styles.roverCallout} ${styles.roverCalloutData}`} aria-hidden="true">Live data</span>
           </div>
         </Container>
       </section>
 
-      <section data-home-desktop="india" className="home-india-section relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20">
+      <section data-home-desktop="india" className={`${styles.indiaSection} home-india-section relative overflow-hidden bg-white py-14 sm:py-16 lg:py-20`}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_54%_50%,rgba(255,108,39,.07),transparent_30rem)]" />
-        <Container wide className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-3 xl:gap-4">
+        <Container wide className={`${styles.indiaInner} relative grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-3 xl:gap-4`}>
           <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">For A Brighter India</p>
+            <Eyebrow>Our India Mission</Eyebrow>
             <h2 className="mt-3 max-w-xl text-balance text-4xl font-black leading-none tracking-[-0.045em] text-brand-blue sm:text-5xl">
-              Building future,<br />one curious mind at a time.
+              For A <span className="text-brand-orange">Brighter India</span>
             </h2>
+            <p className="mt-3 text-lg font-semibold text-brand-blue/75">Building the future, one curious mind at a time.</p>
             <p className="mt-5 max-w-[620px] text-base leading-7 text-brand-muted">
               Our mission is to bring hands-on, future-ready learning spaces into every school and ignite curiosity, creativity and innovation in every student.
             </p>
@@ -420,41 +336,35 @@ export default function HomePage() {
             </ButtonLink>
           </div>
 
-          <div className="home-india-visual relative aspect-[2/1] w-full overflow-hidden rounded-[1.5rem] bg-white lg:max-w-[680px] lg:justify-self-start xl:max-w-[720px]">
+          <div className={`${styles.indiaVisual} home-india-visual relative aspect-[2/1] w-full overflow-hidden rounded-[1.5rem] bg-white lg:max-w-[680px] lg:justify-self-start xl:max-w-[720px]`}>
             <Image
               src={pageAssetSlots.home.indiaImpact}
               alt="Ignited Brains vision for innovation across India"
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-cover object-center"
-              style={{
-                transform: "scale(1.07) translateX(-1.2%)",
-              }}
-            />
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-white"
+              unoptimized
+              className="object-contain object-center"
             />
           </div>
         </Container>
       </section>
 
-      <section data-home-desktop="cta" className="home-school-cta dark-space-surface border-y border-white/10">
-        <Container wide className="relative grid items-center gap-6 py-8 sm:gap-8 sm:py-10 lg:grid-cols-[190px_minmax(0,1fr)_auto] lg:gap-10 lg:py-8 xl:grid-cols-[210px_minmax(0,1fr)_auto]">
-          <div className="pointer-events-none mx-auto w-36 sm:w-44 lg:w-[190px] xl:w-[210px]" aria-hidden="true">
+      <section data-home-desktop="cta" className={`${styles.ctaSection} home-school-cta dark-space-surface border-y border-white/10`}>
+        <Container wide className={`${styles.ctaInner} relative grid items-center gap-6 py-8 sm:gap-8 sm:py-10 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10 lg:py-16`}>
+          <div className={`${styles.ctaEarth} pointer-events-none mx-auto w-36 sm:w-44 lg:w-[220px]`} aria-hidden="true">
             <AnimatedEarth className="h-auto w-full drop-shadow-[0_18px_38px_rgba(0,91,255,.34)]" />
           </div>
-          <div className="relative text-center sm:text-left">
+          <div className={`${styles.ctaCopy} relative text-center sm:text-left`}>
             <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
               Ready to transform your school?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:mx-0 sm:text-base">
               Let&apos;s create a space where students don&apos;t just learn about the future. They build it.
             </p>
+            <ButtonLink href="/contact" size="lg" showArrow className={`${styles.ctaButton} relative mt-6 justify-self-center sm:justify-self-start`}>
+              Partner With Us
+            </ButtonLink>
           </div>
-          <ButtonLink href="/contact" size="lg" showArrow className="relative justify-self-center sm:justify-self-start lg:justify-self-end">
-            Partner With Us
-          </ButtonLink>
         </Container>
       </section>
       <PhoneHomeMotion />

@@ -1,0 +1,270 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 8% 58%, rgba(20, 101, 210, 0.28), transparent 38rem),
+    linear-gradient(115deg, #06152a, #061f3f 56%, #06152c);
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16;
+  background: url("/decorative/space-stars.svg") center / cover no-repeat;
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.preview {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 1.35rem;
+  background: #07152d;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  text-align: left;
+}
+
+.previewVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.preview:hover .previewVideo,
+.preview:focus-visible .previewVideo {
+  transform: scale(1.025);
+}
+
+.previewShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(2, 16, 40, 0.65), transparent 46%);
+  pointer-events: none;
+}
+
+.previewPlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 4.5rem;
+  aspect-ratio: 1;
+  padding-left: 0.2rem;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(6, 42, 95, 0.72);
+  box-shadow: 0 0 0 9px rgba(255, 255, 255, 0.1);
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: box-shadow 250ms ease, background-color 250ms ease;
+  pointer-events: none;
+}
+
+.preview:hover .previewPlay,
+.preview:focus-visible .previewPlay {
+  background: rgba(15, 73, 153, 0.85);
+  box-shadow: 0 0 0 13px rgba(255, 255, 255, 0.13);
+}
+
+.previewLabel {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1rem;
+  left: 1.25rem;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.eyebrow {
+  color: #ff7a35;
+}
+
+.heading {
+  max-width: 39rem;
+  margin: 1.2rem 0 0;
+  color: #fff;
+  font-size: clamp(2.35rem, 4.2vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.heading span {
+  color: #ff5a14;
+}
+
+.description {
+  max-width: 34rem;
+  margin: 1.25rem 0 0;
+  color: #d0def0;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.7;
+}
+
+.playButton {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.75rem;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  color: #0b3392;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(73, 146, 255, 0.18);
+  cursor: pointer;
+  font-size: 0.94rem;
+  font-weight: 800;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.playButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(73, 146, 255, 0.28);
+}
+
+.playButtonIcon {
+  display: grid;
+  width: 1.7rem;
+  aspect-ratio: 1;
+  padding-left: 0.12rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #0b3392;
+  font-size: 0.6rem;
+}
+
+.dialog {
+  width: min(92vw, 66rem);
+  max-width: 66rem;
+  max-height: 92dvh;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(155, 199, 255, 0.38);
+  border-radius: 1rem;
+  color: #fff;
+  background: #051225;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+}
+
+.dialog::backdrop {
+  background: rgba(2, 10, 25, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.dialogHeader {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1rem 0.7rem 1.35rem;
+}
+
+.dialogHeader h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.closeButton {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.closeButton span:first-child {
+  font-size: 1.4rem;
+  line-height: 0.8;
+}
+
+.player {
+  display: block;
+  width: 100%;
+  max-height: calc(92dvh - 3.5rem);
+  aspect-ratio: 16 / 9;
+  background: #000;
+  object-fit: contain;
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 767px) {
+  .inner {
+    gap: 1.75rem;
+    padding-block: 3.5rem;
+  }
+
+  .heading {
+    font-size: clamp(2.2rem, 9vw, 3.3rem);
+  }
+
+  .preview {
+    border-radius: 1rem;
+  }
+
+  .previewPlay {
+    width: 3.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .previewVideo,
+  .previewPlay,
+  .playButton {
+    transition: none;
+  }
+}

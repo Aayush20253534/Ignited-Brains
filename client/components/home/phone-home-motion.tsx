@@ -12,7 +12,7 @@ export function PhoneHomeMotion() {
     const phone = window.matchMedia("(max-width: 767px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const footer = document.querySelector<HTMLElement>(".site-footer");
-    const videos = Array.from(home.querySelectorAll<HTMLVideoElement>("video"));
+    const videos = Array.from(home.querySelectorAll<HTMLVideoElement>(".home-hero-visual video, .home-story-preview video"));
     const seen = new WeakSet<HTMLElement>();
     let dispose: (() => void) | undefined;
 
@@ -46,7 +46,7 @@ export function PhoneHomeMotion() {
         node.dataset.phoneReveal = "true";
         targets.push(node);
       });
-      home.querySelector<HTMLElement>("#our-story > div > a")?.style.setProperty("--phone-delay", "160ms");
+      home.querySelector<HTMLElement>(".home-story-preview")?.style.setProperty("--phone-delay", "160ms");
       const reveal = (node: HTMLElement) => {
         node.dataset.phoneSeen = "true";
         seen.add(node);

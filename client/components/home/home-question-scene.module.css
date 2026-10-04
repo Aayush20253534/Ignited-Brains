@@ -1,0 +1,197 @@
+.scene {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 310px;
+  height: clamp(310px, 28vw, 390px);
+  overflow: hidden;
+  background: linear-gradient(103deg, #ffffff 3%, #f8fbff 51%, #eef6ff 100%);
+}
+
+.blueprint {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(62, 128, 196, .075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 128, 196, .075) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(90deg, transparent 7%, #000 67%, #000 92%);
+  opacity: .42;
+}
+
+.studentPhoto {
+  position: absolute;
+  z-index: 1;
+  left: 7%;
+  bottom: -2%;
+  width: 58%;
+  height: 92%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 75%, transparent 100%);
+}
+
+.studentPhoto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(249, 252, 255, .12), transparent 32%);
+  pointer-events: none;
+}
+
+.studentImage {
+  object-fit: cover;
+  object-position: 56% 47%;
+}
+
+.whyLarge,
+.whySmall,
+.whyBottom,
+.whyNot {
+  position: absolute;
+  display: block;
+  line-height: .9;
+  white-space: nowrap;
+  font-weight: 900;
+  letter-spacing: -.075em;
+  user-select: none;
+  pointer-events: none;
+}
+
+.whyLarge {
+  z-index: 0;
+  top: 10%;
+  left: 40%;
+  color: rgba(36, 87, 169, .19);
+  font-size: clamp(4.9rem, 10vw, 8.7rem);
+  transform: rotate(-14deg);
+}
+
+.whySmall {
+  z-index: 0;
+  top: 27%;
+  left: 54%;
+  color: rgba(36, 87, 169, .17);
+  font-size: clamp(1.45rem, 3.3vw, 2.7rem);
+  transform: rotate(-16deg);
+}
+
+.whyBottom {
+  z-index: 0;
+  right: 16%;
+  bottom: 6%;
+  color: rgba(36, 87, 169, .22);
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  transform: rotate(-5deg);
+}
+
+.whyNot {
+  z-index: 3;
+  top: 49%;
+  right: 4%;
+  color: #ff5a14;
+  font-size: clamp(2.9rem, 6.7vw, 5.9rem);
+  text-shadow: 0 4px 18px rgba(255, 255, 255, .75);
+  transform: rotate(-13deg);
+}
+
+.sketches {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .73;
+  pointer-events: none;
+}
+
+.atom {
+  transform-origin: 438px 55px;
+  animation: question-float 8s ease-in-out infinite alternate;
+}
+
+.rocket {
+  transform-origin: 596px 56px;
+  animation: question-float 10s ease-in-out -3s infinite alternate;
+}
+
+.planet {
+  transform-origin: 603px 286px;
+  animation: question-float 9s ease-in-out -5s infinite alternate;
+}
+
+@keyframes question-float {
+  from { translate: 0 0; }
+  to { translate: 0 -7px; }
+}
+
+@media (max-width: 760px) {
+  .scene {
+    height: clamp(275px, 58vw, 350px);
+    min-height: 275px;
+  }
+
+  .studentPhoto {
+    left: -3%;
+    width: 68%;
+    height: 95%;
+  }
+
+  .whyLarge {
+    top: 6%;
+    left: 30%;
+    font-size: clamp(4.8rem, 16vw, 7rem);
+  }
+
+  .whyNot {
+    top: 52%;
+    right: 3%;
+    font-size: clamp(2.8rem, 9.5vw, 4.8rem);
+  }
+
+  .whyBottom {
+    right: 13%;
+  }
+}
+
+@media (max-width: 480px) {
+  .scene {
+    height: 290px;
+    min-height: 290px;
+  }
+
+  .studentPhoto {
+    left: -9%;
+    width: 78%;
+    height: 92%;
+  }
+
+  .whyLarge {
+    left: 29%;
+    top: 9%;
+  }
+
+  .whySmall {
+    left: 68%;
+  }
+
+  .whyNot {
+    top: 54%;
+    right: 3%;
+    font-size: clamp(2.6rem, 10vw, 3.7rem);
+  }
+
+  .sketches {
+    width: 135%;
+    left: -24%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atom,
+  .rocket,
+  .planet {
+    animation: none;
+  }
+}
