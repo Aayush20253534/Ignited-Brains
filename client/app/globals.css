@@ -271,7 +271,7 @@ button:not(:disabled),
   }
 }
 
-/* These Home rows use their own left-to-right entrance, without a second section animation. */
+/* Continuous Home rows own their motion instead of the generic section reveal. */
 .home-page > section[data-home-motion] {
   animation: none;
   opacity: 1;
@@ -280,32 +280,62 @@ button:not(:disabled),
   contain-intrinsic-size: none;
 }
 
-.motion-reveal article,
-.motion-reveal [data-reveal-item] {
-  animation: none;
+.home-marquee {
+  --marquee-gap: 1.25rem;
+  min-width: 0;
 }
 
-.motion-reveal [data-reveal-state="pending"] {
-  opacity: 0;
-  transform: translateX(-40px);
+.home-marquee--transformation { --marquee-gap: 1rem; }
+.home-marquee--learning-cycle { --marquee-gap: 1.5rem; }
+
+.home-marquee-viewport {
+  overflow: hidden;
+  padding-block: 0.5rem 1rem;
 }
 
-.motion-reveal [data-reveal-state="entered"] {
-  animation: home-slide-in 680ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: var(--reveal-delay, 0ms);
+.home-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: home-loop-right var(--marquee-duration, 45s) linear infinite;
 }
 
-@keyframes home-slide-in {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
+.home-marquee-group {
+  display: flex;
+  flex: none;
+  gap: var(--marquee-gap);
+  padding-right: var(--marquee-gap);
 }
+
+.home-marquee-item { flex: none; }
+.home-marquee--transformation .home-marquee-item { width: clamp(9.5rem, 15vw, 13rem); }
+.home-marquee--solutions .home-marquee-item { width: clamp(15rem, 22vw, 20rem); }
+.home-marquee--learning-cycle .home-marquee-item { width: clamp(9rem, 15vw, 14.5rem); }
+.home-marquee article { animation: none; }
+
+@keyframes home-loop-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.home-marquee[data-paused="true"] .home-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Keyboard users get one stationary, scrollable row of the original links. */
+.home-marquee-viewport:focus-within { overflow-x: auto; }
+.home-marquee-viewport:focus-within .home-marquee-track { animation: none; transform: none; }
+.home-marquee-viewport:focus-within [data-marquee-copy] { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .motion-reveal [data-reveal-item] {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+  .home-marquee-controls, .home-marquee [data-marquee-copy] { display: none; }
+  .home-marquee-track { width: 100%; animation: none !important; transform: none; }
+  .home-marquee-group {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding-right: 0;
   }
+  .home-marquee-item { max-width: 100%; }
 }
 
 .mobile-scroll-row {
