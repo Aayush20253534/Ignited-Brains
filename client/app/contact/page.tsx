@@ -76,23 +76,14 @@ export default function ContactPage() {
 
           <div className="overflow-hidden rounded-[1.75rem] border border-brand-line bg-white shadow-[0_24px_70px_rgba(24,53,103,.12)]">
             <div className="grid xl:grid-cols-[1.02fr_0.98fr]">
-              <div className="relative min-h-[300px] overflow-hidden bg-[#eaf2f8] sm:min-h-[380px] xl:min-h-[600px]">
-                <Image
-                  src={pageAssetSlots.contact.hero}
-                  alt=""
-                  fill
-                  aria-hidden="true"
-                  sizes="(max-width: 1279px) 100vw, 36vw"
-                  className="scale-110 object-cover object-center opacity-35 blur-xl"
-                />
-                <div className="absolute inset-0 bg-white/10" />
+              <div className="relative min-h-[300px] overflow-hidden sm:min-h-[380px] xl:min-h-[600px]">
                 <Image
                   src={pageAssetSlots.contact.hero}
                   alt="Illustration of an educator and student collaborating on a robotics project in a science lab"
                   fill
                   priority
                   sizes="(max-width: 1279px) 100vw, 36vw"
-                  className="object-contain object-center"
+                  className="object-cover object-center"
                 />
               </div>
 
