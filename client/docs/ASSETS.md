@@ -54,6 +54,8 @@ Prefer:
 
 Keep original source dimensions large enough for retina displays, but avoid committing enormous uncompressed exports.
 
+Animated WebP is supported for motion artwork. The About page also retains GIF fallbacks, and the Home page uses H.264 MP4 video. These formats share the same 4 MiB per-file budget as still images; the checker validates GIF and MP4 file signatures.
+
 ### Target source sizes
 
 - Full hero: 1600–2200 px wide

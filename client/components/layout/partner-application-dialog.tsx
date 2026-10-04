@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
@@ -157,14 +157,14 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  const close = () => {
+  const close = useCallback(() => {
     if (!submitting) {
       setOpen(false);
       setApplicantType(null);
       setSubmitted(false);
       setError("");
     }
-  };
+  }, [submitting]);
 
   useEffect(() => {
     if (!open) return;
@@ -173,7 +173,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
     document.body.style.overflow = "hidden";
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !submitting) close();
+      if (event.key === "Escape") close();
     };
 
     window.addEventListener("keydown", handleEscape);
@@ -182,7 +182,7 @@ export function PartnerApplicationDialog({ className }: { className?: string }) 
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleEscape);
     };
-  }, [open, submitting]);
+  }, [close, open]);
 
   const submitApplication = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

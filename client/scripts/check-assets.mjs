@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, statSync } from "node:fs";
+import { closeSync, existsSync, openSync, readSync, readdirSync, statSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 
 const publicDir = join(process.cwd(), "public");
@@ -26,6 +26,9 @@ const supportedExtensions = new Set([
   ".jpg",
   ".jpeg",
   ".svg",
+  // About uses GIF fallbacks; Home embeds real MP4 videos.
+  ".gif",
+  ".mp4",
 ]);
 
 const maxRecommendedBytes = 4 * 1024 * 1024;
@@ -72,6 +75,20 @@ for (const file of files) {
 
   if (statSync(file).size > maxRecommendedBytes) {
     problems.push(`${rel}: larger than the 4 MB source-asset budget`);
+  }
+
+  if (extension === ".gif" || extension === ".mp4") {
+    const header = Buffer.alloc(12);
+    const descriptor = openSync(file, "r");
+    try {
+      readSync(descriptor, header, 0, header.length, 0);
+    } finally {
+      closeSync(descriptor);
+    }
+    const valid = extension === ".gif"
+      ? ["GIF87a", "GIF89a"].includes(header.toString("ascii", 0, 6))
+      : header.toString("ascii", 4, 8) === "ftyp";
+    if (!valid) problems.push(`${rel}: file header does not match ${extension}`);
   }
 }
 

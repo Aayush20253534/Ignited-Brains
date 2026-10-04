@@ -7,12 +7,25 @@ import {
   useEffect,
   useMemo,
   useState,
+  useSyncExternalStore,
 } from "react";
 
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { cn } from "@/lib/cn";
 
 const TOKEN_KEY = "ignited-brains-admin-token";
+
+const subscribeToHydration = () => () => {};
+const clientHydrated = () => true;
+const serverHydrated = () => false;
+
+function readStoredToken() {
+  try {
+    return sessionStorage.getItem(TOKEN_KEY) || "";
+  } catch {
+    return "";
+  }
+}
 
 const CONTACT_STATUSES = ["NEW", "IN_PROGRESS", "RESOLVED", "ARCHIVED"] as const;
 const APPLICATION_STATUSES = [
@@ -99,6 +112,8 @@ type ApiErrorPayload = {
   error?: string;
   message?: string;
 };
+
+class AdminSessionExpiredError extends Error {}
 
 const emptyPagination: Pagination = {
   page: 1,
@@ -893,12 +908,31 @@ function DetailItem({
 }
 
 export function AdminPortal() {
-  const [token, setToken] = useState("");
+  // Session storage is client-only; keep the first render consistent with the server.
+  const hydrated = useSyncExternalStore(subscribeToHydration, clientHydrated, serverHydrated);
+  return hydrated ? <AdminWorkspace /> : <AdminLoading />;
+}
+
+function AdminLoading() {
+  return (
+    <div className="fixed inset-0 z-[120] grid place-items-center bg-[#f5f8fd]">
+      <div className="text-center">
+        <span className="mx-auto block h-9 w-9 animate-spin rounded-full border-4 border-brand-blue/15 border-t-brand-orange" />
+        <p className="mt-4 text-sm font-bold text-brand-blue">Loading admin portal…</p>
+      </div>
+    </div>
+  );
+}
+
+function AdminWorkspace() {
+  const [initialToken] = useState(readStoredToken);
+  const [token, setToken] = useState(initialToken);
   const [admin, setAdmin] = useState<AdminUser | null>(null);
-  const [booting, setBooting] = useState(true);
+  const [booting, setBooting] = useState(Boolean(initialToken));
   const [tab, setTab] = useState<AdminTab>("overview");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
+  const [refreshVersion, setRefreshVersion] = useState(0);
+  const [completedRefresh, setCompletedRefresh] = useState("");
   const [error, setError] = useState("");
   const [selected, setSelected] = useState<SelectedRecord | null>(null);
   const [statusBusy, setStatusBusy] = useState(false);
@@ -920,6 +954,12 @@ export function AdminPortal() {
   const [applicationType, setApplicationType] = useState("");
   const [applicationQuery, setApplicationQuery] = useState("");
 
+  const refreshKey = JSON.stringify([
+    token, tab, contactPage, contactStatus, contactQuery,
+    applicationPage, applicationStatus, applicationType, applicationQuery, refreshVersion,
+  ]);
+  const refreshing = Boolean(token && admin && completedRefresh !== refreshKey);
+
   const apiFetch = useCallback(
     async <T,>(path: string, options?: RequestInit): Promise<T> => {
       if (!token) throw new Error("Authentication required");
@@ -935,10 +975,7 @@ export function AdminPortal() {
       });
 
       if (response.status === 401) {
-        sessionStorage.removeItem(TOKEN_KEY);
-        setToken("");
-        setAdmin(null);
-        throw new Error("Your session has expired. Please sign in again.");
+        throw new AdminSessionExpiredError("Your session has expired. Please sign in again.");
       }
 
       return parseResponse<T>(response);
@@ -946,15 +983,19 @@ export function AdminPortal() {
     [token],
   );
 
-  const loadSummary = useCallback(async () => {
-    if (!token) return;
-    const data = await apiFetch<DashboardSummary>("/api/v1/admin/dashboard/summary");
-    setSummary(data);
-  }, [apiFetch, token]);
+  const handleRequestError = useCallback((requestError: unknown, fallback: string) => {
+    if (requestError instanceof AdminSessionExpiredError) {
+      sessionStorage.removeItem(TOKEN_KEY);
+      setToken("");
+      setAdmin(null);
+    }
+    setError(requestError instanceof Error ? requestError.message : fallback);
+  }, []);
 
-  const loadContacts = useCallback(async () => {
-    if (!token) return;
+  const loadSummary = useCallback((signal?: AbortSignal) =>
+    apiFetch<DashboardSummary>("/api/v1/admin/dashboard/summary", { signal }), [apiFetch]);
 
+  const loadContacts = useCallback(async (signal?: AbortSignal) => {
     const params = new URLSearchParams({
       page: String(contactPage),
       limit: "20",
@@ -962,16 +1003,13 @@ export function AdminPortal() {
     if (contactStatus) params.set("status", contactStatus);
     if (contactQuery.trim()) params.set("query", contactQuery.trim());
 
-    const data = await apiFetch<ApiList<ContactSubmission>>(
+    return apiFetch<ApiList<ContactSubmission>>(
       `/api/v1/admin/contacts?${params.toString()}`,
+      { signal },
     );
-    setContacts(data.data);
-    setContactPagination(data.pagination);
-  }, [apiFetch, contactPage, contactQuery, contactStatus, token]);
+  }, [apiFetch, contactPage, contactQuery, contactStatus]);
 
-  const loadApplications = useCallback(async () => {
-    if (!token) return;
-
+  const loadApplications = useCallback(async (signal?: AbortSignal) => {
     const params = new URLSearchParams({
       page: String(applicationPage),
       limit: "20",
@@ -980,59 +1018,31 @@ export function AdminPortal() {
     if (applicationType) params.set("type", applicationType);
     if (applicationQuery.trim()) params.set("query", applicationQuery.trim());
 
-    const data = await apiFetch<ApiList<ApplicationSubmission>>(
+    return apiFetch<ApiList<ApplicationSubmission>>(
       `/api/v1/admin/applications?${params.toString()}`,
+      { signal },
     );
-    setApplications(data.data);
-    setApplicationPagination(data.pagination);
   }, [
     apiFetch,
     applicationPage,
     applicationQuery,
     applicationStatus,
     applicationType,
-    token,
   ]);
 
-  const refreshCurrent = useCallback(async () => {
-    if (!token) return;
-    setRefreshing(true);
-    setError("");
-
-    try {
-      if (tab === "overview") {
-        await Promise.all([loadSummary(), loadContacts(), loadApplications()]);
-      } else if (tab === "contacts") {
-        await Promise.all([loadSummary(), loadContacts()]);
-      } else {
-        await Promise.all([loadSummary(), loadApplications()]);
-      }
-    } catch (refreshError) {
-      setError(
-        refreshError instanceof Error
-          ? refreshError.message
-          : "Unable to load admin data.",
-      );
-    } finally {
-      setRefreshing(false);
-    }
-  }, [loadApplications, loadContacts, loadSummary, tab, token]);
-
   useEffect(() => {
-    const storedToken = sessionStorage.getItem(TOKEN_KEY);
-    if (!storedToken) {
-      setBooting(false);
-      return;
-    }
+    if (!initialToken) return;
 
-    const sessionToken = storedToken;
+    const sessionToken = initialToken;
     let active = true;
+    const controller = new AbortController();
 
     async function restoreSession() {
       try {
         const response = await fetch("/api/v1/admin/auth/me", {
           headers: { Authorization: `Bearer ${sessionToken}` },
           cache: "no-store",
+          signal: controller.signal,
         });
         const data = await parseResponse<{ admin: AdminUser }>(response);
 
@@ -1040,7 +1050,9 @@ export function AdminPortal() {
         setToken(sessionToken);
         setAdmin(data.admin);
       } catch {
+        if (!active) return;
         sessionStorage.removeItem(TOKEN_KEY);
+        setToken("");
       } finally {
         if (active) setBooting(false);
       }
@@ -1050,21 +1062,37 @@ export function AdminPortal() {
 
     return () => {
       active = false;
+      controller.abort();
     };
-  }, []);
+  }, [initialToken]);
 
   useEffect(() => {
     if (!token || !admin) return;
-    void refreshCurrent();
-  }, [admin, refreshCurrent, token]);
-
-  useEffect(() => {
-    setContactPage(1);
-  }, [contactQuery, contactStatus]);
-
-  useEffect(() => {
-    setApplicationPage(1);
-  }, [applicationQuery, applicationStatus, applicationType]);
+    const controller = new AbortController();
+    const { signal } = controller;
+    void Promise.all([
+      loadSummary(signal),
+      tab !== "applications" ? loadContacts(signal) : Promise.resolve(null),
+      tab !== "contacts" ? loadApplications(signal) : Promise.resolve(null),
+    ]).then(([nextSummary, nextContacts, nextApplications]) => {
+      if (signal.aborted) return;
+      setSummary(nextSummary);
+      if (nextContacts) {
+        setContacts(nextContacts.data);
+        setContactPagination(nextContacts.pagination);
+      }
+      if (nextApplications) {
+        setApplications(nextApplications.data);
+        setApplicationPagination(nextApplications.pagination);
+      }
+      setError("");
+    }).catch(refreshError => {
+      if (!signal.aborted) handleRequestError(refreshError, "Unable to load admin data.");
+    }).finally(() => {
+      if (!signal.aborted) setCompletedRefresh(refreshKey);
+    });
+    return () => controller.abort();
+  }, [admin, handleRequestError, loadApplications, loadContacts, loadSummary, refreshKey, tab, token]);
 
   const pageMeta = useMemo(() => {
     if (tab === "contacts") {
@@ -1138,29 +1166,16 @@ export function AdminPortal() {
         setSelected({ kind: "application", record: updated });
       }
 
-      await loadSummary();
+      setSummary(await loadSummary());
     } catch (statusError) {
-      setError(
-        statusError instanceof Error
-          ? statusError.message
-          : "Unable to update status.",
-      );
+      handleRequestError(statusError, "Unable to update status.");
     } finally {
       setStatusBusy(false);
     }
   }
 
   if (booting) {
-    return (
-      <div className="fixed inset-0 z-[120] grid place-items-center bg-[#f5f8fd]">
-        <div className="text-center">
-          <span className="mx-auto block h-9 w-9 animate-spin rounded-full border-4 border-brand-blue/15 border-t-brand-orange" />
-          <p className="mt-4 text-sm font-bold text-brand-blue">
-            Loading admin portal…
-          </p>
-        </div>
-      </div>
-    );
+    return <AdminLoading />;
   }
 
   if (!token || !admin) {
@@ -1184,7 +1199,7 @@ export function AdminPortal() {
           description={pageMeta.description}
           mobileMenu={() => setMobileOpen(true)}
           refreshing={refreshing}
-          onRefresh={() => void refreshCurrent()}
+          onRefresh={() => { setError(""); setRefreshVersion(version => version + 1); }}
         />
 
         <main className="min-h-0 flex-1 overflow-y-auto">
@@ -1366,9 +1381,9 @@ export function AdminPortal() {
               <section>
                 <FilterBar
                   query={contactQuery}
-                  setQuery={setContactQuery}
+                  setQuery={query => { setContactQuery(query); setContactPage(1); }}
                   status={contactStatus}
-                  setStatus={setContactStatus}
+                  setStatus={status => { setContactStatus(status); setContactPage(1); }}
                   statusOptions={CONTACT_STATUSES}
                 />
 
@@ -1462,12 +1477,12 @@ export function AdminPortal() {
               <section>
                 <FilterBar
                   query={applicationQuery}
-                  setQuery={setApplicationQuery}
+                  setQuery={query => { setApplicationQuery(query); setApplicationPage(1); }}
                   status={applicationStatus}
-                  setStatus={setApplicationStatus}
+                  setStatus={status => { setApplicationStatus(status); setApplicationPage(1); }}
                   statusOptions={APPLICATION_STATUSES}
                   type={applicationType}
-                  setType={setApplicationType}
+                  setType={type => { setApplicationType(type); setApplicationPage(1); }}
                 />
 
                 <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_24px_rgba(15,39,78,.04)]">

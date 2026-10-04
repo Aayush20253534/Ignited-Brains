@@ -5,13 +5,11 @@ import { cn } from "@/lib/cn";
 
 interface BrandLogoProps {
   className?: string;
-  compact?: boolean;
   inverted?: boolean;
 }
 
 export function BrandLogo({
   className,
-  compact = false,
   inverted = false,
 }: BrandLogoProps) {
   const textColor = inverted ? "text-white" : "text-brand-blue";

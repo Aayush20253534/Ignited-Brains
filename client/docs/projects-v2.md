@@ -21,4 +21,4 @@ Motion uses CSS/SVG and intersection observers without an added dependency. Cont
 - Reduced motion, static poster, offscreen pause, asynchronous pulse timing, and once-only impact counters: passed.
 - Browser runtime errors and failed image requests: none.
 
-The repository-wide checks retain pre-existing failures outside this change: four `react-hooks/set-state-in-effect` errors in `components/admin/admin-portal.tsx`, existing warnings in the shared logo and partner dialog, legacy unsupported/oversized assets under `about/design` and `media`, and obsolete Three.js intro dependencies flagged by `production:check`. No new Projects asset violates the 4 MB source-asset budget.
+The pre-existing repository-wide lint, asset, and dependency failures were resolved in the production cleanup on 2026-10-04. Full `npm run check`, `npm run build`, and backend tests now pass. See `production-cleanup.md` for the changes and browser verification. No Projects asset violates the 4 MB source-asset budget.

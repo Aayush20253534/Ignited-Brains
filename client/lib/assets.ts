@@ -78,20 +78,20 @@ export const pageAssetSlots = {
     solutionSciencePark: "/media/park.png",
     solutionScienceShow: "/home/3d-science-show.webp",
     storyVideo: "/home/story-video.webp",
-    impactStudent: "/media/build.jpeg",
+    impactStudent: "/media/build.webp",
     marsRover: "/media/car.jpeg",
     marsThumbOne: "/home/mars-thumb-01.webp",
     marsThumbTwo: "/home/mars-thumb-02.webp",
     marsThumbThree: "/home/mars-thumb-03.webp",
     // indiaImpact: "/media/home.png",
-    indiaImpact: "/media/india_network_twinkle.gif",
+    indiaImpact: "/media/india-network.webp",
   },
   about: {
     hero: "/about/ideas-in-motion.webp",
     story: "/media/img.jpeg",
     mission: "/about/mission-astronaut.webp",
     vision: "/media/space.jpeg",
-    indiaImpact: "/media/india_network_twinkle.gif",
+    indiaImpact: "/media/india-network.webp",
     ctaEarth: "/about/cta-earth.webp",
   },
   solutions: {
@@ -157,7 +157,7 @@ export const pageAssetSlots = {
   },
   contact: {
     hero: "/contact/partnership-learning.webp",
-    indiaCoverage: "/media/india_network_twinkle.gif",
+    indiaCoverage: "/media/india-network.webp",
     faqVisual: "/contact/faq-robotics.webp",
   },
 } as const;

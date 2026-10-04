@@ -70,6 +70,6 @@ export const mediaVideos = [
 export const fieldStories = [
   { title: "Exploring the universe", image: "/media/tele.jpeg" },
   { title: "Building together", image: "/media/featured-rover.webp" },
-  { title: "Learning by doing", image: "/media/build.jpeg" },
+  { title: "Learning by doing", image: "/media/build.webp" },
   { title: "Science for everyone", image: "/media/solar-park.png" },
 ];

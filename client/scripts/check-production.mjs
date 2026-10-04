@@ -73,9 +73,9 @@ const publicFilesToCheck = [
   "public/solutions/hero-robotics.webp",
   "public/space-lab/hero-telescope.webp",
   "public/schools/hero-campus-robotics.webp",
-  "public/projects/hero-students-rover.webp",
+  "public/projects-v2/hero-projects.webp",
   "public/media/hero-robotics.webp",
-  "public/contact/hero-student-rocket.webp",
+  "public/contact/design/hero.webp",
 ];
 
 for (const file of publicFilesToCheck) {
