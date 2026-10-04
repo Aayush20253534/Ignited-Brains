@@ -1,216 +1,85 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
+import { AboutMotion } from "@/components/about/about-motion";
 import { ContactForm } from "@/components/contact/contact-form";
+import { ContactFormLink, ContactVideo } from "@/components/contact/contact-experience";
+import { Blueprint, ClosingScene, Journey } from "@/components/engagement/page-elements";
 import { HomeIcon } from "@/components/home/home-icon";
 import { SocialIcon } from "@/components/layout/social-icon";
-import { ArrowIcon, Container, Eyebrow } from "@/components/ui";
-import {
-  contactFaqs,
-  contactHeroBenefits,
-  contactProcess,
-  partnerTypes,
-} from "@/data/contact";
+import { ButtonLink, Container } from "@/components/ui";
+import { contactFaqs, contactHeroBenefits, contactProcess, partnerTypes } from "@/data/contact";
 import { pageAssetSlots } from "@/lib/assets";
+import { siteConfig } from "@/lib/site";
+import styles from "@/components/engagement/engagement.module.css";
 
 export const metadata: Metadata = {
   title: "Partner With Us",
-  description:
-    "Partner with Ignited Brains to create future-ready learning environments, labs and hands-on student experiences.",
+  description: "Partner with Ignited Brains to create future-ready learning environments, labs and hands-on student experiences.",
   alternates: { canonical: "/contact" },
 };
 
-function MailIcon() {
-  return (
-    <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" aria-hidden="true">
-      <path d="M3 5.5h14v9H3v-9Z" stroke="currentColor" strokeWidth="1.5" />
-      <path d="m3.8 6.2 6.2 4.4 6.2-4.4" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" aria-hidden="true">
-      <path d="M6.2 3.2 8 6.8 6.4 8c.8 2.4 2.5 4.1 4.9 4.9l1.2-1.6 3.6 1.8-.5 2.8c-.2.8-.9 1.3-1.7 1.2C7.7 16.4 3.6 12.3 2.9 6.1c-.1-.8.4-1.5 1.2-1.7l2.1-.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function PinIcon() {
-  return (
-    <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" aria-hidden="true">
-      <path d="M10 17s5-4.7 5-9a5 5 0 1 0-10 0c0 4.3 5 9 5 9Z" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="10" cy="8" r="1.7" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
+function ContactIcon({ name }: { name: "mail" | "phone" | "pin" }) {
+  return <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    {name === "mail" ? <><path d="M3 5.5h14v9H3v-9Z" /><path d="m3.8 6.2 6.2 4.4 6.2-4.4" /></> : name === "phone" ? <path d="M6.2 3.2 8 6.8 6.4 8c.8 2.4 2.5 4.1 4.9 4.9l1.2-1.6 3.6 1.8-.5 2.8c-.2.8-.9 1.3-1.7 1.2C7.7 16.4 3.6 12.3 2.9 6.1c-.1-.8.4-1.5 1.2-1.7l2.1-.5Z" /> : <><path d="M10 17s5-4.7 5-9a5 5 0 1 0-10 0c0 4.3 5 9 5 9Z" /><circle cx="10" cy="8" r="1.7" /></>}
+  </svg>;
 }
 
 export default function ContactPage() {
-  return (
-    <main className="overflow-hidden bg-white">
-      <section className="relative border-b border-brand-line/70 bg-white">
-        <Container wide className="grid items-center gap-8 py-8 lg:min-h-[660px] lg:grid-cols-[0.82fr_1.18fr] lg:gap-10 lg:py-8 xl:grid-cols-[0.78fr_1.22fr] xl:gap-12">
-          <div className="relative z-10 py-4 lg:py-8">
-            <Eyebrow>Partner With Us</Eyebrow>
-            <h1 className="mt-5 max-w-[590px] text-balance text-[clamp(3.15rem,5vw,5.35rem)] font-black leading-[0.92] tracking-[-0.055em] text-brand-blue">
-              Let’s build the future <span className="text-brand-orange">together.</span>
-            </h1>
-            <p className="mt-5 max-w-[560px] text-base font-medium leading-7 text-brand-ink/75">
-              Tell us about your school, institution or learning initiative. We’ll get in touch to discuss how Ignited Brains can help you create hands-on learning spaces for curious minds.
-            </p>
+  const { email, phone, city, region, country } = siteConfig.contact;
+  return <AboutMotion><main className={styles.page}>
+    <section className={styles.contactHero} aria-labelledby="contact-title">
+      <Container wide className={styles.contactHeroGrid}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow} data-reveal>Partner With Us</p>
+          <h1 id="contact-title" className={styles.heroTitle} data-reveal data-delay="1">Let’s build<br />the future<br /><em>together.</em></h1>
+          <p className={styles.lead} data-reveal data-delay="2">Tell us about your school, institution or learning initiative. We’ll get in touch to discuss how Ignited Brains can help you create hands-on learning spaces for curious minds.</p>
+          <div className={styles.actions} data-reveal data-delay="3"><ContactFormLink /></div>
+          <div className={styles.trust} data-reveal data-delay="4">{contactHeroBenefits.map(item => <div key={item.title}><HomeIcon name={item.icon} /><span>{item.title}</span></div>)}</div>
+        </div>
+        <div className={styles.contactArt}><Blueprint /><div className={styles.educatorImage}><Image src={pageAssetSlots.contact.hero} alt="An educator and student collaborating on a robotics project in a science lab" fill priority sizes="(max-width: 767px) 90vw, 44vw" className={styles.cover} /></div><span className={styles.imageCaption}><HomeIcon name="build" />Learning begins with doing.</span></div>
+      </Container>
+    </section>
 
-            <div className="mt-8 grid max-w-[590px] gap-3 border-t border-brand-line/75 pt-5 sm:grid-cols-3">
-              {contactHeroBenefits.map((item) => (
-                <div key={item.title} className="flex items-center gap-2.5">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-orange-50 text-brand-orange">
-                    <HomeIcon name={item.icon} className="h-5 w-5" />
-                  </span>
-                  <p className="text-[0.68rem] font-black leading-4 text-brand-blue sm:text-xs">
-                    {item.title}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+    <section className={styles.formSection} aria-label="Contact Ignited Brains">
+      <Container wide className={styles.formGrid}>
+        <div id="contact-form" className={styles.formPanel} tabIndex={-1} data-reveal><ContactForm embedded /></div>
+        <div className={styles.contactDetails} data-reveal data-delay="1"><p className={styles.eyebrow}>Get in Touch</p><h2 className={styles.title}>Every idea starts<br />with a <em>conversation.</em></h2><p className={styles.copy}>We’d love to hear from you.</p>
+          <ul className={styles.contactList}>
+            <li><span><ContactIcon name="mail" /></span><div><p>Email</p><a href={`mailto:${email}`}>{email}</a></div></li>
+            <li><span><ContactIcon name="phone" /></span><div><p>Phone</p><a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a></div></li>
+            <li><span><ContactIcon name="pin" /></span><div><p>Location</p><p className={styles.address}>{city}, {region}, {country}</p></div></li>
+          </ul>
+          <div className={styles.socials}>{(["linkedin", "instagram", "youtube"] as const).map(network => <span key={network} role="img" aria-label={`${network} profile link pending`} title={`${network} profile link pending`}><SocialIcon network={network} /></span>)}</div>
+        </div>
+      </Container>
+    </section>
 
-          <div className="overflow-hidden rounded-[1.75rem] border border-brand-line bg-white shadow-[0_24px_70px_rgba(24,53,103,.12)]">
-            <div className="grid xl:grid-cols-[1.02fr_0.98fr]">
-              <div className="relative min-h-[300px] overflow-hidden sm:min-h-[380px] xl:min-h-[600px]">
-                <Image
-                  src={pageAssetSlots.contact.hero}
-                  alt="Illustration of an educator and student collaborating on a robotics project in a science lab"
-                  fill
-                  priority
-                  sizes="(max-width: 1279px) 100vw, 36vw"
-                  className="object-cover object-center"
-                />
-              </div>
+    <section className={`${styles.section} ${styles.partnerSection}`} aria-labelledby="partners-title">
+      <Container wide><div className={styles.sectionHead} data-reveal><div><p className={styles.eyebrow}>Who Can Partner With Us</p><h2 id="partners-title" className={styles.title}>Different partners.<br /><em>One shared future.</em></h2></div><span className={styles.sectionMark} aria-hidden="true">01 — Connect</span></div>
+        <div className={styles.partnerGrid}>{partnerTypes.map((partner, index) => <article key={partner.title} data-reveal data-delay={index}><span className={styles.partnerNumber}>0{index + 1}</span><HomeIcon name={partner.icon} /><h3>{partner.title}</h3><p>{partner.description}</p></article>)}</div>
+      </Container>
+    </section>
 
-              <div className="border-t border-brand-line/70 xl:border-l xl:border-t-0">
-                <ContactForm embedded />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+    <section className={`${styles.section} ${styles.processSection} ${styles.dark}`} aria-labelledby="process-title">
+      <Container wide><div className={styles.sectionHead} data-reveal><div><p className={styles.eyebrow}>What Happens Next</p><h2 id="process-title" className={styles.title}>From conversation<br />to <em>transformation.</em></h2></div><span className={styles.sectionMark} aria-hidden="true">02 — Create</span></div><Journey items={contactProcess} label="Our partnership process" /></Container>
+    </section>
 
-      <section className="bg-white py-12 sm:py-14 lg:py-16">
-        <Container wide>
-          <Eyebrow>Who Can Partner With Us</Eyebrow>
-          <h2 className="mt-3 max-w-3xl text-balance text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">Let’s create opportunities for more learners.</h2>
+    <section className={styles.section} aria-labelledby="india-title">
+      <Container wide className={styles.coverageGrid}><div data-reveal><p className={styles.eyebrow}>Connected by Curiosity</p><h2 id="india-title" className={styles.title}>A stronger India<br />through <em>curious minds.</em></h2><p className={styles.copy}>We work with schools and institutions across India to bring hands-on learning spaces to more students.</p><div className={styles.actions}><ContactFormLink /></div></div>
+        <div className={styles.indiaFrame} data-reveal data-delay="1">
+          <picture><source media="(prefers-reduced-motion: reduce)" srcSet="/media/home.png" /><Image src={pageAssetSlots.contact.indiaCoverage} alt="Ignited Brains school network across India" width={1821} height={864} unoptimized sizes="(max-width: 767px) 100vw, 55vw" /></picture>
+          <span className={styles.mapNode} aria-hidden="true" /><span className={styles.mapNode} aria-hidden="true" /><span className={styles.mapNode} aria-hidden="true" />
+        </div>
+      </Container>
+    </section>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {partnerTypes.map((partner) => (
-              <article key={partner.title} className="card-lift min-h-[210px] rounded-2xl border border-brand-line bg-white p-6 shadow-card">
-                <HomeIcon name={partner.icon} className="h-10 w-10 text-brand-orange" />
-                <h3 className="mt-5 text-lg font-black leading-tight text-brand-blue">{partner.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-brand-muted">{partner.description}</p>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
+    <section className={`${styles.section} ${styles.pale}`} aria-labelledby="faqs-title">
+      <Container wide><div data-reveal><p className={styles.eyebrow}>Questions Before We Begin?</p><h2 id="faqs-title" className={styles.title}>Frequently Asked <em>Questions</em></h2></div>
+        <div className={styles.faqGrid}><div className={styles.faqList} data-reveal>{contactFaqs.map(faq => <details key={faq.question} className={styles.faq}><summary>{faq.question}<span aria-hidden="true">+</span></summary><div className={styles.faqAnswer}><p>{faq.answer}</p></div></details>)}</div><figure className={styles.videoPanel} data-reveal data-delay="1"><ContactVideo /><figcaption><HomeIcon name="robotics" /><span>Curiosity. Creativity. Innovation.</span></figcaption></figure></div>
+      </Container>
+    </section>
 
-      <section className="soft-blue-surface border-y border-brand-line/70 py-12 sm:py-14 lg:py-16">
-        <Container wide>
-          <Eyebrow>What Happens Next</Eyebrow>
-          <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-brand-blue sm:text-5xl">A simple and clear process.</h2>
-
-          <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-8">
-            {contactProcess.map((item, index) => (
-              <article key={item.step} className="relative pr-3">
-                {index < contactProcess.length - 1 ? <span className="absolute -right-3 top-7 hidden text-2xl text-brand-orange lg:block">→</span> : null}
-                <span className="grid h-14 w-14 place-items-center rounded-full border border-brand-line bg-white text-brand-orange shadow-card"><HomeIcon name={item.icon} className="h-7 w-7" /></span>
-                <p className="mt-4 text-[0.68rem] font-black text-brand-orange">{item.step}</p>
-                <h3 className="mt-1 text-base font-black leading-tight text-brand-blue sm:text-lg">{item.title}</h3>
-                <p className="mt-2 text-xs leading-5 text-brand-muted sm:text-sm">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-white py-12 sm:py-14 lg:py-16">
-        <Container wide className="grid gap-8 lg:grid-cols-[0.58fr_1.42fr] lg:items-stretch">
-          <div>
-            <h2 className="text-4xl font-black tracking-[-0.045em] text-brand-blue">Get in Touch</h2>
-            <p className="mt-2 text-base text-brand-muted">We’d love to hear from you.</p>
-            <ul className="mt-6 space-y-4">
-              <li className="flex gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-orange text-white"><MailIcon /></span>
-                <div><p className="text-xs text-brand-muted">Email</p><a href="mailto:info@ignitedbrains.com" className="text-sm font-black text-brand-blue">info@ignitedbrains.com</a></div>
-              </li>
-              <li className="flex gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-orange text-white"><PhoneIcon /></span>
-                <div><p className="text-xs text-brand-muted">Phone</p><a href="tel:+919454488061" className="text-sm font-black text-brand-blue">+91 94544 88061</a></div>
-              </li>
-              <li className="flex gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-orange text-white"><PinIcon /></span>
-                <div><p className="text-xs text-brand-muted">Location</p><p className="text-sm font-black text-brand-blue">Lucknow, Uttar Pradesh, India</p></div>
-              </li>
-            </ul>
-            <div className="mt-5 flex gap-2">
-              {["linkedin", "instagram", "youtube"].map((network) => (
-                <span key={network} aria-label={`${network} profile link pending`} title={`${network} profile link pending`} className="grid h-9 w-9 place-items-center rounded-full bg-brand-blue/85 text-white">
-                  <SocialIcon network={network as "linkedin" | "instagram" | "youtube"} className="h-4 w-4" />
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid overflow-hidden rounded-3xl border border-brand-line bg-brand-mist shadow-card md:grid-cols-[1.1fr_0.9fr]">
-            <div className="min-w-0 self-center">
-              <Image src={pageAssetSlots.contact.indiaCoverage} alt="Ignited Brains school network across India" width={1267} height={601} sizes="(max-width: 768px) 100vw, 45vw" className="h-auto w-full" />
-            </div>
-            <div className="flex items-center p-7 sm:p-9">
-              <div>
-                <h3 className="text-3xl font-black tracking-[-0.04em] text-brand-blue">A stronger India through curious minds.</h3>
-                <p className="mt-4 text-sm leading-6 text-brand-muted">We work with schools and institutions across India to bring hands-on learning spaces to more students.</p>
-                <span className="mt-5 block h-0.5 w-8 bg-brand-orange" />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="soft-blue-surface border-t border-brand-line/70 py-12 sm:py-14 lg:py-16">
-        <Container wide>
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-4xl font-black tracking-[-0.045em] text-brand-blue">Frequently Asked Questions</h2>
-              <p className="mt-2 text-sm text-brand-muted">Quick answers to common questions.</p>
-            </div>
-            <a href="mailto:info@ignitedbrains.com" className="focus-ring hidden items-center gap-2 text-sm font-extrabold text-brand-orange sm:inline-flex">View All FAQs <ArrowIcon className="h-4 w-4" /></a>
-          </div>
-
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1.22fr_0.78fr] lg:items-stretch">
-            <div className="space-y-3">
-              {contactFaqs.map((faq) => (
-                <details key={faq.question} className="group rounded-xl border border-brand-line bg-white shadow-sm">
-                  <summary className="focus-ring flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-5 text-sm font-black text-brand-blue [&::-webkit-details-marker]:hidden">
-                    {faq.question}
-                    <span className="text-2xl font-light text-brand-blue transition group-open:rotate-45">+</span>
-                  </summary>
-                  <p className="border-t border-brand-line/70 px-5 py-4 text-sm leading-6 text-brand-muted">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-            <div className="overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
-              <video
-                src="/media/homeimg.mp4"
-                poster={pageAssetSlots.home.storyVideo}
-                autoPlay
-                muted
-                loop
-                playsInline
-                aria-label="Student building a robotics project"
-                className="aspect-[16/6.5] h-full w-full object-cover"
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
-    </main>
-  );
+    <ClosingScene eyebrow="Let’s Build Together" title={<>Ready to create<br /><em>what’s next?</em></>} actions={<><ContactFormLink /><ButtonLink href="/projects" size="lg" variant="outline" className={styles.pill} showArrow>Explore Our Projects</ButtonLink></>}>Let’s create learning environments where students don’t just study the future. They build it.</ClosingScene>
+  </main></AboutMotion>;
 }
