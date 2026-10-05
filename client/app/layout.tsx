@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import { SiteFooter, SiteHeader, SiteMotion } from "@/components/layout";
+import { GlobalProjectEarth } from "@/components/layout/global-project-earth";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -92,6 +93,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </div>
+          <GlobalProjectEarth />
           <SiteFooter />
         </div>
       </body>
