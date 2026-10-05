@@ -48,7 +48,7 @@ export function ProjectDetailsButton({ project, children, className = "" }: {
           <p className={styles.location}>{project.location}</p>
           <p>{project.description}</p>
           {project.features && <ul>{project.features.map(feature => <li key={feature}>{feature}</li>)}</ul>}
-          <p className={styles.imageNote}>Concept illustration of the project.</p>
+          <p className={styles.imageNote}>{project.imageNote ?? "Educational project visual."}</p>
           <Link href="/contact" className={styles.primaryButton} onClick={() => dialog.current?.close()}>Discuss a School Project <span aria-hidden="true">→</span></Link>
         </div>
       </div>
@@ -73,7 +73,7 @@ export function ProjectBrowser() {
     <div className={`${styles.showcaseGrid} ${category !== "All" ? styles.filteredGrid : ""}`}>
       {visible.map(project => <article key={project.id} className={`${styles.projectCard} ${project.id === "autonomous-rover" ? styles.mainProject : ""}`}>
         <div className={styles.projectImage}>
-          <Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 48vw, 650px" />
+          <Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 48vw, 650px" style={project.id === "model-rocket" ? { objectFit: "contain" } : undefined} />
           <span className={styles.projectGridLines} aria-hidden="true" />
         </div>
         <div className={styles.projectCopy}>

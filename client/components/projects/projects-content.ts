@@ -8,12 +8,13 @@ export type ProjectDetail = {
   description: string;
   image: string;
   alt: string;
+  imageNote?: string;
   features?: string[];
 };
 
-const artwork: Record<string, { id: string; image: string; alt: string }> = {
-  "Autonomous Rover Project": { id: "autonomous-rover", image: "rover-showcase", alt: "Engineering illustration of an educational rover on a simulated rocky test course" },
-  "Model Rocket Program": { id: "model-rocket", image: "rocket-showcase", alt: "Illustration of an educational model rocket launching from a test platform" },
+const artwork: Record<string, { id: string; image: string; alt: string; imageNote?: string }> = {
+  "Autonomous Rover Project": { id: "autonomous-rover", image: "rover-field-demo", alt: "Learners and mentors examining a working student robotics prototype during a lab demonstration", imageNote: "Photograph from the Ignited Brains lab archive." },
+  "Model Rocket Program": { id: "model-rocket", image: "rocket-design-workbench", alt: "Students checking the fin alignment of a small cardboard model rocket on a workbench" },
   "Interactive Solar System Park": { id: "solar-system-park", image: "science-park-showcase", alt: "Illustration of students exploring planetary models in an outdoor science park" },
 };
 
@@ -31,8 +32,9 @@ export const featuredRover: ProjectDetail = {
   location: "NIT Mentorship Program",
   description: "A student-built Mars rover designed to navigate rocky terrain, collect environmental data and transmit it back to a base station.",
   features: featuredProjectBullets,
-  image: "/projects-v2/featured-rover.webp",
-  alt: "Engineering concept visualization of a student Mars rover with sensors and a camera mast",
+  image: "/projects-v2/rover-terrain-test.webp",
+  alt: "Student-made red rover with exposed electronics and yellow wheels on a tabletop terrain test course",
+  imageNote: "Educational visual based on the student-built rover prototype.",
 };
 
 export const journey = [
@@ -53,9 +55,9 @@ export const buildStages = [
 ] as const;
 
 export const galleryScenes = [
-  { image: "gallery-space", caption: "Exploring the skies", alt: "Editorial illustration of students exploring astronomy with a telescope and planetary display" },
-  { image: "gallery-robotics", caption: "Building solutions", alt: "Editorial illustration of student hands connecting rover electronics" },
-  { image: "gallery-build", caption: "Learning together", alt: "Editorial illustration of a student team building an engineering prototype" },
-  { image: "gallery-science", caption: "Science through play", alt: "Editorial illustration of students exploring an interactive planetary exhibit" },
+  { image: "gallery-lab-overview", caption: "Spaces for discovery", alt: "The Ignited Brains Curiosity Corner lab with space models and robotics exhibits" },
+  { image: "gallery-robotics-exhibits", caption: "Exploring robotics", alt: "Hands-on electronic models displayed at the AI and Robotics Lab" },
+  { image: "gallery-space-costumes", caption: "Imagining exploration", alt: "Young visitors in silver astronaut costumes beside the Curiosity Corner display" },
+  { image: "gallery-stem-experiments", caption: "Science through making", alt: "A collection of working science and engineering models at the STEM exhibit" },
   { image: "gallery-testing", caption: "Testing ideas", alt: "Editorial illustration of students testing a rover on a ramp" },
 ];

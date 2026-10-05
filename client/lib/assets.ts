@@ -79,7 +79,7 @@ export const pageAssetSlots = {
     solutionScienceShow: "/home/3d-science-show.webp",
     storyVideo: "/home/story-video.webp",
     impactStudent: "/media/build.webp",
-    marsRover: "/media/car.jpeg",
+    marsRover: "/home/mars-rover-clean.webp",
     marsThumbOne: "/home/mars-thumb-01.webp",
     marsThumbTwo: "/home/mars-thumb-02.webp",
     marsThumbThree: "/home/mars-thumb-03.webp",

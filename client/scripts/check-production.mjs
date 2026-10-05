@@ -13,6 +13,8 @@ const requiredRoutes = [
   "app/schools/page.tsx",
   "app/projects/page.tsx",
   "app/media/page.tsx",
+  "app/blog/page.tsx",
+  "app/blog/[slug]/page.tsx",
   "app/contact/page.tsx",
   "app/shop/page.tsx",
   "app/privacy/page.tsx",

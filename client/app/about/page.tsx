@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { EarthCta } from "@/components/layout/earth-cta";
 import type { ReactNode } from "react";
 import Link from "next/link";
@@ -59,8 +60,9 @@ export default function AboutPage() {
         <div className={styles.heroArt}>
           <div className={styles.heroOrbit} aria-hidden="true"><i /><i /><i /></div>
           <div className={styles.heroOrbitSecond} aria-hidden="true"><i /><i /></div>
-          <AboutArtwork name="hero" alt="A friendly robot, rocket, globe and experiments rising from an open book" priority className={styles.heroPicture} />
-          <span className={styles.artNote}>Curiosity<br />Today</span><span className={styles.artNote}>Innovation<br />Tomorrow</span>
+          <div className={styles.heroPhoto} data-reveal data-delay="2">
+            <Image src="/about/hero-inquiry.webp" alt="Students investigating an optics experiment and sensor circuit together at an innovation workbench" fill preload sizes="(max-width: 767px) 90vw, 46vw" />
+          </div>
         </div>
       </div>
     </section>

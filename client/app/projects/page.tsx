@@ -56,12 +56,12 @@ export default function ProjectsPage() {
         </section>
 
         <section id="project-showcase" className={styles.showcase} aria-labelledby="showcase-title" data-motion-section>
-          <div className={styles.container}><ProjectBrowser /><p className={styles.sectionNote}>Project concept imagery. Programme details reflect our work.</p></div>
+          <div className={styles.container}><ProjectBrowser /><p className={styles.sectionNote}>Lab photography and educational project visuals. Programme details reflect our work.</p></div>
         </section>
 
         <section id="featured-project" className={styles.featured} aria-labelledby="rover-title" data-motion-section>
           <div className={styles.featuredScene}>
-            <Image src="/projects-v2/featured-rover.webp" alt={featuredRover.alt} fill sizes="(max-width: 767px) 900px, 100vw" />
+            <Image src={featuredRover.image} alt={featuredRover.alt} fill sizes="(max-width: 767px) 900px, 100vw" />
             <ProjectsOverlay name="rover" className={styles.roverOverlay} />
             <div className={styles.scanner} data-ambient aria-hidden="true" />
             <div className={styles.roverLabels} aria-hidden="true"><span>AI / Camera</span><span>Sensors</span><span>Controller</span><span>Terrain Mobility</span><span>Power System</span><span><i /> Live Data</span></div>

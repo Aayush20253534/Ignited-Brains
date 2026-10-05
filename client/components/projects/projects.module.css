@@ -95,7 +95,7 @@
 /* Full-width engineering illustration and live HTML callouts. */
 .featured { position: relative; isolation: isolate; color: white; background: var(--navy); }
 .featuredScene { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.featuredScene > img { object-position: 62% center; }
+.featuredScene > img { object-fit: contain; object-position: right center; }
 .featuredScene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,#031226e6 0%,#03122686 35%,transparent 68%),linear-gradient(0deg,#031226f2,transparent 36%); }
 .featured > .container { min-height: 650px; padding-block: 68px 145px; }
 .featuredCopy { max-width: 490px; position: relative; z-index: 3; }
@@ -203,7 +203,7 @@
 .projectDialog::backdrop { background: #020d21cf; backdrop-filter: blur(7px); }
 .dialogInner { position: relative; }
 .dialogImage { position: relative; height: clamp(220px,28vw,350px); }
-.dialogImage img { object-fit: cover; }
+.dialogImage img { object-fit: contain; }
 .dialogClose { position: absolute; z-index: 3; top: 14px; right: 14px; width: 45px; height: 45px; border: 1px solid #ffffff80; border-radius: 50%; background: #051b39dc; color: white; font-size: 29px; }
 .dialogCopy { padding: 30px; }
 .dialogCopy h2 { font-size: 34px; line-height: 1.1; }
@@ -349,8 +349,8 @@
   .featuredName { margin-top: 17px !important; font-size: 13px; }
   .featuredLead { font-size: 13px; }
   .featuredCopy > button { margin-top: 18px; }
-  .featuredScene { position: relative; order: 1; inset: auto; z-index: 0; height: clamp(300px,80vw,430px); }
-  .featuredScene > img { object-position: 71% center; }
+  .featuredScene { position: relative; order: 1; inset: auto; z-index: 0; height: auto; aspect-ratio: 2/1; }
+  .featuredScene > img { object-position: center; }
   .featuredScene::after { background: linear-gradient(180deg,#031226,transparent 19%),linear-gradient(0deg,#031226,transparent 14%); }
   .roverLabels > span { font-size: 8px; padding: 7px 8px; }
   .roverLabels > span:first-child { left: 5%; top: 9%; }

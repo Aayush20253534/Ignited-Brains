@@ -23,6 +23,7 @@ export const mainNavigation: NavGroup[] = [
   },
   { label: "Projects", href: "/projects" },
   { label: "Media", href: "/media" },
+  { label: "Blog", href: "/blog" },
   { label: "Shop", href: "/shop" },
   { label: "Contact", href: "/contact" },
 ];
@@ -33,6 +34,7 @@ export const footerQuickLinks: NavItem[] = [
   { label: "Solutions", href: "/solutions" },
   { label: "Projects", href: "/projects" },
   { label: "Media", href: "/media" },
+  { label: "Blog", href: "/blog" },
   { label: "Shop", href: "/shop" },
   { label: "Contact", href: "/contact" },
 ];

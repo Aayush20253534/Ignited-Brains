@@ -12,6 +12,7 @@ const requiredDirectories = [
   "space-lab",
   "schools",
   "projects",
+  "blog",
   "media",
   "contact",
   "icons",
