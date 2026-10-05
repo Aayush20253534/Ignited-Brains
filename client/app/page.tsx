@@ -10,6 +10,7 @@ import { HomeStorySection } from "@/components/home/home-story-section";
 import { HomeIcon } from "@/components/home/home-icon";
 import { ImpactCount } from "@/components/home/impact-count";
 import { ContinuousRow } from "@/components/home/continuous-row";
+import { SolutionImageLightbox } from "@/components/home/solution-image-lightbox";
 import { AnimatedEarth } from "@/components/layout/animated-earth";
 import { SiteImage } from "@/components/media";
 import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
@@ -213,13 +214,15 @@ export default function HomePage() {
                 <div className={`${styles.solutionItem} home-marquee-item`} key={solution.title}>
                   <article className={`${styles.solutionTile} group flex h-full flex-col overflow-hidden rounded-[1.2rem] border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover`}>
                     <div className={`${styles.solutionImage} relative`}>
-                      <SiteImage
-                        src={solution.image}
-                        alt={`${solution.title} learning experience`}
-                        aspectRatio="16/10"
-                        sizes="(max-width: 767px) 85vw, (max-width: 1023px) 45vw, 50vw"
-                        imageClassName="transition duration-500 group-hover:scale-[1.04]"
-                      />
+                      <SolutionImageLightbox src={solution.image} title={solution.title}>
+                        <SiteImage
+                          src={solution.image}
+                          alt={`${solution.title} learning experience`}
+                          aspectRatio="16/10"
+                          sizes="(max-width: 767px) 85vw, (max-width: 1023px) 45vw, 50vw"
+                          imageClassName={`transition duration-500 group-hover:scale-[1.02] ${solution.title === "STEM Lab" || solution.title === "AI & Robotics Lab" ? "object-contain bg-[#071a36]" : ""}`}
+                        />
+                      </SolutionImageLightbox>
                     </div>
                     <div className={`${styles.solutionContent} flex flex-1 flex-col px-5 pb-5 pt-8`}>
                       <span data-solution-icon={solution.icon} className={`${styles.solutionIcon} grid h-11 w-11 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm`}>
