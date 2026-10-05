@@ -148,31 +148,11 @@
   .questionCopy h2 { max-width: 37rem; }
   .questionCopy p { max-width: 34rem; }
 
-  .journeyRow :global(.home-marquee-controls),
-  .journeyRow :global([data-marquee-copy]) { display: none; }
-  .journeyRow::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    top: 1.9rem;
-    right: 10%;
-    left: 10%;
-    border-top: 1px dashed rgba(17, 100, 212, .46);
-    transform-origin: left;
-  }
-  .journeyRow:global([data-desktop-seen="enter"])::before { animation: journey-line-draw 1.3s 200ms ease-out both; }
-  .journeyRow :global(.home-marquee-viewport) { overflow: visible; padding: 1.1rem 0 0; }
-  .journeyRow :global(.home-marquee-track) { display: block; width: 100%; animation: none; transform: none; }
-  .journeyRow :global([data-marquee-original]) {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: clamp(.65rem, 1.7vw, 1.5rem);
-    width: 100%;
-    padding: 0;
-  }
-  .journeyItem { width: auto !important; min-width: 0; }
+  .journeyRow :global(.home-marquee-controls) { display: none; }
+  .journeyRow :global(.home-marquee-viewport) { overflow: hidden; padding: 1.1rem 0 1rem; }
+  .journeyRow :global(.home-marquee-track) { animation-duration: 24s; }
   .journeyItem:hover .journeyCard { transform: translateY(-5px); box-shadow: 0 14px 32px rgba(21, 83, 156, .15); }
-  .journeyArrow { right: calc(-.5rem - .45vw); top: 47%; color: #0b55bd; }
+  .journeyArrow { top: 47%; color: #0b55bd; }
 
   .solutionsRow :global(.home-marquee-controls),
   .solutionsRow :global([data-marquee-copy]) { display: none; }
