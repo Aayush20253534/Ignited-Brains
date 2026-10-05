@@ -1,0 +1,728 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 24px;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  color: var(--brand-ink);
+}
+
+.dialog[open] {
+  display: grid;
+  place-items: center;
+}
+
+.dialog::backdrop {
+  background: rgb(3 18 42 / 72%);
+  backdrop-filter: blur(7px);
+  animation: backdrop-in 300ms ease both;
+}
+
+.shell {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 672px;
+  max-height: min(88dvh, 760px);
+  overflow: hidden;
+  border: 1px solid rgb(173 197 230 / 50%);
+  border-radius: 28px;
+  background: white;
+  box-shadow:
+    0 32px 110px rgb(0 10 30 / 36%),
+    0 0 0 1px rgb(255 255 255 / 8%);
+  animation: modal-in 300ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.choiceShell {
+  max-width: 1152px;
+  height: min(84dvh, 680px);
+}
+
+.chooser {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto minmax(min-content, 1fr) auto;
+  gap: 26px;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 36px 44px 12px;
+  background: #f9fbff;
+}
+
+.intro,
+.choices,
+.process {
+  position: relative;
+  z-index: 2;
+}
+
+.intro {
+  max-width: 80%;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: var(--brand-orange);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  outline: none;
+  color: var(--brand-ink);
+  font-size: clamp(34px, 3.65vw, 48px);
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+}
+
+.title span {
+  color: var(--brand-orange);
+}
+
+.description {
+  margin: 10px 0 0;
+  color: #233c70;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 67%;
+}
+
+.card {
+  --accent: var(--brand-orange);
+  --tint: #ffede5;
+  --card-border: #ffb798;
+  --glow: rgb(255 90 20 / 12%);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 22px 24px 24px;
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  background: rgb(255 255 255 / 94%);
+  color: var(--brand-ink);
+  text-align: left;
+  box-shadow: 0 7px 22px var(--glow);
+  cursor: pointer;
+  transition:
+    transform 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.organisation {
+  --accent: #0861ff;
+  --tint: #e5eeff;
+  --card-border: #aecaff;
+  --glow: rgb(29 98 226 / 10%);
+  background: rgb(246 250 255 / 97%);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 11px 28px var(--glow);
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cardIcon,
+.cardArrow,
+.processIcon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.cardIcon {
+  width: 64px;
+  height: 64px;
+  background: var(--tint);
+  color: var(--accent);
+}
+
+.cardIcon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.cardArrow {
+  width: 44px;
+  height: 44px;
+  margin-top: 8px;
+  background: var(--tint);
+  color: var(--accent);
+}
+
+.cardArrow svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 250ms ease;
+}
+
+.card:hover .cardArrow svg {
+  transform: translateX(3px);
+}
+
+.cardLabel {
+  margin-top: 16px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  margin-top: 4px;
+  font-family: var(--font-display-family);
+  font-size: 21px;
+  font-weight: 850;
+  line-height: 1.25;
+  letter-spacing: -0.045em;
+}
+
+.cardDescription {
+  margin-top: 9px;
+  color: #293f70;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.benefits {
+  display: grid;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  color: #233d70;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.benefit svg {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.photograph {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 41%;
+  overflow: hidden;
+  background: #071c3c;
+}
+
+.labImage {
+  object-fit: cover;
+  object-position: 50% 42%;
+  transform: scale(1.12);
+}
+
+.photograph::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(
+      90deg,
+      #f9fbff 0%,
+      rgb(249 251 255 / 92%) 12%,
+      rgb(249 251 255 / 42%) 35%,
+      transparent 57%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(2 15 38 / 45%),
+      transparent 46%,
+      rgb(2 15 38 / 24%)
+    );
+}
+
+.note {
+  position: absolute;
+  z-index: 1;
+  top: 70px;
+  right: 26px;
+  margin: 0;
+  transform: rotate(-7deg);
+  color: rgb(238 247 255 / 84%);
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-style: italic;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgb(0 9 25 / 45%);
+}
+
+.note::after {
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-top: 13px;
+  transform: rotate(-3deg);
+  border-radius: 50%;
+  background: var(--brand-orange);
+  content: "";
+}
+
+.process {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-height: 84px;
+  margin-inline: -8px;
+  padding: 14px 18px;
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 22px;
+  background: rgb(238 243 255 / 90%);
+  backdrop-filter: blur(16px);
+}
+
+.processItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-inline: 8px 18px;
+}
+
+.processItem + .processItem {
+  padding-left: 24px;
+}
+
+.processItem + .processItem::before {
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 0;
+  width: 1px;
+  background: #bdceeb;
+  content: "";
+}
+
+.processIcon {
+  width: 52px;
+  height: 52px;
+  background: rgb(255 255 255 / 85%);
+  color: var(--brand-navy);
+}
+
+.processIcon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.processItem h3 {
+  margin: 0;
+  color: var(--brand-ink);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.processItem p {
+  margin: 3px 0 0;
+  color: #38568b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.close {
+  position: absolute;
+  z-index: 5;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgb(225 237 255 / 30%);
+  border-radius: 50%;
+  background: rgb(15 38 75 / 78%);
+  color: white;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
+}
+
+.close svg {
+  width: 22px;
+  height: 22px;
+}
+
+.close:hover {
+  transform: scale(1.04);
+  background: rgb(34 66 112 / 90%);
+}
+
+.close:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 3px;
+}
+
+.close:disabled {
+  cursor: wait;
+  opacity: 0.5;
+}
+
+.formHeader {
+  flex-shrink: 0;
+  padding: 22px 82px 20px 24px;
+  border-bottom: 1px solid var(--brand-line);
+}
+
+.formBody {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 24px;
+}
+
+.formHeader h2 {
+  outline: none;
+}
+
+.dialog[data-closing="true"] .shell {
+  pointer-events: none;
+  animation: modal-out 220ms ease both;
+}
+
+.dialog[data-closing="true"]::backdrop {
+  animation: backdrop-out 220ms ease both;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 640px) and (max-height: 800px) {
+  .chooser {
+    gap: 18px;
+    padding-top: 24px;
+  }
+  .title {
+    font-size: 38px;
+  }
+  .description {
+    margin-top: 6px;
+    font-size: 16px;
+  }
+  .card {
+    padding-block: 16px;
+  }
+  .cardIcon {
+    width: 48px;
+    height: 48px;
+  }
+  .cardIcon svg {
+    width: 27px;
+    height: 27px;
+  }
+  .cardArrow {
+    margin-top: 2px;
+  }
+  .cardLabel {
+    margin-top: 10px;
+  }
+  .benefits {
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .process {
+    min-height: 74px;
+    padding-block: 10px;
+  }
+  .processIcon {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .choices {
+    width: 74%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .chooser {
+    padding-inline: 32px;
+  }
+  .choices {
+    width: 85%;
+    gap: 20px;
+  }
+  .card {
+    padding-inline: 20px;
+  }
+  .cardTitle {
+    font-size: 20px;
+  }
+  .note {
+    right: 18px;
+    font-size: 24px;
+  }
+  .process {
+    padding-inline: 10px;
+  }
+  .processItem {
+    gap: 10px;
+    padding-inline: 4px 10px;
+  }
+  .processItem + .processItem {
+    padding-left: 16px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 850px) {
+  .choices {
+    width: 100%;
+  }
+  .intro {
+    max-width: 90%;
+  }
+  .photograph::after {
+    background: linear-gradient(
+      90deg,
+      #f9fbff,
+      rgb(249 251 255 / 78%) 55%,
+      rgb(249 251 255 / 50%)
+    );
+  }
+  .note {
+    display: none;
+  }
+  .processItem {
+    gap: 8px;
+  }
+  .processIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .processIcon svg {
+    width: 23px;
+    height: 23px;
+  }
+}
+
+@media (max-width: 639px), (max-height: 580px) {
+  .dialog {
+    padding: 8px;
+  }
+  .shell {
+    max-height: calc(100dvh - 16px);
+    border-radius: 22px;
+  }
+  .choiceShell {
+    height: calc(100dvh - 16px);
+  }
+  .chooser {
+    display: flex;
+    min-height: 0;
+    height: auto;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 24px 18px 18px;
+  }
+  .intro {
+    max-width: none;
+    padding-right: 38px;
+  }
+  .eyebrow {
+    font-size: 11px;
+  }
+  .title {
+    font-size: clamp(30px, 8vw, 38px);
+    line-height: 1.12;
+  }
+  .description {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+  .choices {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .card {
+    padding: 22px;
+    border-radius: 20px;
+  }
+  .cardTitle {
+    font-size: 22px;
+  }
+  .cardDescription,
+  .benefit {
+    font-size: 14px;
+  }
+  .cardIcon {
+    width: 56px;
+    height: 56px;
+  }
+  .cardLabel {
+    margin-top: 16px;
+  }
+  .benefits {
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .photograph {
+    position: relative;
+    z-index: 0;
+    inset: auto;
+    flex-shrink: 0;
+    height: 280px;
+    border-radius: 20px;
+  }
+  .labImage {
+    object-position: 50% 30%;
+  }
+  .photograph::after {
+    background: linear-gradient(
+      180deg,
+      rgb(3 18 42 / 45%),
+      transparent 65%,
+      rgb(3 18 42 / 16%)
+    );
+  }
+  .note {
+    top: 20px;
+    right: 18px;
+    font-size: 22px;
+  }
+  .process {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    margin: 0;
+    padding: 18px;
+    border-radius: 20px;
+  }
+  .processItem,
+  .processItem + .processItem {
+    gap: 14px;
+    padding: 0;
+  }
+  .processItem + .processItem {
+    padding-top: 14px;
+    border-top: 1px solid #d4dff0;
+  }
+  .processItem + .processItem::before {
+    display: none;
+  }
+  .processIcon {
+    width: 48px;
+    height: 48px;
+  }
+  .processItem h3 {
+    font-size: 14px;
+  }
+  .processItem p {
+    font-size: 12px;
+  }
+  .close {
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+  }
+  .formHeader {
+    padding: 22px 68px 18px 20px;
+  }
+  .formBody {
+    padding: 18px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .dialog::backdrop,
+  .dialog[data-closing="true"] .shell,
+  .dialog[data-closing="true"]::backdrop {
+    animation: none;
+  }
+  .card,
+  .cardArrow svg,
+  .close {
+    transition: none;
+  }
+  .card:hover,
+  .card:hover .cardArrow svg,
+  .close:hover {
+    transform: none;
+  }
+}
