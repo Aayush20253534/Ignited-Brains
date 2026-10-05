@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 
 export function SolutionImageLightbox({
   src,
@@ -10,7 +10,7 @@ export function SolutionImageLightbox({
 }: {
   src: string;
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
