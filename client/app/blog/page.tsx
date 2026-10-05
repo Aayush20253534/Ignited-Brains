@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Blog | Ideas for Hands-on Education",
   description,
   alternates: { canonical: "/blog" },
-  openGraph: { type: "website", title: "The Ignited Brains Learning Journal", description, url: "/blog", images: [{ url: blogPosts[0].image, width: 1600, height: 900, alt: blogPosts[0].alt }] },
+  openGraph: { type: "website", title: "The Ignited Brains Learning Journal", description, url: "/blog", images: [{ url: blogPosts[0].image, width: 1350, height: 1012, alt: blogPosts[0].alt }] },
   twitter: { card: "summary_large_image", title: "The Ignited Brains Learning Journal", description, images: [blogPosts[0].image] },
 };
 

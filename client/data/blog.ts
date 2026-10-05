@@ -29,9 +29,9 @@ export const blogPosts: BlogPost[] = [
     excerpt: "A practical way to turn a familiar classroom concept into a question students can investigate, test and explain.",
     category: "Hands-on Learning",
     date: "2026-10-05",
-    image: "/blog/hands-on-bridge.webp",
-    alt: "Three students measuring how a handmade wooden bridge responds to a small suspended load",
-    imageCaption: "Educational visual: a simple bridge becomes a question students can test.",
+    image: "/blog/hands-on-lab-demonstration.webp",
+    alt: "Students watching a mentor demonstrate an engineering prototype at the Ignited Brains AI and Robotics Lab",
+    imageCaption: "From the Ignited Brains archive: a hands-on lab demonstration connects questions with working equipment.",
     introduction: "A demonstration can make a concept visible. An investigation gives students responsibility for finding out what happens. The difference is often a small change in the question: instead of showing a strong bridge, ask what makes one bridge stronger than another. A useful hands-on lesson makes room for a prediction, a fair comparison and an explanation that refers to evidence.",
     sections: [
       {
@@ -135,9 +135,9 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Help students distinguish a programmed rule from a learned pattern, then test how each behaves when conditions change.",
     category: "AI & Robotics",
     date: "2026-10-05",
-    image: "/blog/ai-object-sorting.webp",
-    alt: "Students testing a small camera and servo gripper with differently coloured geometric objects",
-    imageCaption: "Educational visual: object sorting makes the link between sensing, decisions and action tangible.",
+    image: "/blog/robotics-lab-equipment.webp",
+    alt: "An Ignited Brains educator presenting learning equipment in the AI and Robotics Lab",
+    imageCaption: "From the Ignited Brains archive: robotics equipment gives learners a way to explore sensing, decisions and action.",
     introduction: "A robot moving across a table can look intelligent even when it follows a few fixed instructions. That makes a robotics lab a useful place to ask a precise question: how was the decision made? Students should understand the difference between a rule written by a person and a pattern learned from examples before combining either with a moving machine.",
     sections: [
       {

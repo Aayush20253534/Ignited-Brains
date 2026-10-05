@@ -61,7 +61,7 @@ export default function AboutPage() {
           <div className={styles.heroOrbit} aria-hidden="true"><i /><i /><i /></div>
           <div className={styles.heroOrbitSecond} aria-hidden="true"><i /><i /></div>
           <div className={styles.heroPhoto} data-reveal data-delay="2">
-            <Image src="/about/hero-inquiry.webp" alt="Students investigating an optics experiment and sensor circuit together at an innovation workbench" fill preload sizes="(max-width: 767px) 90vw, 46vw" />
+            <Image src="/about/hero-lab-visit.webp" alt="The Ignited Brains team discussing STEM and space education with visitors inside the Curiosity Corner lab" fill preload sizes="(max-width: 767px) 90vw, 46vw" />
           </div>
         </div>
       </div>

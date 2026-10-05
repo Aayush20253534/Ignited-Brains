@@ -62,7 +62,7 @@ export default async function BlogArticlePage({ params }: Props) {
         <div className={styles.author}><span className={styles.authorMark} aria-hidden="true">IB</span><span>Ignited Brains</span><PostMeta post={summary} /></div>
       </header>
       <figure className={`${styles.container} ${styles.articleFigure}`}>
-        <div className={`${styles.articleImage} ${post.image.includes("hands-on-bridge") || post.image.includes("ai-object-sorting") ? styles.wideImage : ""}`}><Image src={post.image} alt={post.alt} fill preload sizes="(max-width: 767px) 90vw, 1200px" /></div>
+        <div className={styles.articleImage}><Image src={post.image} alt={post.alt} fill preload sizes="(max-width: 767px) 90vw, 1200px" /></div>
         <figcaption>{post.imageCaption}</figcaption>
       </figure>
       <div className={`${styles.container} ${styles.articleLayout}`}>
