@@ -1,16 +1,17 @@
 "use client";
 
 import {
-  type FormEvent,
   type ReactNode,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   useSyncExternalStore,
 } from "react";
 
 import { BrandLogo } from "@/components/layout/brand-logo";
+import { AdminLogin, AdminSessionEnding, AdminSignedOut } from "./admin-auth-screens";
 import { cn } from "@/lib/cn";
 
 const TOKEN_KEY = "ignited-brains-admin-token";
@@ -301,160 +302,6 @@ async function parseResponse<T>(response: Response): Promise<T> {
   return body as T;
 }
 
-function LoginScreen({
-  onAuthenticated,
-}: {
-  onAuthenticated: (token: string, admin: AdminUser) => void;
-}) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitting(true);
-    setError("");
-
-    try {
-      const response = await fetch("/api/v1/admin/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await parseResponse<{
-        token: string;
-        admin: AdminUser;
-      }>(response);
-
-      sessionStorage.setItem(TOKEN_KEY, data.token);
-      onAuthenticated(data.token, data.admin);
-    } catch (loginError) {
-      setError(
-        loginError instanceof Error
-          ? loginError.message
-          : "Unable to sign in. Please try again.",
-      );
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  return (
-    <div className="fixed inset-0 z-[120] overflow-y-auto bg-[#f5f8fd]">
-      <div className="grid min-h-svh lg:grid-cols-[1.1fr_0.9fr]">
-        <section className="relative hidden overflow-hidden bg-[#031a3a] p-12 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-40"
-            aria-hidden="true"
-            style={{
-              background:
-                "radial-gradient(circle at 75% 15%, rgba(54,124,255,.45), transparent 28rem), radial-gradient(circle at 15% 90%, rgba(255,90,20,.2), transparent 28rem)",
-            }}
-          />
-          <div className="relative">
-            <BrandLogo inverted />
-          </div>
-
-          <div className="relative max-w-2xl">
-            <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-brand-orange">
-              Administration Portal
-            </p>
-            <h1 className="mt-5 text-balance text-5xl font-black leading-[0.98] tracking-[-0.05em] xl:text-6xl">
-              Keep every enquiry and application moving.
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-white/65">
-              Review incoming leads, track applicants, update statuses and keep
-              the Ignited Brains team aligned from one secure workspace.
-            </p>
-          </div>
-
-          <p className="relative text-xs text-white/40">
-            Restricted access · Ignited Brains internal use
-          </p>
-        </section>
-
-        <section className="flex min-h-svh items-center justify-center px-5 py-10 sm:px-8">
-          <div className="w-full max-w-[440px]">
-            <div className="mb-8 lg:hidden">
-              <BrandLogo />
-            </div>
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_30px_80px_rgba(15,39,78,.12)] sm:p-8">
-              <span className="inline-flex rounded-full bg-orange-50 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.13em] text-brand-orange">
-                Secure Admin
-              </span>
-              <h2 className="mt-5 text-3xl font-black tracking-[-0.04em] text-brand-blue">
-                Welcome back.
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-500">
-                Sign in with your Ignited Brains administrator credentials.
-              </p>
-
-              <form onSubmit={handleSubmit} className="mt-7 space-y-5">
-                <label className="block text-xs font-extrabold text-brand-blue">
-                  Email address
-                  <input
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    type="email"
-                    autoComplete="username"
-                    required
-                    placeholder="admin@ignitedbrains.com"
-                    className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-base font-medium text-brand-ink outline-none transition placeholder:text-slate-300 focus:border-brand-blue/50 focus:ring-4 focus:ring-brand-blue/10"
-                  />
-                </label>
-
-                <label className="block text-xs font-extrabold text-brand-blue">
-                  Password
-                  <span className="relative mt-2 block">
-                    <input
-                      value={password}
-                      onChange={(event) => setPassword(event.target.value)}
-                      type={showPassword ? "text" : "password"}
-                      autoComplete="current-password"
-                      required
-                      placeholder="Enter your password"
-                      className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 pr-12 text-base font-medium text-brand-ink outline-none transition placeholder:text-slate-300 focus:border-brand-blue/50 focus:ring-4 focus:ring-brand-blue/10"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword((value) => !value)}
-                      aria-label={showPassword ? "Hide password" : "Show password"}
-                      className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-lg text-slate-400 transition hover:bg-slate-50 hover:text-brand-blue"
-                    >
-                      <AdminIcon name="eye" className="h-4 w-4" />
-                    </button>
-                  </span>
-                </label>
-
-                {error ? (
-                  <div
-                    role="alert"
-                    className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700"
-                  >
-                    {error}
-                  </div>
-                ) : null}
-
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="flex h-12 w-full items-center justify-center rounded-xl bg-brand-orange px-5 text-sm font-black text-white shadow-[0_12px_30px_rgba(255,90,20,.25)] transition hover:bg-brand-orange-dark disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {submitting ? "Signing in…" : "Sign in to Admin"}
-                </button>
-              </form>
-            </div>
-
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-}
 
 function Sidebar({
   tab,
@@ -544,7 +391,7 @@ function Sidebar({
             <button
               type="button"
               onClick={onLogout}
-              className="mt-4 flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-white/10 text-xs font-extrabold text-white/65 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
+              className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/10 text-xs font-extrabold text-white/65 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
             >
               <AdminIcon name="logout" className="h-4 w-4" />
               Sign out
@@ -594,6 +441,7 @@ function Toolbar({
         <button
           type="button"
           onClick={onRefresh}
+          aria-label="Refresh admin data"
           disabled={refreshing}
           className="flex h-10 shrink-0 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 text-xs font-extrabold text-brand-blue transition hover:bg-slate-50 disabled:opacity-50"
         >
@@ -643,6 +491,7 @@ function FilterBar({
 
       {setType ? (
         <select
+          aria-label="Applicant type"
           value={type}
           onChange={(event) => setType(event.target.value)}
           className="h-11 rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold text-brand-blue outline-none focus:border-brand-blue/40"
@@ -657,6 +506,7 @@ function FilterBar({
       ) : null}
 
       <select
+        aria-label="Status filter"
         value={status}
         onChange={(event) => setStatus(event.target.value)}
         className="h-11 rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold text-brand-blue outline-none focus:border-brand-blue/40"
@@ -731,6 +581,23 @@ function DetailDrawer({
   onClose: () => void;
   onStatusChange: (status: ContactStatus | ApplicationStatus) => void;
 }) {
+  const drawerRef = useRef<HTMLElement>(null);
+  const selectedId = selected?.record.id;
+  useEffect(() => {
+    if (!selectedId) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    drawerRef.current?.focus();
+    function handleKey(event: KeyboardEvent) {
+      if (event.key === "Escape") { event.preventDefault(); onClose(); return; }
+      if (event.key !== "Tab") return;
+      const controls = Array.from(drawerRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), select:not(:disabled), a[href]') || []);
+      const first = controls[0]; const last = controls.at(-1);
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === drawerRef.current)) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => { window.removeEventListener("keydown", handleKey); previousFocus?.focus({ preventScroll: true }); };
+  }, [onClose, selectedId]);
   if (!selected) return null;
 
   const record = selected.record;
@@ -743,15 +610,17 @@ function DetailDrawer({
         type="button"
         className="fixed inset-0 z-[150] bg-slate-950/35 backdrop-blur-[2px]"
         aria-label="Close details"
+        tabIndex={-1}
+        aria-hidden="true"
         onClick={onClose}
       />
-      <aside className="fixed inset-y-0 right-0 z-[160] w-full max-w-xl overflow-y-auto border-l border-slate-200 bg-white shadow-2xl">
+      <aside ref={drawerRef} role="dialog" aria-modal="true" aria-labelledby="admin-detail-title" tabIndex={-1} className="fixed inset-y-0 right-0 z-[160] w-full max-w-xl overflow-y-auto border-l border-slate-200 bg-white shadow-2xl outline-none">
         <div className="sticky top-0 z-10 flex min-h-[72px] items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur sm:px-6">
           <div>
             <p className="text-[0.65rem] font-black uppercase tracking-[0.14em] text-brand-orange">
               {isContact ? "Contact enquiry" : "Application"}
             </p>
-            <h2 className="mt-1 text-xl font-black text-brand-ink">{record.name}</h2>
+            <h2 id="admin-detail-title" className="mt-1 text-xl font-black text-brand-ink">{record.name}</h2>
           </div>
           <button
             type="button"
@@ -780,6 +649,7 @@ function DetailDrawer({
                 </span>
               </div>
               <select
+                aria-label="Update status"
                 value={record.status}
                 disabled={busy}
                 onChange={(event) =>
@@ -929,12 +799,20 @@ function AdminWorkspace() {
   const [token, setToken] = useState(initialToken);
   const [admin, setAdmin] = useState<AdminUser | null>(null);
   const [booting, setBooting] = useState(Boolean(initialToken));
+  const [authScreen, setAuthScreen] = useState<"signin" | "signing-out" | "signed-out" | "logout-error">("signin");
+  const [logoutError, setLogoutError] = useState("");
+  const tokenRef = useRef(initialToken);
+  const sessionVersion = useRef(0);
+  const activeRequests = useRef(new Set<AbortController>());
+  const logoutTokenRef = useRef("");
+  const logoutRequestRef = useRef<AbortController | null>(null);
   const [tab, setTab] = useState<AdminTab>("overview");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [refreshVersion, setRefreshVersion] = useState(0);
   const [completedRefresh, setCompletedRefresh] = useState("");
   const [error, setError] = useState("");
   const [selected, setSelected] = useState<SelectedRecord | null>(null);
+  const closeDetails = useCallback(() => setSelected(null), []);
   const [statusBusy, setStatusBusy] = useState(false);
 
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
@@ -960,37 +838,67 @@ function AdminWorkspace() {
   ]);
   const refreshing = Boolean(token && admin && completedRefresh !== refreshKey);
 
+  const clearClientSession = useCallback(() => {
+    sessionVersion.current += 1;
+    for (const controller of activeRequests.current) controller.abort();
+    activeRequests.current.clear();
+    tokenRef.current = "";
+    try { sessionStorage.removeItem(TOKEN_KEY); } catch { /* Storage can be unavailable in private browsing. */ }
+    setToken(""); setAdmin(null); setBooting(false);
+    setSummary(null); setContacts([]); setApplications([]); setSelected(null);
+    setContactPagination(emptyPagination); setApplicationPagination(emptyPagination);
+    setContactPage(1); setApplicationPage(1);
+    setContactStatus(""); setContactQuery(""); setApplicationStatus(""); setApplicationType(""); setApplicationQuery("");
+    setTab("overview"); setMobileOpen(false); setStatusBusy(false);
+    setCompletedRefresh(""); setRefreshVersion(0); setError("");
+  }, []);
+
+  useEffect(() => {
+    const requests = activeRequests.current;
+    return () => {
+      for (const controller of requests) controller.abort();
+      requests.clear();
+      logoutRequestRef.current?.abort();
+    };
+  }, []);
+
   const apiFetch = useCallback(
     async <T,>(path: string, options?: RequestInit): Promise<T> => {
-      if (!token) throw new Error("Authentication required");
-
-      const response = await fetch(path, {
-        ...options,
-        headers: {
-          ...(options?.body ? { "Content-Type": "application/json" } : {}),
-          Authorization: `Bearer ${token}`,
-          ...options?.headers,
-        },
-        cache: "no-store",
-      });
-
-      if (response.status === 401) {
-        throw new AdminSessionExpiredError("Your session has expired. Please sign in again.");
+      if (!token || tokenRef.current !== token) throw new DOMException("Session ended", "AbortError");
+      const version = sessionVersion.current;
+      const controller = new AbortController();
+      activeRequests.current.add(controller);
+      const signal = options?.signal ? AbortSignal.any([controller.signal, options.signal]) : controller.signal;
+      try {
+        const response = await fetch(path, {
+          ...options, signal,
+          headers: {
+            ...(options?.body ? { "Content-Type": "application/json" } : {}),
+            Authorization: `Bearer ${token}`,
+            ...options?.headers,
+          },
+          cache: "no-store",
+        });
+        if (version !== sessionVersion.current || signal.aborted) throw new DOMException("Session ended", "AbortError");
+        if (response.status === 401) throw new AdminSessionExpiredError("Your session has expired. Please sign in again.");
+        const data = await parseResponse<T>(response);
+        if (version !== sessionVersion.current || signal.aborted) throw new DOMException("Session ended", "AbortError");
+        return data;
+      } finally {
+        activeRequests.current.delete(controller);
       }
-
-      return parseResponse<T>(response);
     },
     [token],
   );
 
   const handleRequestError = useCallback((requestError: unknown, fallback: string) => {
+    if (requestError instanceof Error && requestError.name === "AbortError") return;
     if (requestError instanceof AdminSessionExpiredError) {
-      sessionStorage.removeItem(TOKEN_KEY);
-      setToken("");
-      setAdmin(null);
+      clearClientSession();
+      setAuthScreen("signin");
     }
     setError(requestError instanceof Error ? requestError.message : fallback);
-  }, []);
+  }, [clearClientSession]);
 
   const loadSummary = useCallback((signal?: AbortSignal) =>
     apiFetch<DashboardSummary>("/api/v1/admin/dashboard/summary", { signal }), [apiFetch]);
@@ -1036,9 +944,13 @@ function AdminWorkspace() {
     const sessionToken = initialToken;
     let active = true;
     const controller = new AbortController();
+    const version = sessionVersion.current;
+    const requests = activeRequests.current;
+    requests.add(controller);
 
     async function restoreSession() {
       try {
+        if (readStoredToken() !== sessionToken || tokenRef.current !== sessionToken) throw new Error("Session ended");
         const response = await fetch("/api/v1/admin/auth/me", {
           headers: { Authorization: `Bearer ${sessionToken}` },
           cache: "no-store",
@@ -1046,15 +958,15 @@ function AdminWorkspace() {
         });
         const data = await parseResponse<{ admin: AdminUser }>(response);
 
-        if (!active) return;
+        if (!active || version !== sessionVersion.current) return;
         setToken(sessionToken);
         setAdmin(data.admin);
       } catch {
-        if (!active) return;
-        sessionStorage.removeItem(TOKEN_KEY);
-        setToken("");
+        if (!active || version !== sessionVersion.current) return;
+        clearClientSession();
       } finally {
-        if (active) setBooting(false);
+        requests.delete(controller);
+        if (active && version === sessionVersion.current) setBooting(false);
       }
     }
 
@@ -1063,19 +975,41 @@ function AdminWorkspace() {
     return () => {
       active = false;
       controller.abort();
+      requests.delete(controller);
     };
-  }, [initialToken]);
+  }, [clearClientSession, initialToken]);
+
+  useEffect(() => {
+    // A browser history cache must revalidate with the server before showing records.
+    function revalidate(event: PageTransitionEvent) {
+      if (!event.persisted) return;
+      const sessionToken = readStoredToken();
+      if (!sessionToken || sessionToken !== tokenRef.current) { clearClientSession(); setAuthScreen("signin"); return; }
+      setBooting(true);
+      const version = sessionVersion.current;
+      const controller = new AbortController();
+      activeRequests.current.add(controller);
+      void fetch("/api/v1/admin/auth/me", { headers: { Authorization: `Bearer ${sessionToken}` }, cache: "no-store", signal: controller.signal })
+        .then(response => parseResponse<{ admin: AdminUser }>(response))
+        .then(data => { if (version === sessionVersion.current && !controller.signal.aborted) setAdmin(data.admin); })
+        .catch(() => { if (version === sessionVersion.current && !controller.signal.aborted) { clearClientSession(); setAuthScreen("signin"); } })
+        .finally(() => { activeRequests.current.delete(controller); if (version === sessionVersion.current) setBooting(false); });
+    }
+    window.addEventListener("pageshow", revalidate);
+    return () => window.removeEventListener("pageshow", revalidate);
+  }, [clearClientSession]);
 
   useEffect(() => {
     if (!token || !admin) return;
     const controller = new AbortController();
     const { signal } = controller;
+    const version = sessionVersion.current;
     void Promise.all([
       loadSummary(signal),
       tab !== "applications" ? loadContacts(signal) : Promise.resolve(null),
       tab !== "contacts" ? loadApplications(signal) : Promise.resolve(null),
     ]).then(([nextSummary, nextContacts, nextApplications]) => {
-      if (signal.aborted) return;
+      if (signal.aborted || version !== sessionVersion.current) return;
       setSummary(nextSummary);
       if (nextContacts) {
         setContacts(nextContacts.data);
@@ -1087,9 +1021,9 @@ function AdminWorkspace() {
       }
       setError("");
     }).catch(refreshError => {
-      if (!signal.aborted) handleRequestError(refreshError, "Unable to load admin data.");
+      if (!signal.aborted && version === sessionVersion.current) handleRequestError(refreshError, "Unable to load admin data.");
     }).finally(() => {
-      if (!signal.aborted) setCompletedRefresh(refreshKey);
+      if (!signal.aborted && version === sessionVersion.current) setCompletedRefresh(refreshKey);
     });
     return () => controller.abort();
   }, [admin, handleRequestError, loadApplications, loadContacts, loadSummary, refreshKey, tab, token]);
@@ -1116,19 +1050,33 @@ function AdminWorkspace() {
   }, [tab]);
 
   function handleAuthenticated(nextToken: string, nextAdmin: AdminUser) {
+    try { sessionStorage.setItem(TOKEN_KEY, nextToken); } catch { /* The current tab can still use an in-memory session. */ }
+    tokenRef.current = nextToken;
     setToken(nextToken);
     setAdmin(nextAdmin);
     setBooting(false);
+    setError(""); setAuthScreen("signin"); setLogoutError(""); logoutTokenRef.current = "";
   }
 
-  function handleLogout() {
-    sessionStorage.removeItem(TOKEN_KEY);
-    setToken("");
-    setAdmin(null);
-    setSummary(null);
-    setContacts([]);
-    setApplications([]);
-    setSelected(null);
+  async function handleLogout() {
+    if (logoutRequestRef.current) return;
+    const sessionToken = tokenRef.current || logoutTokenRef.current;
+    if (!sessionToken) { clearClientSession(); setAuthScreen("signin"); return; }
+    logoutTokenRef.current = sessionToken;
+    clearClientSession();
+    setAuthScreen("signing-out"); setLogoutError("");
+    const controller = new AbortController();
+    logoutRequestRef.current = controller;
+    try {
+      const response = await fetch("/api/v1/admin/auth/logout", { method: "POST", headers: { Authorization: `Bearer ${sessionToken}`, Accept: "application/json" }, cache: "no-store", signal: controller.signal, keepalive: true });
+      // A 401 means the server has already invalidated or expired this session.
+      if (!response.ok && response.status !== 401) await parseResponse(response);
+      if (!controller.signal.aborted) { logoutTokenRef.current = ""; setAuthScreen("signed-out"); }
+    } catch {
+      if (!controller.signal.aborted) { setLogoutError("Your browser session is cleared, but the server could not confirm sign-out. Check your connection and retry to finish ending the session."); setAuthScreen("logout-error"); }
+    } finally {
+      logoutRequestRef.current = null;
+    }
   }
 
   async function updateSelectedStatus(
@@ -1178,8 +1126,11 @@ function AdminWorkspace() {
     return <AdminLoading />;
   }
 
+  if (authScreen === "signing-out" || authScreen === "logout-error") return <AdminSessionEnding error={logoutError} onRetry={() => void handleLogout()} />;
+  if (authScreen === "signed-out") return <AdminSignedOut onSignIn={() => { setError(""); setAuthScreen("signin"); }} />;
+
   if (!token || !admin) {
-    return <LoginScreen onAuthenticated={handleAuthenticated} />;
+    return <AdminLogin onAuthenticated={handleAuthenticated} sessionError={error} />;
   }
 
   return (
@@ -1571,7 +1522,7 @@ function AdminWorkspace() {
       <DetailDrawer
         selected={selected}
         busy={statusBusy}
-        onClose={() => setSelected(null)}
+        onClose={closeDetails}
         onStatusChange={(status) => void updateSelectedStatus(status)}
       />
     </div>

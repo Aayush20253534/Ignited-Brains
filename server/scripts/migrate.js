@@ -5,8 +5,12 @@ const { validateDatabaseConfig } = require('../src/config');
 
 async function main() {
   validateDatabaseConfig();
-  const sql = await fs.readFile(path.join(__dirname, '..', 'sql', '001_initial.sql'), 'utf8');
-  await pool.query(sql);
+  const directory = path.join(__dirname, '..', 'sql');
+  const migrations = (await fs.readdir(directory)).filter((file) => file.endsWith('.sql')).sort();
+  for (const migration of migrations) {
+    const sql = await fs.readFile(path.join(directory, migration), 'utf8');
+    await pool.query(sql);
+  }
   console.log('Database migration completed.');
 }
 

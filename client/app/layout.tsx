@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import { SiteFooter, SiteHeader, SiteMotion } from "@/components/layout";
+import { SiteShell } from "@/components/layout/site-shell";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -86,16 +87,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        <div className="flex min-h-screen flex-col">
-          <SiteHeader />
-          <SiteMotion />
-          <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
-            {children}
-          </div>
-          <SiteFooter />
-        </div>
+        <SiteMotion />
+        <SiteShell header={<SiteHeader />} footer={<SiteFooter />}>{children}</SiteShell>
       </body>
     </html>
   );
 }
-

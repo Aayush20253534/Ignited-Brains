@@ -6,6 +6,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
+    "prestart": "npm run db:migrate",
     "start": "node src/server.js",
     "db:migrate": "node scripts/migrate.js",
     "admin:create": "node scripts/create-admin.js",
@@ -27,6 +28,7 @@
     "pg": "^8.23.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "nodemon": "^3.1.14"
   }
 }

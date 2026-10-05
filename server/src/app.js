@@ -24,6 +24,10 @@ app.get('/health', asyncHandler(async (_req, res) => {
 }));
 
 app.use('/api/v1', publicRoutes);
+app.use('/api/v1/admin', (_req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');
+  next();
+});
 app.use('/api/v1/admin/auth', adminAuthRoutes);
 app.use('/api/v1/admin', adminDataRoutes);
 

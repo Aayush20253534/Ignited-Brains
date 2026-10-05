@@ -1,10 +1,11 @@
 const express = require('express');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const { pool } = require('../db');
 const { config } = require('../config');
 const { asyncHandler, HttpError } = require('../utils/http');
-const { normalizeEmail, cleanString } = require('../utils/text');
+const { normalizeEmail } = require('../utils/text');
 const { requireAdmin } = require('../middleware/auth');
 const { createRateLimiter } = require('../middleware/security');
 
@@ -47,6 +48,7 @@ router.post('/login', loginLimiter, asyncHandler(async (req, res) => {
       issuer: config.jwtIssuer,
       audience: config.jwtAudience,
       algorithm: 'HS256',
+      jwtid: crypto.randomUUID(),
     },
   );
 
@@ -60,5 +62,16 @@ router.post('/login', loginLimiter, asyncHandler(async (req, res) => {
 router.get('/me', requireAdmin, (req, res) => {
   res.json({ admin: req.admin });
 });
+
+router.post('/logout', requireAdmin, asyncHandler(async (req, res) => {
+  await pool.query(
+    `INSERT INTO admin_token_revocations (token_digest, expires_at)
+     VALUES ($1, $2) ON CONFLICT (token_digest) DO NOTHING`,
+    [req.adminSession.tokenDigest, req.adminSession.expiresAt],
+  );
+  // An expired JWT already fails signature/expiry validation, so its digest is no longer needed.
+  await pool.query('DELETE FROM admin_token_revocations WHERE expires_at <= NOW()');
+  res.json({ message: 'Your administrator session has ended.' });
+}));
 
 module.exports = router;

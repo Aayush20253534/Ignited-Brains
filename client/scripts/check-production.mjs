@@ -22,6 +22,9 @@ const requiredRoutes = [
   "app/shop/page.tsx",
   "app/privacy/page.tsx",
   "app/terms/page.tsx",
+  "app/apply/student/page.tsx",
+  "app/apply/organisation/page.tsx",
+  "app/admin/page.tsx",
 ];
 
 for (const route of requiredRoutes) {
@@ -87,6 +90,9 @@ const publicFilesToCheck = [
   "public/projects-v2/archive-students-hero.webp",
   "public/media-v2/hero-editorial.webp",
   "public/contact/design/hero.webp",
+  "public/admin/signed-out-workspace.webp",
+  "public/applications/student-hero.webp",
+  "public/applications/organisation-hero.webp",
 ];
 
 for (const file of publicFilesToCheck) {

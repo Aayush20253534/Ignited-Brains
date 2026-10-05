@@ -312,7 +312,7 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <PartnerApplicationDialog className="mt-5 w-full !rounded-lg" />
+          <PartnerApplicationDialog className="mt-5 w-full !rounded-lg" onNavigate={closeMobileMenu} />
         </Container>
       </div>
     </header>

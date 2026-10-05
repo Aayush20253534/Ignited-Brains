@@ -7,7 +7,7 @@ This backend provides public contact/application submission APIs and a JWT-prote
 - PostgreSQL persistence for contact enquiries, student applications, organization applications and admin users.
 - Resend notifications for every successful public submission.
 - Argon2id password hashing for admin accounts.
-- HS256-signed JWT admin sessions with issuer/audience validation.
+- HS256-signed JWT admin sessions with issuer/audience validation and persistent logout revocation.
 - Paginated admin contact/application lists, search, status filters and student/organization filters.
 - Individual submission detail endpoints and status update endpoints.
 - CORS allow-listing, request IDs, body-size limits and simple abuse throttling.
@@ -122,6 +122,7 @@ Content-Type: application/json
 Use the returned token as `Authorization: Bearer <token>`.
 
 - `GET /api/v1/admin/auth/me`
+- `POST /api/v1/admin/auth/logout` (send the current bearer token; ends that session)
 - `GET /api/v1/admin/dashboard/summary`
 - `GET /api/v1/admin/contacts?page=1&limit=20&status=NEW&query=school`
 - `GET /api/v1/admin/contacts/:id`
@@ -138,7 +139,21 @@ Application statuses: `NEW`, `IN_REVIEW`, `CONTACTED`, `APPROVED`, `REJECTED`, `
 
 Set all production environment variables from `.env.example`. `RESEND_FROM` must use a sender/domain approved by Resend. `NOTIFICATION_TO` is the inbox that should receive new contact/application notifications.
 
-Run `npm run db:migrate` against the production database before starting the API, then create the initial admin once. Do not expose `ADMIN_PASSWORD` longer than necessary after bootstrap.
+`npm start` applies all idempotent SQL migrations before starting the API, including
+`002_admin_logout.sql`. When starting with `node src/server.js` or `npm run dev`,
+run `npm run db:migrate` first. The database role must be allowed to create the
+revocation table/index. Create the initial admin once and do not expose
+`ADMIN_PASSWORD` longer than necessary after bootstrap.
+
+Logout stores a SHA-256 token digest until the JWT expires. Every protected route
+checks the shared PostgreSQL revocation table, so signing out also invalidates a
+copied bearer token and works across server restarts/instances. Other sessions
+remain valid. The frontend clears its token, pending requests and loaded records
+before showing the signed-out confirmation; a failed logout offers a retry.
+
+`npm test` runs validation and real HTTP/authentication/persistence tests against
+an isolated in-memory PostgreSQL engine (PGlite). It needs no production database
+or notification credentials.
 
 Set `API_ORIGIN` on the deployed Next.js frontend to this server's HTTPS origin.
 The frontend uses a same-origin `/api/v1/*` bridge, so its browser requests do

@@ -9,6 +9,7 @@ const allowed = new Map<string, Set<string>>([
   ["applications", new Set(["POST"])],
   ["admin/auth/login", new Set(["POST"])],
   ["admin/auth/me", new Set(["GET"])],
+  ["admin/auth/logout", new Set(["POST"])],
   ["admin/dashboard/summary", new Set(["GET"])],
   ["admin/contacts", new Set(["GET"])],
   ["admin/applications", new Set(["GET"])],
