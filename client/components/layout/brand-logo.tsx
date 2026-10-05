@@ -6,11 +6,13 @@ import { cn } from "@/lib/cn";
 interface BrandLogoProps {
   className?: string;
   inverted?: boolean;
+  showText?: boolean;
 }
 
 export function BrandLogo({
   className,
   inverted = false,
+  showText = true,
 }: BrandLogoProps) {
   const textColor = inverted ? "text-white" : "text-brand-blue";
 
@@ -33,7 +35,7 @@ export function BrandLogo({
         />
       </span>
 
-      <span className={cn("leading-none", textColor)}>
+      {showText ? <span className={cn("leading-none", textColor)}>
         <span className="block text-[1.2rem] font-black tracking-[-0.045em] sm:text-[1.35rem]">
           ignited
         </span>
@@ -42,7 +44,7 @@ export function BrandLogo({
             BRAINS
           </span>
         </span>
-      </span>
+      </span> : null}
     </Link>
   );
 }
