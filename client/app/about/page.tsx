@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EarthCta } from "@/components/layout/earth-cta";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { AboutArtwork } from "@/components/about/about-artwork";
@@ -116,8 +117,6 @@ export default function AboutPage() {
       </div>
     </section>
 
-    <section className={styles.closing} aria-labelledby="closing-title">
-      <div className={`${styles.container} ${styles.closingGrid}`}><span className={styles.closingIcon} aria-hidden="true"><HomeIcon name="innovation" /></span><div data-reveal><p className={styles.eyebrow}>Let’s Build Together</p><h2 id="closing-title">The future belongs to curious minds.</h2><p>Partner with us to create impactful learning experiences for students and communities.</p></div><Action href="/contact" primary>Partner With Us</Action></div>
-    </section>
+    <EarthCta eyebrow="Let’s Build Together" title={<>The future belongs to curious minds.</>} description={<>Partner with us to create impactful learning experiences for students and communities.</>} actions={<Action href="/contact" primary>Partner With Us</Action>} />
   </main></AboutMotion>;
 }

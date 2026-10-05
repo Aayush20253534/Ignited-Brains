@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EarthCta } from "@/components/layout/earth-cta";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -70,22 +71,7 @@ export default function ShopPage() {
           </div>
         </section>
 
-        <section className={styles.earthBanner} aria-labelledby="journey-title">
-          <Image src="/shop/design/earth-banner.webp" alt="" fill sizes="100vw" className={styles.cover} />
-          <div className={`${styles.container} ${styles.bannerGrid}`}>
-            <div className={styles.bannerCopy} data-reveal>
-              <p className={styles.eyebrow}>Be Part of the Journey</p>
-              <h2 id="journey-title" className={styles.title}>Let’s create<br /><em>brighter tomorrows.</em></h2>
-              <p>Hands-on learning. Limitless curiosity.<br />A new chapter for Ignited Brains.</p>
-            </div>
-            <div className={styles.launchCard} data-reveal data-delay="1">
-              <span className={styles.launchIcon}><PageIcon name="innovation" /></span>
-              <p>Something exciting is on its way.</p>
-              <Status />
-              <Link href="/contact" className={styles.textLink}>Connect with us <span aria-hidden="true">↗</span></Link>
-            </div>
-          </div>
-        </section>
+        <EarthCta eyebrow="Be Part of the Journey" title={<>Let’s create<br /><em>brighter tomorrows.</em></>} description={<>Hands-on learning. Limitless curiosity.<br />A new chapter for Ignited Brains.</>} actions={<Link href="/contact" className={styles.textLink}>Connect with us <span aria-hidden="true">↗</span></Link>} />
       </main>
     </AboutMotion>
   );

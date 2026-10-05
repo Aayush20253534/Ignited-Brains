@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EarthCta } from "@/components/layout/earth-cta";
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
@@ -132,10 +133,6 @@ export default function MediaPage() {
       <div className={styles.container} data-reveal><p className={styles.eyebrow}>The story continues</p><h2 id="manifesto-title">Curiosity makes<br /><em>good stories.</em></h2><p>The best ones begin when students start discovering for themselves.</p></div>
     </section>
 
-    <section className={styles.finalCta} data-media-section aria-labelledby="cta-title">
-      <Image src="/media-v2/final-network.svg" alt="" fill aria-hidden="true" className={styles.finalNetwork} />
-      <div className={styles.finalShade} />
-      <div className={styles.container} data-reveal><div className={styles.ctaCopy}><p className={styles.eyebrow}>Keep Exploring</p><h2 id="cta-title">The next story<br />is already <em>being built.</em></h2><p>Discover the projects, spaces and experiences behind Ignited Brains.</p><div className={styles.actions}><Link href="/projects" className={styles.primaryButton}>Explore Projects <Arrow /></Link><Link href="/contact" className={styles.outlineButton}>Partner With Us <Arrow /></Link></div></div></div>
-    </section>
+    <EarthCta eyebrow="Keep Exploring" title={<>The next story<br />is already <em>being built.</em></>} description={<>Discover the projects, spaces and experiences behind Ignited Brains.</>} actions={<><Link href="/projects" className={styles.primaryButton}>Explore Projects <Arrow /></Link><Link href="/contact" className={styles.outlineButton}>Partner With Us <Arrow /></Link></>} />
   </main></MediaMotion></MediaLightbox>;
 }

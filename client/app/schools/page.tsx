@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EarthCta } from "@/components/layout/earth-cta";
 import Image from "next/image";
 
 import { HomeIcon } from "@/components/home/home-icon";
@@ -179,22 +180,7 @@ export default function SchoolsPage() {
         </Container>
       </section>
 
-      <section className="dark-space-surface border-y border-white/10 py-0">
-        <Container wide className="grid min-h-[330px] items-center gap-8 py-10 lg:grid-cols-[0.72fr_1.28fr] lg:py-0">
-          <div className="relative z-10">
-            <p className="text-xs font-black uppercase tracking-[0.15em] text-white/55">From Classrooms to Communities</p>
-            <h2 className="mt-4 max-w-xl text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-white sm:text-5xl">Give students more than a classroom.</h2>
-            <p className="mt-4 max-w-lg text-base leading-7 text-white/65">Let&apos;s create spaces where curiosity turns into real skills, and ideas turn into impact.</p>
-            <ButtonLink href="/projects" size="lg" showArrow className="mt-7">Watch Our Impact</ButtonLink>
-          </div>
-          <div className="relative min-h-[280px] self-stretch lg:min-h-[330px]">
-            <div className="absolute inset-0 overflow-hidden">
-              <Image src={pageAssetSlots.schools.ctaStudent} alt="Student holding a satellite model against a future-focused learning backdrop" fill sizes="(max-width: 1024px) 100vw, 60vw" className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#041b3f] via-[#041b3f]/25 to-transparent" />
-            </div>
-          </div>
-        </Container>
-      </section>
+      <EarthCta eyebrow="From Classrooms to Communities" title={<>Give students more than a classroom.</>} description={<>Let&apos;s create spaces where curiosity turns into real skills, and ideas turn into impact.</>} actions={<ButtonLink href="/projects" size="lg" showArrow>Watch Our Impact</ButtonLink>} />
 
       <section id="consultation" className="scroll-mt-24 bg-white py-12 sm:py-14 lg:py-16">
         <Container wide>

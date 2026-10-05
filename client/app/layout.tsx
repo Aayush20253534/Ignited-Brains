@@ -1,11 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import Image from "next/image";
 import type { ReactNode } from "react";
 
 import "./globals.css";
 import { SiteFooter, SiteHeader, SiteMotion } from "@/components/layout";
-import { GlobalProjectEarth } from "@/components/layout/global-project-earth";
-import { ProjectsOverlay } from "@/components/projects/projects-overlay";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -95,11 +92,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </div>
-          <GlobalProjectEarth>
-            <Image src="/projects-v2/final-earth.webp" alt="" fill sizes="100vw" />
-            <ProjectsOverlay name="earth" className="global-project-earth__network" />
-            <div className="global-project-earth__shade" />
-          </GlobalProjectEarth>
           <SiteFooter />
         </div>
       </body>

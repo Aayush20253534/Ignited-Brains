@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EarthCta } from "@/components/layout/earth-cta";
 import Image from "next/image";
 
 import { AboutMotion } from "@/components/about/about-motion";
@@ -95,6 +96,7 @@ export default function ContactPage() {
             </div>
           </div>
         </section>
+        <EarthCta eyebrow="Let’s Collaborate" title={<>Create a brighter tomorrow.</>} description={<>Whether you are a school, institution or education initiative, let’s create learning spaces that inspire curious minds.</>} actions={<ContactFormLink />} />
       </main>
     </AboutMotion>
   );

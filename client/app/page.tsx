@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EarthCta } from "@/components/layout/earth-cta";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,7 +13,6 @@ import { ImpactCount } from "@/components/home/impact-count";
 import { ContinuousRow } from "@/components/home/continuous-row";
 import { SolutionImageLightbox } from "@/components/home/solution-image-lightbox";
 import { SiteImage } from "@/components/media";
-import { ProjectsOverlay } from "@/components/projects/projects-overlay";
 import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
 import {
   homePrinciples,
@@ -352,11 +352,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="global-project-earth" aria-label="Ignited Brains learning network">
-        <Image src="/projects-v2/final-earth.webp" alt="" fill sizes="100vw" />
-        <ProjectsOverlay name="earth" className="global-project-earth__network" />
-        <div className="global-project-earth__shade" />
-      </section>
+      <EarthCta title={<>Ready to transform your school?</>} description={<>Let&apos;s create a space where students don&apos;t just learn about the future. They build it.</>} actions={<ButtonLink href="/contact" size="lg" showArrow>Partner With Us</ButtonLink>} />
       <PhoneHomeMotion />
       <DesktopHomeMotion />
     </main>

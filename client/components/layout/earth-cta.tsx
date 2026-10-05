@@ -1,0 +1,4 @@
+import Image from "next/image";
+import type { ReactNode } from "react";
+import { ProjectsOverlay } from "@/components/projects/projects-overlay";
+export function EarthCta({eyebrow,title,description,actions}:{eyebrow?:ReactNode;title:ReactNode;description?:ReactNode;actions?:ReactNode}){return <section className="global-project-earth global-project-earth--cta"><Image src="/projects-v2/final-earth.webp" alt="" fill sizes="100vw"/><ProjectsOverlay name="earth" className="global-project-earth__network"/><div className="global-project-earth__shade"/><div className="global-project-earth__content"><div className="global-project-earth__copy">{eyebrow?<p className="global-project-earth__eyebrow">{eyebrow}</p>:null}<h2>{title}</h2>{description?<div className="global-project-earth__description">{description}</div>:null}</div>{actions?<div className="global-project-earth__actions">{actions}</div>:null}</div></section>}
