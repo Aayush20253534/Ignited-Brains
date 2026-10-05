@@ -129,7 +129,7 @@ export function SiteHeader() {
         )}
       >
         <div className="flex shrink-0 items-center gap-2.5">
-          <BrandLogo />
+          <BrandLogo showText={false} />
           <span className="hidden border-l border-brand-line pl-3 text-[0.58rem] font-semibold leading-[1.35] text-brand-blue/65 2xl:block">
             Transforming Education
             <br />
