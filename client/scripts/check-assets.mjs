@@ -1,4 +1,5 @@
-import { closeSync, existsSync, openSync, readSync, readdirSync, statSync } from "node:fs";
+import { closeSync, existsSync, openSync, readFileSync, readSync, readdirSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { extname, join, relative } from "node:path";
 
 const publicDir = join(process.cwd(), "public");
@@ -10,6 +11,7 @@ const requiredDirectories = [
   "about",
   "solutions",
   "space-lab",
+  "learning-spaces",
   "schools",
   "projects",
   "blog",
@@ -62,6 +64,10 @@ for (const file of files) {
   const rel = relative(publicDir, file).replaceAll("\\", "/");
   const extension = extname(file).toLowerCase();
 
+  if (supportedExtensions.has(extension) && statSync(file).size === 0) {
+    problems.push(`${rel}: empty asset file`);
+  }
+
   if (rel.includes(" ")) {
     problems.push(`${rel}: asset filenames must not contain spaces`);
   }
@@ -90,6 +96,23 @@ for (const file of files) {
       ? ["GIF87a", "GIF89a"].includes(header.toString("ascii", 0, 6))
       : header.toString("ascii", 4, 8) === "ftyp";
     if (!valid) problems.push(`${rel}: file header does not match ${extension}`);
+  }
+}
+
+const auditPath = join(process.cwd(), "docs", "solutions-image-audit.json");
+if (!existsSync(auditPath)) {
+  problems.push("Missing Solutions image-provenance manifest");
+} else {
+  const auditedImages = JSON.parse(readFileSync(auditPath, "utf8"));
+  const imageHashes = new Set();
+  for (const image of auditedImages) {
+    const file = join(publicDir, image.asset.replace(/^\//, ""));
+    if (!existsSync(file)) { problems.push(`${image.asset}: audited image is missing`); continue; }
+    const content = readFileSync(file);
+    const hash = createHash("sha256").update(content).digest("hex");
+    if (content.length !== image.bytes || hash !== image.sha256) problems.push(`${image.asset}: image does not match the verified export`);
+    if (imageHashes.has(hash)) problems.push(`${image.asset}: duplicate audited image`);
+    imageHashes.add(hash);
   }
 }
 

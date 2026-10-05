@@ -1,268 +1,56 @@
 import type { Metadata } from "next";
-import { EarthCta } from "@/components/layout/earth-cta";
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { HomeIcon } from "@/components/home/home-icon";
-import { SiteImage } from "@/components/media";
-import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
-import {
-  solutionHeroPrinciples,
-  solutionLearningCycle,
-  solutionShowcase,
-  solutionTabs,
-} from "@/data/solutions";
-import { pageAssetSlots } from "@/lib/assets";
+import { EarthCta } from "@/components/layout/earth-cta";
+import { LearningJourney, SolutionPage } from "@/components/solutions/learning-space";
+import { ButtonLink } from "@/components/ui";
+import { learningCycle } from "@/data/home";
+import { projectImpact } from "@/data/projects";
+import { solutionHeroPrinciples, solutionShowcase } from "@/data/solutions";
+import styles from "@/components/solutions/solutions.module.css";
 
+const description = "Explore Ignited Brains Space Labs, STEM Labs, AI & Robotics Labs and Science Parks designed for hands-on, future-ready learning.";
 export const metadata: Metadata = {
-  title: "Solutions",
-  description:
-    "Explore Ignited Brains Space Labs, STEM Labs, AI & Robotics Labs and Science Parks designed for hands-on, future-ready learning.",
-  alternates: { canonical: "/solutions" },
+  title: "Solutions", description, alternates: { canonical: "/solutions" },
+  openGraph: { title: "Learning spaces built for tomorrow | Ignited Brains", description, url: "/solutions", type: "website", images: [{ url: "/learning-spaces/ecosystem-lab.webp", alt: "The Ignited Brains Curiosity Corner lab" }] },
+  twitter: { card: "summary_large_image", title: "Learning spaces built for tomorrow | Ignited Brains", description, images: ["/learning-spaces/ecosystem-lab.webp"] },
 };
 
-function Bullet({ children }: { children: string }) {
-  return (
-    <li className="flex items-start gap-2.5 text-sm font-semibold leading-6 text-brand-ink/75">
-      <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-brand-orange/30 bg-orange-50 text-[0.66rem] font-black text-brand-orange">
-        ✓
-      </span>
-      <span>{children}</span>
-    </li>
-  );
-}
+const comparison = [
+  { label: "Key focus", values: ["Astronomy & space science", "Science & engineering", "Robotics, coding & AI", "Interactive physical science"] },
+  { label: "Age / classes", values: ["Typically classes 6–12", "Typically classes 6–12", "Typically classes 6–12", "Across age groups"] },
+  { label: "Environment", values: ["Indoor observation & model lab", "Indoor experimentation lab", "Indoor hardware & software lab", "Outdoor exploration space"] },
+  { label: "Student outcomes", values: ["Scientific curiosity & research", "Experimentation & design thinking", "Logical thinking & technical skills", "Experiential understanding & inquiry"] },
+];
+const focus = ["Astronomy · Rocketry · Space Exploration", "Science · Engineering · Mathematics", "Robotics · Artificial Intelligence · Automation", "Exploration · Interaction · Outdoor Learning"];
 
 export default function SolutionsPage() {
-  return (
-    <main className="solutions-page overflow-hidden bg-white">
-      <section className="relative border-b border-brand-line/70 bg-white">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_32%,rgba(38,123,255,.15),transparent_31rem)]" />
-        <Container wide className="relative grid min-h-[500px] items-center gap-8 py-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 lg:py-4">
-          <div className="relative z-10 py-6 lg:py-12">
-            <Eyebrow>Our Solutions</Eyebrow>
-            <h1 className="mt-5 max-w-[650px] text-balance text-[clamp(3.1rem,5.4vw,5.5rem)] font-black leading-[0.94] tracking-[-0.055em] text-brand-blue">
-              From classrooms to <span className="text-brand-orange">innovation spaces.</span>
-            </h1>
-            <p className="mt-6 max-w-[590px] text-[1rem] font-medium leading-7 text-brand-ink/75">
-              We design and build hands-on learning environments that make science tangible, technology accessible and innovation part of everyday school life.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <ButtonLink href="#solutions" size="lg" showArrow>
-                Explore Our Solutions
-              </ButtonLink>
-              <ButtonLink href="/media" size="lg" variant="outline" showArrow>
-                Watch Video
-              </ButtonLink>
-            </div>
+  return <SolutionPage>
+    <section className={styles.overviewHero} aria-labelledby="solutions-title" data-motion-section>
+      <div className={styles.ecosystem}><Image src="/learning-spaces/ecosystem-lab.webp" alt="Visitors exploring a real Ignited Brains learning space with space, STEM and robotics exhibits" fill preload sizes="(max-width: 700px) 100vw, 65vw" /><div className={styles.ecosystemDetail}><Image src="/media/build.webp" alt="An educator explaining the lunar lander and physical engineering models at Curiosity Corner" fill sizes="(max-width: 700px) 38vw, 20vw" /></div><span className={styles.ecosystemLabel}>Space · STEM · Robotics · Outdoor discovery</span></div>
+      <div className={`${styles.container} ${styles.overviewHeroInner}`}><div className={styles.overviewCopy}>
+        <p className={styles.eyebrow} data-reveal>Our Solutions</p><h1 id="solutions-title" data-reveal>Learning spaces<br /><em>built for tomorrow.</em></h1>
+        <p className={styles.heroDescription} data-reveal>From space science to robotics, we create environments where students explore, experiment, build and solve real-world problems.</p>
+        <div className={styles.actions} data-reveal><ButtonLink href="#solutions" showArrow>Explore Solutions</ButtonLink><ButtonLink href="/contact" variant="outline">Partner With Us</ButtonLink></div>
+        <ul className={styles.principles} data-reveal>{solutionHeroPrinciples.map(item => <li key={item.title}><HomeIcon name={item.icon} /><span>{item.title}</span></li>)}</ul>
+      </div></div>
+    </section>
 
-            <div className="mt-9 grid max-w-3xl grid-cols-2 gap-x-5 gap-y-4 border-t border-brand-line/80 pt-6 sm:grid-cols-4">
-              {solutionHeroPrinciples.map((item) => (
-                <div key={item.title} className="flex items-center gap-2.5">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-orange-50 text-brand-orange">
-                    <HomeIcon name={item.icon} className="h-6 w-6" />
-                  </span>
-                  <div>
-                    <p className="text-[0.72rem] font-extrabold leading-4 text-brand-blue">{item.title}</p>
-                    <p className="mt-0.5 hidden text-[0.62rem] leading-4 text-brand-muted xl:block">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+    <section id="solutions" className={`${styles.container} ${styles.spacesSection}`} aria-labelledby="spaces-title" data-motion-section>
+      <div className={styles.sectionHeading} data-reveal><div><p className={styles.eyebrow}>Explore</p><h2 id="spaces-title">Choose your learning space</h2><p>Four environments. One shared purpose — future-ready students.</p></div><Link href="/contact" className={styles.textLink}>Find your school’s fit <span aria-hidden="true">→</span></Link></div>
+      <div className={styles.spaceCards}>{solutionShowcase.map((space, i) => <Link key={space.slug} href={space.href} className={styles.spaceCard} data-reveal style={{ transitionDelay: `${i * 70}ms` }}><Image src={space.image} alt={space.imageAlt} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 44vw, 24vw" /><span className={styles.cardShade} /><span className={styles.cardIndex}>{space.index}</span><div className={styles.spaceCardCopy}><h3>{space.kicker}</h3><p>{space.description}</p><span className={styles.cardFocus}><HomeIcon name={space.icon} />{focus[i]}</span>{space.slug === "science-park" && <span className={styles.cardConcept}>Illustrative programme concept</span>}</div><span className={styles.cardArrow} aria-hidden="true">→</span></Link>)}</div>
+    </section>
 
-          <div className="relative min-h-[320px] self-stretch sm:min-h-[360px] lg:min-h-[450px]">
-            <div className="page-hero-visual absolute inset-y-2 left-0 right-0 overflow-hidden sm:inset-y-3 lg:left-[4%]">
-              <Image
-                src={pageAssetSlots.solutions.hero}
-                alt="Student building a robotics project inside a future-ready learning environment"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 52vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent lg:hidden" />
-            </div>
-          </div>
-        </Container>
-      </section>
+    <LearningJourney title="Our learning cycle" steps={learningCycle.map(step => ({ title: step.title, description: step.description.replace("\n", ". ") + ".", icon: step.icon }))} description="A simple, powerful cycle that turns curiosity into real-world skills." />
 
-      <section id="solutions" className="scroll-mt-24 bg-white py-8 sm:py-10 lg:py-12">
-        <Container wide className="space-y-5">
-          {solutionShowcase.map((solution) => (
-            <article
-              key={solution.kicker}
-              id={solution.slug}
-              className="scroll-mt-28 relative overflow-hidden rounded-[1.7rem] border border-brand-line bg-white shadow-[0_16px_48px_rgba(21,57,112,.08)]"
-            >
-              <div className="grid min-h-[360px] lg:grid-cols-2">
-                <div className={solution.imageFirst ? "relative min-h-[300px] lg:order-1" : "relative min-h-[300px] lg:order-2"}>
-                  <Image
-                    src={solution.image}
-                    alt={solution.imageAlt}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                  <div className={solution.imageFirst ? "absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/20" : "absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white/20"} />
-                  <span className="pointer-events-none absolute bottom-3 right-5 text-[6rem] font-black leading-none text-white/20 lg:text-[8rem]">
-                    {solution.index}
-                  </span>
-                </div>
+    <section className={`${styles.container} ${styles.comparisonSection}`} aria-labelledby="compare-title" data-reveal>
+      <div className={styles.sectionIntro}><p className={styles.eyebrow}>Compare</p><h2 id="compare-title">Which solution is right for your school?</h2><p>Choose one space or a combination. Activities and complexity are adapted to your students.</p></div>
+      <div className={styles.comparisonWrap} role="region" aria-label="Compare four learning spaces" tabIndex={0}><table className={styles.comparison}><caption className={styles.srOnly}>Learning-space focus, typical age, environment and student outcomes</caption><thead><tr><th scope="col">Compare</th>{solutionShowcase.map(space => <th scope="col" key={space.slug}><Link href={space.href}>{space.kicker}</Link></th>)}</tr></thead><tbody>{comparison.map(row => <tr key={row.label}><th scope="row">{row.label}</th>{row.values.map((value, i) => <td key={i}>{value}</td>)}</tr>)}</tbody></table></div>
+    </section>
 
-                <div className={solution.imageFirst ? "relative flex flex-col justify-center p-7 sm:p-9 lg:order-2 lg:p-12" : "relative flex flex-col justify-center p-7 sm:p-9 lg:order-1 lg:p-12"}>
-                  <span className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-brand-blue text-sm font-black text-white sm:left-6 sm:top-6">
-                    {solution.index}
-                  </span>
-                  <div className="pl-0 pt-9 sm:pl-2">
-                    <p className="text-xs font-black uppercase tracking-[0.15em] text-brand-blue/55">{solution.kicker}</p>
-                    <h2 className="mt-2 max-w-xl text-balance text-3xl font-black leading-[1.02] tracking-[-0.04em] text-brand-blue sm:text-4xl lg:text-[2.65rem]">
-                      {solution.title}
-                    </h2>
-                    <p className="mt-4 max-w-xl text-sm leading-6 text-brand-muted sm:text-base sm:leading-7">
-                      {solution.description}
-                    </p>
-                    <ul className="mt-5 grid gap-x-6 gap-y-2 sm:grid-cols-2">
-                      {solution.bullets.map((item) => <Bullet key={item}>{item}</Bullet>)}
-                    </ul>
-                    <ButtonLink href={solution.href} showArrow className="mt-6">
-                      {solution.action}
-                    </ButtonLink>
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
-        </Container>
-      </section>
+    <section className={`${styles.container} ${styles.impactSection}`} aria-labelledby="solutions-impact" data-motion-section><div className={styles.sectionIntro} data-reveal><p className={styles.eyebrow}>Real impact</p><h2 id="solutions-impact">Curious minds.<br />Brighter tomorrows.</h2><p>Join schools across India creating meaningful, hands-on learning experiences.</p></div><div className={styles.impactMetrics}>{projectImpact.map(metric => <div key={metric.label} data-reveal><HomeIcon name={metric.icon} /><div><strong data-count={metric.value} aria-hidden="true">{metric.value}</strong><span className={styles.srOnly}>{metric.value}</span><p>{metric.label}</p></div></div>)}</div><blockquote className={styles.principalQuote} data-reveal><p>“Ignited Brains turns curiosity into real opportunities.”</p><footer>— School Principal</footer></blockquote></section>
 
-      <section data-learning-motion className="soft-blue-surface border-y border-brand-line/70 py-14 sm:py-16 lg:py-20">
-        <Container wide className="grid items-center gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-          <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">The Ignited Brains Learning System</p>
-            <h2 className="mt-4 max-w-lg text-balance text-4xl font-black leading-[1.02] tracking-[-0.045em] text-brand-blue sm:text-5xl">
-              Built around how students actually learn.
-            </h2>
-            <p className="mt-4 max-w-lg text-base leading-7 text-brand-muted">
-              A continuous cycle of curiosity, exploration, creation and improvement.
-            </p>
-            <ButtonLink href="/about" showArrow className="mt-7">
-              Learn More
-            </ButtonLink>
-          </div>
-
-          <div className="solution-cycle-visual relative mx-auto w-full max-w-3xl py-3">
-            <div className="solution-cycle-backdrop pointer-events-none absolute left-1/2 top-1/2 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-orange/25 sm:h-[390px] sm:w-[390px]" aria-hidden="true" />
-            <div className="solution-cycle-orbit" aria-hidden="true"><span /></div>
-            <div className="solution-cycle-grid relative grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
-              {solutionLearningCycle.map((item, index) => {
-                const angle = -Math.PI / 2 + (index * 2 * Math.PI) / solutionLearningCycle.length;
-                return (
-                  <div
-                    key={item.title}
-                    className="solution-cycle-node flex flex-col items-center text-center"
-                    style={{
-                      "--node-x": `${50 + 35.5 * Math.cos(angle)}%`,
-                      "--node-y": `${50 + 35.5 * Math.sin(angle)}%`,
-                      "--node-delay": `${index * 1.8}s`,
-                    } as CSSProperties}
-                  >
-                    <span className="solution-cycle-icon grid h-16 w-16 place-items-center rounded-full border border-brand-line bg-white text-brand-blue shadow-card">
-                      <HomeIcon name={item.icon} className="h-7 w-7" />
-                    </span>
-                    <p className="mt-2 text-[0.62rem] font-black text-brand-orange">{item.step}</p>
-                    <p className="text-sm font-black text-brand-blue">{item.title}</p>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="solution-cycle-center mx-auto mt-8 grid h-32 w-32 place-items-center rounded-full border border-brand-orange/30 bg-white text-center shadow-card sm:h-40 sm:w-40">
-              <div>
-                <p className="solution-cycle-eyebrow text-[0.6rem] font-extrabold uppercase tracking-[0.12em] text-brand-orange">Learn by doing</p>
-                <p className="mt-2 text-sm font-black uppercase leading-5 tracking-[0.08em] text-brand-blue">
-                  Create<br />a brighter<br />tomorrow
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-white py-14 sm:py-16 lg:py-20">
-        <Container wide>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-brand-blue/55">Find the right solution</p>
-              <h2 className="mt-3 text-balance text-3xl font-black tracking-[-0.04em] text-brand-blue sm:text-4xl">Choose a solution to explore</h2>
-              <p className="mt-2 text-sm text-brand-muted">Each learning space is designed to spark curiosity and build future-ready skills.</p>
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-5 lg:grid-cols-[1fr_0.9fr] lg:items-stretch">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {solutionTabs.map((item, index) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="solution-choice focus-ring group flex min-h-56 flex-col overflow-hidden rounded-2xl border border-brand-line bg-white text-center text-brand-blue shadow-card transition hover:-translate-y-1 hover:border-brand-blue/30"
-                  style={{ "--choice-delay": `${index * -1.4}s` } as CSSProperties}
-                >
-                  <div className="solution-choice-image relative min-h-28 flex-1 overflow-hidden">
-                    <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw" className="object-cover" />
-                  </div>
-                  <div className="relative flex flex-col items-center px-3 pb-4 pt-6">
-                    <span className="solution-choice-icon absolute -top-4 grid h-9 w-9 place-items-center rounded-full border-4 border-white bg-orange-50 text-brand-orange shadow-sm">
-                      <HomeIcon name={item.icon} className="h-4 w-4" />
-                    </span>
-                    <span className="text-sm font-black leading-5">{item.label}</span>
-                    <span className="mt-1 text-[0.65rem] leading-4 text-brand-muted">{item.caption}</span>
-                    <ArrowIcon className="mt-3 h-4 w-4 text-brand-orange transition group-hover:translate-x-1" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            <article className="grid overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card sm:grid-cols-[0.82fr_1.18fr]">
-              <SiteImage
-                src={pageAssetSlots.spaceLab.astronaut}
-                alt="Student imagining future possibilities through science"
-                aspectRatio="1/1"
-                sizes="(max-width: 640px) 100vw, 24vw"
-                className="min-h-48 rounded-none"
-                imageClassName="object-cover"
-              />
-              <div className="flex flex-col justify-center p-6">
-                <h3 className="text-2xl font-black tracking-[-0.035em] text-brand-blue">Space Lab</h3>
-                <p className="mt-2 text-sm leading-6 text-brand-muted">Inspiring the next generation of space explorers through hands-on learning.</p>
-                <ul className="mt-4 grid grid-cols-2 gap-2 text-xs font-bold text-brand-blue/75">
-                  <li>✦ Models</li><li>✦ Experiments</li><li>✦ Observation</li><li>✦ Exploration</li>
-                </ul>
-                <ButtonLink href="/solutions/space-lab" showArrow className="mt-5 self-start">Explore Space Lab</ButtonLink>
-              </div>
-            </article>
-          </div>
-        </Container>
-      </section>
-
-      <section className="dark-space-surface border-y border-white/10 py-10 sm:py-12">
-        <Container wide className="grid items-center gap-7 lg:grid-cols-[1fr_1.15fr]">
-          <div className="grid items-center gap-5 sm:grid-cols-[180px_1fr]">
-            <div className="relative aspect-square overflow-hidden rounded-full border border-white/15 bg-white/5">
-              <Image src={pageAssetSlots.spaceLab.astronaut} alt="Student inspired by space exploration" fill sizes="180px" className="object-cover" />
-            </div>
-            <blockquote>
-              <p className="text-balance text-2xl font-bold leading-tight text-white sm:text-3xl">“Ignited Brains turns curiosity into real opportunities.”</p>
-              <footer className="mt-4 text-sm font-semibold text-white/65">— School Principal</footer>
-            </blockquote>
-          </div>
-          <div className="border-t border-white/15 pt-7 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-            <p className="text-3xl font-black tracking-[-0.04em] text-white">Curious Minds.<br />Brighter Tomorrows.</p>
-            <p className="mt-3 max-w-md text-sm leading-6 text-white/65">Join schools across India creating meaningful, hands-on learning experiences.</p>
-          </div>
-        </Container>
-      </section>
-
-      <EarthCta title={<>Let&apos;s build innovation in your school.</>} description={<>Discover how Ignited Brains can create a future-ready learning environment for your students.</>} actions={<ButtonLink href="/schools" size="lg" showArrow>Discuss Your School</ButtonLink>} />
-    </main>
-  );
+    <EarthCta eyebrow="Our Solutions" title="Let’s build innovation in your school." description="Discover how Ignited Brains can create a future-ready learning environment for your students." actions={<ButtonLink href="/contact" showArrow>Partner With Us</ButtonLink>} />
+  </SolutionPage>;
 }

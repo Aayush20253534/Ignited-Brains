@@ -16,9 +16,9 @@ export const mainNavigation: NavGroup[] = [
     children: [
       { label: "All Solutions", href: "/solutions" },
       { label: "Space Lab", href: "/solutions/space-lab" },
-      { label: "STEM Lab", href: "/solutions#stem-lab" },
-      { label: "AI & Robotics Lab", href: "/solutions#ai-robotics-lab" },
-      { label: "Science Park", href: "/solutions#science-park" },
+      { label: "STEM Lab", href: "/solutions/stem-lab" },
+      { label: "AI & Robotics Lab", href: "/solutions/ai-robotics-lab" },
+      { label: "Science Park", href: "/solutions/science-park" },
     ],
   },
   { label: "Projects", href: "/projects" },
@@ -41,7 +41,7 @@ export const footerQuickLinks: NavItem[] = [
 
 export const footerSolutions: NavItem[] = [
   { label: "Space Lab", href: "/solutions/space-lab" },
-  { label: "STEM Lab", href: "/solutions#stem-lab" },
-  { label: "AI & Robotics Lab", href: "/solutions#ai-robotics-lab" },
-  { label: "Science Park", href: "/solutions#science-park" },
+  { label: "STEM Lab", href: "/solutions/stem-lab" },
+  { label: "AI & Robotics Lab", href: "/solutions/ai-robotics-lab" },
+  { label: "Science Park", href: "/solutions/science-park" },
 ];

@@ -10,6 +10,9 @@ const requiredRoutes = [
   "app/about/page.tsx",
   "app/solutions/page.tsx",
   "app/solutions/space-lab/page.tsx",
+  "app/solutions/stem-lab/page.tsx",
+  "app/solutions/ai-robotics-lab/page.tsx",
+  "app/solutions/science-park/page.tsx",
   "app/schools/page.tsx",
   "app/projects/page.tsx",
   "app/media/page.tsx",
@@ -52,9 +55,12 @@ const sourceFiles = [
   "app/solutions/page.tsx",
 ];
 const sourceText = sourceFiles.map((file) => readFileSync(join(cwd, file), "utf8")).join("\n");
-for (const deadRoute of ["/solutions/stem-lab", "/solutions/ai-robotics", "/solutions/science-park"]) {
-  if (sourceText.includes(`href: "${deadRoute}"`) || sourceText.includes(`href=\"${deadRoute}\"`)) {
-    failures.push(`Source still points at unimplemented route: ${deadRoute}`);
+for (const obsoleteRoute of ["/solutions#stem-lab", "/solutions#ai-robotics-lab", "/solutions#science-park", "/solutions/ai-robotics"]) {
+  if (sourceText.includes(`\"${obsoleteRoute}\"`)) failures.push(`Source points at obsolete Solutions route: ${obsoleteRoute}`);
+}
+for (const slug of ["space-lab", "stem-lab", "ai-robotics-lab", "science-park"]) {
+  if (!readFileSync(join(cwd, "data/navigation.ts"), "utf8").includes(`href: "/solutions/${slug}"`)) {
+    failures.push(`Solutions dropdown is missing dedicated route: ${slug}`);
   }
 }
 
@@ -70,12 +76,15 @@ const shopText = readFileSync(join(cwd, "app/shop/page.tsx"), "utf8");
 if (!shopText.includes("Coming Soon")) failures.push("Shop page must display Coming Soon.");
 
 const publicFilesToCheck = [
-  "public/home/hero-robotics.webp",
-  "public/about/hero-robotics.webp",
-  "public/solutions/hero-robotics.webp",
-  "public/space-lab/hero-telescope.webp",
+  "public/media/homeimg.mp4",
+  "public/about/hero-lab-visit.webp",
+  "public/learning-spaces/ecosystem-lab.webp",
+  "public/learning-spaces/space-hero.webp",
+  "public/learning-spaces/stem-hero.webp",
+  "public/learning-spaces/robotics-hero.webp",
+  "public/learning-spaces/park-outdoor-concept.webp",
   "public/schools/hero-campus-robotics.webp",
-  "public/projects-v2/hero-projects.webp",
+  "public/projects-v2/archive-students-hero.webp",
   "public/media-v2/hero-editorial.webp",
   "public/contact/design/hero.webp",
 ];
@@ -87,7 +96,8 @@ for (const file of publicFilesToCheck) {
     continue;
   }
   const size = statSync(absolute).size;
-  if (size > 700_000) warnings.push(`Large hero asset (${Math.round(size / 1024)} KiB): ${file}`);
+  const budget = file.endsWith(".mp4") ? 4 * 1024 * 1024 : 700_000;
+  if (size > budget) warnings.push(`Large hero asset (${Math.round(size / 1024)} KiB): ${file}`);
 }
 
 if (warnings.length) {

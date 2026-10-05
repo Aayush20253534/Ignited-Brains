@@ -13,6 +13,9 @@
 .page section[id] { scroll-margin-top: 88px; }
 .page :where(button,a):focus-visible { outline: 3px solid #f88c54; outline-offset: 5px; }
 .page img { object-fit: cover; }
+.photoTrigger { position: absolute; inset: 0; z-index: 1; border-radius: inherit; overflow: hidden; }
+.buildTile figcaption, .gallery figcaption { pointer-events: none; z-index: 2; }
+.conceptLabel { margin-top: 8px !important; font-size: 10px; color: #5a7197; }
 .container { width: min(calc(100% - 2 * clamp(20px, 5vw, 80px)), 1320px); margin-inline: auto; position: relative; }
 .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 16px !important; font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
 .eyebrow::before { content: ""; width: 26px; height: 2px; flex: 0 0 auto; background: var(--orange); }
@@ -71,7 +74,7 @@
 .projectImage img { transition: transform .65s cubic-bezier(.2,.7,.2,1); }
 .projectGridLines { position: absolute; inset: 0; opacity: 0; background-image: linear-gradient(#6eceff22 1px,transparent 1px),linear-gradient(90deg,#6eceff22 1px,transparent 1px); background-size: 35px 35px; border: 14px solid transparent; transition: opacity .4s; }
 .projectGridLines::after { content: ""; position: absolute; inset: 11px; border-top: 1px solid #ffffff70; border-left: 1px solid #ffffff70; }
-.projectCopy { position: relative; padding: 28px 26px 55px; }
+.projectCopy { position: relative; z-index: 2; padding: 28px 26px 55px; }
 .category { font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #b83b0d; margin-bottom: 10px !important; }
 .projectCopy h3 { font-size: clamp(20px,1.7vw,26px); line-height: 1.12; }
 .projectDescription { margin-top: 10px !important; font-size: 12px; line-height: 1.65; color: #536b93; }
@@ -204,6 +207,7 @@
 .dialogInner { position: relative; }
 .dialogImage { position: relative; height: clamp(220px,28vw,350px); }
 .dialogImage img { object-fit: contain; }
+.openFullPhoto { position: absolute; right: 15px; bottom: 14px; padding: 8px 12px; color: white; background: #031226d9; border: 1px solid #7f9fc5; border-radius: 6px; font-size: 11px; font-weight: 750; }
 .dialogClose { position: absolute; z-index: 3; top: 14px; right: 14px; width: 45px; height: 45px; border: 1px solid #ffffff80; border-radius: 50%; background: #051b39dc; color: white; font-size: 29px; }
 .dialogCopy { padding: 30px; }
 .dialogCopy h2 { font-size: 34px; line-height: 1.1; }

@@ -19,8 +19,8 @@ export const solutionShowcase = [
     title: "Space science students can touch.",
     description:
       "A hands-on environment where students explore space science through models, observation and experimentation.",
-    image: "/media/space.jpeg",
-    imageAlt: "Student observing space models through a telescope in a space lab",
+    image: "/learning-spaces/space-exhibits.webp",
+    imageAlt: "A young visitor exploring the real Space Lab in an astronaut costume",
     href: "/solutions/space-lab",
     action: "Explore Space Lab",
     icon: "space" as HomeIconName,
@@ -34,9 +34,9 @@ export const solutionShowcase = [
     title: "Observe. Think. Design. Build.",
     description:
       "A hands-on environment where students learn STEM through experimentation, engineering and problem solving.",
-    image: "/media/stem.jpeg",
-    imageAlt: "Students building an engineering structure in a STEM lab",
-    href: "/solutions#stem-lab",
+    image: "/blog/stem-learning-wall.webp",
+    imageAlt: "Real STEM experiments and physical models at the Curiosity Corner learning wall",
+    href: "/solutions/stem-lab",
     action: "Explore STEM Lab",
     icon: "stem" as HomeIconName,
     bullets: ["Science experiments", "Engineering models", "Mathematics in action", "Electronics and mechanics"],
@@ -49,9 +49,9 @@ export const solutionShowcase = [
     title: "Code it. Build it. Make it move.",
     description:
       "Students program, prototype and build real-world systems using robotics, coding, AI and digital fabrication.",
-    image: "/media/ai.jpeg",
-    imageAlt: "Student programming a robot in an AI and robotics lab",
-    href: "/solutions#ai-robotics-lab",
+    image: "/learning-spaces/robotics-card.webp",
+    imageAlt: "Students and educators demonstrating physical robotics projects at an Ignited Brains event",
+    href: "/solutions/ai-robotics-lab",
     action: "Explore AI & Robotics",
     icon: "robotics" as HomeIconName,
     bullets: ["Robotics & automation", "Coding & AI projects", "3D printing & prototyping", "Real-world applications"],
@@ -64,9 +64,9 @@ export const solutionShowcase = [
     title: "Where science becomes play.",
     description:
       "Interactive science spaces where students discover scientific concepts through movement, experimentation and exploration.",
-    image: "/media/park.png",
-    imageAlt: "Students exploring an outdoor interactive science park",
-    href: "/solutions#science-park",
+    image: "/learning-spaces/park-sound-concept.webp",
+    imageAlt: "Illustrative Science Park concept with students exploring sound dishes and a pendulum",
+    href: "/solutions/science-park",
     action: "Explore Science Park",
     icon: "park" as HomeIconName,
     bullets: ["Interactive exhibits", "Physical science models", "Outdoor learning spaces", "Fun, hands-on learning"],
@@ -90,7 +90,7 @@ export const solutionLearningCycle: Array<{
 
 export const solutionTabs = [
   { label: "Space Lab", icon: "space" as HomeIconName, href: "/solutions/space-lab", image: solutionShowcase[0].image, imageAlt: "Space Lab with rocket and satellite exhibits", caption: "Explore the universe" },
-  { label: "STEM Lab", icon: "stem" as HomeIconName, href: "/solutions#stem-lab", image: solutionShowcase[1].image, imageAlt: "STEM Lab with science and engineering models", caption: "Experiment and engineer" },
-  { label: "AI & Robotics Lab", icon: "robotics" as HomeIconName, href: "/solutions#ai-robotics-lab", image: solutionShowcase[2].image, imageAlt: "AI and Robotics Lab with coding and automation exhibits", caption: "Code, build and automate" },
-  { label: "Science Park", icon: "park" as HomeIconName, href: "/solutions#science-park", image: solutionShowcase[3].image, imageAlt: "Science Park entrance and outdoor learning exhibits", caption: "Discover through play" },
+  { label: "STEM Lab", icon: "stem" as HomeIconName, href: "/solutions/stem-lab", image: solutionShowcase[1].image, imageAlt: "STEM Lab with science and engineering models", caption: "Experiment and engineer" },
+  { label: "AI & Robotics Lab", icon: "robotics" as HomeIconName, href: "/solutions/ai-robotics-lab", image: solutionShowcase[2].image, imageAlt: "AI and Robotics Lab with coding and automation exhibits", caption: "Code, build and automate" },
+  { label: "Science Park", icon: "park" as HomeIconName, href: "/solutions/science-park", image: solutionShowcase[3].image, imageAlt: "Science Park entrance and outdoor learning exhibits", caption: "Discover through play" },
 ];

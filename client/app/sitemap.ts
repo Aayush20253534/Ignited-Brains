@@ -25,6 +25,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    ...["stem-lab", "ai-robotics-lab", "science-park"].map(slug => ({
+      url: `${siteConfig.url}/solutions/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    })),
     {
       url: `${siteConfig.url}/schools`,
       changeFrequency: "monthly",

@@ -1,0 +1,10 @@
+import { ParkMap } from "@/components/solutions/exploration";
+import { LabEarth, LabHero, LearningJourney, PhotoFrame, Skills, SolutionPage, TopicPanel } from "@/components/solutions/learning-space";
+import { parkTopics, sciencePark } from "@/data/lab-programmes";
+import { solutionMetadata } from "@/lib/solution-metadata";
+import styles from "@/components/solutions/solutions.module.css";
+
+export const metadata = solutionMetadata(sciencePark);
+export default function ScienceParkPage() {
+  return <SolutionPage><LabHero lab={sciencePark} /><LearningJourney steps={sciencePark.journey} description="A physical journey from everyday curiosity to scientific understanding." /><div className={`${styles.container} ${styles.parkLayout}`} data-motion-section><TopicPanel title="Explore the Science Park" description="Physical installations connect eight fields of science." topics={parkTopics} columns={2} /><ParkMap /><section className={styles.learningWalls} aria-labelledby="walls-title"><h2 id="walls-title">Learning without walls</h2><p>See a phenomenon. Try something. Ask why.</p><PhotoFrame src="/media/tele.jpeg" alt="A visitor looking through a physical telescope at a real Ignited Brains science exhibition" title="Hands-on learning starts with interaction" caption="A real photograph from our science exhibition archive. The same approach to observation and physical interaction informs our outdoor learning spaces." /><ol className={styles.experienceSteps}>{["See it", "Touch it", "Question it", "Understand it"].map((step, i) => <li key={step}><span>0{i + 1}</span><strong>{step}</strong></li>)}</ol></section></div><div className={`${styles.container} ${styles.skillsSection}`}><Skills title="Why a Science Park?" description="A lasting place for physical interaction, group discovery and everyday inquiry." items={["Large-group Learning", "Physical Interaction", "Permanent Learning Infrastructure", "Cross-age Usability", "Outdoor Experiential Education", "Scientific Mindset"]} /></div><LabEarth lab={sciencePark} /></SolutionPage>;
+}

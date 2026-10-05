@@ -1,0 +1,555 @@
+[
+  {
+    "asset": "/learning-spaces/ecosystem-lab.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_64.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 149290,
+    "sha256": "3b96994fdecb371a7e676f265212a288e14cb2ff40baea2d56ed173292236f98"
+  },
+  {
+    "asset": "/learning-spaces/space-card.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_80.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 185294,
+    "sha256": "8867dd679033c5bdf349b0850eb3bc23ab10ada8ba418a1f86d8bb3f40cba0bd"
+  },
+  {
+    "asset": "/learning-spaces/space-hero.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_90.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      56
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 151612,
+    "sha256": "a9ccc77ddaa1f43bfb027dcbf9fb7edd7e38b03c75fe68ab4838c1fa1d092fb5"
+  },
+  {
+    "asset": "/learning-spaces/space-telescope.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_81.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 171056,
+    "sha256": "c89b57a7d9d0a86b84157d00fb0ce3ebe11c5cea438172867c1197231b6327e8"
+  },
+  {
+    "asset": "/learning-spaces/space-exhibits.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_89.jpg",
+    "originalSize": [
+      1350,
+      1800
+    ],
+    "scannerMarginsRemoved": [
+      0,
+      0
+    ],
+    "size": [
+      1200,
+      1600
+    ],
+    "bytes": 174228,
+    "sha256": "22853ce3d99e1a6aaade10720f0ed89ddf215923ef2fb4e57ce9573280c14736"
+  },
+  {
+    "asset": "/learning-spaces/space-simulation.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_91.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 116852,
+    "sha256": "31d79d5fead11f5eb1da42a2f020370b727639ce005c77594e40dab2d837a99e"
+  },
+  {
+    "asset": "/learning-spaces/space-rover-project.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_1.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 274256,
+    "sha256": "4822b1fc41708ac4957496fa76850b8de48dd59464cf0a777810a192b3f4a68e"
+  },
+  {
+    "asset": "/learning-spaces/stem-hero.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_10.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 171840,
+    "sha256": "d5cf000b05a99584970d85a0db2841e87f461ad2bebd66d5f53dddaad26778f4"
+  },
+  {
+    "asset": "/learning-spaces/stem-physics.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_84.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 186488,
+    "sha256": "135c99de684aa08f43a0a0355efe469e72c3b8bfa0947bda11775fa8a098774a"
+  },
+  {
+    "asset": "/learning-spaces/stem-design.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_97.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      56
+    ],
+    "size": [
+      1350,
+      900
+    ],
+    "bytes": 179786,
+    "sha256": "73f086ab808a476b6f83fbcd42438d56e8db4ec88ede22eec6622befcf14d93a"
+  },
+  {
+    "asset": "/learning-spaces/stem-engineering-project.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_2.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 273192,
+    "sha256": "07a7cb4482431f8b868d9845fc57dd8f946ae74e5349ff915d24ceca622f378b"
+  },
+  {
+    "asset": "/learning-spaces/robotics-hero.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_93.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      56
+    ],
+    "size": [
+      1350,
+      900
+    ],
+    "bytes": 191642,
+    "sha256": "b759f9340d3bb701a4da213ac733f8689daa6d5e9916a9c76a3c1708a4e73fcd"
+  },
+  {
+    "asset": "/learning-spaces/robotics-hardware.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_5.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      56
+    ],
+    "size": [
+      1350,
+      900
+    ],
+    "bytes": 241624,
+    "sha256": "4ae9deaccd28e26c6d7717ebef15b705e475e3083d0dc09fcc8663fcc15653c8"
+  },
+  {
+    "asset": "/learning-spaces/robotics-fabrication.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_8.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 166124,
+    "sha256": "93763f8fd33e34b93e5869ea6abb359d1ce170cab8f0ada986b5fce3b97c9f25"
+  },
+  {
+    "asset": "/projects-v2/rover-team-demonstration.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_37.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 289324,
+    "sha256": "16d73ae523d17c069937db17c7fbf2bdb285b6e51dde7696905e54232abd6e87"
+  },
+  {
+    "asset": "/projects-v2/rover-team-prototype.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_47.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 280848,
+    "sha256": "d7394d5cbcf1cb762735fd566aeb0aa46802825051105b37b998680ff544212d"
+  },
+  {
+    "asset": "/projects-v2/archive-design.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_39.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 211584,
+    "sha256": "af1bd1a981de525bc202ab22cf66094f5b9a1ed635000e72591b44e73bfc2769"
+  },
+  {
+    "asset": "/projects-v2/archive-programming.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_95.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 143548,
+    "sha256": "4b8686fed4d94ca5877ef3a4eecc4e0bab801ff34e613a459e0d14b033ba148e"
+  },
+  {
+    "asset": "/projects-v2/archive-testing.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_3.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 277164,
+    "sha256": "218531935c96d38c835f1a2ab9ac451e73c58af8c62a47fa987171ef88ad8b60"
+  },
+  {
+    "asset": "/projects-v2/archive-improving.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_67.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 156618,
+    "sha256": "a69947566108d451745e8e1ad16c7dc9b8b0783465fa0df95c582f39f3be763d"
+  },
+  {
+    "asset": "/projects-v2/archive-student-team.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_21.jpg",
+    "originalSize": [
+      1350,
+      1800
+    ],
+    "scannerMarginsRemoved": [
+      0,
+      0
+    ],
+    "size": [
+      1200,
+      1600
+    ],
+    "bytes": 222428,
+    "sha256": "24af2a56691f28cf6072860186dd4bcb10458c16048a58d8f4aed38edcdd5e11"
+  },
+  {
+    "asset": "/projects-v2/archive-young-visitors.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_54.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 247176,
+    "sha256": "f0064f6e4054812958fadcb4404067892268d20384889fb52ec5b5f55652a271"
+  },
+  {
+    "asset": "/projects-v2/archive-space-visitors.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_88.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      55
+    ],
+    "size": [
+      1350,
+      902
+    ],
+    "bytes": 165118,
+    "sha256": "2e5757c872439bc35c8bd4ff87d4b586af762b4bb7d906129567140c2deed565"
+  },
+  {
+    "asset": "/projects-v2/gallery-community.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_52.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      55,
+      56
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 136186,
+    "sha256": "6a25a01757c8b0513e1482edb0c669fef569ad9f517c9bd9de731911e3be205c"
+  },
+  {
+    "asset": "/learning-spaces/park-outdoor-concept.webp",
+    "type": "generated programme concept",
+    "reason": "No authentic outdoor Science Park installation photography was available in the supplied archive or repository.",
+    "size": [
+      2000,
+      667
+    ],
+    "bytes": 238380,
+    "sha256": "fceb9ce06c349a5ca7c8dd90bd0290aa653e7107d2be5d0b904d924d2243d00e"
+  },
+  {
+    "asset": "/learning-spaces/park-sound-concept.webp",
+    "type": "generated programme concept",
+    "reason": "No authentic outdoor Science Park installation photography was available in the supplied archive or repository.",
+    "size": [
+      1448,
+      1086
+    ],
+    "bytes": 212856,
+    "sha256": "371e5bb65296562d7bfc2ac97dcfb155889cfeab62ed6650989a16a8aec13e0f"
+  },
+  {
+    "asset": "/projects-v2/solar-system-concept.webp",
+    "type": "generated programme concept",
+    "reason": "No authentic outdoor Science Park installation photography was available in the supplied archive or repository.",
+    "size": [
+      1448,
+      1086
+    ],
+    "bytes": 269684,
+    "sha256": "b5247e9379c993b60f02d5915abd88cf120b7b1c2b63b348f8eb692f8476d6ea"
+  },
+  {
+    "asset": "/learning-spaces/robotics-card.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_6.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      56,
+      55
+    ],
+    "size": [
+      1350,
+      901
+    ],
+    "bytes": 237740,
+    "sha256": "352c8e8a3a4e97611cad55306e249f281e8cf3efd7bac6f7363d1ea309bffa2d"
+  },
+  {
+    "asset": "/learning-spaces/space-costume-visit.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_86.jpg",
+    "originalSize": [
+      1350,
+      1800
+    ],
+    "scannerMarginsRemoved": [
+      0,
+      0
+    ],
+    "size": [
+      1200,
+      1600
+    ],
+    "bytes": 205638,
+    "sha256": "fd73537766366497d554681485c75fffb5b6ddf706da8d3b35bacfb4868a1bec"
+  },
+  {
+    "asset": "/projects-v2/archive-building.webp",
+    "type": "supplied photograph",
+    "source": "Scan documents20260815_200256_48.jpg",
+    "scannerMarginsRemoved": [
+      0,
+      0
+    ],
+    "size": [
+      1200,
+      1600
+    ],
+    "bytes": 299644,
+    "sha256": "6edb2550e81873cef090da9d77b7f54e565de71812a81fba16798f60bccaf902"
+  },
+  {
+    "asset": "/projects-v2/archive-students-hero.webp",
+    "type": "existing repository photograph",
+    "source": "public/media/img.jpeg",
+    "size": [
+      1600,
+      1200
+    ],
+    "bytes": 266874,
+    "sha256": "2fb7523181bead8dd3c79b391514350026bdaebbdbcfb6adfeeb48de3232e2dc"
+  }
+]

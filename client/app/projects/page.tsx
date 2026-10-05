@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { SolutionImageLightbox } from "@/components/home/solution-image-lightbox";
+import { EarthCta } from "@/components/layout/earth-cta";
 
 import { ProjectBrowser, ProjectDetailsButton } from "@/components/projects/project-browser";
 import { buildStages, featuredRover, galleryScenes, journey } from "@/components/projects/projects-content";
@@ -14,6 +16,8 @@ export const metadata: Metadata = {
   title: "Projects",
   description: "Explore Ignited Brains school projects, student builds, space labs, robotics experiences and science parks across India.",
   alternates: { canonical: "/projects" },
+  openGraph: { title: "Student projects | Ignited Brains", description: "Explore real student builds, school projects and hands-on learning experiences from the Ignited Brains programme archive.", url: "/projects", type: "website", images: [{ url: "/projects-v2/archive-students-hero.webp", alt: "Students and educators sharing science and robotics projects at Curiosity Corner" }] },
+  twitter: { card: "summary_large_image", title: "Student projects | Ignited Brains", images: ["/projects-v2/archive-students-hero.webp"] },
 };
 
 const impactIcons: ProjectsIconName[] = ["school", "lab", "students", "rocket"];
@@ -25,10 +29,10 @@ export default function ProjectsPage() {
       <main className={styles.page}>
         <section className={styles.hero} aria-labelledby="projects-title" data-motion-section>
           <div className={styles.heroScene}>
-            <Image src="/projects-v2/hero-projects.webp" alt="Concept illustration of Indian students assembling an educational rover in a robotics lab" fill preload sizes="(max-width: 767px) 900px, 100vw" />
+            <Image src="/projects-v2/archive-students-hero.webp" alt="Real students and educators beside their science and robotics projects at the Curiosity Corner exhibition" fill preload sizes="(max-width: 767px) 100vw, 100vw" />
             <ProjectsOverlay name="hero" className={styles.heroOverlay} />
             <div className={styles.heroLabels} aria-hidden="true">
-              <span>AI Vision</span><span>Sensors</span><span>Student Built</span><span>Real-world Testing</span>
+              <span>Real Students</span><span>Working Prototypes</span><span>Student Built</span><span>Shared Discovery</span>
             </div>
           </div>
           <div className={styles.container}>
@@ -56,7 +60,7 @@ export default function ProjectsPage() {
         </section>
 
         <section id="project-showcase" className={styles.showcase} aria-labelledby="showcase-title" data-motion-section>
-          <div className={styles.container}><ProjectBrowser /><p className={styles.sectionNote}>Lab photography and educational project visuals. Programme details reflect our work.</p></div>
+          <div className={styles.container}><ProjectBrowser /><p className={styles.sectionNote}>Real project and lab photographs. The outdoor Solar System Park image is an illustrative programme concept.</p></div>
         </section>
 
         <section id="featured-project" className={styles.featured} aria-labelledby="rover-title" data-motion-section>
@@ -64,14 +68,14 @@ export default function ProjectsPage() {
             <Image src={featuredRover.image} alt={featuredRover.alt} fill sizes="(max-width: 767px) 900px, 100vw" />
             <ProjectsOverlay name="rover" className={styles.roverOverlay} />
             <div className={styles.scanner} data-ambient aria-hidden="true" />
-            <div className={styles.roverLabels} aria-hidden="true"><span>AI / Camera</span><span>Sensors</span><span>Controller</span><span>Terrain Mobility</span><span>Power System</span><span><i /> Live Data</span></div>
+            <div className={styles.roverLabels} aria-hidden="true"><span>Student Prototype</span><span>Design Process</span><span>Mentor Guidance</span><span>Mechanics</span><span>Electronics</span><span><i /> Public Demonstration</span></div>
           </div>
           <div className={styles.container}>
             <div className={styles.featuredCopy} data-reveal>
               <p className={styles.eyebrow}>Featured Project / 01</p>
               <h2 id="rover-title" className={styles.title}>Building a rover<br />for <em>another world.</em></h2>
               <p className={styles.featuredName}>{featuredRover.title}</p>
-              <p className={styles.featuredLead}>Student-built engineering. Rocky terrain.<br />Real-time data.</p>
+              <p className={styles.featuredLead}>Student-built engineering. Hand-made hardware.<br />A real working prototype.</p>
               <ProjectDetailsButton project={featuredRover} className={styles.primaryButton}>View Project Details <span aria-hidden="true">→</span></ProjectDetailsButton>
             </div>
             <dl className={styles.roverFacts}>
@@ -91,9 +95,10 @@ export default function ProjectsPage() {
             <div className={styles.buildSection}>
               <div className={styles.buildCopy} data-reveal><p className={styles.eyebrow}>Inside the Build</p><h2 className={styles.title}>The learning<br />happens in<br /><em>the build.</em></h2><p>Design. Assemble. Program.<br />Test an idea. Make it better.</p></div>
               <div className={styles.buildMosaic}>
-                {buildStages.map((stage, i) => <figure key={stage.image} className={styles.buildTile} data-reveal style={{ transitionDelay: `${i * 60}ms` }}><Image src={`/projects-v2/${stage.image}.webp`} alt={stage.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 32vw, 460px" /><figcaption><ProjectsIcon name={stage.icon} /><span>{stage.title}</span></figcaption></figure>)}
+                {buildStages.map((stage, i) => <figure key={stage.image} className={styles.buildTile} data-reveal style={{ transitionDelay: `${i * 60}ms` }}><SolutionImageLightbox src={`/projects-v2/${stage.image}.webp`} title={`${stage.title} — from our programme archive`} alt={stage.alt} className={styles.photoTrigger}><Image src={`/projects-v2/${stage.image}.webp`} alt={stage.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 32vw, 460px" /></SolutionImageLightbox><figcaption><ProjectsIcon name={stage.icon} /><span>{stage.title}</span></figcaption></figure>)}
               </div>
             </div>
+            <p className={styles.sectionNote}>The stages describe our learning process; the photographs show real people, equipment and demonstrations from our programme archive.</p>
           </div>
         </section>
 
@@ -102,10 +107,10 @@ export default function ProjectsPage() {
             <div className={styles.voicesHeading} data-reveal><p className={styles.eyebrow}>Student Voices</p><h2 id="voices-title" className={styles.title}>Real experiences.<br />Lasting <em>impact.</em></h2></div>
             <div className={styles.voicesGrid}>
               <figure className={styles.studentMosaic} data-reveal>
-                <div><Image src="/projects-v2/student-featured.webp" alt="Anonymous editorial illustration of a student beside a completed robotics project" fill sizes="(max-width: 767px) 60vw, 340px" /></div>
-                <div><Image src="/projects-v2/student-secondary-01.webp" alt="Anonymous editorial illustration of a student experimenting with a sensor" fill sizes="(max-width: 767px) 30vw, 200px" /></div>
-                <div><Image src="/projects-v2/student-secondary-02.webp" alt="Anonymous editorial illustration of students collaborating in a lab" fill sizes="(max-width: 767px) 30vw, 200px" /></div>
-                <figcaption>Editorial student illustrations; not portraits of the quoted contributors.</figcaption>
+                <div><SolutionImageLightbox src="/projects-v2/archive-student-team.webp" title="Engineering participants" alt="Engineering participants at a Curiosity Corner exhibition" className={styles.photoTrigger}><Image src="/projects-v2/archive-student-team.webp" alt="Engineering participants at a Curiosity Corner exhibition" fill sizes="(max-width: 767px) 60vw, 340px" /></SolutionImageLightbox></div>
+                <div><SolutionImageLightbox src="/projects-v2/archive-young-visitors.webp" title="A new space to explore" alt="Young visitors gathered at a Curiosity Corner learning-space event" className={styles.photoTrigger}><Image src="/projects-v2/archive-young-visitors.webp" alt="Young visitors gathered at a Curiosity Corner learning-space event" fill sizes="(max-width: 767px) 30vw, 200px" /></SolutionImageLightbox></div>
+                <div><SolutionImageLightbox src="/projects-v2/archive-space-visitors.webp" title="Imagining space exploration" alt="Young visitors exploring Space Lab exhibits in astronaut costumes" className={styles.photoTrigger}><Image src="/projects-v2/archive-space-visitors.webp" alt="Young visitors exploring Space Lab exhibits in astronaut costumes" fill sizes="(max-width: 767px) 30vw, 200px" /></SolutionImageLightbox></div>
+                <figcaption>Real programme archive photographs; not portraits of the quoted contributors.</figcaption>
               </figure>
               <div className={styles.quotes}>
                 {projectTestimonials.map((quote, i) => <blockquote key={quote.name} data-reveal style={{ transitionDelay: `${i * 80}ms` }}><span aria-hidden="true">“</span><p>{quote.quote}</p><footer><strong>{quote.name}</strong><span>{quote.role}</span></footer></blockquote>)}
@@ -118,7 +123,7 @@ export default function ProjectsPage() {
           <div className={styles.container}>
             <div className={styles.galleryHeader} data-reveal><div><p className={styles.eyebrow}>A Closer Look</p><h2 id="gallery-title" className={styles.title}>Curiosity, <em>in motion.</em></h2></div><p>Space. Robotics. Science.<br />A world to explore through making.</p></div>
             <div className={styles.gallery}>
-              {galleryScenes.map((scene, i) => <figure key={scene.image} data-reveal style={{ transitionDelay: `${i * 65}ms` }}><Image src={`/projects-v2/${scene.image}.webp`} alt={scene.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 50vw, 640px" /><figcaption>{scene.caption}<span aria-hidden="true" /></figcaption></figure>)}
+              {galleryScenes.map((scene, i) => <figure key={scene.image} data-reveal style={{ transitionDelay: `${i * 65}ms` }}><SolutionImageLightbox src={`/projects-v2/${scene.image}.webp`} title={scene.caption} alt={scene.alt} className={styles.photoTrigger}><Image src={`/projects-v2/${scene.image}.webp`} alt={scene.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 50vw, 640px" /></SolutionImageLightbox><figcaption>{scene.caption}<span aria-hidden="true" /></figcaption></figure>)}
             </div>
           </div>
         </section>
@@ -142,14 +147,7 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        <section className={styles.finalScene} aria-labelledby="next-project-title" data-motion-section>
-          <Image src="/projects-v2/final-earth.webp" alt="" fill sizes="(max-width: 767px) 1200px, 100vw" />
-          <ProjectsOverlay name="earth" className={styles.earthOverlay} />
-          <div className={`${styles.container} ${styles.finalGrid}`}>
-            <div data-reveal><p className={styles.eyebrow}>Build the Next Project</p><h2 id="next-project-title" className={styles.title}>What will your<br />students <em>create?</em></h2><p>Bring hands-on Space, STEM, AI and Robotics experiences to your school.</p></div>
-            <div className={styles.actions} data-reveal><Link href="/contact" className={styles.primaryButton}>Partner With Us <span aria-hidden="true">→</span></Link><Link href="/solutions" className={styles.outlineButton}>Explore Solutions <span aria-hidden="true">↗</span></Link></div>
-          </div>
-        </section>
+        <EarthCta eyebrow="Build the Next Project" title={<>What will your students <em>create?</em></>} description="Bring hands-on Space, STEM, AI and Robotics experiences to your school." actions={<><Link href="/contact" className={styles.primaryButton}>Partner With Us <span aria-hidden="true">→</span></Link><Link href="/solutions" className={styles.outlineButton}>Explore Solutions <span aria-hidden="true">↗</span></Link></>} />
       </main>
     </ProjectsMotion>
   );

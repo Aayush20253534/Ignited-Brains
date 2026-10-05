@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { SolutionImageLightbox } from "@/components/home/solution-image-lightbox";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { showcaseProjects, type ProjectDetail } from "./projects-content";
@@ -15,23 +16,43 @@ export function ProjectDetailsButton({ project, children, className = "" }: {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const previousOverflow = useRef("");
+  const locked = useRef(false);
   const titleId = useId();
+  function restorePage() {
+    if (!locked.current) return;
+    locked.current = false;
+    if (document.body.style.overflow === "hidden") document.body.style.overflow = previousOverflow.current;
+    trigger.current?.focus({ preventScroll: true });
+  }
+  function closeDetails() {
+    dialog.current?.close();
+    restorePage();
+  }
   useEffect(() => {
-    const element = dialog.current;
-    return () => { if (element?.open) document.body.style.overflow = previousOverflow.current; };
+    return () => {
+      if (locked.current && document.body.style.overflow === "hidden") document.body.style.overflow = previousOverflow.current;
+    };
   }, []);
 
   return <>
     <button ref={trigger} type="button" className={className} aria-label={`View details: ${project.title}`} aria-haspopup="dialog" onClick={() => {
+      if (!dialog.current || dialog.current.open) return;
       previousOverflow.current = document.body.style.overflow;
-      dialog.current?.showModal();
+      dialog.current.showModal();
+      const image = dialog.current.querySelector("img");
+      if (image) image.loading = "eager";
+      locked.current = true;
       document.body.style.overflow = "hidden";
       dialog.current?.querySelector<HTMLButtonElement>("[data-close]")?.focus();
     }}>{children}</button>
-    <dialog ref={dialog} className={styles.projectDialog} aria-labelledby={titleId} onClose={() => {
-      document.body.style.overflow = previousOverflow.current;
-      trigger.current?.focus();
-    }} onClick={event => { if (event.target === dialog.current) dialog.current?.close(); }} onKeyDown={event => {
+    <dialog ref={dialog} className={styles.projectDialog} aria-labelledby={titleId} onClose={event => {
+      if (event.target !== event.currentTarget) return;
+      if (!event.currentTarget.open) restorePage();
+    }} onCancel={event => {
+      if (event.target !== event.currentTarget) return;
+      event.preventDefault();
+      closeDetails();
+    }} onClick={event => { if (event.target === event.currentTarget) closeDetails(); }} onKeyDown={event => {
       if (event.key !== "Tab") return;
       const controls = event.currentTarget.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]");
       const first = controls[0];
@@ -40,8 +61,13 @@ export function ProjectDetailsButton({ project, children, className = "" }: {
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     }}>
       <div className={styles.dialogInner}>
-        <button type="button" data-close className={styles.dialogClose} aria-label="Close project details" onClick={() => dialog.current?.close()}>×</button>
-        <div className={styles.dialogImage}><Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 94vw, 900px" /></div>
+        <button type="button" data-close className={styles.dialogClose} aria-label="Close project details" onClick={closeDetails}>×</button>
+        <div className={styles.dialogImage}>
+          <SolutionImageLightbox src={project.image} title={project.title} alt={project.alt} className={styles.photoTrigger}>
+            <Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 94vw, 900px" style={{ objectFit: "contain" }} />
+            <span className={styles.openFullPhoto}>Open full photo <span aria-hidden="true">↗</span></span>
+          </SolutionImageLightbox>
+        </div>
         <div className={styles.dialogCopy}>
           <p className={styles.eyebrow}>{project.category}</p>
           <h2 id={titleId}>{project.title}</h2>
@@ -49,7 +75,7 @@ export function ProjectDetailsButton({ project, children, className = "" }: {
           <p>{project.description}</p>
           {project.features && <ul>{project.features.map(feature => <li key={feature}>{feature}</li>)}</ul>}
           <p className={styles.imageNote}>{project.imageNote ?? "Educational project visual."}</p>
-          <Link href="/contact" className={styles.primaryButton} onClick={() => dialog.current?.close()}>Discuss a School Project <span aria-hidden="true">→</span></Link>
+          <Link href="/contact" className={styles.primaryButton} onClick={closeDetails}>Discuss a School Project <span aria-hidden="true">→</span></Link>
         </div>
       </div>
     </dialog>
@@ -73,13 +99,14 @@ export function ProjectBrowser() {
     <div className={`${styles.showcaseGrid} ${category !== "All" ? styles.filteredGrid : ""}`}>
       {visible.map(project => <article key={project.id} className={`${styles.projectCard} ${project.id === "autonomous-rover" ? styles.mainProject : ""}`}>
         <div className={styles.projectImage}>
-          <Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 48vw, 650px" style={project.id === "model-rocket" ? { objectFit: "contain" } : undefined} />
+          <SolutionImageLightbox src={project.image} title={project.title} alt={project.alt} className={styles.photoTrigger}><Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 48vw, 650px" style={project.id === "model-rocket" ? { objectFit: "contain" } : undefined} /></SolutionImageLightbox>
           <span className={styles.projectGridLines} aria-hidden="true" />
         </div>
         <div className={styles.projectCopy}>
           <p className={styles.category}>{project.category}</p>
           <h3>{project.title}</h3>
           <p className={styles.projectDescription}>{project.description}</p>
+          {project.id === "solar-system-park" && <p className={styles.conceptLabel}>Illustrative programme concept</p>}
           <ProjectDetailsButton project={project} className={styles.projectArrow}><span aria-hidden="true">↗</span></ProjectDetailsButton>
         </div>
       </article>)}
