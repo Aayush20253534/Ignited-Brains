@@ -79,7 +79,7 @@ const publicFilesToCheck = [
   "public/media/homeimg.mp4",
   "public/about/hero-lab-visit.webp",
   "public/learning-spaces/ecosystem-lab.webp",
-  "public/learning-spaces/space-hero.webp",
+  "public/learning-spaces/space-hero-isro.webp",
   "public/learning-spaces/stem-hero.webp",
   "public/learning-spaces/robotics-hero.webp",
   "public/learning-spaces/park-outdoor-concept.webp",

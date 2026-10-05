@@ -23,7 +23,7 @@ All supplied photographs came from `Scan documents20260815_200256.zip`. Numbered
 | `projects-v2/rover-field-demo.webp` | Supplied photo 8 | Real robotics demonstration |
 | `projects-v2/gallery-lab-overview.webp` | Supplied photo 77 | Full learning-space view |
 | `projects-v2/gallery-robotics-exhibits.webp` | Supplied photo 82 | Electronic exhibits |
-| `projects-v2/gallery-space-costumes.webp` | Supplied photo 87 | Space exploration activity |
+| `projects-v2/gallery-space-costumes-isro.webp` | Supplied photo 87; costume chest patches edited to ISRO | Space exploration activity |
 | `projects-v2/gallery-stem-experiments.webp` | Supplied photo 96 | STEM exhibit models |
 | `blog/hands-on-lab-demonstration.webp` | Supplied photo 9 | Students watching a working lab demonstration |
 | `blog/robotics-lab-equipment.webp` | Supplied photo 95 | Educator and robotics equipment |

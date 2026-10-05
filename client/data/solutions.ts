@@ -19,8 +19,8 @@ export const solutionShowcase = [
     title: "Space science students can touch.",
     description:
       "A hands-on environment where students explore space science through models, observation and experimentation.",
-    image: "/learning-spaces/space-exhibits.webp",
-    imageAlt: "A young visitor exploring the real Space Lab in an astronaut costume",
+    image: "/learning-spaces/space-exhibits-isro.webp",
+    imageAlt: "Young visitors wearing astronaut costumes with ISRO patches inside the Space Lab",
     href: "/solutions/space-lab",
     action: "Explore Space Lab",
     icon: "space" as HomeIconName,

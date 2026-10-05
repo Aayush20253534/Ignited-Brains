@@ -180,8 +180,8 @@ export function ApplicationChoices({
 
       <div className={styles.photograph}>
         <Image
-          src="/learning-spaces/space-exhibits.webp"
-          alt="Students wearing astronaut suits among space-science exhibits in the Ignited Brains lab"
+          src="/learning-spaces/space-exhibits-isro.webp"
+          alt="Students wearing astronaut suits with ISRO patches among space-science exhibits in the Ignited Brains lab"
           fill
           sizes="(max-width: 639px) calc(100vw - 52px), (max-width: 1199px) 60vw, 680px"
           quality={85}

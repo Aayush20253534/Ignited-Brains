@@ -11,7 +11,7 @@ export type LabProgramme = {
 export const spaceLab: LabProgramme = {
   slug: "space-lab", name: "Space Lab", title: "Bring the universe into the", emphasis: "classroom.", tone: "space",
   description: "A hands-on environment where students explore astronomy, space science and engineering through models, observation and experimentation.",
-  hero: "/learning-spaces/space-hero.webp", heroAlt: "Young visitors in astronaut costumes exploring the real Curiosity Corner space-science exhibits",
+  hero: "/learning-spaces/space-hero-isro.webp", heroAlt: "Young visitors in astronaut costumes with ISRO patches exploring the Curiosity Corner space-science exhibits",
   proof: ["Astronomy", "Rocketry", "Observation"],
   journey: [
     { title: "Explore", description: "Discover celestial models. Ask a bigger question.", icon: "space" },
@@ -73,7 +73,7 @@ export const spaceTopics: Topic[] = [
   { title: "Rocket Models", description: "Explore shape, stability and aerodynamics.", icon: "space", image: "/learning-spaces/space-card.webp", alt: "Educational rocket models displayed at Curiosity Corner" },
   { title: "Satellite Models", description: "Model orbits, communication and mission design.", icon: "design" },
   { title: "Planetary Systems", description: "Investigate scale, rotation and revolution.", icon: "space" },
-  { title: "Space Science Exhibits", description: "Make exploration tangible through physical exhibits.", icon: "innovation", image: "/learning-spaces/space-costume-visit.webp", alt: "A young visitor in an astronaut costume beside real planetary exhibits" },
+  { title: "Space Science Exhibits", description: "Make exploration tangible through physical exhibits.", icon: "innovation", image: "/learning-spaces/space-costume-visit-isro.webp", alt: "Two young visitors wearing silver astronaut costumes with ISRO patches at Curiosity Corner" },
   { title: "Interactive Simulations", description: "Use visual resources to investigate the universe.", icon: "projects", image: "/learning-spaces/space-simulation.webp", alt: "The Galaxy Explorer interactive display installed in Curiosity Corner" },
 ];
 

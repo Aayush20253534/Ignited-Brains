@@ -57,7 +57,7 @@ export const buildStages = [
 export const galleryScenes = [
   { image: "gallery-lab-overview", caption: "Spaces for discovery", alt: "The Ignited Brains Curiosity Corner lab with space models and robotics exhibits" },
   { image: "gallery-robotics-exhibits", caption: "Exploring robotics", alt: "Hands-on electronic models displayed at the AI and Robotics Lab" },
-  { image: "gallery-space-costumes", caption: "Imagining exploration", alt: "Young visitors in silver astronaut costumes beside the Curiosity Corner display" },
+  { image: "gallery-space-costumes-isro", caption: "Imagining exploration", alt: "Young visitors in silver astronaut costumes with ISRO patches beside the Curiosity Corner display" },
   { image: "gallery-stem-experiments", caption: "Science through making", alt: "A collection of working science and engineering models at the STEM exhibit" },
   { image: "gallery-community", caption: "Sharing discovery", alt: "Students and the school community gathering at a real Curiosity Corner event" },
 ];

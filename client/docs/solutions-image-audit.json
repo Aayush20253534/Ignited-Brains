@@ -38,8 +38,8 @@
     "sha256": "8867dd679033c5bdf349b0850eb3bc23ab10ada8ba418a1f86d8bb3f40cba0bd"
   },
   {
-    "asset": "/learning-spaces/space-hero.webp",
-    "type": "supplied photograph",
+    "asset": "/learning-spaces/space-hero-isro.webp",
+    "type": "edited supplied photograph",
     "source": "Scan documents20260815_200256_90.jpg",
     "originalSize": [
       1350,
@@ -53,8 +53,15 @@
       1350,
       901
     ],
-    "bytes": 151612,
-    "sha256": "a9ccc77ddaa1f43bfb027dcbf9fb7edd7e38b03c75fe68ab4838c1fa1d092fb5"
+    "bytes": 161274,
+    "sha256": "1301a459a683e1e7a1f4aa51d7c10af98ff12f7eb95740d8fb0ab5a50f618939",
+    "edit": {
+      "tool": "built-in image_gen",
+      "scope": "Replaced the two NASA costume chest patches with ISRO logo patches.",
+      "originalAssetSha256": "a9ccc77ddaa1f43bfb027dcbf9fb7edd7e38b03c75fe68ab4838c1fa1d092fb5",
+      "logoReference": "https://www.isro.gov.in/media_isro/image/isrobannerLarge.png.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: replacement website photograph. Edit only the two NASA chest patches on the children's silver astronaut costumes: remove the complete NASA circle, lettering, swoosh, and stars and replace each with a small realistic white embroidered cloth badge bearing the official orange-and-blue ISRO logo shown at the FAR LEFT of input image 2, with orange upward arrow and Devanagari इसरो, blue satellite arrays and stylized blue isro lettering. Match each patch's existing footprint, fabric curvature, perspective, lighting, and wrinkles. Keep all people, especially children's facial identity and expression, body proportions, hands, poses, Indian flag patches, helmets, original background text/art/objects, lighting, color balance, photographic texture, scanner margins, framing, and composition exactly unchanged. Do not reconstruct, beautify, enhance, retouch, or alter any area beyond those two chest badge locations. No NASA mark or text may remain on either costume. Input image 1 is the edit target; input image 2 is supporting logo reference ONLY, never a scene replacement. Produce just the edited photograph in the target's original aspect ratio and framing. Target size 1350 by 901 pixels, landscape. Preserve the existing ISRO wall logo and all lab models. Two patches are near lower-middle left and right chests."
+    }
   },
   {
     "asset": "/learning-spaces/space-telescope.webp",
@@ -76,8 +83,8 @@
     "sha256": "c89b57a7d9d0a86b84157d00fb0ce3ebe11c5cea438172867c1197231b6327e8"
   },
   {
-    "asset": "/learning-spaces/space-exhibits.webp",
-    "type": "supplied photograph",
+    "asset": "/learning-spaces/space-exhibits-isro.webp",
+    "type": "edited supplied photograph",
     "source": "Scan documents20260815_200256_89.jpg",
     "originalSize": [
       1350,
@@ -91,8 +98,15 @@
       1200,
       1600
     ],
-    "bytes": 174228,
-    "sha256": "22853ce3d99e1a6aaade10720f0ed89ddf215923ef2fb4e57ce9573280c14736"
+    "bytes": 184678,
+    "sha256": "08a31e95c771b5d3dab78563f2023e9352748b3aca1a75906d728104100ab243",
+    "edit": {
+      "tool": "built-in image_gen",
+      "scope": "Replaced the two NASA costume chest patches with ISRO logo patches.",
+      "originalAssetSha256": "22853ce3d99e1a6aaade10720f0ed89ddf215923ef2fb4e57ce9573280c14736",
+      "logoReference": "https://www.isro.gov.in/media_isro/image/isrobannerLarge.png.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: replacement website photograph. Edit only the two NASA chest patches on the children's silver astronaut costumes: remove the complete NASA circle, lettering, swoosh, and stars and replace each with a small realistic white embroidered cloth badge bearing the official orange-and-blue ISRO logo shown at the FAR LEFT of input image 2, with orange upward arrow and Devanagari इसरो, blue satellite arrays and stylized blue isro lettering. Match each patch's existing footprint, fabric curvature, perspective, lighting, and wrinkles. Keep all people, especially children's facial identity and expression, body proportions, hands, poses, Indian flag patches, helmets, original background text/art/objects, lighting, color balance, photographic texture, scanner margins, framing, and composition exactly unchanged. Do not reconstruct, beautify, enhance, retouch, or alter any area beyond those two chest badge locations. No NASA mark or text may remain on either costume. Input image 1 is the edit target; input image 2 is supporting logo reference ONLY, never a scene replacement. Produce just the edited photograph in the target's original aspect ratio and framing. Target size 1200 by 1600 pixels, portrait 3:4. Preserve the entire telescope, the adults, feet, floor, scanner margins and the existing wall ISRO logo."
+    }
   },
   {
     "asset": "/learning-spaces/space-simulation.webp",
@@ -418,8 +432,8 @@
     "sha256": "f0064f6e4054812958fadcb4404067892268d20384889fb52ec5b5f55652a271"
   },
   {
-    "asset": "/projects-v2/archive-space-visitors.webp",
-    "type": "supplied photograph",
+    "asset": "/projects-v2/archive-space-visitors-isro.webp",
+    "type": "edited supplied photograph",
     "source": "Scan documents20260815_200256_88.jpg",
     "originalSize": [
       1350,
@@ -433,8 +447,15 @@
       1350,
       902
     ],
-    "bytes": 165118,
-    "sha256": "2e5757c872439bc35c8bd4ff87d4b586af762b4bb7d906129567140c2deed565"
+    "bytes": 165394,
+    "sha256": "937cb5b179282e7e7e45c41215a5d3a57f457d8d37bf09132f8177c69490a917",
+    "edit": {
+      "tool": "built-in image_gen",
+      "scope": "Replaced the two NASA costume chest patches with ISRO logo patches.",
+      "originalAssetSha256": "2e5757c872439bc35c8bd4ff87d4b586af762b4bb7d906129567140c2deed565",
+      "logoReference": "https://www.isro.gov.in/media_isro/image/isrobannerLarge.png.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: replacement website photograph. Edit only the two NASA chest patches on the children's silver astronaut costumes: remove the complete NASA circle, lettering, swoosh, and stars and replace each with a small realistic white embroidered cloth badge bearing the official orange-and-blue ISRO logo shown at the FAR LEFT of input image 2, with orange upward arrow and Devanagari इसरो, blue satellite arrays and stylized blue isro lettering. Match each patch's existing footprint, fabric curvature, perspective, lighting, and wrinkles. Keep all people, especially children's facial identity and expression, body proportions, hands, poses, Indian flag patches, helmets, original background text/art/objects, lighting, color balance, photographic texture, scanner margins, framing, and composition exactly unchanged. Do not reconstruct, beautify, enhance, retouch, or alter any area beyond those two chest badge locations. No NASA mark or text may remain on either costume. Input image 1 is the edit target; input image 2 is supporting logo reference ONLY, never a scene replacement. Produce just the edited photograph in the target's original aspect ratio and framing. Target size 1350 by 902 pixels, landscape. Preserve the full existing crop, the large background robot, and both yellow hard hats."
+    }
   },
   {
     "asset": "/projects-v2/gallery-community.webp",
@@ -508,8 +529,8 @@
     "sha256": "352c8e8a3a4e97611cad55306e249f281e8cf3efd7bac6f7363d1ea309bffa2d"
   },
   {
-    "asset": "/learning-spaces/space-costume-visit.webp",
-    "type": "supplied photograph",
+    "asset": "/learning-spaces/space-costume-visit-isro.webp",
+    "type": "edited supplied photograph",
     "source": "Scan documents20260815_200256_86.jpg",
     "originalSize": [
       1350,
@@ -523,8 +544,15 @@
       1200,
       1600
     ],
-    "bytes": 205638,
-    "sha256": "fd73537766366497d554681485c75fffb5b6ddf706da8d3b35bacfb4868a1bec"
+    "bytes": 209016,
+    "sha256": "02e63976e431713808e4f9429f460854d69598551bbd1bb243fbebe61b4c9088",
+    "edit": {
+      "tool": "built-in image_gen",
+      "scope": "Replaced the two NASA costume chest patches with ISRO logo patches.",
+      "originalAssetSha256": "fd73537766366497d554681485c75fffb5b6ddf706da8d3b35bacfb4868a1bec",
+      "logoReference": "https://www.isro.gov.in/media_isro/image/isrobannerLarge.png.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: replacement website photograph. Edit only the two NASA chest patches on the children's silver astronaut costumes: remove the complete NASA circle, lettering, swoosh, and stars and replace each with a small realistic white embroidered cloth badge bearing the official orange-and-blue ISRO logo shown at the FAR LEFT of input image 2, with orange upward arrow and Devanagari इसरो, blue satellite arrays and stylized blue isro lettering. Match each patch's existing footprint, fabric curvature, perspective, lighting, and wrinkles. Keep all people, especially children's facial identity and expression, body proportions, hands, poses, Indian flag patches, helmets, original background text/art/objects, lighting, color balance, photographic texture, scanner margins, framing, and composition exactly unchanged. Do not reconstruct, beautify, enhance, retouch, or alter any area beyond those two chest badge locations. No NASA mark or text may remain on either costume. Input image 1 is the edit target; input image 2 is supporting logo reference ONLY, never a scene replacement. Produce just the edited photograph in the target's original aspect ratio and framing. Target size 1200 by 1600 pixels, portrait 3:4. Preserve both yellow hard hats and feet."
+    }
   },
   {
     "asset": "/projects-v2/archive-building.webp",
@@ -551,5 +579,31 @@
     ],
     "bytes": 266874,
     "sha256": "2fb7523181bead8dd3c79b391514350026bdaebbdbcfb6adfeeb48de3232e2dc"
+  },
+  {
+    "asset": "/projects-v2/gallery-space-costumes-isro.webp",
+    "type": "edited supplied photograph",
+    "source": "Scan documents20260815_200256_87.jpg",
+    "originalSize": [
+      1350,
+      1012
+    ],
+    "scannerMarginsRemoved": [
+      0,
+      0
+    ],
+    "size": [
+      1350,
+      1012
+    ],
+    "bytes": 157616,
+    "sha256": "e88bacaeec913adf399e00854dcc3ac2ea8005de9bd8cd225b1ea5122dc9c81d",
+    "edit": {
+      "tool": "built-in image_gen",
+      "scope": "Replaced the two NASA costume chest patches with ISRO logo patches.",
+      "originalAssetSha256": "71372765d1d56c35e64277325f25b1e9a96b9bd4caa5c21bd3b74510fbecbb47",
+      "logoReference": "https://www.isro.gov.in/media_isro/image/isrobannerLarge.png.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: replacement website photograph. Edit only the two NASA chest patches on the children's silver astronaut costumes: remove the complete NASA circle, lettering, swoosh, and stars and replace each with a small realistic white embroidered cloth badge bearing the official orange-and-blue ISRO logo shown at the FAR LEFT of input image 2, with orange upward arrow and Devanagari इसरो, blue satellite arrays and stylized blue isro lettering. Match each patch's existing footprint, fabric curvature, perspective, lighting, and wrinkles. Keep all people, especially children's facial identity and expression, body proportions, hands, poses, Indian flag patches, helmets, original background text/art/objects, lighting, color balance, photographic texture, scanner margins, framing, and composition exactly unchanged. Do not reconstruct, beautify, enhance, retouch, or alter any area beyond those two chest badge locations. No NASA mark or text may remain on either costume. Input image 1 is the edit target; input image 2 is supporting logo reference ONLY, never a scene replacement. Produce just the edited photograph in the target's original aspect ratio and framing. Target size 1350 by 1012 pixels, landscape 4:3. Preserve white scanner margins at top and bottom, the large background robot, and both yellow hard hats."
+    }
   }
 ]
