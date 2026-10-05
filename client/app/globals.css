@@ -1504,7 +1504,7 @@ main form {
  .solution-image-trigger {
   position: relative;
   display: block;
-  z-index: 0;
+  z-index: 20;
   width: 100%;
   height: 100%;
   cursor: zoom-in;
@@ -1584,4 +1584,9 @@ main form {
   .global-project-earth__network [data-pulse],
   .global-project-earth__network [data-signal],
   .global-project-earth__network [data-orbit] { animation: none !important; }
+}
+
+@media (min-width: 1024px) {
+  .solutionTile .solutionContent { pointer-events: none; }
+  .solutionTile .solutionLink { position: relative; z-index: 30; pointer-events: auto; }
 }

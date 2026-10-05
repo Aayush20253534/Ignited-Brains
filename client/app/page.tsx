@@ -11,8 +11,8 @@ import { HomeIcon } from "@/components/home/home-icon";
 import { ImpactCount } from "@/components/home/impact-count";
 import { ContinuousRow } from "@/components/home/continuous-row";
 import { SolutionImageLightbox } from "@/components/home/solution-image-lightbox";
-import { AnimatedEarth } from "@/components/layout/animated-earth";
 import { SiteImage } from "@/components/media";
+import { ProjectsOverlay } from "@/components/projects/projects-overlay";
 import { ArrowIcon, ButtonLink, Container, Eyebrow } from "@/components/ui";
 import {
   homePrinciples,
@@ -352,23 +352,10 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section data-home-desktop="cta" className={`${styles.ctaSection} home-school-cta dark-space-surface border-y border-white/10`}>
-        <Container wide className={`${styles.ctaInner} relative grid items-center gap-6 py-8 sm:gap-8 sm:py-10 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10 lg:py-16`}>
-          <div className={`${styles.ctaEarth} pointer-events-none mx-auto w-36 sm:w-44 lg:w-[220px]`} aria-hidden="true">
-            <AnimatedEarth className="h-auto w-full drop-shadow-[0_18px_38px_rgba(0,91,255,.34)]" />
-          </div>
-          <div className={`${styles.ctaCopy} relative text-center sm:text-left`}>
-            <h2 className="text-balance text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
-              Ready to transform your school?
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/70 sm:mx-0 sm:text-base">
-              Let&apos;s create a space where students don&apos;t just learn about the future. They build it.
-            </p>
-            <ButtonLink href="/contact" size="lg" showArrow className={`${styles.ctaButton} relative mt-6 justify-self-center sm:justify-self-start`}>
-              Partner With Us
-            </ButtonLink>
-          </div>
-        </Container>
+      <section className="global-project-earth" aria-label="Ignited Brains learning network">
+        <Image src="/projects-v2/final-earth.webp" alt="" fill sizes="100vw" />
+        <ProjectsOverlay name="earth" className="global-project-earth__network" />
+        <div className="global-project-earth__shade" />
       </section>
       <PhoneHomeMotion />
       <DesktopHomeMotion />
