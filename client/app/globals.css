@@ -1498,3 +1498,87 @@ main form {
   .home-hero-learning p { line-height: 1.45; }
   .home-hero-principles { padding-top: 0.75rem; }
 }
+
+
+/* Full-image viewer for the Home solution cards. */
+.solution-image-trigger {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: inherit;
+}
+.solution-image-trigger > div { width: 100%; height: 100%; }
+.solution-image-dialog {
+  width: min(1120px, calc(100vw - 32px));
+  max-width: none;
+  height: min(820px, calc(100dvh - 32px));
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(122, 174, 240, .35);
+  border-radius: 20px;
+  background: #041226;
+  box-shadow: 0 30px 100px rgba(0,0,0,.55);
+}
+.solution-image-dialog::backdrop { background: rgba(1, 8, 22, .86); backdrop-filter: blur(8px); }
+.solution-image-dialog__panel { position: relative; display: grid; grid-template-rows: 1fr auto; height: 100%; }
+.solution-image-dialog__media { position: relative; min-height: 0; background: #041226; }
+.solution-image-dialog__panel > p { margin: 0; padding: 12px 18px 14px; color: white; font-weight: 800; text-align: center; }
+.solution-image-dialog__close {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 999px;
+  color: white;
+  background: rgba(3,18,42,.82);
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* Reuse the Projects page animated Earth/network scene immediately above the footer. */
+.global-project-earth {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(230px, 28vw, 390px);
+  overflow: hidden;
+  background: #031226;
+}
+.global-project-earth > img { z-index: -2; object-fit: cover; object-position: center 52%; }
+.global-project-earth__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(3,18,38,.82), rgba(3,18,38,.22) 60%, rgba(3,18,38,.05));
+}
+.global-project-earth__network { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.global-project-earth__network svg { width: 100%; height: 100%; }
+.global-project-earth__network [data-pulse] {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: global-earth-pulse 4.7s ease-in-out infinite;
+}
+.global-project-earth__network [data-pulse]:nth-child(3n) { animation-delay: -1.7s; animation-duration: 6.3s; }
+.global-project-earth__network [data-signal] { stroke-dasharray: .025 .975; animation: global-earth-signal 9s linear infinite; }
+.global-project-earth__network [data-orbit] { transform-origin: center; animation: global-earth-orbit 32s linear infinite; }
+@keyframes global-earth-pulse { 0%,100% { opacity: .45; scale: .85; } 50% { opacity: .95; scale: 1.2; } }
+@keyframes global-earth-signal { from { stroke-dashoffset: 1; } to { stroke-dashoffset: -1; } }
+@keyframes global-earth-orbit { to { rotate: 360deg; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .global-project-earth__network [data-pulse],
+  .global-project-earth__network [data-signal],
+  .global-project-earth__network [data-orbit] { animation: none !important; }
+}
