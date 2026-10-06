@@ -692,3 +692,40 @@
     animation: none;
   }
 }
+
+.otpInput input {
+  text-align: center;
+  letter-spacing: .28em;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+.info {
+  margin: 14px 0 0;
+  padding: 9px 11px;
+  border: 1px solid #cfe1f8;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #25558f;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.otpActions {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+.otpActions .secondary {
+  margin-top: 0;
+}
+.textAction {
+  min-height: 40px;
+  border: 0;
+  background: transparent;
+  color: #2d5f9d;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.textAction:hover:not(:disabled) {
+  text-decoration: underline;
+}

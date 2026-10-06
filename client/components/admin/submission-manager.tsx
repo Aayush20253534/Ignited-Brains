@@ -5,9 +5,9 @@ import { AdminDialog, Badge, LoadState, PaginationBar } from "./admin-primitives
 import { APPLICATION_STATUSES, CONTACT_STATUSES, dateLabel, emptyPagination, errorMessage, humanize, type AdminApi, type ApiList, type Application, type Contact, type Selection } from "./admin-types";
 import styles from "./admin-dashboard.module.css";
 
-export function SubmissionManager({ kind, api, refresh, defaultType = "", onOpen }: { kind: "contacts" | "applications"; api: AdminApi; refresh: number; defaultType?: string; onOpen: (selection: Selection) => void }) {
+export function SubmissionManager({ kind, api, refresh, lockedType = "", onOpen }: { kind: "contacts" | "applications"; api: AdminApi; refresh: number; lockedType?: "" | "STUDENT" | "ORGANIZATION"; onOpen: (selection: Selection) => void }) {
   const contact = kind === "contacts";
-  const [filters, setFilters] = useState({ query: "", type: defaultType, status: "", dateFrom: "", dateTo: "", sort: "newest", page: 1 });
+  const [filters, setFilters] = useState({ query: "", type: lockedType, status: "", dateFrom: "", dateTo: "", sort: "newest", page: 1 });
   const params = new URLSearchParams({ page: String(filters.page), limit: "10", sort: filters.sort });
   for (const field of ["query", "type", "status", "dateFrom", "dateTo"] as const) if (filters[field].trim()) params.set(field, filters[field].trim());
   const request = params.toString();
@@ -30,15 +30,15 @@ export function SubmissionManager({ kind, api, refresh, defaultType = "", onOpen
     <div className={styles.filterBar}>
       <label className={styles.search}><span>Search {contact ? "enquiries" : "applications"}</span><PortalIcon name="search" /><input type="search" value={filters.query} maxLength={200} placeholder={contact ? "Name, email, organisation or message…" : "Name, email, institution or location…"} onChange={event => change("query", event.target.value)} /></label>
       <label><span>Status</span><select aria-label="Status" value={filters.status} onChange={event => change("status", event.target.value)}><option value="">All statuses</option>{statuses.map(status => <option key={status} value={status}>{humanize(status)}</option>)}</select></label>
-      <label><span>Type</span><select aria-label="Type" value={filters.type} onChange={event => change("type", event.target.value)}><option value="">All types</option><option value={contact ? "INDIVIDUAL" : "STUDENT"}>{contact ? "Individual" : "Student"}</option><option value="ORGANIZATION">Organisation</option></select></label>
+      {(!lockedType || contact) && <label><span>Type</span><select aria-label="Type" value={filters.type} onChange={event => change("type", event.target.value)}><option value="">All types</option><option value={contact ? "INDIVIDUAL" : "STUDENT"}>{contact ? "Individual" : "Student"}</option><option value="ORGANIZATION">Organisation</option></select></label>}
       <label><span>From date (IST)</span><input type="date" value={filters.dateFrom} max={filters.dateTo || undefined} onChange={event => change("dateFrom", event.target.value)} /></label>
       <label><span>To date (IST)</span><input type="date" value={filters.dateTo} min={filters.dateFrom || undefined} onChange={event => change("dateTo", event.target.value)} /></label>
       <label><span>Order</span><select aria-label="Order" value={filters.sort} onChange={event => change("sort", event.target.value)}><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></label>
-      <button type="button" className={styles.secondary} onClick={() => setFilters({ query: "", type: "", status: "", dateFrom: "", dateTo: "", sort: "newest", page: 1 })}>Reset</button>
+      <button type="button" className={styles.secondary} onClick={() => setFilters({ query: "", type: lockedType, status: "", dateFrom: "", dateTo: "", sort: "newest", page: 1 })}>Reset</button>
     </div>
     <div className={styles.panel} aria-busy={busy}>
       {busy || result.error || !result.list.data.length ? <LoadState busy={busy} error={result.error} empty="No submissions match these filters." onRetry={() => setRetry(value => value + 1)} /> : <div className={styles.tableWrap}><table className={styles.table}>
-        <caption className="sr-only">{contact ? "Contact enquiries" : "Student and organisation applications"}</caption>
+        <caption className="sr-only">{contact ? "Contact enquiries" : lockedType === "STUDENT" ? "Student applications" : lockedType === "ORGANIZATION" ? "Organization applications" : "Student and organisation applications"}</caption>
         <thead><tr><th scope="col">{contact ? "Contact details" : "Applicant details"}</th><th scope="col">Type</th><th scope="col">{contact ? "Enquiry" : "Location / institution"}</th><th scope="col">Submitted</th>{contact && <th scope="col">Notification</th>}<th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
         <tbody>{result.list.data.map(record => {
           const entry = record as Contact & Application;
@@ -48,7 +48,7 @@ export function SubmissionManager({ kind, api, refresh, defaultType = "", onOpen
             <td><time dateTime={entry.created_at}>{dateLabel(entry.created_at)}</time><p>{new Intl.DateTimeFormat("en-IN", { timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(entry.created_at))} IST</p></td>
             {contact && <td><Badge value={entry.notification_status} /></td>}<td><Badge value={entry.status} /></td><td><button type="button" className={styles.iconButton} aria-label={`View ${entry.name}`} onClick={() => onOpen({ kind, id: entry.id })}><PortalIcon name="eye" /></button></td></tr>;
         })}</tbody></table></div>}
-      {!busy && !result.error && <PaginationBar value={result.list.pagination} noun={contact ? "enquiries" : "applications"} onPage={page => setFilters(previous => ({ ...previous, page }))} />}
+      {!busy && !result.error && <PaginationBar value={result.list.pagination} noun={contact ? "enquiries" : lockedType === "STUDENT" ? "student applications" : lockedType === "ORGANIZATION" ? "organization applications" : "applications"} onPage={page => setFilters(previous => ({ ...previous, page }))} />}
     </div>
   </section>;
 }

@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { AdminLogin, AdminSessionEnding, AdminSignedOut } from "./admin-auth-screens";
 import { AdminDashboard } from "./admin-dashboard";
-import type { AdminUser } from "./admin-types";
+import type { AdminTab, AdminUser } from "./admin-types";
 const TOKEN_KEY = "ignited-brains-admin-token";
 const subscribeToHydration = () => () => {};
 const clientHydrated = () => true;
@@ -13,14 +13,14 @@ async function parseResponse<T>(response: Response): Promise<T> {
   if (!response.ok) throw new Error(body.error || body.message || `Request failed (${response.status})`);
   return body as T;
 }
-export function AdminPortal() {
+export function AdminPortal({ initialTab = "overview" }: { initialTab?: AdminTab }) {
   const hydrated = useSyncExternalStore(subscribeToHydration, clientHydrated, serverHydrated);
-  return hydrated ? <AdminWorkspace /> : <AdminLoading />;
+  return hydrated ? <AdminWorkspace initialTab={initialTab} /> : <AdminLoading />;
 }
 function AdminLoading() {
   return <div className="fixed inset-0 z-[120] grid place-items-center bg-[#f5f8fd]" role="status"><div className="text-center"><span className="mx-auto block h-9 w-9 animate-spin rounded-full border-4 border-brand-blue/15 border-t-brand-orange" /><p className="mt-4 text-sm font-bold text-brand-blue">Loading admin portal…</p></div></div>;
 }
-function AdminWorkspace() {
+function AdminWorkspace({ initialTab }: { initialTab: AdminTab }) {
   const [initialToken] = useState(readStoredToken);
   const [token, setToken] = useState(initialToken);
   const [admin, setAdmin] = useState<AdminUser | null>(null);
@@ -157,5 +157,5 @@ function AdminWorkspace() {
   if (authScreen === "signing-out" || authScreen === "logout-error") return <AdminSessionEnding error={logoutError} onRetry={() => void handleLogout()} />;
   if (authScreen === "signed-out") return <AdminSignedOut onSignIn={() => { setError(""); setAuthScreen("signin"); }} />;
   if (!token || !admin) return <AdminLogin onAuthenticated={handleAuthenticated} sessionError={error} />;
-  return <AdminDashboard admin={admin} api={apiFetch} onLogout={() => void handleLogout()} />;
+  return <AdminDashboard initialTab={initialTab} admin={admin} api={apiFetch} onLogout={() => void handleLogout()} />;
 }

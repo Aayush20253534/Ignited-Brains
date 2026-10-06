@@ -56,7 +56,14 @@ async function createTestApi({ port = 0 } = {}) {
     const response = await fetch(origin + route, { method, headers: { Accept: 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(body ? { 'Content-Type': 'application/json' } : {}) }, body: body ? JSON.stringify(body) : undefined });
     return { status: response.status, data: await response.json(), headers: response.headers };
   }
-  async function login() { return request('/api/v1/admin/auth/login', { method: 'POST', body: { email: admin.email, password } }); }
+  async function login() {
+    const challenge = await request('/api/v1/admin/auth/login', { method: 'POST', body: { email: admin.email, password } });
+    if (challenge.status !== 202 || !challenge.data.challengeId || !challenge.data.testOtp) return challenge;
+    return request('/api/v1/admin/auth/verify-otp', {
+      method: 'POST',
+      body: { challengeId: challenge.data.challengeId, otp: challenge.data.testOtp },
+    });
+  }
   async function close() {
     await new Promise(resolve => server.close(resolve));
     pool.query = originalQuery;

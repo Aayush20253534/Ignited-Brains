@@ -156,26 +156,55 @@ export function AdminLogin({
   onAuthenticated: (token: string, admin: AdminIdentity) => void;
   sessionError?: string;
 }) {
+  type OtpChallenge = {
+    challengeId: string;
+    maskedEmail: string;
+    expiresInSeconds: number;
+  };
+
+  const [stage, setStage] = useState<"credentials" | "otp">("credentials");
+  const [challenge, setChallenge] = useState<OtpChallenge | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
   const pendingRef = useRef(false);
   const requestRef = useRef<AbortController | null>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const otpRef = useRef<HTMLInputElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => () => requestRef.current?.abort(), []);
   useEffect(() => {
-    headingRef.current?.focus({ preventScroll: true });
-  }, []);
+    if (stage === "otp") otpRef.current?.focus({ preventScroll: true });
+    else headingRef.current?.focus({ preventScroll: true });
+  }, [stage]);
+
+  async function requestAuth(path: string, body: Record<string, string>) {
+    requestRef.current?.abort();
+    const controller = new AbortController();
+    requestRef.current = controller;
+    const response = await fetch(path, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(body),
+      cache: "no-store",
+      signal: controller.signal,
+    });
+    const payload = await response.json().catch(() => null);
+    if (!response.ok) throw new Error(payload?.error || "Unable to complete authentication. Please try again.");
+    return payload;
+  }
 
   async function signIn(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (pendingRef.current) return;
     setError("");
+    setInfo("");
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setError("Enter a valid email address.");
       emailRef.current?.focus();
@@ -186,48 +215,108 @@ export function AdminLogin({
       passwordRef.current?.focus();
       return;
     }
+
     pendingRef.current = true;
     setLoading(true);
-    const controller = new AbortController();
-    requestRef.current = controller;
     try {
-      const response = await fetch("/api/v1/admin/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ email: email.trim(), password }),
-        cache: "no-store",
-        signal: controller.signal,
-      });
-      const payload = await response.json().catch(() => null);
-      if (!response.ok)
-        throw new Error(
-          payload?.error || "Unable to sign in. Please try again.",
-        );
-      if (!payload?.token || !payload?.admin?.id)
-        throw new Error(
-          "The server returned an unexpected response. Please try again.",
-        );
-      if (!controller.signal.aborted) {
-        setPassword("");
-        onAuthenticated(payload.token, payload.admin);
+      const payload = await requestAuth("/api/v1/admin/auth/login", { email: email.trim(), password });
+      if (!payload?.requiresOtp || !payload?.challengeId) {
+        throw new Error("The server returned an unexpected response. Please try again.");
       }
-    } catch (error) {
-      if (!controller.signal.aborted)
-        setError(
-          error instanceof Error
-            ? error.message
-            : "Unable to sign in. Please try again.",
-        );
+      setChallenge({
+        challengeId: payload.challengeId,
+        maskedEmail: payload.maskedEmail || "your administrator email",
+        expiresInSeconds: Number(payload.expiresInSeconds || 600),
+      });
+      setPassword("");
+      setOtp("");
+      setStage("otp");
+      setInfo("Verification code sent.");
+    } catch (authError) {
+      if (!(authError instanceof DOMException && authError.name === "AbortError")) {
+        setError(authError instanceof Error ? authError.message : "Unable to sign in. Please try again.");
+      }
     } finally {
       pendingRef.current = false;
-      if (!controller.signal.aborted) setLoading(false);
+      setLoading(false);
     }
   }
 
-  const message = error || sessionError;
+  async function verifyOtp(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (pendingRef.current || !challenge) return;
+    setError("");
+    setInfo("");
+    if (!/^\d{6}$/.test(otp)) {
+      setError("Enter the six-digit verification code.");
+      otpRef.current?.focus();
+      return;
+    }
+
+    pendingRef.current = true;
+    setLoading(true);
+    try {
+      const payload = await requestAuth("/api/v1/admin/auth/verify-otp", {
+        challengeId: challenge.challengeId,
+        otp,
+      });
+      if (!payload?.token || !payload?.admin?.id) {
+        throw new Error("The server returned an unexpected response. Please try again.");
+      }
+      setOtp("");
+      onAuthenticated(payload.token, payload.admin);
+    } catch (authError) {
+      if (!(authError instanceof DOMException && authError.name === "AbortError")) {
+        setError(authError instanceof Error ? authError.message : "Unable to verify the code. Please try again.");
+      }
+    } finally {
+      pendingRef.current = false;
+      setLoading(false);
+    }
+  }
+
+  async function resendOtp() {
+    if (pendingRef.current || !challenge) return;
+    pendingRef.current = true;
+    setLoading(true);
+    setError("");
+    setInfo("");
+    try {
+      const payload = await requestAuth("/api/v1/admin/auth/otp/resend", {
+        challengeId: challenge.challengeId,
+      });
+      if (!payload?.challengeId) throw new Error("Unable to resend the verification code.");
+      setChallenge({
+        challengeId: payload.challengeId,
+        maskedEmail: payload.maskedEmail || challenge.maskedEmail,
+        expiresInSeconds: Number(payload.expiresInSeconds || 600),
+      });
+      setOtp("");
+      setInfo("A new verification code has been sent.");
+      requestAnimationFrame(() => otpRef.current?.focus());
+    } catch (authError) {
+      if (!(authError instanceof DOMException && authError.name === "AbortError")) {
+        setError(authError instanceof Error ? authError.message : "Unable to resend the code.");
+      }
+    } finally {
+      pendingRef.current = false;
+      setLoading(false);
+    }
+  }
+
+  function useDifferentCredentials() {
+    requestRef.current?.abort();
+    pendingRef.current = false;
+    setLoading(false);
+    setChallenge(null);
+    setOtp("");
+    setPassword("");
+    setError("");
+    setInfo("");
+    setStage("credentials");
+  }
+
+  const message = error || (stage === "credentials" ? sessionError : "");
   return (
     <AuthShell>
       <div className={styles.card}>
@@ -236,86 +325,116 @@ export function AdminLogin({
             <PortalIcon name="shield" />
           </span>
           <div>
-            <p className={styles.secure}>Secure Admin</p>
+            <p className={styles.secure}>{stage === "otp" ? "Two-step verification" : "Secure Admin"}</p>
             <h1 ref={headingRef} tabIndex={-1}>
-              Welcome back.
+              {stage === "otp" ? "Check your email." : "Welcome back."}
             </h1>
           </div>
         </div>
-        <p className={styles.cardCopy}>
-          Sign in with your Ignited Brains administrator credentials.
-        </p>
-        <form
-          onSubmit={signIn}
-          noValidate
-          aria-busy={loading}
-          className={styles.loginForm}
-        >
-          <label htmlFor="admin-email">Email address</label>
-          <div className={styles.inputWrap}>
-            <PortalIcon name="email" />
-            <input
-              ref={emailRef}
-              id="admin-email"
-              name="email"
-              type="email"
-              autoComplete="username"
-              maxLength={320}
-              required
-              placeholder="you@ignitedbrains.in"
-              value={email}
-              disabled={loading}
-              onChange={(event) => {
-                setEmail(event.target.value);
-                setError("");
-              }}
-              aria-describedby={message ? "admin-auth-error" : undefined}
-            />
-          </div>
-          <label htmlFor="admin-password">Password</label>
-          <div className={styles.inputWrap}>
-            <PortalIcon name="lock" />
-            <input
-              ref={passwordRef}
-              id="admin-password"
-              name="password"
-              type={showPassword ? "text" : "password"}
-              autoComplete="current-password"
-              maxLength={500}
-              required
-              placeholder="Enter your password"
-              value={password}
-              disabled={loading}
-              onChange={(event) => {
-                setPassword(event.target.value);
-                setError("");
-              }}
-              aria-describedby={message ? "admin-auth-error" : undefined}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((value) => !value)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              aria-pressed={showPassword}
-              disabled={loading}
-              className={styles.eye}
-            >
-              <PortalIcon name={showPassword ? "eyeOff" : "eye"} />
-            </button>
-          </div>
-          {message ? (
-            <p id="admin-auth-error" role="alert" className={styles.error}>
-              {message}
+
+        {stage === "credentials" ? (
+          <>
+            <p className={styles.cardCopy}>Sign in with your Ignited Brains administrator credentials.</p>
+            <form onSubmit={signIn} noValidate aria-busy={loading} className={styles.loginForm}>
+              <label htmlFor="admin-email">Email address</label>
+              <div className={styles.inputWrap}>
+                <PortalIcon name="email" />
+                <input
+                  ref={emailRef}
+                  id="admin-email"
+                  name="email"
+                  type="email"
+                  autoComplete="username"
+                  maxLength={320}
+                  required
+                  placeholder="you@ignitedbrains.in"
+                  value={email}
+                  disabled={loading}
+                  onChange={(event) => { setEmail(event.target.value); setError(""); }}
+                  aria-describedby={message ? "admin-auth-error" : undefined}
+                />
+              </div>
+              <label htmlFor="admin-password">Password</label>
+              <div className={styles.inputWrap}>
+                <PortalIcon name="lock" />
+                <input
+                  ref={passwordRef}
+                  id="admin-password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  maxLength={500}
+                  required
+                  placeholder="Enter your password"
+                  value={password}
+                  disabled={loading}
+                  onChange={(event) => { setPassword(event.target.value); setError(""); }}
+                  aria-describedby={message ? "admin-auth-error" : undefined}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((value) => !value)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                  disabled={loading}
+                  className={styles.eye}
+                >
+                  <PortalIcon name={showPassword ? "eyeOff" : "eye"} />
+                </button>
+              </div>
+              {message ? <p id="admin-auth-error" role="alert" className={styles.error}>{message}</p> : null}
+              <button type="submit" className={styles.primary} disabled={loading}>
+                {loading ? "Checking credentials…" : "Continue securely"}
+                <PortalIcon name="arrow" />
+              </button>
+            </form>
+          </>
+        ) : (
+          <>
+            <p className={styles.cardCopy}>
+              A six-digit one-time code was sent to <strong>{challenge?.maskedEmail}</strong>. The code expires in about {Math.max(1, Math.ceil((challenge?.expiresInSeconds || 600) / 60))} minutes.
             </p>
-          ) : null}
-          <button type="submit" className={styles.primary} disabled={loading}>
-            {loading ? "Signing in…" : "Sign in to Admin"}
-            <PortalIcon name="arrow" />
-          </button>
-        </form>
+            <form onSubmit={verifyOtp} noValidate aria-busy={loading} className={styles.loginForm}>
+              <label htmlFor="admin-otp">Verification code</label>
+              <div className={cn(styles.inputWrap, styles.otpInput)}>
+                <PortalIcon name="lock" />
+                <input
+                  ref={otpRef}
+                  id="admin-otp"
+                  name="otp"
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  required
+                  placeholder="000000"
+                  value={otp}
+                  disabled={loading}
+                  onChange={(event) => { setOtp(event.target.value.replace(/\D/g, "").slice(0, 6)); setError(""); }}
+                  aria-describedby={message ? "admin-auth-error" : undefined}
+                />
+              </div>
+              {info ? <p className={styles.info} role="status">{info}</p> : null}
+              {message ? <p id="admin-auth-error" role="alert" className={styles.error}>{message}</p> : null}
+              <button type="submit" className={styles.primary} disabled={loading || otp.length !== 6}>
+                {loading ? "Verifying…" : "Verify & enter Admin"}
+                <PortalIcon name="arrow" />
+              </button>
+            </form>
+            <div className={styles.otpActions}>
+              <button type="button" className={styles.secondary} disabled={loading} onClick={() => void resendOtp()}>
+                Resend code
+              </button>
+              <button type="button" className={styles.textAction} disabled={loading} onClick={useDifferentCredentials}>
+                Use different credentials
+              </button>
+            </div>
+          </>
+        )}
+
         <p className={styles.secureNote}>
           <PortalIcon name="lock" />
-          Secure access for authorised administrators
+          Password + email OTP required for every administrator sign-in
         </p>
       </div>
     </AuthShell>

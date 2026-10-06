@@ -1,8 +1,8 @@
 const { config } = require('../config');
 const { escapeHtml } = require('../utils/text');
 
-const sendEmail = async ({ subject, html, text, replyTo }) => {
-  if (!config.resendApiKey || !config.resendFrom || !config.notificationTo) {
+const sendEmail = async ({ subject, html, text, replyTo, to = config.notificationTo }) => {
+  if (!config.resendApiKey || !config.resendFrom || !to || (Array.isArray(to) && to.length === 0)) {
     return { status: 'SKIPPED', id: null, error: 'Resend is not configured' };
   }
 
@@ -15,7 +15,7 @@ const sendEmail = async ({ subject, html, text, replyTo }) => {
       },
       body: JSON.stringify({
         from: config.resendFrom,
-        to: [config.notificationTo],
+        to: Array.isArray(to) ? to : [to],
         subject,
         html,
         text,
@@ -99,4 +99,27 @@ const sendApplicationNotification = (application) => {
   });
 };
 
-module.exports = { sendContactNotification, sendApplicationNotification };
+const sendAdminOtp = ({ email, name, code, expiresMinutes }) => sendEmail({
+  to: email,
+  subject: 'Your Ignited Brains admin verification code',
+  text: [
+    'Ignited Brains administrator verification',
+    '',
+    'Hello ' + (name || 'Administrator') + ',',
+    'Your one-time verification code is: ' + code,
+    'This code expires in ' + expiresMinutes + ' minutes and can be used once.',
+    '',
+    'If you did not attempt to sign in, do not share this code and contact the site administrator.',
+  ].join('\n'),
+  html: '<div style="font-family:Arial,sans-serif;color:#08204b;line-height:1.6">' +
+    '<p style="color:#d94b09;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Ignited Brains Admin</p>' +
+    '<h2>Verify your sign-in</h2>' +
+    '<p>Hello ' + escapeHtml(name || 'Administrator') + ',</p>' +
+    '<p>Use this one-time code to complete your administrator sign-in:</p>' +
+    '<p style="font-size:32px;font-weight:800;letter-spacing:.25em;margin:24px 0;color:#0a2e72">' + escapeHtml(code) + '</p>' +
+    '<p>This code expires in ' + Number(expiresMinutes) + ' minutes and can be used once.</p>' +
+    '<p style="color:#5b6f91">If you did not attempt to sign in, do not share this code.</p>' +
+    '</div>',
+});
+
+module.exports = { sendContactNotification, sendApplicationNotification, sendAdminOtp };

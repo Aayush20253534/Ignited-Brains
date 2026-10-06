@@ -1,7 +1,7 @@
 import type { Pagination } from "@/lib/blog";
 export type AdminUser = { id: string; name: string; email: string };
 export type AdminApi = <T>(path: string, options?: RequestInit) => Promise<T>;
-export type AdminTab = "overview" | "contacts" | "applications" | "blogs";
+export type AdminTab = "overview" | "contacts" | "student-applications" | "organization-applications" | "blogs";
 export const CONTACT_STATUSES = ["NEW", "IN_PROGRESS", "RESOLVED", "ARCHIVED"] as const;
 export const APPLICATION_STATUSES = ["NEW", "IN_REVIEW", "CONTACTED", "APPROVED", "REJECTED", "ARCHIVED"] as const;
 export type Contact = {

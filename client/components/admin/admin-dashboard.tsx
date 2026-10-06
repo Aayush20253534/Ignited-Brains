@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { PortalIcon, type PortalIconName } from "@/components/ui/portal-icon";
@@ -14,11 +15,25 @@ const mobileQuery = "(max-width: 959px)";
 const subscribeMobile = (notify: () => void) => { const query = window.matchMedia(mobileQuery); query.addEventListener("change", notify); return () => query.removeEventListener("change", notify); };
 const mobileSnapshot = () => window.matchMedia(mobileQuery).matches;
 const desktopSnapshot = () => false;
-const items: { id: AdminTab; label: string; icon: PortalIconName }[] = [{ id: "overview", label: "Overview", icon: "overview" }, { id: "contacts", label: "Contact Enquiries", icon: "email" }, { id: "applications", label: "Applications", icon: "document" }, { id: "blogs", label: "Blog Management", icon: "book" }];
+const items: { id: AdminTab; label: string; icon: PortalIconName }[] = [
+  { id: "overview", label: "Overview", icon: "overview" },
+  { id: "contacts", label: "Contact Enquiries", icon: "email" },
+  { id: "student-applications", label: "Student Applications", icon: "graduation" },
+  { id: "organization-applications", label: "Organization Applications", icon: "institution" },
+  { id: "blogs", label: "Blog Management", icon: "book" },
+];
 
-export function AdminDashboard({ admin, api, onLogout }: { admin: AdminUser; api: AdminApi; onLogout: () => void }) {
-  const [tab, setTab] = useState<AdminTab>("overview");
-  const [applicationType, setApplicationType] = useState("");
+const adminRoutes: Record<AdminTab, string> = {
+  overview: "/admin",
+  contacts: "/admin/contacts",
+  "student-applications": "/admin/student-applications",
+  "organization-applications": "/admin/organization-applications",
+  blogs: "/admin/blogs",
+};
+
+export function AdminDashboard({ initialTab, admin, api, onLogout }: { initialTab: AdminTab; admin: AdminUser; api: AdminApi; onLogout: () => void }) {
+  const router = useRouter();
+  const [tab, setTab] = useState<AdminTab>(initialTab);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [refresh, setRefresh] = useState(0);
   const [notice, setNotice] = useState("");
@@ -30,6 +45,7 @@ export function AdminDashboard({ admin, api, onLogout }: { admin: AdminUser; api
   const refreshing = result.version !== refresh;
   const summary = result.data;
   const changed = useCallback((message: string) => { setNotice(message); setRefresh(value => value + 1); }, []);
+  useEffect(() => setTab(initialTab), [initialTab]);
   useEffect(() => {
     const controller = new AbortController();
     void api<Summary>("/api/v1/admin/dashboard/summary", { signal: controller.signal })
@@ -52,10 +68,29 @@ export function AdminDashboard({ admin, api, onLogout }: { admin: AdminUser; api
     document.addEventListener("keydown", handleKey);
     return () => { document.removeEventListener("keydown", handleKey); if (previous?.isConnected) previous.focus({ preventScroll: true }); };
   }, [mobileOpen, mobile]);
-  function navigate(next: AdminTab, type = "") { setApplicationType(type); setTab(next); setMobileOpen(false); setNotice(""); requestAnimationFrame(() => title.current?.focus({ preventScroll: true })); }
-  const heading = tab === "overview" ? ["Dashboard", "Overview"] : tab === "contacts" ? ["Contact", "Enquiries"] : tab === "applications" ? ["", "Applications"] : ["Blog", "Management"];
-  const description = tab === "overview" ? "A live view of Ignited Brains submissions and activity." : tab === "contacts" ? "Review and manage incoming partnership enquiries." : tab === "applications" ? "Track student and organisation applications." : "Create, edit and manage your website blogs.";
-  const counts = { overview: undefined, contacts: summary?.contacts.new, applications: summary?.applications.new, blogs: summary?.blogs.drafts };
+  function navigate(next: AdminTab) {
+    setTab(next);
+    setMobileOpen(false);
+    setNotice("");
+    router.push(adminRoutes[next]);
+    requestAnimationFrame(() => title.current?.focus({ preventScroll: true }));
+  }
+  const heading = tab === "overview" ? ["Dashboard", "Overview"] :
+    tab === "contacts" ? ["Contact", "Enquiries"] :
+    tab === "student-applications" ? ["Student", "Applications"] :
+    tab === "organization-applications" ? ["Organization", "Applications"] :
+    ["Blog", "Management"];
+  const description = tab === "overview" ? "A live view of Ignited Brains submissions and activity." :
+    tab === "contacts" ? "Review and manage incoming partnership enquiries." :
+    tab === "student-applications" ? "Review and manage student applications." :
+    tab === "organization-applications" ? "Review and manage organization applications." :
+    "Create, edit and manage your website blogs.";
+  const counts: Partial<Record<AdminTab, number | undefined>> = {
+    contacts: summary?.contacts.new,
+    "student-applications": summary?.applications.students,
+    "organization-applications": summary?.applications.organizations,
+    blogs: summary?.blogs.drafts,
+  };
   return <div className={styles.shell}>
     {mobile && mobileOpen && <button type="button" aria-label="Close admin navigation" className={styles.mobileBackdrop} onClick={() => setMobileOpen(false)} />}
     <aside ref={sidebar} className={`${styles.sidebar} ${mobileOpen ? styles.sidebarOpen : ""}`} inert={mobile && !mobileOpen} aria-label="Admin navigation">
@@ -74,15 +109,32 @@ export function AdminDashboard({ admin, api, onLogout }: { admin: AdminUser; api
         {result.error && <div className={styles.error} role="alert"><p>{result.error}</p><button type="button" onClick={() => setRefresh(value => value + 1)}>Retry</button></div>}
         {notice && <div className={styles.notice} role="status"><p>{notice}</p><button type="button" onClick={() => setNotice("")} aria-label="Dismiss confirmation">Dismiss</button></div>}
         {tab !== "blogs" && <div className={styles.statGrid}>
-          {tab === "contacts" ? <><StatCard label="Total enquiries" value={summary?.contacts.total} helper="All contact submissions" icon="email" /><StatCard label="New enquiries" value={summary?.contacts.new} helper="Awaiting a first response" icon="clock" accent="blue" /><StatCard label="Organisations" value={summary?.contacts.organizations} helper="Institutional enquiries" icon="institution" accent="green" /><StatCard label="Individuals" value={summary?.contacts.individuals} helper="Individual enquiries" icon="person" accent="purple" /></> : <>
-            <StatCard label={tab === "overview" ? "Contact enquiries" : "Total applications"} value={tab === "overview" ? summary?.contacts.total : summary?.applications.total} helper={tab === "overview" ? summary ? `${summary.contacts.recent} in the last 7 days` : "Loading activity" : "All submitted applications"} icon={tab === "overview" ? "email" : "document"} points={tab === "overview" ? summary?.activity.map(day => day.contacts) : undefined} onClick={tab === "overview" ? () => navigate("contacts") : undefined} />
-            <StatCard label={tab === "overview" ? "Applications" : "Awaiting review"} value={tab === "overview" ? summary?.applications.total : summary?.applications.awaiting} helper={summary ? `${summary.applications.awaiting} awaiting review` : "Loading activity"} icon="document" accent="blue" points={tab === "overview" ? summary?.activity.map(day => day.applications) : undefined} onClick={tab === "overview" ? () => navigate("applications") : undefined} />
-            <StatCard label="Student applications" value={summary?.applications.students} helper={summary ? `${summary.applications.recent_students} in the last 7 days` : "Loading activity"} icon="person" accent="purple" points={tab === "overview" ? summary?.activity.map(day => day.students) : undefined} onClick={tab === "overview" ? () => navigate("applications", "STUDENT") : undefined} />
-            <StatCard label="Organisation applications" value={summary?.applications.organizations} helper={summary ? `${summary.applications.recent_organizations} in the last 7 days` : "Loading activity"} icon="institution" accent="green" points={tab === "overview" ? summary?.activity.map(day => day.organizations) : undefined} onClick={tab === "overview" ? () => navigate("applications", "ORGANIZATION") : undefined} />
+          {tab === "contacts" ? <>
+            <StatCard label="Total enquiries" value={summary?.contacts.total} helper="All contact submissions" icon="email" />
+            <StatCard label="New enquiries" value={summary?.contacts.new} helper="Awaiting a first response" icon="clock" accent="blue" />
+            <StatCard label="Organisations" value={summary?.contacts.organizations} helper="Institutional enquiries" icon="institution" accent="green" />
+            <StatCard label="Individuals" value={summary?.contacts.individuals} helper="Individual enquiries" icon="person" accent="purple" />
+          </> : tab === "student-applications" ? <>
+            <StatCard label="Student applications" value={summary?.applications.students} helper="All student submissions" icon="graduation" accent="purple" />
+            <StatCard label="Last 7 days" value={summary?.applications.recent_students} helper="Recent student applications" icon="clock" accent="blue" />
+            <StatCard label="Total applications" value={summary?.applications.total} helper="Student + organization" icon="document" />
+            <StatCard label="Organization applications" value={summary?.applications.organizations} helper="Institutional submissions" icon="institution" accent="green" onClick={() => navigate("organization-applications")} />
+          </> : tab === "organization-applications" ? <>
+            <StatCard label="Organization applications" value={summary?.applications.organizations} helper="All organization submissions" icon="institution" accent="green" />
+            <StatCard label="Last 7 days" value={summary?.applications.recent_organizations} helper="Recent organization applications" icon="clock" accent="blue" />
+            <StatCard label="Total applications" value={summary?.applications.total} helper="Student + organization" icon="document" />
+            <StatCard label="Student applications" value={summary?.applications.students} helper="Student submissions" icon="graduation" accent="purple" onClick={() => navigate("student-applications")} />
+          </> : <>
+            <StatCard label="Contact enquiries" value={summary?.contacts.total} helper={summary ? `${summary.contacts.recent} in the last 7 days` : "Loading activity"} icon="email" points={summary?.activity.map(day => day.contacts)} onClick={() => navigate("contacts")} />
+            <StatCard label="Applications" value={summary?.applications.total} helper={summary ? `${summary.applications.awaiting} awaiting review` : "Loading activity"} icon="document" accent="blue" points={summary?.activity.map(day => day.applications)} />
+            <StatCard label="Student applications" value={summary?.applications.students} helper={summary ? `${summary.applications.recent_students} in the last 7 days` : "Loading activity"} icon="graduation" accent="purple" points={summary?.activity.map(day => day.students)} onClick={() => navigate("student-applications")} />
+            <StatCard label="Organization applications" value={summary?.applications.organizations} helper={summary ? `${summary.applications.recent_organizations} in the last 7 days` : "Loading activity"} icon="institution" accent="green" points={summary?.activity.map(day => day.organizations)} onClick={() => navigate("organization-applications")} />
           </>}
         </div>}
-        {tab === "overview" && <><div className={styles.recentGrid}><RecentRecords kind="contacts" api={api} refresh={refresh} onOpen={setSelection} onViewAll={() => navigate("contacts")} /><RecentRecords kind="applications" api={api} refresh={refresh} onOpen={setSelection} onViewAll={() => navigate("applications")} /></div><section className={`${styles.panel} ${styles.quickActions}`}><div className={styles.panelHeader}><PortalIcon name="chart" /><div><h2>Quick Actions</h2><p>Common tasks to keep enquiries, applications and stories moving.</p></div></div><div className={styles.quickGrid}><button type="button" className={styles.orange} onClick={() => navigate("contacts")}><PortalIcon name="email" />View Contact Enquiries <span aria-hidden="true">→</span></button><button type="button" className={styles.blue} onClick={() => navigate("applications")}><PortalIcon name="document" />View All Applications <span aria-hidden="true">→</span></button><button type="button" className={styles.purple} onClick={() => navigate("applications", "STUDENT")}><PortalIcon name="person" />Student Applications <span aria-hidden="true">→</span></button><button type="button" className={styles.green} onClick={() => navigate("blogs")}><PortalIcon name="book" />Manage Blogs <span aria-hidden="true">→</span></button></div></section></>}
-        {(tab === "contacts" || tab === "applications") && <SubmissionManager key={`${tab}:${applicationType}`} kind={tab} api={api} refresh={refresh} defaultType={tab === "applications" ? applicationType : ""} onOpen={setSelection} />}
+        {tab === "overview" && <><div className={styles.recentGrid}><RecentRecords kind="contacts" api={api} refresh={refresh} onOpen={setSelection} onViewAll={() => navigate("contacts")} /><RecentRecords kind="applications" api={api} refresh={refresh} onOpen={setSelection} /></div><section className={`${styles.panel} ${styles.quickActions}`}><div className={styles.panelHeader}><PortalIcon name="chart" /><div><h2>Quick Actions</h2><p>Common tasks to keep enquiries, applications and stories moving.</p></div></div><div className={styles.quickGrid}><button type="button" className={styles.orange} onClick={() => navigate("contacts")}><PortalIcon name="email" />View Contact Enquiries <span aria-hidden="true">→</span></button><button type="button" className={styles.purple} onClick={() => navigate("student-applications")}><PortalIcon name="graduation" />Student Applications <span aria-hidden="true">→</span></button><button type="button" className={styles.green} onClick={() => navigate("organization-applications")}><PortalIcon name="institution" />Organization Applications <span aria-hidden="true">→</span></button><button type="button" className={styles.blue} onClick={() => navigate("blogs")}><PortalIcon name="book" />Manage Blogs <span aria-hidden="true">→</span></button></div></section></>}
+        {tab === "contacts" && <SubmissionManager key="contacts" kind="contacts" api={api} refresh={refresh} onOpen={setSelection} />}
+        {tab === "student-applications" && <SubmissionManager key="student-applications" kind="applications" api={api} refresh={refresh} lockedType="STUDENT" onOpen={setSelection} />}
+        {tab === "organization-applications" && <SubmissionManager key="organization-applications" kind="applications" api={api} refresh={refresh} lockedType="ORGANIZATION" onOpen={setSelection} />}
         {tab === "blogs" && <BlogManager api={api} refresh={refresh} summary={summary?.blogs} onChanged={changed} />}
       </main>
     </div>
@@ -90,7 +142,7 @@ export function AdminDashboard({ admin, api, onLogout }: { admin: AdminUser; api
   </div>;
 }
 
-function RecentRecords({ kind, api, refresh, onOpen, onViewAll }: { kind: "contacts" | "applications"; api: AdminApi; refresh: number; onOpen: (selection: Selection) => void; onViewAll: () => void }) {
+function RecentRecords({ kind, api, refresh, onOpen, onViewAll }: { kind: "contacts" | "applications"; api: AdminApi; refresh: number; onOpen: (selection: Selection) => void; onViewAll?: () => void }) {
   const [result, setResult] = useState<{ version: number; data: (Contact & Partial<Application>)[]; error: string }>({ version: -1, data: [], error: "" });
   const [retry, setRetry] = useState(0);
   useEffect(() => {
@@ -101,7 +153,7 @@ function RecentRecords({ kind, api, refresh, onOpen, onViewAll }: { kind: "conta
     return () => controller.abort();
   }, [api, kind, refresh, retry]);
   const contact = kind === "contacts";
-  return <section className={styles.panel}><div className={styles.panelHeader}><PortalIcon name={contact ? "email" : "document"} /><div><h2>{contact ? "Recent Enquiries" : "Recent Applications"}</h2><p>{contact ? "Latest contact submissions from the website." : "Latest student and organisation applications."}</p></div><button type="button" onClick={onViewAll} aria-label={`View all ${kind === "contacts" ? "enquiries" : "applications"}`}>View all <span aria-hidden="true">→</span></button></div><div className={styles.recentList}>
+  return <section className={styles.panel}><div className={styles.panelHeader}><PortalIcon name={contact ? "email" : "document"} /><div><h2>{contact ? "Recent Enquiries" : "Recent Applications"}</h2><p>{contact ? "Latest contact submissions from the website." : "Latest student and organisation applications."}</p></div>{onViewAll && <button type="button" onClick={onViewAll} aria-label={`View all ${kind === "contacts" ? "enquiries" : "applications"}`}>View all <span aria-hidden="true">→</span></button>}</div><div className={styles.recentList}>
     {result.version !== refresh || result.error || !result.data.length ? <LoadState busy={result.version !== refresh} error={result.error} empty={`No ${contact ? "enquiries" : "applications"} yet.`} onRetry={() => setRetry(value => value + 1)} /> : result.data.map(record => <button type="button" className={styles.recentRecord} key={record.id} onClick={() => onOpen({ kind, id: record.id })}><span className={styles.avatar} aria-hidden="true">{record.name.slice(0, 1).toUpperCase()}</span><div><strong>{record.name}</strong><p>{contact ? record.organization || record.email : `${record.applicant_type === "STUDENT" ? "Student" : "Organisation"} · ${[record.city, record.state].filter(Boolean).join(", ") || record.email}`}</p></div><time dateTime={record.created_at}>{dateLabel(record.created_at)}</time><Badge value={record.status} /><PortalIcon name="arrow" /></button>)}
   </div></section>;
 }
