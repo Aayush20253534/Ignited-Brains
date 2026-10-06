@@ -12,7 +12,24 @@
 .sidebarNav button:hover { background:#ffffff0d; color:white; }
 .sidebarNav button[aria-current=page] { background:linear-gradient(110deg,#cb4b09,#c94708); box-shadow:0 8px 25px #ff681e22; color:white; font-weight:650; }
 .sidebarNav svg { width:21px; height:21px; flex-shrink:0; }
-.navCount { margin-left:auto; min-width:24px; padding:2px 5px; text-align:center; border:1px solid #ffffff38; border-radius:30px; font-size:11px; }
+.navCount {
+  display:grid;
+  flex:0 0 auto;
+  min-width:28px;
+  height:28px;
+  place-items:center;
+  margin-left:auto;
+  padding:0 7px;
+  border:1px solid #a7dfc1;
+  border-radius:999px;
+  background:#e7f8ef;
+  color:#087b4a;
+  font-size:11.5px;
+  font-weight:900;
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+  box-shadow:0 3px 10px rgb(8 123 74 / 12%);
+}
 .sidebarArt { position:relative; flex:1; min-height:110px; overflow:hidden; }
 .sidebarArt img { object-fit:cover; object-position:72% 60%; opacity:.52; }
 .sidebarArt::after { content:""; position:absolute; inset:0; background:linear-gradient(#031a3a,transparent 45%,#031a3a 100%); }
@@ -197,7 +214,19 @@ button.statCard:hover { border-color:#a9c0df; box-shadow:0 8px 24px #25539609; }
 .toolbar svg { width:16px; height:16px; }
 .blogThumbnail > svg { width:26px; height:26px; margin:14px auto; }
 
-.sidebarNav button > span:not(.navCount) { white-space:nowrap; min-width:0; }
+.sidebarNav button > span:not(.navCount) {
+  flex:1;
+  min-width:0;
+  white-space:normal;
+  line-height:1.3;
+  overflow-wrap:anywhere;
+}
 @media(max-width:639px) { .drawer input,.drawer textarea,.drawer select,.filterBar input,.filterBar select { font-size:16px; } .filterBar input,.filterBar select { height:44px; } .search > svg { bottom:14px; } .rowActions .iconButton { width:36px; height:36px; } }
 
 .sidebarBrand [class*="bg-brand-orange"] { background:#c94708; }
+
+.sidebarNav button[aria-current=page] .navCount {
+  border-color:#9eddbb;
+  background:#e5f8ee;
+  color:#087b4a;
+}
