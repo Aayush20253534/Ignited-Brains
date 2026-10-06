@@ -9,15 +9,17 @@ const allowed = new Map<string, Set<string>>([
   ["admin/auth/otp/resend", new Set(["POST"])], ["admin/auth/me", new Set(["GET"])],
   ["admin/auth/logout", new Set(["POST"])], ["admin/dashboard/summary", new Set(["GET"])],
   ["admin/contacts", new Set(["GET"])], ["admin/applications", new Set(["GET"])],
-  ["blogs", new Set(["GET"])], ["blogs/sitemap", new Set(["GET"])],
-  ["blog-events", new Set(["POST"])], ["admin/blogs", new Set(["GET", "POST"])],
-  ["admin/blog-assets", new Set(["GET"])], ["admin/blog-media", new Set(["POST"])],
+  ["blogs", new Set(["GET"])], ["blogs/sitemap", new Set(["GET"])], ["gallery", new Set(["GET"])],
+  ["blog-events", new Set(["POST"])], ["admin/blogs", new Set(["GET", "POST"])], ["admin/gallery", new Set(["GET", "POST"])],
+  ["admin/blog-assets", new Set(["GET"])], ["admin/blog-media", new Set(["POST"])], ["admin/gallery-media", new Set(["POST"])],
 ]);
 function permitted(path: string, method: string) {
   if (allowed.get(path)?.has(method)) return true;
   if (/^blogs\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(path) || /^media\/[0-9a-f-]{36}$/.test(path)) return method === "GET";
   if (/^admin\/blogs\/[0-9a-f-]{36}$/.test(path)) return ["GET", "PATCH"].includes(method);
   if (/^admin\/blogs\/[0-9a-f-]{36}\/archive$/.test(path)) return method === "POST";
+  if (/^admin\/gallery\/[0-9a-f-]{36}$/.test(path)) return ["GET", "PATCH"].includes(method);
+  if (/^admin\/gallery\/[0-9a-f-]{36}\/(archive|restore)$/.test(path)) return method === "POST";
   return /^admin\/(contacts|applications)\/[0-9a-f-]{36}$/.test(path) ? method === "GET"
     : /^admin\/(contacts|applications)\/[0-9a-f-]{36}\/status$/.test(path) && method === "PATCH";
 }
