@@ -66,7 +66,7 @@ export function SiteFooter() {
             {socialLinks.map((social) => (
               <span
                 key={social.label}
-                aria-label={`${social.label} profile link pending`}
+                aria-hidden="true"
                 title={`${social.label} profile link pending`}
                 className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/[0.035] text-white/70 transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[0.07]"
               >

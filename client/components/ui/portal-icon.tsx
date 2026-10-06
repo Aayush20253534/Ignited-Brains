@@ -1,6 +1,17 @@
 import type { ReactNode } from "react";
 
 const paths = {
+  overview: <><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></>,
+  search: <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></>,
+  refresh: <><path d="M20 7v5h-5" /><path d="M18.2 17.2A8 8 0 1 1 19 7" /></>,
+  close: <path d="m6 6 12 12M18 6 6 18" />,
+  menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  edit: <><path d="m15 3 6 6-12 12H3v-6ZM13 5l6 6" /></>,
+  archive: <><rect x="3" y="3" width="18" height="5" rx="1" /><path d="M5 8v13h14V8M9 12h6" /></>,
+  plus: <path d="M12 4v16M4 12h16" />,
+  chart: <path d="M4 21V12h3v9m4 0V7h3v14m4 0V3h3v18" />,
+  clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l4 2" /></>,
+  image: <><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8" cy="8" r="1.5" /><path d="m3 18 6-6 4 4 3-4 5 6" /></>,
   person: (
     <>
       <circle cx="12" cy="7" r="3" />

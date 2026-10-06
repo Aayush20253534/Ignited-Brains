@@ -109,8 +109,12 @@ const parseApplicationPayload = (body = {}) => {
 };
 
 const parsePagination = (query = {}) => {
-  const page = Math.max(1, Number.parseInt(query.page, 10) || 1);
-  const limit = Math.min(100, Math.max(1, Number.parseInt(query.limit, 10) || 20));
+  for (const field of ['page', 'limit']) {
+    if (query[field] !== undefined && (typeof query[field] !== 'string' || !/^\d+$/.test(query[field]) || !Number.isSafeInteger(Number(query[field])) || Number(query[field]) < 1)) throw new HttpError(400, `${field} must be a positive integer`);
+  }
+  const page = query.page === undefined ? 1 : Number(query.page);
+  if (page > 1000000) throw new HttpError(400, 'page exceeds the supported pagination range');
+  const limit = Math.min(100, query.limit === undefined ? 20 : Number(query.limit));
   return { page, limit, offset: (page - 1) * limit };
 };
 

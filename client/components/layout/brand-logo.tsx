@@ -39,6 +39,7 @@ export function BrandLogo({
         <span className="block text-[1.2rem] font-black tracking-[-0.045em] sm:text-[1.35rem]">
           ignited
         </span>
+        {" "}
         <span className="mt-0.5 inline-flex items-end gap-1.5">
           <span className="rounded-[3px] bg-brand-orange px-1.5 py-0.5 text-[0.62rem] font-black tracking-[0.08em] text-white sm:text-[0.67rem]">
             BRAINS

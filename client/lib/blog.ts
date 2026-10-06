@@ -1,16 +1,30 @@
-import type { BlogPost } from "@/data/blog";
-
-export type BlogPostSummary = Pick<BlogPost, "slug" | "title" | "excerpt" | "category" | "date" | "image" | "alt"> & { readTime: number };
-
-export function blogReadTime(post: BlogPost) {
-  const text = [post.introduction, post.takeaway, ...post.sections.flatMap(section => [section.title, ...section.paragraphs, ...(section.steps ?? [])])].join(" ");
-  return Math.max(1, Math.ceil(text.trim().split(/\s+/).length / 210));
+export type BlogStatus = "DRAFT" | "PUBLISHED" | "ARCHIVED";
+export type BlogPost = {
+  id: string; title: string; slug: string; excerpt: string; content: string; category: string;
+  tags: string[]; image: string; imageAlt: string; imageCaption: string; author: string;
+  seoTitle: string; seoDescription: string; status: BlogStatus; publishedAt: string | null;
+  createdAt: string; updatedAt: string; archivedAt: string | null; views: number; impressions: number;
+  version: number; readTime: number;
+};
+export type BlogPostSummary = Omit<BlogPost, "content">;
+export type Pagination = { page: number; limit: number; total: number; totalPages: number };
+export type PublicBlog = Omit<BlogPost, "views" | "impressions" | "version" | "archivedAt">;
+export type PublicBlogSummary = Omit<PublicBlog, "content">;
+export type BlogList = { data: PublicBlogSummary[]; categories: string[]; pagination: Pagination };
+export type AdminBlogList = { data: BlogPostSummary[]; categories: string[]; pagination: Pagination };
+export type BlogForm = Pick<BlogPost, "title" | "slug" | "excerpt" | "content" | "category" | "tags" | "image" | "imageAlt" | "imageCaption" | "author" | "seoTitle" | "seoDescription" | "status" | "publishedAt">;
+export function formatBlogDate(date: string | null) {
+  return date ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Kolkata" }).format(new Date(date)) : "Unpublished";
 }
-
-export function blogSummary(post: BlogPost): BlogPostSummary {
-  return { slug: post.slug, title: post.title, excerpt: post.excerpt, category: post.category, date: post.date, image: post.image, alt: post.alt, readTime: blogReadTime(post) };
-}
-
-export function formatBlogDate(date: string) {
-  return new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`));
+export function imageIsUpload(src: string) { return src.startsWith("/api/v1/media/"); }
+export function articleHeadings(content: string) {
+  const seen = new Map<string, number>();
+  return content.split("\n").flatMap((line, index) => {
+    const match = /^##\s+(.+)$/.exec(line); if (!match) return [];
+    const explicit = /\s+\{#([a-zA-Z0-9-]+)\}$/.exec(match[1]);
+    const title = match[1].replace(/\s+\{#[^}]+\}$/, "").replace(/\\([\\`*_{}\[\]<>#~])/g, "$1").replace(/[*`]/g, "");
+    const base = explicit?.[1] || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
+    const count = (seen.get(base) || 0) + 1; seen.set(base, count);
+    return [{ id: count === 1 ? base : `${base}-${count}`, title, line: index + 1 }];
+  });
 }

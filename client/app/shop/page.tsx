@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AboutMotion } from "@/components/about/about-motion";
-import { PageIcon, SceneHero, Status, type PageIconName } from "@/components/engagement/page-elements";
+import { PageIcon, SceneHero, type PageIconName } from "@/components/engagement/page-elements";
 import { ButtonLink } from "@/components/ui";
 import styles from "@/components/engagement/engagement.module.css";
 

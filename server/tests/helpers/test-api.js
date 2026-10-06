@@ -20,11 +20,32 @@ async function createTestApi({ port = 0 } = {}) {
   const migrations = (await fs.readdir(migrationDirectory)).filter(file => file.endsWith('.sql')).sort();
   async function migrate() {
     for (const filename of migrations) await database.exec(await fs.readFile(path.join(migrationDirectory, filename), 'utf8'));
+    await database.exec('BEGIN');
+    try {
+      await require('../../src/services/migrate-blogs').migrateExistingBlogs(database);
+      await database.exec('COMMIT');
+    } catch (error) { await database.exec('ROLLBACK'); throw error; }
   }
   await migrate();
   const { pool } = require('../../src/db');
   const originalQuery = pool.query;
-  pool.query = (sql, parameters) => database.query(sql, parameters);
+  const originalConnect = pool.connect;
+  let queue = Promise.resolve();
+  async function acquire() {
+    const previous = queue;
+    let release;
+    queue = new Promise(resolve => { release = resolve; });
+    await previous;
+    return release;
+  }
+  pool.query = async (sql, parameters) => {
+    const release = await acquire();
+    try { return await database.query(sql, parameters); } finally { release(); }
+  };
+  pool.connect = async () => {
+    const release = await acquire();
+    return { query: (sql, parameters) => database.query(sql, parameters), release };
+  };
   const { app } = require('../../src/app');
   const password = crypto.randomBytes(24).toString('hex');
   const admin = { id: crypto.randomUUID(), name: 'Verification Administrator', email: 'verification@example.test', password };
@@ -39,6 +60,7 @@ async function createTestApi({ port = 0 } = {}) {
   async function close() {
     await new Promise(resolve => server.close(resolve));
     pool.query = originalQuery;
+    pool.connect = originalConnect;
     await pool.end();
     await database.close();
   }

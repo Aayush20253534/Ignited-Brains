@@ -159,3 +159,93 @@ Set `API_ORIGIN` on the deployed Next.js frontend to this server's HTTPS origin.
 The frontend uses a same-origin `/api/v1/*` bridge, so its browser requests do
 not need a public API URL or cross-origin access. Set `CLIENT_ORIGINS` here to
 the frontend URL as required by the production server configuration.
+
+## Blog CMS and migration
+
+The public blog, article routes, SEO metadata and sitemap read `blogs` in the same
+PostgreSQL database as Admin. There is no hardcoded public fallback. Drafts and
+archived articles are excluded from all public reads. Existing and new articles
+use the same authenticated edit, preview, publish and archive controls.
+
+Deploy the backend before the frontend. `npm start` applies `003_blog_cms.sql`
+and imports the six existing code articles before accepting requests. For a
+custom process command or local development, run this first:
+
+```bash
+npm run db:migrate
+```
+
+The migration uses the immutable `data/legacy-blogs.json` archive. It preserves
+all original titles, excerpts, sections, lists, resources, categories, images,
+image descriptions/captions, author, publication dates and SEO fields. Original
+article anchors survive in Markdown headings. A transaction verifies all six
+records and aliases before committing the migration marker. A failure rolls
+back every import and prevents startup. Keep a database backup before deploying
+schema changes, using the existing database provider's backup process.
+
+`legacy_key` and the migration marker make repeated execution safe even after an
+admin renames or archives an article. Restarting does not overwrite CMS edits or
+resurrect removed articles. The marker also checks that all six internal records
+still exist. Do not edit the migration archive or hard-delete migrated rows.
+The optional `npm run blogs:migrate` command verifies/imports the archive after
+the schema has been installed. It reports the six-record migration outcome.
+
+Public endpoints:
+
+- `GET /api/v1/blogs?page=1&limit=12&category=Space%20Education&query=lab`
+- `GET /api/v1/blogs/:slug` (published articles only; old aliases resolve to the canonical slug)
+- `GET /api/v1/blogs/sitemap` (current canonical published URLs only)
+- `POST /api/v1/blog-events` (`blogId`, random `visitorId`, `kind`, `source`)
+- `GET /api/v1/media/:id` (immutable, optimized WebP image)
+
+Authenticated CMS endpoints:
+
+- `GET /api/v1/admin/blogs?page=1&limit=5&status=DRAFT&category=STEM&query=robot`
+- `GET /api/v1/admin/blogs/:id`
+- `POST /api/v1/admin/blogs`
+- `PATCH /api/v1/admin/blogs/:id` (complete editable fields plus current `version`)
+- `POST /api/v1/admin/blogs/:id/archive` (`version` required)
+- `GET /api/v1/admin/blog-assets`
+- `POST /api/v1/admin/blog-media` (raw JPG/PNG/WebP body and corresponding Content-Type)
+
+Editable fields are `title`, `slug`, `excerpt`, `content` (Markdown), `category`,
+`tags` (array), `image`, `imageAlt`, `imageCaption`, `author`, `seoTitle`,
+`seoDescription`, `publishedAt` (ISO timestamp or null), and `status` (`DRAFT` or
+`PUBLISHED`). Publishing requires the title, valid unique slug, excerpt, content,
+category, featured image and image description. Dates cannot be in the future.
+PATCH and archive return 409 on a stale version, preventing lost updates. Saving
+an archived record restores it as the selected Draft or Published status.
+
+Changing a slug reserves its previous URLs permanently. Public Next.js article
+routes return a 308 redirect to the current canonical URL. Archive removes all
+aliases from public availability and excludes the article from the sitemap,
+while retaining content, timestamps, aliases and analytics internally. The UI
+requires confirmation. There is no destructive delete API.
+
+Uploads are authenticated and rate limited. The server checks actual image
+format, rejects animated/invalid images, enforces 5 MB input, at least 100×100
+pixels and at most 20 megapixels, then rotates/resizes to at most 1600×1600 and
+encodes WebP. Optimized output is capped at 700 KiB. Content hashes deduplicate
+uploads. A separate `blog_media` table stores bounded binary bytes; article
+records store only a URL. Images survive server restarts and deploys. No base64
+article fields or ephemeral local uploads are used. The original static website
+photos remain unchanged. To refresh the existing-image picker after adding
+static assets, update `data/image-assets.json` with the paths in `client/public`.
+
+Impressions require a listing/related card to be at least 50% visible for one
+continuous second. Views require the article to be open in a visible tab for one
+second. Client session storage holds a random anonymous UUID and deduplication
+markers; the database stores an HMAC digest, event kind, source and UTC date.
+No IP addresses, fingerprints, names or emails are stored in blog events.
+A unique database key deduplicates each metric per article/session/day, and the
+insert plus separate counter increment is atomic. Raw SSR, prefetching, draft
+previews and repeated scrolling/refreshing do not inflate counts. Basic bot
+user agents are ignored. These are anonymous session metrics, not unique-person
+counts; untracked historical visits are not invented. Counts are exposed only
+by authenticated Admin APIs and survive archive/restore.
+
+Enquiry/application list APIs now also accept `dateFrom`, `dateTo` (inclusive
+YYYY-MM-DD days in Asia/Kolkata), and `sort=newest|oldest`. Contact `type` accepts
+`INDIVIDUAL` or `ORGANIZATION`, determined from the submitted organisation field.
+Application search includes locations, messages and all submitted details.
+Dashboard seven-day activity comes from real submission dates.

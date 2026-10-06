@@ -70,8 +70,11 @@ test('real application submissions, dashboard operations and session revocation'
     const page = await api.request('/api/v1/admin/applications?page=2&limit=1', { token });
     assert.equal(page.data.pagination.totalPages, 2); assert.equal(page.data.data.length, 1);
     const summary = await api.request('/api/v1/admin/dashboard/summary', { token });
-    assert.deepEqual(summary.data.applications, { total: 2, new: 1, students: 1, organizations: 1 });
-    assert.deepEqual(summary.data.contacts, { total: 1, new: 0 });
+    assert.deepEqual(summary.data.applications, { total: 2, new: 1, students: 1, organizations: 1, awaiting: 2, recent: 2, recent_students: 1, recent_organizations: 1 });
+    assert.deepEqual(summary.data.contacts, { total: 1, new: 0, organizations: 1, individuals: 0, recent: 1 });
+    assert.deepEqual(summary.data.blogs, { total: 6, published: 6, drafts: 0, archived: 0, views: 0, impressions: 0 });
+    assert.equal(summary.data.activity.length, 7);
+    assert.equal(summary.data.activity.reduce((sum, day) => sum + day.applications, 0), 2);
   });
 
   await suite.test('logout persists only a digest and rejects replay on every protected route', async () => {

@@ -67,3 +67,41 @@ Or run the non-build checks together:
 ```bash
 npm run check
 ```
+
+## Blog CMS
+
+Blog content is managed at `/admin` → Blog Management. The Express service must
+be migrated/deployed before this frontend. Its startup migration imports all six
+original articles, keeping their URLs, photos, complete text and publication
+dates. Public pages, metadata and the sitemap read only PostgreSQL at request
+time. See [the backend guide](../server/BACKEND.md#blog-cms-and-migration).
+
+The editor supports Markdown formatting, existing photos or optimized uploads,
+categories, tags, author, publication dates and SEO fields. Preview stays inside
+the authenticated drawer. Save Draft hides an article publicly; Publish makes it
+available immediately on subsequent requests. Remove Blog archives the record
+with confirmation. Archived records remain editable/restorable with analytics
+intact. Old slugs redirect after a rename.
+
+Impressions and article views are tracked separately from real client activity,
+deduplicated per anonymous browser session/day. Admin shows the actual database
+counts, including zero when no events have been recorded.
+
+## Production browser verification
+
+Install frontend and server dependencies, build, then run:
+
+```bash
+npx playwright install chromium
+npm run build
+npm run test:e2e
+```
+
+The test starts a production Next server and the actual Express app backed by an
+isolated PostgreSQL fixture. It replaces deployment credentials and disables
+outgoing email. It covers both public application journeys, Admin auth and
+submissions, migration fidelity for all six articles, CMS CRUD/publishing/media,
+slug redirects, archive/restore, SEO/sitemap, separate analytics, responsive
+layouts and axe accessibility checks. It writes ignored screenshots/reports to
+`test-results/admin-cms`. `E2E_PORT`, `TEST_ARTIFACT_DIR` and
+`BROWSER_EXECUTABLE_PATH` can override local test settings.
