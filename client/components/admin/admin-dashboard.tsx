@@ -9,6 +9,7 @@ import { Badge, LoadState, StatCard } from "./admin-primitives";
 import { dateLabel, errorMessage, type AdminApi, type AdminTab, type AdminUser, type ApiList, type Application, type Contact, type Selection, type Summary } from "./admin-types";
 import { SubmissionDrawer, SubmissionManager } from "./submission-manager";
 const BlogManager = dynamic(() => import("./blog-manager").then(module => module.BlogManager), { loading: () => <LoadState busy /> });
+const GalleryManager = dynamic(() => import("./gallery-manager").then(module => module.GalleryManager), { loading: () => <LoadState busy /> });
 import styles from "./admin-dashboard.module.css";
 
 const mobileQuery = "(max-width: 959px)";
@@ -21,6 +22,7 @@ const items: { id: AdminTab; label: string; icon: PortalIconName }[] = [
   { id: "student-applications", label: "Student Applications", icon: "graduation" },
   { id: "organization-applications", label: "Organization Applications", icon: "institution" },
   { id: "blogs", label: "Blog Management", icon: "book" },
+  { id: "gallery", label: "Gallery Management", icon: "image" },
 ];
 
 const adminRoutes: Record<AdminTab, string> = {
@@ -29,6 +31,7 @@ const adminRoutes: Record<AdminTab, string> = {
   "student-applications": "/admin/student-applications",
   "organization-applications": "/admin/organization-applications",
   blogs: "/admin/blogs",
+  gallery: "/admin/gallery",
 };
 
 export function AdminDashboard({ initialTab, admin, api, onLogout }: { initialTab: AdminTab; admin: AdminUser; api: AdminApi; onLogout: () => void }) {
@@ -79,17 +82,20 @@ export function AdminDashboard({ initialTab, admin, api, onLogout }: { initialTa
     tab === "contacts" ? ["Contact", "Enquiries"] :
     tab === "student-applications" ? ["Student", "Applications"] :
     tab === "organization-applications" ? ["Organization", "Applications"] :
-    ["Blog", "Management"];
+    tab === "blogs" ? ["Blog", "Management"] :
+    ["Gallery", "Management"];
   const description = tab === "overview" ? "A live view of Ignited Brains submissions and activity." :
     tab === "contacts" ? "Review and manage incoming partnership enquiries." :
     tab === "student-applications" ? "Review and manage student applications." :
     tab === "organization-applications" ? "Review and manage organization applications." :
-    "Create, edit and manage your website blogs.";
+    tab === "blogs" ? "Create, edit and manage your website blogs." :
+    "Add, organize and publish photographs on the Media page.";
   const counts: Partial<Record<AdminTab, number | undefined>> = {
     contacts: summary?.contacts.new,
     "student-applications": summary?.applications.students,
     "organization-applications": summary?.applications.organizations,
     blogs: summary?.blogs.drafts,
+    gallery: summary?.gallery.drafts,
   };
   return <div className={styles.shell}>
     {mobile && mobileOpen && <button type="button" aria-label="Close admin navigation" className={styles.mobileBackdrop} onClick={() => setMobileOpen(false)} />}
@@ -108,7 +114,7 @@ export function AdminDashboard({ initialTab, admin, api, onLogout }: { initialTa
       <main className={styles.content}>
         {result.error && <div className={styles.error} role="alert"><p>{result.error}</p><button type="button" onClick={() => setRefresh(value => value + 1)}>Retry</button></div>}
         {notice && <div className={styles.notice} role="status"><p>{notice}</p><button type="button" onClick={() => setNotice("")} aria-label="Dismiss confirmation">Dismiss</button></div>}
-        {tab !== "blogs" && <div className={styles.statGrid}>
+        {tab !== "blogs" && tab !== "gallery" && <div className={styles.statGrid}>
           {tab === "contacts" ? <>
             <StatCard label="Total enquiries" value={summary?.contacts.total} helper="All contact submissions" icon="email" />
             <StatCard label="New enquiries" value={summary?.contacts.new} helper="Awaiting a first response" icon="clock" accent="blue" />
@@ -136,6 +142,7 @@ export function AdminDashboard({ initialTab, admin, api, onLogout }: { initialTa
         {tab === "student-applications" && <SubmissionManager key="student-applications" kind="applications" api={api} refresh={refresh} lockedType="STUDENT" onOpen={setSelection} />}
         {tab === "organization-applications" && <SubmissionManager key="organization-applications" kind="applications" api={api} refresh={refresh} lockedType="ORGANIZATION" onOpen={setSelection} />}
         {tab === "blogs" && <BlogManager api={api} refresh={refresh} summary={summary?.blogs} onChanged={changed} />}
+        {tab === "gallery" && <GalleryManager api={api} refresh={refresh} summary={summary?.gallery} onChanged={changed} />}
       </main>
     </div>
     {selection && <SubmissionDrawer key={`${selection.kind}:${selection.id}`} selection={selection} api={api} onClose={() => setSelection(null)} onChanged={changed} />}

@@ -19,7 +19,7 @@ const addFilter = (clauses, values, sql, value) => {
 };
 
 router.get('/dashboard/summary', asyncHandler(async (_req, res) => {
-  const [contacts, applications, blogs, activity] = await Promise.all([
+  const [contacts, applications, blogs, gallery, activity] = await Promise.all([
     pool.query(`SELECT
       COUNT(*)::int AS total,
       COUNT(*) FILTER (WHERE status = 'NEW')::int AS new,
@@ -43,6 +43,12 @@ router.get('/dashboard/summary', asyncHandler(async (_req, res) => {
       COUNT(*) FILTER (WHERE status = 'ARCHIVED')::int AS archived,
       COALESCE(SUM(view_count), 0)::float8 AS views,
       COALESCE(SUM(impression_count), 0)::float8 AS impressions FROM blogs`),
+    pool.query(`SELECT COUNT(*)::int AS total,
+      COUNT(*) FILTER (WHERE status = 'PUBLISHED')::int AS published,
+      COUNT(*) FILTER (WHERE status = 'DRAFT')::int AS drafts,
+      COUNT(*) FILTER (WHERE status = 'ARCHIVED')::int AS archived,
+      COUNT(*) FILTER (WHERE is_featured AND status = 'PUBLISHED')::int AS featured
+      FROM gallery_items`),
     pool.query(`WITH days AS (
       SELECT generate_series((NOW() AT TIME ZONE 'Asia/Kolkata')::date - 6,
                              (NOW() AT TIME ZONE 'Asia/Kolkata')::date, INTERVAL '1 day')::date AS day
@@ -60,7 +66,7 @@ router.get('/dashboard/summary', asyncHandler(async (_req, res) => {
       FROM days LEFT JOIN contacts USING (day) LEFT JOIN applications USING (day) ORDER BY days.day`),
   ]);
 
-  res.json({ contacts: contacts.rows[0], applications: applications.rows[0], blogs: blogs.rows[0], activity: activity.rows });
+  res.json({ contacts: contacts.rows[0], applications: applications.rows[0], blogs: blogs.rows[0], gallery: gallery.rows[0], activity: activity.rows });
 }));
 
 router.get('/contacts', asyncHandler(async (req, res) => {

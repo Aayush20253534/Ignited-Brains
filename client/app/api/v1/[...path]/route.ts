@@ -29,7 +29,7 @@ async function forward(request: NextRequest, { params }: Context) {
   try { base = apiOrigin(); } catch { return Response.json({ error: "The API is not configured." }, { status: 503 }); }
   const target = new URL(`/api/v1/${route}${request.nextUrl.search}`, base);
   const media = route.startsWith("media/");
-  const upload = route === "admin/blog-media";
+  const upload = route === "admin/blog-media" || route === "admin/gallery-media";
   const headers = new Headers({ Accept: media ? "image/webp" : "application/json" });
   for (const name of ["authorization", "if-none-match", "user-agent"]) {
     const value = request.headers.get(name); if (value) headers.set(name, value);

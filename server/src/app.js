@@ -4,6 +4,7 @@ const publicRoutes = require('./routes/public');
 const adminAuthRoutes = require('./routes/admin-auth');
 const adminDataRoutes = require('./routes/admin-data');
 const blogRoutes = require('./routes/blogs');
+const galleryRoutes = require('./routes/gallery');
 const { requireAdmin } = require('./middleware/auth');
 const { requestId, securityHeaders, cors } = require('./middleware/security');
 const { HttpError, asyncHandler } = require('./utils/http');
@@ -27,12 +28,13 @@ app.get('/health', asyncHandler(async (_req, res) => {
 
 app.use('/api/v1', publicRoutes);
 app.use('/api/v1', blogRoutes.publicRouter);
+app.use('/api/v1', galleryRoutes.publicRouter);
 app.use('/api/v1/admin', (_req, res, next) => {
   res.setHeader('Cache-Control', 'no-store');
   next();
 });
 app.use('/api/v1/admin/auth', adminAuthRoutes);
-app.use('/api/v1/admin', requireAdmin, adminDataRoutes, blogRoutes.adminRouter);
+app.use('/api/v1/admin', requireAdmin, adminDataRoutes, blogRoutes.adminRouter, galleryRoutes.adminRouter);
 
 app.use((_req, _res, next) => next(new HttpError(404, 'Route not found')));
 

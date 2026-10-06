@@ -6,16 +6,44 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { archivePhotos, type ArchivePhotoId } from "@/data/media-archive";
 import styles from "./media.module.css";
 
-const photoIds = Object.keys(archivePhotos) as ArchivePhotoId[];
+type LightboxPhoto = {
+  key: string;
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
+function photoFromTrigger(trigger: HTMLButtonElement): LightboxPhoto | null {
+  const id = trigger.dataset.photo;
+  if (!id) return null;
+  if (id in archivePhotos) {
+    const photo = archivePhotos[id as ArchivePhotoId];
+    return { key: id, src: photo.src, alt: photo.alt, caption: photo.caption, width: photo.width, height: photo.height };
+  }
+  const src = trigger.dataset.photoSrc;
+  if (!src) return null;
+  const width = Number(trigger.dataset.photoWidth || 1600);
+  const height = Number(trigger.dataset.photoHeight || 1000);
+  return {
+    key: id,
+    src,
+    alt: trigger.dataset.photoAlt || "",
+    caption: trigger.dataset.photoCaption || "Ignited Brains photo",
+    width: Number.isFinite(width) && width > 0 ? width : 1600,
+    height: Number.isFinite(height) && height > 0 ? height : 1000,
+  };
+}
 
 export function MediaLightbox({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const previousOverflow = useRef("");
-  const [selected, setSelected] = useState<ArchivePhotoId | null>(null);
+  const [selected, setSelected] = useState<LightboxPhoto | null>(null);
+  const [sequence, setSequence] = useState<LightboxPhoto[]>([]);
   const titleId = useId();
-  const photo = selected ? archivePhotos[selected] : null;
 
   useEffect(() => {
     const element = root.current;
@@ -24,15 +52,29 @@ export function MediaLightbox({ children }: { children: ReactNode }) {
 
     const open = (event: MouseEvent) => {
       const trigger = (event.target as Element).closest<HTMLButtonElement>("button[data-photo]");
-      const id = trigger?.dataset.photo as ArchivePhotoId | undefined;
-      if (!trigger || !id || !(id in archivePhotos) || modal.open) return;
+      if (!trigger || modal.open) return;
+      const photo = photoFromTrigger(trigger);
+      if (!photo) return;
+
+      const seen = new Set<string>();
+      const available = [...element.querySelectorAll<HTMLButtonElement>("button[data-photo]")]
+        .map(photoFromTrigger)
+        .filter((item): item is LightboxPhoto => Boolean(item))
+        .filter(item => {
+          if (seen.has(item.key)) return false;
+          seen.add(item.key);
+          return true;
+        });
+
       opener.current = trigger;
       previousOverflow.current = document.body.style.overflow;
-      setSelected(id);
+      setSequence(available);
+      setSelected(photo);
       modal.showModal();
       document.body.style.overflow = "hidden";
       modal.querySelector<HTMLButtonElement>("[data-close]")?.focus();
     };
+
     element.addEventListener("click", open);
     return () => {
       element.removeEventListener("click", open);
@@ -41,8 +83,14 @@ export function MediaLightbox({ children }: { children: ReactNode }) {
   }, []);
 
   function move(direction: number) {
-    setSelected(current => photoIds[(photoIds.indexOf(current ?? photoIds[0]) + direction + photoIds.length) % photoIds.length]);
+    setSelected(current => {
+      if (!current || !sequence.length) return current;
+      const index = Math.max(0, sequence.findIndex(item => item.key === current.key));
+      return sequence[(index + direction + sequence.length) % sequence.length];
+    });
   }
+
+  const index = selected ? sequence.findIndex(item => item.key === selected.key) : -1;
 
   return <div ref={root}>
     {children}
@@ -50,6 +98,7 @@ export function MediaLightbox({ children }: { children: ReactNode }) {
       document.body.style.overflow = previousOverflow.current;
       opener.current?.focus({ preventScroll: true });
       setSelected(null);
+      setSequence([]);
     }} onClick={event => {
       if (event.target === event.currentTarget) dialog.current?.close();
     }} onKeyDown={event => {
@@ -67,15 +116,24 @@ export function MediaLightbox({ children }: { children: ReactNode }) {
           <span>IGNITED BRAINS / PHOTO JOURNAL</span>
           <button data-close type="button" aria-label="Close photograph" onClick={() => dialog.current?.close()}>×</button>
         </div>
-        {photo && <>
+        {selected && <>
           <div className={styles.lightboxImage}>
-            <Image key={photo.src} src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 94vw, 1100px" quality={90} />
+            <Image
+              key={selected.src}
+              src={selected.src}
+              alt={selected.alt}
+              width={selected.width}
+              height={selected.height}
+              sizes="(max-width: 767px) 94vw, 1100px"
+              quality={90}
+              unoptimized={selected.src.startsWith("/api/v1/media/")}
+            />
           </div>
           <div className={styles.lightboxCaption}>
-            <div><h2 id={titleId}>{photo.caption}</h2><a href={photo.src} target="_blank" rel="noopener noreferrer">Open full-size image <span aria-hidden="true">↗</span><span className={styles.srOnly}> in a new tab</span></a></div>
+            <div><h2 id={titleId}>{selected.caption}</h2><a href={selected.src} target="_blank" rel="noopener noreferrer">Open full-size image <span aria-hidden="true">↗</span><span className={styles.srOnly}> in a new tab</span></a></div>
             <div className={styles.lightboxNavigation}>
               <button type="button" aria-label="Previous photograph" onClick={() => move(-1)}>←</button>
-              <span aria-live="polite">{photoIds.indexOf(selected!) + 1} / {photoIds.length}</span>
+              <span aria-live="polite">{index >= 0 ? index + 1 : 1} / {Math.max(1, sequence.length)}</span>
               <button type="button" aria-label="Next photograph" onClick={() => move(1)}>→</button>
             </div>
           </div>

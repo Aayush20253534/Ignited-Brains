@@ -1,7 +1,7 @@
 import type { Pagination } from "@/lib/blog";
 export type AdminUser = { id: string; name: string; email: string };
 export type AdminApi = <T>(path: string, options?: RequestInit) => Promise<T>;
-export type AdminTab = "overview" | "contacts" | "student-applications" | "organization-applications" | "blogs";
+export type AdminTab = "overview" | "contacts" | "student-applications" | "organization-applications" | "blogs" | "gallery";
 export const CONTACT_STATUSES = ["NEW", "IN_PROGRESS", "RESOLVED", "ARCHIVED"] as const;
 export const APPLICATION_STATUSES = ["NEW", "IN_REVIEW", "CONTACTED", "APPROVED", "REJECTED", "ARCHIVED"] as const;
 export type Contact = {
@@ -21,6 +21,7 @@ export type Summary = {
   contacts: { total: number; new: number; organizations: number; individuals: number; recent: number };
   applications: { total: number; new: number; students: number; organizations: number; awaiting: number; recent: number; recent_students: number; recent_organizations: number };
   blogs: { total: number; published: number; drafts: number; archived: number; views: number; impressions: number };
+  gallery: { total: number; published: number; drafts: number; archived: number; featured: number };
   activity: { date: string; contacts: number; applications: number; students: number; organizations: number }[];
 };
 export function humanize(value: string | null | undefined) {

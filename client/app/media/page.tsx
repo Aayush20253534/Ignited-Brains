@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
+import { GalleryJournal } from "@/components/media-feed/gallery-journal";
 import { MediaBrowser } from "@/components/media-feed/media-browser";
 import { MediaLightbox } from "@/components/media-feed/media-lightbox";
 import { MediaMoments } from "@/components/media-feed/media-moments";
@@ -101,6 +102,8 @@ export default function MediaPage() {
         <div className={styles.fieldGrid}>{fieldPhotoIds.map((id, index) => <figure key={id} data-reveal style={{ "--delay": `${index * 70}ms` } as CSSProperties}><MediaPhoto id={id} caption sizes="(max-width: 767px) 46vw, (max-width: 1100px) 32vw, 360px" /></figure>)}</div>
       </div>
     </section>
+
+    <GalleryJournal />
 
     <section className={styles.students} data-media-section aria-labelledby="students-title">
       <div className={`${styles.container} ${styles.editorialRow}`}>
