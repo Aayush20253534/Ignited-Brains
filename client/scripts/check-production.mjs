@@ -91,6 +91,7 @@ const publicFilesToCheck = [
   "public/media-v2/hero-editorial.webp",
   "public/contact/design/hero.webp",
   "public/admin/signed-out-workspace.webp",
+  "public/admin/sign-in-workspace.webp",
   "public/applications/student-hero.webp",
   "public/applications/organisation-hero.webp",
 ];

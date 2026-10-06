@@ -1,151 +1,229 @@
+/* Size the spacing and decorative elements to the available window height.
+   Keep natural document flow so zoom, errors and short screens stay accessible. */
 .shell {
   display: grid;
-  grid-template-columns: 53% 47%;
+  grid-template-columns: 54% 46%;
   min-height: 100svh;
   background: #f7faff;
   color: #071d52;
 }
 .signedOut {
-  grid-template-columns: 58% 42%;
+  grid-template-columns: 56% 44%;
 }
 .visual {
   position: relative;
   isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(16px, 3svh, 28px);
   min-width: 0;
-  padding: clamp(32px, 4.3vw, 74px);
-  overflow: hidden;
+  padding: clamp(24px, 4svh, 48px) clamp(28px, 4.2vw, 64px);
+  overflow: clip;
   background: #061c3e;
   color: white;
 }
 .workspacePhoto {
   z-index: -2;
   object-fit: cover;
-  object-position: right 58%;
+  object-position: 62% 65%;
 }
 .visualShade {
   position: absolute;
   z-index: -1;
   inset: 0;
   background:
-    radial-gradient(ellipse at 85% 18%, #133b69 0, transparent 55%),
-    linear-gradient(120deg, #03142f, #082850);
+    linear-gradient(0deg, rgb(2 17 39 / 80%), transparent 38%),
+    linear-gradient(
+      90deg,
+      rgb(2 17 39 / 96%),
+      rgb(2 21 47 / 78%) 55%,
+      rgb(2 18 40 / 28%)
+    );
 }
 .signedOut .visualShade {
   background: linear-gradient(
     90deg,
-    rgb(1 17 40 / 88%),
-    rgb(2 21 47 / 70%) 55%,
-    rgb(2 18 40 / 24%)
+    rgb(1 17 40 / 94%),
+    rgb(2 21 47 / 78%) 55%,
+    rgb(2 18 40 / 34%)
   );
 }
 .brand {
-  align-self: flex-start;
-  gap: 11px;
+  justify-self: start;
+  min-height: 44px;
+  gap: 10px;
 }
 .brand > span:first-child {
-  width: 53px;
-  height: 53px;
+  width: 46px;
+  height: 46px;
 }
 .brand > span:last-child > span:first-child {
-  font-size: 27px;
+  font-size: 25px;
 }
 .brand > span:last-child > span:last-child > span {
   font-size: 10px;
 }
 .introduction {
   position: relative;
-  padding: 68px 0;
-  max-width: 640px;
+  align-self: center;
+  max-width: 560px;
+  padding-block: 8px;
 }
 .eyebrow {
-  margin: 0 0 22px;
-  color: #ff712b;
-  font-size: 12px;
+  margin: 0 0 clamp(12px, 2svh, 18px);
+  color: #ff9b69;
+  font-size: 10px;
   font-weight: 850;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
 }
 .introduction h2 {
   margin: 0;
-  max-width: 660px;
-  font-size: clamp(36px, 3.5vw, 60px);
+  font-size: clamp(30px, min(3.4vw, 5.8svh), 54px);
   font-weight: 850;
-  line-height: 1.08;
-  letter-spacing: -0.045em;
-}
-.signedOut .introduction h2 {
-  max-width: 570px;
-  font-size: clamp(36px, 3.8vw, 63px);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
 }
 .introduction h2 span {
-  color: #ff6630;
+  color: #ff864c;
 }
 .supporting {
-  max-width: 485px;
-  margin: 21px 0 0;
-  color: #c2d2e9;
-  font-size: clamp(15px, 1.2vw, 19px);
-  line-height: 1.65;
+  max-width: 420px;
+  margin: clamp(12px, 2svh, 18px) 0 0;
+  color: #d0ddef;
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.6;
+}
+.workspaceFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: clamp(18px, 3svh, 28px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.workspaceFeatures li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border: 1px solid rgb(184 205 236 / 28%);
+  border-radius: 9px;
+  background: rgb(4 25 54 / 65%);
+  color: #e1eaf8;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.workspaceFeatures svg {
+  width: 16px;
+  height: 16px;
+  color: #ffb289;
+}
+.portalGraphic {
+  position: absolute;
+  top: 17%;
+  right: 8%;
+  display: grid;
+  width: 112px;
+  height: 112px;
+  place-items: center;
+  border: 1px solid rgb(183 208 244 / 25%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.portalGraphic::before {
+  position: absolute;
+  inset: 12px;
+  content: "";
+  border: 1px dashed rgb(183 208 244 / 24%);
+  border-radius: 50%;
+}
+.portalGraphic > span {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 1px solid rgb(183 208 244 / 35%);
+  border-radius: 18px;
+  background: rgb(4 25 54 / 65%);
+  color: #ffb289;
+}
+.portalGraphic svg {
+  width: 28px;
+  height: 28px;
+}
+.portalGraphic i {
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff864c;
+  box-shadow: 0 0 15px rgb(255 134 76 / 35%);
+}
+.portalGraphic i:last-child {
+  top: auto;
+  right: auto;
+  bottom: 14px;
+  left: 14px;
+  width: 5px;
+  height: 5px;
+  background: #97bdeb;
 }
 .securityItems {
   display: grid;
-  gap: 23px;
-  max-width: 465px;
-  margin: 30px 0 0;
+  gap: clamp(12px, 2svh, 18px);
+  max-width: 430px;
+  margin: clamp(18px, 3svh, 26px) 0 0;
   padding: 0;
   list-style: none;
 }
 .securityItems li {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  gap: 13px;
 }
 .securityItems li > span {
   display: grid;
   flex-shrink: 0;
-  width: 55px;
-  height: 55px;
+  width: 42px;
+  height: 42px;
   place-items: center;
   border: 1px solid #6983a6;
-  border-radius: 50%;
-  background: rgb(6 30 62 / 45%);
+  border-radius: 13px;
+  background: rgb(6 30 62 / 65%);
 }
 .securityItems svg {
-  width: 25px;
-  height: 25px;
+  width: 21px;
+  height: 21px;
 }
 .securityItems h3 {
-  margin: 4px 0 3px;
-  font-size: 15px;
+  margin: 1px 0 3px;
+  font-size: 13px;
   font-weight: 750;
   line-height: 1.4;
 }
 .securityItems p {
   margin: 0;
-  color: #c2d2e9;
-  font-size: 13px;
-  line-height: 1.6;
+  color: #d0ddef;
+  font-size: 12px;
+  line-height: 1.5;
 }
 .visualFooter {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   margin: 0;
-  color: #a8bfdc;
+  color: #b6cae5;
   font-size: 10px;
   line-height: 1.6;
-  letter-spacing: 0.1em;
-}
-.signedOut .visualFooter {
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
 }
 .visualFooter::before {
   content: "";
   flex-shrink: 0;
-  width: 40px;
+  width: 28px;
   height: 1px;
   background: #93abca;
 }
@@ -156,8 +234,8 @@
   justify-content: center;
   align-items: center;
   min-width: 0;
-  padding: 54px 8%;
-  overflow: hidden;
+  padding: clamp(20px, 4svh, 48px) clamp(24px, 3.4vw, 56px);
+  overflow: clip;
   background: radial-gradient(ellipse at 50% 100%, #e8f2ff, #f8fbff 70%);
 }
 .cardPanel::before,
@@ -165,74 +243,90 @@
   position: absolute;
   z-index: -1;
   content: "";
-  width: 520px;
-  height: 520px;
-  border: 90px solid rgb(227 239 255 / 30%);
+  width: 440px;
+  height: 440px;
+  border: 65px solid rgb(219 233 253 / 36%);
   border-radius: 50%;
   pointer-events: none;
 }
 .cardPanel::before {
-  top: -150px;
-  right: -250px;
+  top: -210px;
+  right: -220px;
 }
 .cardPanel::after {
-  bottom: -370px;
-  left: -260px;
+  bottom: -280px;
+  left: -250px;
 }
 .card {
   width: 100%;
-  max-width: 520px;
-  padding: 46px 40px;
-  border: 1px solid #e8eef9;
-  border-radius: 26px;
-  background: rgb(255 255 255 / 96%);
-  box-shadow: 0 25px 55px rgb(48 105 177 / 9%);
+  max-width: 440px;
+  padding: clamp(24px, 4svh, 36px) clamp(24px, 2.4vw, 36px);
+  border: 1px solid #e2eaf7;
+  border-radius: 22px;
+  background: rgb(255 255 255 / 98%);
+  box-shadow: 0 20px 55px rgb(48 105 177 / 10%);
+}
+.loginHeader {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.loginMark {
+  display: grid;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border: 1px solid #dce8f9;
+  border-radius: 15px;
+  background: #edf4ff;
+  color: #153d7b;
+}
+.loginMark svg {
+  width: 26px;
+  height: 26px;
 }
 .secure {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 17px;
+  margin: 0 0 5px;
   color: #43628d;
   font-size: 10px;
   font-weight: 800;
+  line-height: 1.5;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-}
-.secure svg {
-  width: 18px;
-  height: 18px;
-  color: #ff5c1c;
 }
 .card h1 {
   margin: 0;
   outline: none;
-  font-size: clamp(27px, 2.6vw, 39px);
+  font-size: clamp(26px, min(2.5vw, 4.5svh), 34px);
   font-weight: 850;
-  line-height: 1.16;
-  letter-spacing: -0.045em;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
 }
 .cardCopy {
-  margin: 14px 0 0;
+  margin: 12px 0 0;
   color: #586f91;
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 14px;
+  line-height: 1.6;
 }
 .loginForm {
-  margin-top: 30px;
+  margin-top: clamp(18px, 3svh, 26px);
 }
 .loginForm label {
   display: block;
-  margin: 20px 0 8px;
+  margin: 16px 0 7px;
   font-size: 13px;
   font-weight: 750;
+}
+.loginForm label:first-child {
+  margin-top: 0;
 }
 .inputWrap {
   display: flex;
   align-items: center;
-  min-height: 54px;
+  min-height: 52px;
   border: 1px solid #cedcf0;
-  border-radius: 10px;
+  border-radius: 11px;
   background: #fcfdff;
 }
 .inputWrap:focus-within {
@@ -241,21 +335,21 @@
 }
 .inputWrap > svg {
   flex-shrink: 0;
-  width: 19px;
-  height: 19px;
-  margin-left: 16px;
+  width: 18px;
+  height: 18px;
+  margin-left: 14px;
   color: #557299;
 }
 .inputWrap input {
   width: 100%;
   min-width: 0;
-  padding: 15px 12px;
+  padding: 13px 11px;
   border: 0;
   outline: none;
   background: transparent;
   color: #173b70;
   font: inherit;
-  font-size: 14px;
+  font-size: 16px;
 }
 .inputWrap input::placeholder {
   color: #5d7394;
@@ -263,8 +357,8 @@
 .eye {
   display: grid;
   flex-shrink: 0;
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   place-items: center;
   margin-right: 3px;
   border-radius: 8px;
@@ -283,13 +377,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 17px;
+  gap: 12px;
   width: 100%;
-  min-height: 56px;
-  padding: 14px 18px;
+  min-height: 52px;
+  padding: 12px 16px;
   border: 1px solid transparent;
-  border-radius: 99px;
-  font-size: 15px;
+  border-radius: 12px;
+  font-size: 14px;
   font-weight: 750;
   cursor: pointer;
   transition:
@@ -297,14 +391,14 @@
     box-shadow 180ms;
 }
 .primary {
-  margin-top: 28px;
+  margin-top: clamp(18px, 3svh, 24px);
   background: #d54100;
   color: white;
-  box-shadow: 0 8px 22px rgb(255 86 18 / 12%);
+  box-shadow: 0 7px 18px rgb(213 65 0 / 15%);
 }
 .primary:hover:not(:disabled) {
   background: #bb3600;
-  box-shadow: 0 8px 24px rgb(255 86 18 / 20%);
+  box-shadow: 0 8px 24px rgb(213 65 0 / 20%);
 }
 .primary:disabled {
   opacity: 0.65;
@@ -313,11 +407,12 @@
 .primary svg,
 .secondary svg {
   flex-shrink: 0;
-  width: 21px;
-  height: 21px;
+  width: 19px;
+  height: 19px;
 }
 .secondary {
-  margin-top: 18px;
+  margin-top: 12px;
+  border-color: #dae5f5;
   background: #edf2f9;
   color: #102d86;
 }
@@ -328,8 +423,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  margin: 24px 0 0;
+  gap: 6px;
+  margin: clamp(16px, 2.5svh, 22px) 0 0;
   color: #607794;
   font-size: 10px;
   line-height: 1.5;
@@ -341,8 +436,8 @@
   height: 13px;
 }
 .error {
-  margin: 17px 0 0;
-  padding: 11px 13px;
+  margin: 14px 0 0;
+  padding: 9px 11px;
   border: 1px solid #f1bcbc;
   border-radius: 8px;
   background: #fff1f1;
@@ -351,47 +446,39 @@
   line-height: 1.5;
 }
 .confirmation {
-  max-width: 570px;
-  padding: 42px 40px 35px;
+  max-width: 460px;
   text-align: center;
 }
 .confirmation h1 {
-  font-size: clamp(25px, 2vw, 34px);
+  font-size: clamp(24px, min(2.2vw, 4.5svh), 32px);
+  text-wrap: balance;
 }
 .confirmation .cardCopy {
-  margin: 14px auto 0;
-  max-width: 390px;
-  font-size: 17px;
-}
-.confirmation .primary {
-  margin-top: 32px;
-  min-height: 61px;
-}
-.confirmation .secondary {
-  min-height: 61px;
+  margin: 12px auto 0;
+  max-width: 340px;
 }
 .logoutOrbit {
   position: relative;
   display: grid;
-  width: 164px;
-  height: 164px;
+  width: clamp(84px, 14svh, 124px);
+  aspect-ratio: 1;
   place-items: center;
-  margin: 0 auto 28px;
+  margin: 0 auto clamp(16px, 2.5svh, 24px);
   border: 1px solid #dce8fc;
   border-radius: 50%;
 }
 .logoutOrbit > span {
   display: grid;
-  width: 126px;
-  height: 126px;
+  width: 76%;
+  aspect-ratio: 1;
   place-items: center;
   border-radius: 50%;
   background: #edf2fa;
   color: #092468;
 }
 .logoutOrbit svg {
-  width: 54px;
-  height: 54px;
+  width: 44%;
+  height: 44%;
 }
 .logoutOrbit i {
   position: absolute;
@@ -405,12 +492,12 @@
   top: 55%;
 }
 .logoutOrbit i:nth-of-type(2) {
-  right: 27px;
-  top: 11px;
+  right: 18%;
+  top: 7%;
 }
 .logoutOrbit i:nth-of-type(3) {
-  right: 16px;
-  top: 44px;
+  right: 5%;
+  top: 30%;
   width: 4px;
   height: 4px;
   background: #5893e1;
@@ -419,18 +506,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 34px 0 0;
+  gap: 10px;
+  margin: clamp(18px, 3svh, 24px) 0 0;
   color: #586f91;
-  font-size: 12px;
+  font-size: 11px;
 }
 .seeYou::before,
 .seeYou::after {
   content: "";
   flex: 1;
   height: 1px;
-  max-width: 110px;
-  background: #9db7db;
+  max-width: 80px;
+  background: #b8cbe5;
 }
 .spinner {
   display: block;
@@ -438,13 +525,13 @@
   height: 28px;
   margin: 25px auto 0;
   border: 3px solid #dbe8f9;
-  border-top-color: #ff5a14;
+  border-top-color: #d54100;
   border-radius: 50%;
   animation: spin 900ms linear infinite;
 }
-.shell :is(a, button, input):focus-visible {
+.shell :is(a, button):focus-visible {
   outline: 3px solid #1769ce;
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 .visual a:focus-visible {
   outline-color: #ffb387;
@@ -454,53 +541,59 @@
     transform: rotate(360deg);
   }
 }
-@media (min-width: 1500px) {
-  .signedOut .introduction {
-    padding-top: 80px;
-    padding-bottom: 60px;
-  }
-  .signedOut .securityItems {
-    gap: 22px;
-  }
-}
 @media (max-width: 1199px) {
   .shell,
   .signedOut {
     grid-template-columns: 1fr 1fr;
   }
   .visual {
-    padding: 38px;
-  }
-  .introduction {
-    padding: 55px 0;
-  }
-  .introduction h2 {
-    font-size: 43px;
+    padding-inline: 28px;
   }
   .cardPanel {
-    padding: 40px 28px;
+    padding-inline: 24px;
   }
   .card {
-    padding: 36px 28px;
+    padding-inline: 24px;
+  }
+  .portalGraphic {
+    display: none;
+  }
+  .workspaceFeatures li {
+    font-size: 11px;
+    padding: 7px 9px;
+  }
+}
+@media (min-width: 768px) and (max-height: 700px) {
+  .visual {
+    gap: 16px;
+    padding-block: 24px;
+  }
+  .introduction {
+    padding-block: 0;
+  }
+  .supporting {
+    font-size: 14px;
+    line-height: 1.5;
   }
   .securityItems {
-    gap: 18px;
-  }
-  .securityItems li {
-    gap: 13px;
+    gap: 12px;
+    margin-top: 18px;
   }
   .securityItems li > span {
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
   }
-  .securityItems h3 {
-    font-size: 13px;
+  .cardPanel {
+    padding-block: 20px;
   }
-  .securityItems p {
-    font-size: 12px;
+  .card {
+    padding-block: 24px;
   }
-  .confirmation .cardCopy {
-    font-size: 15px;
+  .loginForm {
+    margin-top: 18px;
+  }
+  .secureNote {
+    margin-top: 16px;
   }
 }
 @media (max-width: 767px) {
@@ -512,11 +605,19 @@
   }
   .visual {
     flex-shrink: 0;
-    padding: 24px;
+    gap: 10px;
+    padding: 20px 24px;
+    grid-template-rows: auto auto;
+  }
+  .workspacePhoto {
+    object-position: right 68%;
+  }
+  .visualShade {
+    background: linear-gradient(90deg, rgb(2 17 39 / 95%), rgb(2 21 47 / 55%));
   }
   .brand > span:first-child {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
   }
   .brand > span:last-child > span:first-child {
     font-size: 23px;
@@ -525,67 +626,40 @@
     font-size: 9px;
   }
   .introduction {
-    padding: 16px 0 0;
+    padding: 0;
   }
   .eyebrow {
     margin: 0;
     font-size: 9px;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.22em;
   }
   .introduction h2,
   .supporting,
   .securityItems,
-  .visualFooter {
+  .workspaceFeatures,
+  .visualFooter,
+  .portalGraphic {
     display: none;
   }
   .cardPanel {
     flex: 1;
-    align-items: flex-start;
-    padding: 28px 18px 40px;
+    align-items: center;
+    padding: 24px 18px;
   }
   .card {
-    max-width: 480px;
-    padding: 32px 24px;
+    max-width: 440px;
+    padding: 28px 24px;
     border-radius: 20px;
   }
   .card h1 {
-    font-size: 32px;
-  }
-  .cardCopy {
-    font-size: 14px;
-  }
-  .loginForm {
-    margin-top: 25px;
+    font-size: 28px;
   }
   .confirmation h1 {
-    font-size: 27px;
-  }
-  .confirmation .cardCopy {
-    font-size: 14px;
+    font-size: 26px;
   }
   .logoutOrbit {
-    width: 135px;
-    height: 135px;
-    margin-bottom: 26px;
-  }
-  .logoutOrbit > span {
-    width: 103px;
-    height: 103px;
-  }
-  .logoutOrbit svg {
-    width: 45px;
-    height: 45px;
-  }
-  .confirmation .primary,
-  .confirmation .secondary {
-    min-height: 54px;
-    gap: 12px;
-    font-size: 14px;
-  }
-  .seeYou {
-    gap: 8px;
-    margin-top: 28px;
-    font-size: 11px;
+    width: 100px;
+    margin-bottom: 20px;
   }
 }
 @media (max-width: 359px) {
@@ -595,11 +669,19 @@
   .card {
     padding-inline: 20px;
   }
+  .loginHeader {
+    gap: 10px;
+  }
+  .loginMark {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+  }
+  .card h1 {
+    font-size: 25px;
+  }
   .secureNote {
     font-size: 9px;
-  }
-  .confirmation h1 {
-    font-size: 25px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

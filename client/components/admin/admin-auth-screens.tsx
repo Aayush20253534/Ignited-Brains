@@ -46,17 +46,28 @@ function AuthShell({
         className={styles.visual}
         aria-label="Ignited Brains administration portal"
       >
-        {signedOut ? (
-          <Image
-            src="/admin/signed-out-workspace.webp"
-            alt=""
-            fill
-            preload
-            sizes="(max-width: 767px) 100vw, 58vw"
-            className={styles.workspacePhoto}
-          />
+        <Image
+          src={
+            signedOut
+              ? "/admin/signed-out-workspace.webp"
+              : "/admin/sign-in-workspace.webp"
+          }
+          alt=""
+          fill
+          preload
+          sizes="(max-width: 767px) 100vw, (max-width: 1199px) 50vw, 56vw"
+          className={styles.workspacePhoto}
+        />
+        <div className={styles.visualShade} aria-hidden="true" />
+        {!signedOut ? (
+          <div className={styles.portalGraphic} aria-hidden="true">
+            <span>
+              <PortalIcon name="shield" />
+            </span>
+            <i />
+            <i />
+          </div>
         ) : null}
-        <div className={styles.visualShade} />
         <BrandLogo inverted className={styles.brand} />
         <div className={styles.introduction}>
           <p className={styles.eyebrow}>Administration Portal</p>
@@ -90,14 +101,33 @@ function AuthShell({
           ) : (
             <>
               <h2>
-                Keep every enquiry and
+                Keep every enquiry
                 <br />
-                <span>application moving.</span>
+                and <span>application</span>
+                <br />
+                <span>moving.</span>
               </h2>
               <p className={styles.supporting}>
                 Review incoming leads, track applicants, update statuses and
                 keep the Ignited Brains team aligned from one secure workspace.
               </p>
+              <ul
+                className={styles.workspaceFeatures}
+                aria-label="Administrator workspace"
+              >
+                <li>
+                  <PortalIcon name="email" />
+                  Enquiries
+                </li>
+                <li>
+                  <PortalIcon name="document" />
+                  Applications
+                </li>
+                <li>
+                  <PortalIcon name="people" />
+                  Team access
+                </li>
+              </ul>
             </>
           )}
         </div>
@@ -201,13 +231,17 @@ export function AdminLogin({
   return (
     <AuthShell>
       <div className={styles.card}>
-        <div className={styles.secure}>
-          <PortalIcon name="shield" />
-          Secure Admin
+        <div className={styles.loginHeader}>
+          <span className={styles.loginMark} aria-hidden="true">
+            <PortalIcon name="shield" />
+          </span>
+          <div>
+            <p className={styles.secure}>Secure Admin</p>
+            <h1 ref={headingRef} tabIndex={-1}>
+              Welcome back.
+            </h1>
+          </div>
         </div>
-        <h1 ref={headingRef} tabIndex={-1}>
-          Welcome back.
-        </h1>
         <p className={styles.cardCopy}>
           Sign in with your Ignited Brains administrator credentials.
         </p>
@@ -296,7 +330,7 @@ export function AdminSignedOut({ onSignIn }: { onSignIn: () => void }) {
   return (
     <AuthShell signedOut>
       <div className={cn(styles.card, styles.confirmation)}>
-        <div className={styles.logoutOrbit}>
+        <div className={styles.logoutOrbit} aria-hidden="true">
           <span>
             <PortalIcon name="logout" />
           </span>
@@ -337,7 +371,7 @@ export function AdminSessionEnding({
   return (
     <AuthShell>
       <div className={cn(styles.card, styles.confirmation)} role="status">
-        <div className={styles.logoutOrbit}>
+        <div className={styles.logoutOrbit} aria-hidden="true">
           <span>
             <PortalIcon name="lock" />
           </span>

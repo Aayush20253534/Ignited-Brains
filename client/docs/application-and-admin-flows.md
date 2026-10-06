@@ -21,6 +21,21 @@ type/status filters, pagination, details, status updates, refresh and mobile
 navigation. Details support Escape and keyboard focus containment/restoration.
 The public header/footer do not sit behind the administrator screens.
 
+## Compact administrator screens
+
+Sign-in and completed sign-out share a responsive split layout. Headings,
+decorative icon sizes and vertical spacing adapt to the window height, including
+short laptop windows. The signed-out security information and both navigation
+actions remain in the layout. On phones, a compact branded image header sits
+above the authentication card. Very short windows and high zoom retain natural
+document scrolling so controls and errors stay reachable.
+
+The sign-in screen includes a dedicated STEM workspace photograph, subtle shield
+graphics and labels for enquiries, applications and team access. Authentication
+still uses the existing API. Inputs use 16px text and interactive targets are at
+least 44px tall. Visible input focus is provided by the enclosing field rather
+than a second outline inside the field.
+
 ## Session termination
 
 Sign Out clears the tab’s token and loaded records immediately, aborts protected
@@ -37,12 +52,15 @@ See [backend setup](../../server/BACKEND.md) for direct-node/development startup
 
 ## Design assets
 
-The built-in image editor reconstructed clean photographs from the approved
-mockups so all screen text and controls remain accessible HTML. Project paths:
+Application and signed-out photographs were reconstructed from the approved
+mockups using the built-in image editor. The sign-in workspace was generated
+with the built-in image-generation tool. All screen text and controls remain
+accessible HTML. Project paths:
 
 - `client/public/applications/student-hero.webp`
 - `client/public/applications/organisation-hero.webp`
 - `client/public/admin/signed-out-workspace.webp`
+- `client/public/admin/sign-in-workspace.webp`
 
 Final prompts and export specifications are in
 [application asset notes](../public/applications/ASSETS.md) and
@@ -68,3 +86,22 @@ Final prompts and export specifications are in
 - Automated axe WCAG 2/2.1 A/AA audits of each new screen at desktop and 320px
   reported zero violations. Logout retry, Sign in again, Homepage, browser Back,
   refresh with a copied revoked token and late-response isolation passed.
+
+### Compact auth layout verification
+
+The updated sign-in and signed-out pages were exercised with the production
+frontend, actual API routes and an isolated PostgreSQL database at 15 window
+sizes. No production records or emails were created.
+
+- Both screens fit without vertical or horizontal scrolling at 1920×880,
+  1536×704, 1366×768, 1280×600, 1024×600, 960×540, 768×600, 768×1024, 640×720,
+  390×844, 375×667 and 320×740. Controls, card content and the desktop footer
+  remain inside the window.
+- At 320×568, 960×440 and 844×390, natural vertical scrolling keeps every control
+  reachable without horizontal overflow or clipping.
+- Validation errors, invalid credentials and logout retry also fit at 1280×600.
+  Keyboard focus, the password toggle, actual login/logout, restored sessions,
+  revoked-token replay, Sign in again, Homepage and browser Back were checked.
+- Nine axe WCAG 2/2.1 A/AA audits across desktop, tablet, 320px and a login error
+  state reported zero violations. No JavaScript exceptions or broken images
+  occurred. All interactive targets measured at least 44px tall.
