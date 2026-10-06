@@ -89,7 +89,7 @@ export function AdminDashboard({ initialTab, admin, api, onLogout }: { initialTa
     tab === "student-applications" ? "Review and manage student applications." :
     tab === "organization-applications" ? "Review and manage organization applications." :
     tab === "blogs" ? "Create, edit and manage your website blogs." :
-    "Add, organize and publish photographs on the Media page.";
+    "Edit Media page content, imagery and the Photo Journal.";
   const counts: Partial<Record<AdminTab, number | undefined>> = {
     contacts: summary?.contacts.new,
     "student-applications": summary?.applications.students,
@@ -101,7 +101,7 @@ export function AdminDashboard({ initialTab, admin, api, onLogout }: { initialTa
     {mobile && mobileOpen && <button type="button" aria-label="Close admin navigation" className={styles.mobileBackdrop} onClick={() => setMobileOpen(false)} />}
     <aside ref={sidebar} className={`${styles.sidebar} ${mobileOpen ? styles.sidebarOpen : ""}`} inert={mobile && !mobileOpen} aria-label="Admin navigation">
       <div className={styles.sidebarBrand}><BrandLogo inverted /><p>Transforming Education<br />Through Innovation</p><button type="button" className={styles.sidebarClose} aria-label="Close navigation" onClick={() => setMobileOpen(false)}><PortalIcon name="close" /></button></div>
-      <nav className={styles.sidebarNav} aria-label="Admin sections"><p>ADMIN PORTAL</p>{items.map(item => <button type="button" key={item.id} aria-current={tab === item.id ? "page" : undefined} onClick={() => navigate(item.id)}><PortalIcon name={item.icon} /><span>{item.label}</span>{counts[item.id] !== undefined && <span className={styles.navCount} aria-label={`${counts[item.id]} ${item.id === "blogs" ? "draft blogs" : "new records"}`}>{counts[item.id]}</span>}</button>)}</nav>
+      <nav className={styles.sidebarNav} aria-label="Admin sections"><p>ADMIN PORTAL</p>{items.map(item => <button type="button" key={item.id} aria-current={tab === item.id ? "page" : undefined} onClick={() => navigate(item.id)}><PortalIcon name={item.icon} /><span>{item.label}</span>{counts[item.id] !== undefined && <span className={styles.navCount} aria-label={`${counts[item.id]} ${item.id === "blogs" ? "draft blogs" : item.id === "gallery" ? "draft gallery photos" : "new records"}`}>{counts[item.id]}</span>}</button>)}</nav>
       <div className={styles.sidebarArt} aria-hidden="true"><Image src="/projects-v2/final-earth.webp" alt="" fill sizes="264px" /><p>Ideas today.<br />Brighter<br />tomorrows.</p></div>
       <div className={styles.profile}><div className={styles.identity}><span className={styles.avatar}>{admin.name.slice(0, 1).toUpperCase()}</span><div><strong title={admin.name}>{admin.name}</strong><p title={admin.email}>{admin.email}</p></div></div><button type="button" className={styles.signOut} onClick={onLogout}><PortalIcon name="logout" />Sign out</button></div>
     </aside>

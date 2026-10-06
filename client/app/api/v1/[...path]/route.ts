@@ -9,8 +9,8 @@ const allowed = new Map<string, Set<string>>([
   ["admin/auth/otp/resend", new Set(["POST"])], ["admin/auth/me", new Set(["GET"])],
   ["admin/auth/logout", new Set(["POST"])], ["admin/dashboard/summary", new Set(["GET"])],
   ["admin/contacts", new Set(["GET"])], ["admin/applications", new Set(["GET"])],
-  ["blogs", new Set(["GET"])], ["blogs/sitemap", new Set(["GET"])], ["gallery", new Set(["GET"])],
-  ["blog-events", new Set(["POST"])], ["admin/blogs", new Set(["GET", "POST"])], ["admin/gallery", new Set(["GET", "POST"])],
+  ["blogs", new Set(["GET"])], ["blogs/sitemap", new Set(["GET"])], ["gallery", new Set(["GET"])], ["media-page", new Set(["GET"])],
+  ["blog-events", new Set(["POST"])], ["admin/blogs", new Set(["GET", "POST"])], ["admin/gallery", new Set(["GET", "POST"])], ["admin/media-page", new Set(["GET", "PATCH"])],
   ["admin/blog-assets", new Set(["GET"])], ["admin/blog-media", new Set(["POST"])], ["admin/gallery-media", new Set(["POST"])],
 ]);
 function permitted(path: string, method: string) {

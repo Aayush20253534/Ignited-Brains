@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { PortalIcon } from "@/components/ui/portal-icon";
 import { AdminDialog, Badge, LoadState, PaginationBar, StatCard } from "./admin-primitives";
 import { emptyPagination, errorMessage, type AdminApi, type Summary } from "./admin-types";
+import { MediaPageEditor } from "./media-page-editor";
 import styles from "./admin-dashboard.module.css";
 
 type GalleryStatus = "DRAFT" | "PUBLISHED" | "ARCHIVED";
@@ -38,6 +39,30 @@ type UploadResult = { mediaId: string; url: string; width: number; height: numbe
 const defaultCategories = ["Space Lab", "STEM Lab", "AI & Robotics", "Science Park", "Students", "Events", "Workshops", "Exhibitions", "Community", "Other"];
 
 export function GalleryManager({
+  api,
+  refresh,
+  summary,
+  onChanged,
+}: {
+  api: AdminApi;
+  refresh: number;
+  summary?: Summary["gallery"];
+  onChanged: (message: string) => void;
+}) {
+  const [mode, setMode] = useState<"page" | "photos">("page");
+
+  return <section aria-label="Gallery management">
+    <div className={styles.galleryModeTabs} role="tablist" aria-label="Gallery management modes">
+      <button type="button" role="tab" aria-selected={mode === "page"} onClick={() => setMode("page")}><PortalIcon name="edit" />Page Content</button>
+      <button type="button" role="tab" aria-selected={mode === "photos"} onClick={() => setMode("photos")}><PortalIcon name="image" />Photo Journal</button>
+    </div>
+    {mode === "page"
+      ? <MediaPageEditor api={api} refresh={refresh} onChanged={onChanged} />
+      : <PhotoJournalManager api={api} refresh={refresh} summary={summary} onChanged={onChanged} />}
+  </section>;
+}
+
+function PhotoJournalManager({
   api,
   refresh,
   summary,
@@ -108,7 +133,7 @@ export function GalleryManager({
 
   const categories = [...new Set([...defaultCategories, ...result.list.categories])].sort((a, b) => a.localeCompare(b));
 
-  return <section aria-label="Gallery management">
+  return <>
     <div className={`${styles.statGrid} ${styles.galleryStats}`}>
       <StatCard label="Total photos" value={summary?.total} helper={summary ? `${summary.archived} archived` : "Loading gallery"} icon="image" />
       <StatCard label="Published" value={summary?.published} helper="Visible in the Media photo journal" icon="eye" accent="green" />
@@ -196,7 +221,7 @@ export function GalleryManager({
         </button>
       </div>
     </AdminDialog>}
-  </section>;
+  </>;
 }
 
 function GalleryEditor({
@@ -309,9 +334,7 @@ function GalleryEditor({
   return <AdminDialog title={initial ? "Edit Gallery Photo" : "Add Gallery Photo"} busy={busy || uploading} onClose={onClose}>
     <div className={styles.drawerForm}>
       <div className={styles.dialogBody}>
-        {form.image ? <div className={styles.galleryEditorPreview}>
-          <Image src={form.image} alt={form.altText || ""} fill sizes="600px" unoptimized />
-        </div> : null}
+        {form.image ? <div className={styles.galleryEditorPreview}><Image src={form.image} alt={form.altText || ""} fill sizes="600px" unoptimized /></div> : null}
 
         <label className={styles.upload}>
           <PortalIcon name="image" />

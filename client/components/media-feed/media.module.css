@@ -580,3 +580,9 @@
   .galleryJournalGrid figcaption h3 { font-size: 14px; }
   .galleryJournalGrid figcaption p { font-size: 9px; }
 }
+
+.events .editorialRow > div:last-child,
+.press .editorialRow > div:last-child {
+  display:grid;
+  gap:28px;
+}

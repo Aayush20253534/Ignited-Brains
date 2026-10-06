@@ -1,18 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { mediaArticles, type MediaCategory } from "@/data/media";
-import { archivePhotos, articlePhotography, type ArchivePhoto } from "@/data/media-archive";
+import { useMemo, useState } from "react";
+import { isManagedMediaImage, type MediaArticleItem } from "@/lib/media-page";
 import styles from "./media.module.css";
 
-const categories: MediaCategory[] = ["All", ...new Set(mediaArticles.map(article => article.category))];
-
-export function MediaBrowser() {
-  const [category, setCategory] = useState<MediaCategory>("All");
+export function MediaBrowser({ articles }: { articles: MediaArticleItem[] }) {
+  const categories = useMemo(() => ["All", ...new Set(articles.map(article => article.category).filter(Boolean))], [articles]);
+  const [category, setCategory] = useState("All");
   const [query, setQuery] = useState("");
   const normalized = query.trim().toLowerCase();
-  const visible = mediaArticles.filter(article =>
+  const visible = articles.filter(article =>
     (category === "All" || category === article.category) &&
     (!normalized || `${article.title} ${article.description}`.toLowerCase().includes(normalized)),
   );
@@ -30,19 +28,15 @@ export function MediaBrowser() {
     </div>
     <p className={styles.srOnly} aria-live="polite">{visible.length} {visible.length === 1 ? "story" : "stories"} shown.</p>
     <div id="media-article-list" className={`${styles.articleGrid} ${visible.length < 3 ? styles.filteredArticles : ""}`}>
-      {visible.map(article => {
-        const photoId = articlePhotography[article.title];
-        const photo: ArchivePhoto | null = photoId ? archivePhotos[photoId] : null;
-        return <article key={article.title} className={`${styles.article} ${article === mediaArticles[0] ? styles.leadArticle : ""} ${!photo ? styles.textArticle : ""}`}>
-          {photo && <div className={styles.articleImage}><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 45vw, 520px" style={{ objectPosition: photo.position }} /></div>}
-          <div className={styles.articleCopy}>
-            <p className={styles.micro}>{article.category}</p>
-            <h3>{article.title}</h3>
-            <p className={styles.articleDescription}>{article.description}</p>
-            <p className={styles.articleMeta}>{article.date}<span aria-hidden="true"> / </span><span>Editorial summary</span></p>
-          </div>
-        </article>;
-      })}
+      {visible.map((article, index) => <article key={`${article.title}:${index}`} className={`${styles.article} ${index === 0 ? styles.leadArticle : ""} ${!article.image ? styles.textArticle : ""}`}>
+        {article.image && <div className={styles.articleImage}><Image src={article.image.src} alt={article.image.alt} fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 45vw, 520px" unoptimized={isManagedMediaImage(article.image.src)} style={{ objectPosition: article.image.position || "center" }} /></div>}
+        <div className={styles.articleCopy}>
+          <p className={styles.micro}>{article.category}</p>
+          <h3>{article.title}</h3>
+          <p className={styles.articleDescription}>{article.description}</p>
+          <p className={styles.articleMeta}>{article.date}<span aria-hidden="true"> / </span><span>Editorial summary</span></p>
+        </div>
+      </article>)}
     </div>
     {!visible.length && <div className={styles.emptyState}>
       <p>No stories match this search.</p>

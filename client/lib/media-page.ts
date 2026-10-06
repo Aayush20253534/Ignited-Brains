@@ -1,0 +1,478 @@
+export type MediaPhotoAsset = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+  position?: string;
+};
+export type MediaLink = { label: string; href: string };
+export type MediaArticleItem = { title: string; description: string; category: string; date: string; image: MediaPhotoAsset | null };
+export type MediaPageContent = {
+  hero: { visible:boolean; eyebrow:string; heading:string; description:string; image:MediaPhotoAsset; overlayImage:MediaPhotoAsset; labels:string[]; note:string; primaryCta:MediaLink; secondaryCta:MediaLink; nav:MediaLink[] };
+  learning: { visible:boolean; eyebrow:string; heading:string; description:string; photos:MediaPhotoAsset[]; steps:string[] };
+  featured: { visible:boolean; eyebrow:string; heading:string; description:string; link:MediaLink; tags:string[]; image:MediaPhotoAsset; captionLabel:string; caption:string };
+  insights: { visible:boolean; eyebrow:string; heading:string; description:string; indexLabel:string; articles:MediaArticleItem[] };
+  visualStories: { visible:boolean; eyebrow:string; heading:string; description:string; indexLabel:string; items:{label:string;title:string;photo:MediaPhotoAsset}[] };
+  moments: { visible:boolean; eyebrow:string; heading:string; items:{title:string;photo:MediaPhotoAsset}[] };
+  field: { visible:boolean; eyebrow:string; heading:string; description:string; indexLabel:string; photos:MediaPhotoAsset[] };
+  photoJournal: { visible:boolean; eyebrow:string; heading:string; description:string };
+  students: { visible:boolean; eyebrow:string; heading:string; note:string; noteLabel:string; portrait:MediaPhotoAsset; team:MediaPhotoAsset };
+  events: { visible:boolean; eyebrow:string; heading:string; description:string; items:{title:string;date:string;typeLabel:string;location:string;description:string;photo:MediaPhotoAsset}[] };
+  press: { visible:boolean; eyebrow:string; heading:string; items:{publication:string;date:string;title:string;externalUrl:string;photo:MediaPhotoAsset}[] };
+  manifesto: { visible:boolean; eyebrow:string; heading:string; description:string; image:MediaPhotoAsset };
+  earthCta: { visible:boolean; eyebrow:string; heading:string; description:string; primaryCta:MediaLink; secondaryCta:MediaLink };
+};
+
+export type MediaPageRecord = { content: MediaPageContent; version: number; updatedAt?: string };
+
+export const defaultMediaPageContent: MediaPageContent = {
+  "hero": {
+    "visible": true,
+    "eyebrow": "Media & Stories",
+    "heading": "See curiosity\n*in motion.*",
+    "description": "Stories, experiments and moments from classrooms where students are building, testing and discovering what they can do.",
+    "image": {
+      "src": "/media-v2/hero-editorial.webp",
+      "alt": "Concept illustration of students assembling a rover, surrounded by visions of space exploration",
+      "caption": "",
+      "width": 1920,
+      "height": 1080,
+      "position": "65% 65%"
+    },
+    "overlayImage": {
+      "src": "/media-v2/hero-editorial-overlay.svg",
+      "alt": "",
+      "caption": "",
+      "width": 1920,
+      "height": 1080,
+      "position": "center"
+    },
+    "labels": [
+      "ROBOTICS",
+      "SPACE",
+      "DISCOVERY"
+    ],
+    "note": "Concept illustration",
+    "primaryCta": {
+      "label": "Explore Stories",
+      "href": "#stories"
+    },
+    "secondaryCta": {
+      "label": "See the Moments",
+      "href": "#visual-stories"
+    },
+    "nav": [
+      {
+        "label": "Stories",
+        "href": "#stories"
+      },
+      {
+        "label": "Visual stories",
+        "href": "#visual-stories"
+      },
+      {
+        "label": "Field notes",
+        "href": "#field-notes"
+      },
+      {
+        "label": "Ideas",
+        "href": "#ideas"
+      }
+    ]
+  },
+  "learning": {
+    "visible": true,
+    "eyebrow": "This is Ignited Brains",
+    "heading": "This is what\n*learning looks like.*",
+    "description": "Real classrooms. Real experiments. Real possibilities.",
+    "photos": [
+      {
+        "src": "/media-v2/students/learning-together.webp",
+        "alt": "Students and an instructor gathered at a computer in the AI and Robotics Lab",
+        "caption": "Learning together in the AI & Robotics Lab",
+        "width": 1500,
+        "height": 1000,
+        "position": "50% 46%"
+      },
+      {
+        "src": "/media-v2/stories/curiosity-corner-lab.webp",
+        "alt": "Curiosity Corner lab with rocket models, a lunar lander display, robotics equipment and stools",
+        "caption": "Inside Curiosity Corner",
+        "width": 1500,
+        "height": 1000,
+        "position": "50% 53%"
+      },
+      {
+        "src": "/media-v2/field/vr-demonstration.webp",
+        "alt": "A visitor trying a VR headset beside students and a table of robotics exhibits",
+        "caption": "A different perspective, through VR",
+        "width": 2048,
+        "height": 1366,
+        "position": "52% 44%"
+      },
+      {
+        "src": "/media-v2/stories/robotics-learning-space.webp",
+        "alt": "AI and Robotics learning displays alongside a lunar model and hands-on equipment",
+        "caption": "Space and robotics, side by side",
+        "width": 1600,
+        "height": 1200,
+        "position": "46% 45%"
+      }
+    ],
+    "steps": [
+      "Ask",
+      "Experiment",
+      "Build",
+      "Test",
+      "Discover"
+    ]
+  },
+  "featured": {
+    "visible": true,
+    "eyebrow": "Featured story / Student learning",
+    "heading": "Inside a STEM Lab.\n*Beyond the textbook.*",
+    "description": "A look at the real skills, mindset and confidence students develop through experimentation.",
+    "link": {
+      "label": "Explore the insights",
+      "href": "#ideas"
+    },
+    "tags": [
+      "Curiosity",
+      "Experimentation",
+      "Shared discovery"
+    ],
+    "image": {
+      "src": "/media-v2/students/learning-together.webp",
+      "alt": "Students and an instructor gathered at a computer in the AI and Robotics Lab",
+      "caption": "Learning together in the AI & Robotics Lab",
+      "width": 1500,
+      "height": 1000,
+      "position": "50% 46%"
+    },
+    "captionLabel": "FROM THE LAB",
+    "caption": "A closer look, together."
+  },
+  "insights": {
+    "visible": true,
+    "eyebrow": "Stories & Insights",
+    "heading": "Ideas worth\n*sharing.*",
+    "description": "Perspectives, experiences and lessons from hands-on education.",
+    "indexLabel": "01 — 03 / THE JOURNAL",
+    "articles": [
+      {
+        "title": "Why Hands-on Learning Matters in Today’s Education",
+        "description": "Exploring how experiential learning builds curiosity, creativity and problem solving skills.",
+        "category": "Articles",
+        "date": "Sep 15, 2026",
+        "image": {
+          "src": "/media-v2/students/learning-together.webp",
+          "alt": "Students and an instructor gathered at a computer in the AI and Robotics Lab",
+          "caption": "Learning together in the AI & Robotics Lab",
+          "width": 1500,
+          "height": 1000,
+          "position": "50% 46%"
+        }
+      },
+      {
+        "title": "Inside a STEM Lab: What Students Really Learn",
+        "description": "A look at the real skills, mindset and confidence students develop through experimentation.",
+        "category": "Student Projects",
+        "date": "Sep 10, 2026",
+        "image": {
+          "src": "/media-v2/stories/curiosity-corner-lab.webp",
+          "alt": "Curiosity Corner lab with rocket models, a lunar lander display, robotics equipment and stools",
+          "caption": "Inside Curiosity Corner",
+          "width": 1500,
+          "height": 1000,
+          "position": "50% 53%"
+        }
+      },
+      {
+        "title": "Science Parks: Making Learning a Hands-on Experience",
+        "description": "How interactive exhibits turn complex concepts into fun, memorable experiences for students.",
+        "category": "School Activities",
+        "date": "Aug 28, 2026",
+        "image": null
+      }
+    ]
+  },
+  "visualStories": {
+    "visible": true,
+    "eyebrow": "Visual Stories",
+    "heading": "Some stories are\n*better seen.*",
+    "description": "Look closer at real moments from the lab and the exhibition floor.",
+    "indexLabel": "OPEN A PHOTOGRAPH TO EXPLORE",
+    "items": [
+      {
+        "label": "A NEW PERSPECTIVE",
+        "title": "A different way to see.",
+        "photo": {
+          "src": "/media-v2/field/vr-demonstration.webp",
+          "alt": "A visitor trying a VR headset beside students and a table of robotics exhibits",
+          "caption": "A different perspective, through VR",
+          "width": 2048,
+          "height": 1366,
+          "position": "52% 44%"
+        }
+      },
+      {
+        "label": "IN THE LAB",
+        "title": "Curiosity is a shared experience.",
+        "photo": {
+          "src": "/media-v2/students/learning-together.webp",
+          "alt": "Students and an instructor gathered at a computer in the AI and Robotics Lab",
+          "caption": "Learning together in the AI & Robotics Lab",
+          "width": 1500,
+          "height": 1000,
+          "position": "50% 46%"
+        }
+      },
+      {
+        "label": "SPACE & ROBOTICS",
+        "title": "A room full of possibilities.",
+        "photo": {
+          "src": "/media-v2/stories/robotics-learning-space.webp",
+          "alt": "AI and Robotics learning displays alongside a lunar model and hands-on equipment",
+          "caption": "Space and robotics, side by side",
+          "width": 1600,
+          "height": 1200,
+          "position": "46% 45%"
+        }
+      }
+    ]
+  },
+  "moments": {
+    "visible": true,
+    "eyebrow": "In six moments",
+    "heading": "A lot can happen\nwhen students start *exploring.*",
+    "items": [
+      {
+        "title": "Step inside.",
+        "photo": {
+          "src": "/media-v2/stories/curiosity-corner-lab.webp",
+          "alt": "Curiosity Corner lab with rocket models, a lunar lander display, robotics equipment and stools",
+          "caption": "Inside Curiosity Corner",
+          "width": 1500,
+          "height": 1000,
+          "position": "50% 53%"
+        }
+      },
+      {
+        "title": "Take a closer look.",
+        "photo": {
+          "src": "/media-v2/students/learning-together.webp",
+          "alt": "Students and an instructor gathered at a computer in the AI and Robotics Lab",
+          "caption": "Learning together in the AI & Robotics Lab",
+          "width": 1500,
+          "height": 1000,
+          "position": "50% 46%"
+        }
+      },
+      {
+        "title": "Explore the exhibits.",
+        "photo": {
+          "src": "/media-v2/stories/robotics-learning-space.webp",
+          "alt": "AI and Robotics learning displays alongside a lunar model and hands-on equipment",
+          "caption": "Space and robotics, side by side",
+          "width": 1600,
+          "height": 1200,
+          "position": "46% 45%"
+        }
+      },
+      {
+        "title": "See another perspective.",
+        "photo": {
+          "src": "/media-v2/field/vr-demonstration.webp",
+          "alt": "A visitor trying a VR headset beside students and a table of robotics exhibits",
+          "caption": "A different perspective, through VR",
+          "width": 2048,
+          "height": 1366,
+          "position": "52% 44%"
+        }
+      },
+      {
+        "title": "Come together.",
+        "photo": {
+          "src": "/media-v2/students/exhibition-team.webp",
+          "alt": "Students and adults standing together at a Curiosity Corner science and robotics exhibition",
+          "caption": "Together at the science exhibition",
+          "width": 1600,
+          "height": 721,
+          "position": "50% 46%"
+        }
+      },
+      {
+        "title": "Make room for curiosity.",
+        "photo": {
+          "src": "/media-v2/field/lab-opening-presentation.webp",
+          "alt": "A framed Curiosity Corner Lab display being presented at the inauguration gathering",
+          "caption": "At the Curiosity Corner Lab opening",
+          "width": 1350,
+          "height": 1012,
+          "position": "50% 50%"
+        }
+      }
+    ]
+  },
+  "field": {
+    "visible": true,
+    "eyebrow": "From the Field",
+    "heading": "Real moments.\n*A closer look.*",
+    "description": "Snapshots from the labs, learning spaces and people of Ignited Brains.",
+    "indexLabel": "THE PHOTO JOURNAL",
+    "photos": [
+      {
+        "src": "/media-v2/field/community-welcome.webp",
+        "alt": "Two visitors with a bouquet in front of the Curiosity Corner mural",
+        "caption": "People behind the learning spaces",
+        "width": 1200,
+        "height": 1600,
+        "position": "50% 46%"
+      },
+      {
+        "src": "/media-v2/field/vr-demonstration.webp",
+        "alt": "A visitor trying a VR headset beside students and a table of robotics exhibits",
+        "caption": "A different perspective, through VR",
+        "width": 2048,
+        "height": 1366,
+        "position": "52% 44%"
+      },
+      {
+        "src": "/media-v2/stories/curiosity-corner-lab.webp",
+        "alt": "Curiosity Corner lab with rocket models, a lunar lander display, robotics equipment and stools",
+        "caption": "Inside Curiosity Corner",
+        "width": 1500,
+        "height": 1000,
+        "position": "50% 53%"
+      },
+      {
+        "src": "/media-v2/field/lab-conversation.webp",
+        "alt": "Visitors and the lab team in conversation beside space-science displays",
+        "caption": "A conversation inside the lab",
+        "width": 1350,
+        "height": 1012,
+        "position": "53% 48%"
+      },
+      {
+        "src": "/media-v2/field/curiosity-corner-welcome.webp",
+        "alt": "A group at Curiosity Corner holding a bouquet in front of a robotics mural",
+        "caption": "A welcome at Curiosity Corner",
+        "width": 1266,
+        "height": 1000,
+        "position": "50% 49%"
+      },
+      {
+        "src": "/media-v2/students/exhibition-team.webp",
+        "alt": "Students and adults standing together at a Curiosity Corner science and robotics exhibition",
+        "caption": "Together at the science exhibition",
+        "width": 1600,
+        "height": 721,
+        "position": "50% 46%"
+      }
+    ]
+  },
+  "photoJournal": {
+    "visible": true,
+    "eyebrow": "Photo Journal",
+    "heading": "More moments.\n*Still unfolding.*",
+    "description": "New photographs from Ignited Brains learning spaces, workshops, exhibitions and student experiences."
+  },
+  "students": {
+    "visible": true,
+    "eyebrow": "Through Their Eyes",
+    "heading": "What does discovery\n*feel like?*",
+    "note": "Students gather around a computer in the AI & Robotics Lab.",
+    "noteLabel": "LEARNING TOGETHER",
+    "portrait": {
+      "src": "/media-v2/students/learning-together.webp",
+      "alt": "Students and an instructor gathered at a computer in the AI and Robotics Lab",
+      "caption": "Learning together in the AI & Robotics Lab",
+      "width": 1500,
+      "height": 1000,
+      "position": "25% 45%"
+    },
+    "team": {
+      "src": "/media-v2/students/exhibition-team.webp",
+      "alt": "Students and adults standing together at a Curiosity Corner science and robotics exhibition",
+      "caption": "Together at the science exhibition",
+      "width": 1600,
+      "height": 721,
+      "position": "49% 48%"
+    }
+  },
+  "events": {
+    "visible": true,
+    "eyebrow": "What's Happening",
+    "heading": "From the\n*community.*",
+    "description": "New spaces for hands-on learning.",
+    "items": [
+      {
+        "title": "Curiosity Lab opens in Kanjia village",
+        "date": "August 2026",
+        "typeLabel": "Lab opening",
+        "location": "Kanjia village, Prayagraj",
+        "description": "A new space for practical learning in AI, robotics, STEM and space science.",
+        "photo": {
+          "src": "/media-v2/field/opening-ceremony.webp",
+          "alt": "People gathered at the opening ceremony beside a floral arrangement and lectern",
+          "caption": "A gathering to open a new learning space",
+          "width": 1350,
+          "height": 1012,
+          "position": "50% 50%"
+        }
+      }
+    ]
+  },
+  "press": {
+    "visible": true,
+    "eyebrow": "Press & Media",
+    "heading": "In the\n*news.*",
+    "items": [
+      {
+        "publication": "The Indian Express",
+        "date": "August 17, 2026",
+        "title": "Curiosity Lab launched in Kanjia village to spark rural innovation in science and space",
+        "externalUrl": "",
+        "photo": {
+          "src": "/media-v2/press/curiosity-lab-clipping.webp",
+          "alt": "Supplied Indian Express clipping dated August 17, 2026, reporting the Curiosity Lab launch in Kanjia village",
+          "caption": "The Indian Express · August 17, 2026 · Supplied press clipping",
+          "width": 1536,
+          "height": 1024,
+          "position": "center"
+        }
+      }
+    ]
+  },
+  "manifesto": {
+    "visible": true,
+    "eyebrow": "The story continues",
+    "heading": "Curiosity makes\n*good stories.*",
+    "description": "The best ones begin when students start discovering for themselves.",
+    "image": {
+      "src": "/media-v2/students/exhibition-team.webp",
+      "alt": "Students and adults together at the Curiosity Corner exhibition",
+      "caption": "",
+      "width": 1600,
+      "height": 721,
+      "position": "52% 42%"
+    }
+  },
+  "earthCta": {
+    "visible": true,
+    "eyebrow": "Keep Exploring",
+    "heading": "The next story\nis already *being built.*",
+    "description": "Discover the projects, spaces and experiences behind Ignited Brains.",
+    "primaryCta": {
+      "label": "Explore Projects",
+      "href": "/projects"
+    },
+    "secondaryCta": {
+      "label": "Partner With Us",
+      "href": "/contact"
+    }
+  }
+} as MediaPageContent;
+
+export const isManagedMediaImage = (src: string) => src.startsWith("/api/v1/media/");
