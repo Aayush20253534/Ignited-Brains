@@ -7,11 +7,19 @@ import { FooterNewsletter } from "@/components/layout/footer-newsletter";
 import { Container } from "@/components/ui";
 import { footerQuickLinks, footerSolutions } from "@/data/navigation";
 
-const socialLinks: Array<{ label: string; network: SocialNetwork }> = [
+const socialLinks: Array<{ label: string; network: SocialNetwork; href?: string }> = [
   { label: "LinkedIn", network: "linkedin" },
-  { label: "Instagram", network: "instagram" },
+  {
+    label: "Instagram",
+    network: "instagram",
+    href: "https://www.instagram.com/ignited_brains1?utm_source=qr&stkn=MWEyeWF6OWFnYmJhMw==",
+  },
   { label: "YouTube", network: "youtube" },
-  { label: "Facebook", network: "facebook" },
+  {
+    label: "Facebook",
+    network: "facebook",
+    href: "https://www.facebook.com/profile.php?id=61594288322276&rdid=mC4xeyrP92zUj0Qs&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18eG8gUbPc%2F#",
+  },
 ];
 
 function FooterHeading({ children }: { children: ReactNode }) {
@@ -63,16 +71,29 @@ export function SiteFooter() {
             Transforming education through innovation, hands-on learning and future-ready experiences.
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3">
-            {socialLinks.map((social) => (
-              <span
-                key={social.label}
-                aria-hidden="true"
-                title={`${social.label} profile link pending`}
-                className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/[0.035] text-white/70 transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[0.07]"
-              >
-                <SocialIcon network={social.network} className="h-5 w-5" />
-              </span>
-            ))}
+            {socialLinks.map((social) =>
+              social.href ? (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit Ignited Brains on ${social.label}`}
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/[0.035] text-white/70 transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[0.07]"
+                >
+                  <SocialIcon network={social.network} className="h-5 w-5" />
+                </a>
+              ) : (
+                <span
+                  key={social.label}
+                  aria-hidden="true"
+                  title={`${social.label} profile link pending`}
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/[0.035] text-white/70"
+                >
+                  <SocialIcon network={social.network} className="h-5 w-5" />
+                </span>
+              ),
+            )}
           </div>
         </div>
 
